@@ -8,7 +8,7 @@ Experiments on image datasets using optimization
 | cell | cell |
 
 | Experiment | Dataset | Problem | Hypothesis | Goal |
-| ------ | ------ | ------ | ------ | ------ | ------ |
+| ---------- | ------- | ------- | ---------- | ---- |
 | CGP Classic | Carbon Fibres | Object Detection: fitness on bounding boxes | worst results compared to CGP-SSR, CGP with parameter tuning, U-Net | based on settings used for ICMLA 2017 |
 
 | Experiment | Dataset | Problem | Hypothesis | Goal |
