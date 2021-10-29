@@ -1,0 +1,9 @@
+pylint
+dvc
+sacred
+hiyapyco 
+pymongo
+GitPython
+pytest
+black
+numpy
