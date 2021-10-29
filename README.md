@@ -20,3 +20,46 @@ Experiments on image datasets using optimization
 | CGP-SSR | Severstal Steel | - | - | - |
 | CGP-SSR | Kaggle Ships, Asphalt Core, Non-Woven Fabrics | - | - | - |
 | Random Search | Carbon Fibres | Semantic Segmentation | Fitness results around 0.0 | Establish a low level, default reference to all other experiments |
+
+## Define Experiment
+
+Experiment details are defined in `def run(_config):` in file `experiments.py`:
+
+```
+@ex.main
+def run(_config):
+    """Register signal handler."""
+    signal.signal(signal.SIGINT, signal_handler)
+
+    # Implement machine learning things here.
+```
+
+## Modify Main to Run Experiment
+
+We need to set a path to the compiled executable for CGP optimization and the related arguments.
+Therefore modify the following variables in `main.py` according to your local environment and needs.
+An example is given below:
+
+```
+model_executable_path = os.path.join(
+    "C:\\",
+    "dev",
+    "optimization",
+    "Optimization.Commandline",
+    "bin",
+    "Debug",
+    "Optimization.Commandline.exe"
+)
+
+train_data_parent_dir = r"Q:\5 Fachbereiche\03 OPM\ReferenzSet\EXIST\out"
+val_data_parant_dir = r"Q:\5 Fachbereiche\03 OPM\ReferenzSet\EXIST\out_lbl"
+
+arguments = "Optimization.Commandline.exe " \
+            "batch --backend=halcon " \
+            "--runs=5 " \
+            "--train-data-dir=" \
+            + train_data_parent_dir + \
+            "--val-data-dir= " \
+            + train_data_parent_dir + \
+            "--generations=200"
+```

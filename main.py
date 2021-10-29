@@ -1,5 +1,5 @@
 """! @brief Main script to start experiments."""
-
+import os
 import sys
 import subprocess
 import urllib.parse
@@ -40,6 +40,31 @@ modes = {
     "train": MODE_TRAIN,
     "val": MODE_VALIDATION,
 }
+
+# Execution using mono
+# model_executable_path = "mono Optimization.Commandline.exe"
+
+model_executable_path = os.path.join(
+    "C:\\",
+    "dev",
+    "optimization",
+    "Optimization.Commandline",
+    "bin",
+    "Debug",
+    "Optimization.Commandline.exe"
+)
+
+train_data_parent_dir = r"Q:\5 Fachbereiche\03 OPM\ReferenzSet\EXIST\out"
+val_data_parant_dir = r"Q:\5 Fachbereiche\03 OPM\ReferenzSet\EXIST\out_lbl"
+
+arguments = "Optimization.Commandline.exe " \
+            "batch --backend=halcon " \
+            "--runs=5 " \
+            "--train-data-dir=" \
+            + train_data_parent_dir + \
+            "--val-data-dir= " \
+            + train_data_parent_dir + \
+            "--generations=200"
 
 
 def main(mode: str = MODE_TRAIN):
@@ -100,7 +125,7 @@ def main(mode: str = MODE_TRAIN):
             ex.add_config(base_config)
 
             # run experiment
-            ex.run()
+            ex.run(model_executable_path)
 
     elif mode == MODE_VALIDATION:
         # get validation config
@@ -116,7 +141,7 @@ def main(mode: str = MODE_TRAIN):
         ex.add_config(base_config)
 
         # run experiment
-        ex.run()
+        ex.run(model_executable_path)
 
 
 if __name__ == "__main__":
