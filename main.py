@@ -125,7 +125,7 @@ def main(mode: str = MODE_TRAIN):
             ex.add_config(base_config)
 
             # run experiment
-            ex.run(model_executable_path, arguments)
+            ex.run()
 
     elif mode == MODE_VALIDATION:
         # get validation config
@@ -141,7 +141,7 @@ def main(mode: str = MODE_TRAIN):
         ex.add_config(base_config)
 
         # run experiment
-        ex.run(model_executable_path, arguments)
+        ex.run()
 
 
 if __name__ == "__main__":
