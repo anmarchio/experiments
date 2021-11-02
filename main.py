@@ -61,9 +61,9 @@ arguments = "Optimization.Commandline.exe " \
             "batch --backend=halcon " \
             "--runs=5 " \
             "--train-data-dir=" \
-            + train_data_parent_dir + \
-            "--val-data-dir= " \
-            + train_data_parent_dir + \
+            + train_data_parent_dir + " " + \
+            "--val-data-dir=" \
+            + train_data_parent_dir + " " + \
             "--generations=200"
 
 
