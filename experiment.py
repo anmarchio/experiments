@@ -32,8 +32,7 @@ def run(_config):
         "optimization",
         "Optimization.Commandline",
         "bin",
-        "Debug",
-        "Optimization.Commandline.exe"
+        "Debug"
     )
 
     # train_data_parent_dir = r"Q:\5 Fachbereiche\03 OPM\ReferenzSet\EXIST\out"
