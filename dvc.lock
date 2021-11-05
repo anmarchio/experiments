@@ -1,0 +1,12 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python main.py train
+    deps:
+    - path: config/
+      md5: a3ec44331509e6e94bec8d4deffcde54.dir
+      size: 1093
+      nfiles: 6
+    - path: main.py
+      md5: 0f5b90a58047859a7ebcef1b13335a69
+      size: 4804
