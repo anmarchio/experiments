@@ -21,11 +21,11 @@ def signal_handler(sig, frame):
 
 @ex.main
 def run(_config):
-    #, model_executable_path, arguments
     """Register signal handler."""
-    signal.signal(signal.SIGINT, signal_handler)
-
+    print("Hello world!")
+    # signal.signal(signal.SIGINT, signal_handler)
     # Implement machine learning things here.
+    # , model_executable_path, arguments
     #subprocess.call([
     #    model_executable_path +
     #    arguments
