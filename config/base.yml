@@ -34,7 +34,7 @@ experiment:
     mongo:
         enable: True
         url: "127.0.0.1"
-        db: opm
+        db: sacred
         use_remote: False
         ip: "0.0.0.0"
         username: "mongodb"
