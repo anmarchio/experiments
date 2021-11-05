@@ -54,7 +54,7 @@ model_executable_path = os.path.join(
 )
 
 train_data_parent_dir = r"Q:\5 Fachbereiche\03 OPM\ReferenzSet\EXIST\out"
-val_data_parant_dir = r"Q:\5 Fachbereiche\03 OPM\ReferenzSet\EXIST\out_lbl"
+val_data_parent_dir = r"Q:\5 Fachbereiche\03 OPM\ReferenzSet\EXIST\out_lbl"
 
 arguments = "Optimization.Commandline.exe " \
             "batch --backend=halcon " \
@@ -62,7 +62,7 @@ arguments = "Optimization.Commandline.exe " \
             "--train-data-dir=" \
             + train_data_parent_dir + \
             "--val-data-dir= " \
-            + train_data_parent_dir + \
+            + val_data_parent_dir + \
             "--generations=200"
 ```
 
