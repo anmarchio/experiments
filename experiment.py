@@ -49,7 +49,11 @@ def run(_config):
                 + val_data_parent_dir + " " +  \
                 "--generations=200"
 
-    subprocess.call([
+    FNULL = open(os.devnull, 'w')  # use this if you want to suppress output to stdout from the subprocess
+    subprocess.call(
         model_executable_path +
-        arguments
-    ])
+        arguments,
+        stdout=FNULL,
+        stderr=FNULL,
+        shell=False
+    )
