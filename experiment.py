@@ -32,7 +32,8 @@ def run(_config):
         "optimization",
         "Optimization.Commandline",
         "bin",
-        "Debug"
+        "Debug",
+        "Optimization.Commandline.exe"
     )
 
     # train_data_parent_dir = r"Q:\5 Fachbereiche\03 OPM\ReferenzSet\EXIST\out"
@@ -40,8 +41,7 @@ def run(_config):
     train_data_parent_dir = os.path.join("C:\\", "Users", "mara_c10", "Desktop", "ReferenzSet", "EXIST", "out")
     val_data_parent_dir = os.path.join("C:\\", "Users", "mara_c10", "Desktop", "ReferenzSet", "EXIST", "out_lbl")
 
-    arguments = "Optimization.Commandline.exe " \
-                "batch --backend=halcon " \
+    arguments = " batch --backend=halcon " \
                 "--runs=5 " \
                 "--train-data-dir=" \
                 + train_data_parent_dir + \
