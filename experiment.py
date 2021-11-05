@@ -44,9 +44,9 @@ def run(_config):
     arguments = " batch --backend=halcon " \
                 "--runs=5 " \
                 "--train-data-dir=" \
-                + train_data_parent_dir + \
+                + train_data_parent_dir + " " + \
                 "--val-data-dir= " \
-                + val_data_parent_dir + \
+                + val_data_parent_dir + " " +  \
                 "--generations=200"
 
     subprocess.call([
