@@ -34,11 +34,13 @@ def run(_config):
     # Implement machine learning things here.
 ```
 
-## Modify Main to Run Experiment
+## Modifying Script and Config Files
 
 We need to set a path to the compiled executable for CGP optimization and the related arguments.
-Therefore modify the following variables in `main.py` according to your local environment and needs.
+Therefore modify the method in `experiment.py` according to your local environment and needs.
 An example is given below:
+
+Modify the config file `config\base.yml` to include all relevant parameters, e. g.:
 
 ```
 model_executable_path = os.path.join(
@@ -63,3 +65,19 @@ arguments = "Optimization.Commandline.exe " \
             + train_data_parent_dir + \
             "--generations=200"
 ```
+
+Change the following method in `experiment.py` to run your experiment as needed:
+```
+@ex.main
+def run(_config):
+```
+
+## Omniboard frontend for Experiment Tracking and Data Vizualization
+
+The project `sacred` lists several frontend projects for data visualization ((https://github.com/IDSIA/sacred#frontends).
+We suggest to use `omniboard` () according to its tutorial:
+
+1. Install `Node.js > v12`
+1. Install omniboard: `npm install -g omniboard`
+1. To run omniboard type: `npx omniboard localhost:27017:sacred`
+1. Open `localhost:9000`
