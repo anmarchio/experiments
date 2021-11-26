@@ -57,3 +57,6 @@ def run(_config):
         stderr=FNULL,
         shell=False
     )
+    result = 0.0
+    # load data from log directory
+    return result
