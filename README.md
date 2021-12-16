@@ -22,6 +22,11 @@ Experiments on image datasets using optimization
 | CGP-SSR | MVTec Anomaly Detection | - | - | - |
 | Random Search | Carbon Fibres | Semantic Segmentation | Fitness results around 0.0 | Establish a low level, default reference to all other experiments |
 
+## Comments
+
+- [ ] Label MVTec Anomaly Test Data
+- [ ] Adapt C# bat scripting to run experiments automatically
+
 ## Define Experiment
 
 Experiment details are defined in `def run(_config):` in file `experiments.py`:
