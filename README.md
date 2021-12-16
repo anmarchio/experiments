@@ -19,6 +19,7 @@ Experiments on image datasets using optimization
 | CGP with Parameter Optimisation | Severstal Steel | - | - | - |
 | CGP-SSR | Severstal Steel | - | - | - |
 | CGP-SSR | Kaggle Ships, Asphalt Core, Non-Woven Fabrics | - | - | - |
+| CGP-SSR | MVTec Anomaly Detection | - | - | - |
 | Random Search | Carbon Fibres | Semantic Segmentation | Fitness results around 0.0 | Establish a low level, default reference to all other experiments |
 
 ## Define Experiment
