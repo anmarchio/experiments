@@ -22,6 +22,13 @@ Experiments on image datasets using optimization
 | CGP-SSR | MVTec Anomaly Detection | - | - | - |
 | Random Search | Carbon Fibres | Semantic Segmentation | Fitness results around 0.0 | Establish a low level, default reference to all other experiments |
 
+## Hyperparameter Studies
+
+- [ ] Effect of no. generations & runs
+- [ ] Influence of number of columns / rows on fitness evolution
+- [ ] Is levels back relevant?
+- [ ] Study on dependency tree design: smaller trees vs. complex large trees
+
 ## Comments
 
 - [ ] Label MVTec Anomaly Test Data
