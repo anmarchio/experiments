@@ -1,3 +1,23 @@
+# Experiment Goals
+
+* Entropie der Bilder (einfach vs komplex)
+* Entropie der Daten allgemein
+* Auswahl der Operatoren: wie misst man die algorithmische Komplexität?
+* Welche Fälle sind besser geeignet?
+* kann man im Voraus - ohne Daten- abschätzen, ob CGP geeignet ist?
+
+
+**Fragen an die Anwender:**
+
+
+- Dimensionsreduktion: welche Algorithmen kommen in Frage?
+- Umfang der Fragen: was sind ihre wichtigsten Kriterien?
+- nachträgliche Anlagendigitalisierung: Relevanz und Vorgehen?
+- Data driven und intransparent vs. lesbarer code (als Graph)
+- wie hoch ist der Annotationsaufwand? Wie stabil funktionieren Systeme?
+- Auflösung und Menge der Daten? Größenordnung?
+- Aufwände von Systemauslegung: Umfang? Wo sind größte Hürden?
+
 # Experiment Overview
 
 Experiments on image datasets using optimization
