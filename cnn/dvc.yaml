@@ -1,6 +1,6 @@
 stages:
   train:
-    cmd: python main.py train
+    cmd: python crop_to_tiles.py train
     deps:
-    - main.py
+    - crop_to_tiles.py
     - config/
