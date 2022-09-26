@@ -17,7 +17,7 @@ TILE_WIDTH = 1024
 def convert_tiles(source):
     file_list = os.listdir(source)
     for file in file_list:
-        log = open(path + '/colordetectionlog_' + file + '.csv', 'a')
+        log = open(path + '/crop_tile_log_' + file + '.csv', 'a')
         line = f'src_file; tile; tow; src_width; src_height; tile_width; tile_height; x_pos; y_pos \n'
         log.write(line)
 
@@ -73,7 +73,7 @@ def convert_tiles(source):
                 if not os.path.isdir(dir_name):
                     os.mkdir(dir_name, mode=0o777)
 
-                # if cv2.countNonZero(crop_img) > 0:
+                #if cv2.countNonZero(crop_img) > 0:
                     # only store image if it is NOT entirely black
                 cv2.imwrite(os.path.join(dir_name, tile_name), crop_img)
         log.close()
