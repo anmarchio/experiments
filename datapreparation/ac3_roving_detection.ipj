@@ -1,0 +1,128 @@
+{
+    "author": "mara_c10",
+    "edges": [
+        {
+            "from": 1,
+            "indexFrom": 0,
+            "indexTo": 0,
+            "to": 2
+        },
+        {
+            "from": 2,
+            "indexFrom": 0,
+            "indexTo": 0,
+            "to": 3
+        },
+        {
+            "from": 3,
+            "indexFrom": 0,
+            "indexTo": 0,
+            "to": 4
+        }
+    ],
+    "steps": [
+        {
+            "ID": 1,
+            "posX": 0,
+            "posY": 128,
+            "properties": [
+                {
+                    "key": "mode",
+                    "type": "int",
+                    "value": "0",
+                    "widget": "24",
+                    "widgetName": "IPL_WIDGET_GROUP"
+                },
+                {
+                    "key": "path",
+                    "type": "string",
+                    "value": "C:/dev/experiments/test/210323_Setting1_Take1_Ch1.png",
+                    "widget": "12",
+                    "widgetName": "IPL_WIDGET_FILE_OPEN"
+                },
+                {
+                    "key": "raw_format",
+                    "type": "int",
+                    "value": "0",
+                    "widget": "4",
+                    "widgetName": "IPL_WIDGET_COMBOBOX"
+                },
+                {
+                    "key": "raw_height",
+                    "type": "int",
+                    "value": "512",
+                    "widget": "5",
+                    "widgetName": "IPL_WIDGET_SLIDER"
+                },
+                {
+                    "key": "raw_interleaved",
+                    "type": "int",
+                    "value": "0",
+                    "widget": "4",
+                    "widgetName": "IPL_WIDGET_COMBOBOX"
+                },
+                {
+                    "key": "raw_width",
+                    "type": "int",
+                    "value": "512",
+                    "widget": "5",
+                    "widgetName": "IPL_WIDGET_SLIDER"
+                }
+            ],
+            "type": "IPLLoadImage"
+        },
+        {
+            "ID": 2,
+            "posX": 128,
+            "posY": 128,
+            "properties": [
+                {
+                    "key": "highThreshold",
+                    "type": "double",
+                    "value": "0.73",
+                    "widget": "5",
+                    "widgetName": "IPL_WIDGET_SLIDER"
+                },
+                {
+                    "key": "lowThreshold",
+                    "type": "double",
+                    "value": "0.55",
+                    "widget": "5",
+                    "widgetName": "IPL_WIDGET_SLIDER"
+                }
+            ],
+            "type": "IPLHysteresisThreshold"
+        },
+        {
+            "ID": 3,
+            "posX": 256,
+            "posY": 128,
+            "properties": [
+            ],
+            "type": "IPLNegate"
+        },
+        {
+            "ID": 4,
+            "posX": 384,
+            "posY": 128,
+            "properties": [
+                {
+                    "key": "kernel",
+                    "type": "vector<int>",
+                    "value": "[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]",
+                    "widget": "16",
+                    "widgetName": "IPL_WIDGET_BINARY_MORPHOLOGY"
+                },
+                {
+                    "key": "operation",
+                    "type": "int",
+                    "value": "1",
+                    "widget": "3",
+                    "widgetName": "IPL_WIDGET_RADIOBUTTONS"
+                }
+            ],
+            "type": "IPLMorphologyGrayscale"
+        }
+    ],
+    "timestamp": 1664296040
+}
