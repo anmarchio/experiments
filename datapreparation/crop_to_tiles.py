@@ -53,7 +53,6 @@ def convert_tiles(source):
                 else:
                     crop_img = image[y:y + h, x:x + w]
 
-
                 tile_name = str(col * number_of_tiles_height + row) + ".jpg"
 
                 # Show tile if necessary
