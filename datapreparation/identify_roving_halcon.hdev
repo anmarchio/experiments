@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>*Ordner mit den Bildern</c>
+<l>IndexStartImages := 0</l>
+<l>IndexStartObjects := 1</l>
+<l>*ImageFolder := 'C:/Daten/210225_Vorbereitung SGL/Example_Images/'</l>
+<l>ImageFolder := 'C:/Users/mara_c10/Desktop/2022_CGP_Experimente/Owncloud_AirCarbon3/Annotation/AirCarbon3/20210325_13h25/'</l>
+<l>output := 'C:/Users/mara_c10/Desktop/2022_CGP_Experimente/Owncloud_AirCarbon3/Annotation/AirCarbon3/20210325_13h25_rov/'</l>
+<l>*output := 'C:/Daten/210225_Vorbereitung SGL/Temp/'</l>
+<l>list_files (ImageFolder, ['files','follow_links'], ImageFiles)</l>
+<l>tuple_regexp_select (ImageFiles, ['\\.(tif|tiff|gif|bmp|jpg|jpeg|jp2|png|pcx|pgm|ppm|pbm|xwd|ima|hobj)$','ignore_case'], ImageFiles)</l>
+<l>for Index := IndexStartImages to |ImageFiles| - 1 by 1</l>
+<l>    read_image (Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<l>    low_thresh := 215</l>
+<l>    threshold(Image, Regions, 0, low_thresh)</l>
+<c>    * Start</c>
+<l>    offset := -2</l>
+<l>    connection(Regions, ConnectedRegions)</l>
+<l>    select_shape(ConnectedRegions, SelectedRegions, 'area', 'and', 1000000, 99999999999)    </l>
+<l>    area_center (SelectedRegions, Area, Row, Column)</l>
+<l>    fill_up_shape(SelectedRegions, RegionFillUp, 'area', 1, 1000000)</l>
+<l>    gen_empty_region(BlankBackground)</l>
+<l>    for Index1 := 1 to |Area| by 1</l>
+<l>        select_obj(RegionFillUp, ObjectSelected, Index1)</l>
+<l>        * smallest_rectangle1(ObjectSelected, Row1, Column1, Row2, Column2)</l>
+<l>        inner_rectangle1(ObjectSelected, Row1, Column1, Row2, Column2)</l>
+<l>        gen_rectangle1(RegionRectangle, 0, Column1+offset, Height, Column2-offset)</l>
+<l>        union2(BlankBackground, RegionRectangle, BlankBackground)</l>
+<l>    endfor</l>
+<l>    complement(BlankBackground, BlankBackground)</l>
+<l>    paint_region(BlankBackground, Image, ImageResult, 0, 'fill')   </l>
+<l>    dev_display(Image)</l>
+<l>    dev_display(SelectedRegions)</l>
+<l>    *fill_up_shape(SelectedRegions, RegionFillUp, 'area', 1, 10000)</l>
+<c>    * ^[\w\W]+\\(\w+).[tif|tiff|gif|bmp|jpg|jpeg|jp2|png|pcx|pgm|ppm|pbm|xwd|ima|hobj]*$</c>
+<l>    tuple_regexp_match (ImageFiles[Index], '^[\\w\\W]+\\\\(\\w+).[tif|tiff|gif|bmp|jpg|jpeg|jp2|png|pcx|pgm|ppm|pbm|xwd|ima|hobj]*', FileName)</l>
+<l>    OutName := output + FileName</l>
+<l>    write_image(ImageResult, 'jpeg', 0, OutName)</l>
+<l>endfor  </l>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
