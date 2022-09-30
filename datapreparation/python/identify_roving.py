@@ -103,6 +103,7 @@ path = ""
 try:
     path = sys.argv[1]
     destination = sys.argv[2]
+    DEFAULT_LOW = sys.argv[3]
 except Exception as e:
     print("Argument error: ", e.__class__)
 
