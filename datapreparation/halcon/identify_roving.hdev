@@ -4,7 +4,7 @@
 <interface/>
 <body>
 <c>* Opens paremeters.conf</c>
-<l>ConfigFile := 'parameters.conf'</l>
+<l>ConfigFile := 'roving_parameters.conf'</l>
 <l>open_file(ConfigFile, 'input', FileHandle)</l>
 <c>* ----------------</c>
 <c>* Image directory</c>
