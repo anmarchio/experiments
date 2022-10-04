@@ -68,7 +68,23 @@ def resize_image(image):
     return resized
 
 
+def log_parameters(source, rovings, destination):
+    log_str = "Source: " + source + "\n" + \
+              "Destination: " + destination + "\n" + \
+              "Threshold: " + str(trackbar_low_threshold) + "\n"
+    print("Black areas\n-----------\n")
+    print("Source: " + source)
+    print("Destination: " + destination)
+    print("Threshold: " + str(trackbar_low_threshold))
+    for i in range(len(rovings)):
+        print(str(i) + ": (" + str(rovings[i][0]) + ", " + str(rovings[i][1]) + ")")
+        log_str = log_str + str(i) + ": (" + str(rovings[i][0]) + ", " + str(rovings[i][1]) + ")\n"
+    with open(os.path.join(destination, "parameters.txt"), "w") as f:
+        f.write(log_str)
+
+
 def black_out_empty_areas(source, rovings, destination):
+    log_parameters(source, rovings, destination)
     file_list = os.listdir(source)
     for file in file_list:
         print("Processing " + file + " ...")
@@ -103,7 +119,7 @@ path = ""
 try:
     path = sys.argv[1]
     destination = sys.argv[2]
-    DEFAULT_LOW = sys.argv[3]
+    DEFAULT_LOW = int(sys.argv[3])
 except Exception as e:
     print("Argument error: ", e.__class__)
 
@@ -150,7 +166,7 @@ that do not contain a roving
 if yes_no_quit == 'q':
     pass
 elif yes_no_quit == 'y':
-    print("Painting non-roving areas black ...")
+    print("Painting non-roving areas black ...\n***\n")
     black_out_empty_areas(path, rovings, destination)
 else:
     pass

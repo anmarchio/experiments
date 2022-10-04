@@ -50,6 +50,18 @@ A sample call from the CLI would like like:
 python datapreparation/identify_roving.py <MY_PATH>\20210325_13h25 <MY_PATH>\20210325_13h25_rov 140
 ```
 
+A log file `parameters.txt` containing the parameters will be put into `<DESTINATION>`:
+
+```
+Source: <SOURCE>
+Destination: <DESTINATION>
+Threshold: 100
+0 (6837, 1247)
+1: (6443, 394)
+2: (3864, 758)
+3: (0, 1969)
+```
+
 ### Cropping images into little tiles
 
 We provide a script that divides the large images files (up to 15000 x 7000 in size) into little tiles of size `1024 x 1024`.
