@@ -1,25 +1,29 @@
 import os
 import cv2
 import sys
+import json
 import numpy as np
 from matplotlib import pyplot as plt
-from pycocotools.coco import COCO
 
 NROFTILES = 1
 
 def convert_json(source):
     file_list = os.listdir(source)
     for file in file_list:
-        coco = COCO(os.path.join(source, file))
-        for tile_id in range(NROFTILES):
-            cat_ids = coco.getCatIds()
-            anns_ids = coco.getAnnIds(imgIds=tile_id + 1, catIds=cat_ids, iscrowd=None)
-            anns = coco.loadAnns(anns_ids)
-            mask = coco.annToMask(anns[0])
-            for i in range(len(anns)):
-                mask += coco.annToMask(anns[i])
-            cv2.imshow("mask", mask)
-            cv2.waitKey(0)
+        with open(os.path.join(source, file), 'r') as json_file:
+            anns = json.load(json_file)
+            img_list = anns.items()
+            print(img_list)
+        #for tile_id in range(NROFTILES):
+            #img_width = anns['images']['width']
+            #img_height = anns
+            #an_area = anns
+
+            #bin_img = np.zeros((img_width, img_height))
+            #bin_img = cv2.fillPoly(bin_img, an_area, (255, 255, 255))
+
+            # cv2.imshow("Binary Image", bin_img)
+            # cv2.waitKey(0)
 
 
 
