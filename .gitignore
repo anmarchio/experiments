@@ -1,0 +1,5 @@
+.idea/*
+out/imgs/*
+out/json/*
+test/imgs/fullscale_fibers_sample.jpg
+venv/*

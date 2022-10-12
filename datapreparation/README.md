@@ -2,10 +2,77 @@
 
 ## Prepare images for labelling and training 
 
+### Identify rovings in images
+
+In order to reduce the complexity and memory consumption of single large images, we need to identify the roving are and render all background noise black. Doing so not only saves memory space, but also simplifies the annotation procedure.
+
+There are two scripts to find rovings and render background black
+
+* the python script `datapreparation/python/idenfity_roving.py`
+* the HALCON script `datapreparation/halcon/identify_roving.hdev`
+  
+#### The HALCON script
+
+The HALCON folder contains the meta parameters in file `datapreparation/halcon/parameters.conf`:
+* `ImageFolder`: the source path from which we read to process image files
+* `OFFSET`: defines the margin the script cuts of or adds to each roving (in order to weaken possible overlaps or cutoffs when thresholds are applied)
+* `LOW_THRESHOLD`: the lowest binary treshold that will cutoff every "brighter" background which is then considered noise (usually rovings are grayish, black or at least darker then the rest)
+
+The header of the file lists the parameters in the following order:
+```
+full image directory path (windows encoded)
+offset (negative or positive integer)
+low threshold (integer between 0 and 255)
+```
+
+A sample might look as follows:
+```
+C:/Users/mara_c10/Desktop/2022_CGP_Experimente/Owncloud_AirCarbon3/Annotation/AirCarbon3/20210325_13h25/
+-2
+215
+```
+
+The parameters in the `hdev` file are named as follows:
+```
+ImageFolder
+OFFSET
+LOW_TRESHOLD
+```
+
+#### Python Script
+
+The python script can be called using:
+```
+python datapreparation/identify_roving.py <MY_PATH>/<IMAGE_DIR> <MY_PATH>/<OUTPUT_DIR> TRESHOLD
+```
+A sample call from the CLI would like like:
+```
+python datapreparation/identify_roving.py <MY_PATH>\20210325_13h25 <MY_PATH>\20210325_13h25_rov 140
+```
+
+A log file `parameters.txt` containing the parameters will be put into `<DESTINATION>`:
+
+```
+Source: <SOURCE>
+Destination: <DESTINATION>
+Threshold: 100
+0 (6837, 1247)
+1: (6443, 394)
+2: (3864, 758)
+3: (0, 1969)
+```
+
 ### Cropping images into little tiles
 
 We provide a script that divides the large images files (up to 15000 x 7000 in size) into little tiles of size `1024 x 1024`.
-Doing so will make it easier for helpers to annotate single images. Ideally, the tiles only show parts of the actual tows that have been scanned using the camera. The workflow is as follows:
+Doing so will make it easier for helpers to annotate single images. Ideally, the tiles only show parts of the actual tows that have been scanned using the camera. 
+
+Call the script using:
+```
+python datapreperation/crop_to_tiles.py <MY_PATH>\20210325_13h25_rov
+```
+
+The workflow is as follows:
 
 * Divide image into n tiles of size __1024 x 1024__
 * Numbers are running __from top to bottom__
