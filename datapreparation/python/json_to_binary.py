@@ -30,13 +30,25 @@ def convert_json(source, destination):
                 cv2.imwrite(path, bin_img)
 
 
+def print_help():
+    print("HELP")
+    print("-" * 4)
+    print("python json_to_binary.py <SOURCE> <DESTINATION>\n")
+    print("Sample call:\n")
+    print("\t python json_to_binary.py <MY_DIR>\experiments\test\json\ <MY_DIR>\experiments\out\json")
+
+
 if __name__ == "__main__":
     print("Converting json to binary image ...")
     path = ""
+    destination = ""
     try:
-        path = sys.argv[1]
-        destination = sys.argv[2]
+        if sys.argv[1] == "help":
+            print_help()
+        else:
+            path = sys.argv[1]
+            destination = sys.argv[2]
+            convert_json(path, destination)
+
     except Exception as e:
         print("Argument error: ", e.__class__)
-
-    convert_json(path, destination)
