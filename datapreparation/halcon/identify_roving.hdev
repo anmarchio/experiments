@@ -34,19 +34,21 @@
 <c>* Global Variables</c>
 <c>* ----------------</c>
 <c>* OFFSET</c>
-<l>fread_line(FileHandle, OFFSET, IsEOF)</l>
-<l>tuple_strlen(OFFSET, StrLength)</l>
-<l>tuple_str_last_n(OFFSET, StrLength - 1, LastChar)</l>
+<l>fread_line(FileHandle, OFFSET_STR, IsEOF)</l>
+<l>tuple_strlen(OFFSET_STR, StrLength)</l>
+<l>tuple_str_last_n(OFFSET_STR, StrLength - 1, LastChar)</l>
 <l>if(LastChar == '\n')</l>
-<l>    tuple_substr(OFFSET, 0, StrLength - 2, OFFSET)</l>
+<l>    tuple_substr(OFFSET_STR, 0, StrLength - 2, OFFSET_STR)</l>
 <l>endif</l>
+<l>tuple_number(OFFSET_STR, OFFSET)</l>
 <c>* LOW_TRESHOLD</c>
-<l>fread_line(FileHandle, LOW_TRESHOLD, IsEOF)</l>
-<l>tuple_strlen(LOW_TRESHOLD, StrLength)</l>
-<l>tuple_str_last_n(LOW_TRESHOLD, StrLength - 1, LastChar)</l>
+<l>fread_line(FileHandle, LOW_TRESHOLD_STR, IsEOF)</l>
+<l>tuple_strlen(LOW_TRESHOLD_STR, StrLength)</l>
+<l>tuple_str_last_n(LOW_TRESHOLD_STR, StrLength - 1, LastChar)</l>
 <l>if(LastChar == '\n')</l>
-<l>    tuple_substr(LOW_TRESHOLD, 0, StrLength - 2, LOW_TRESHOLD)</l>
+<l>    tuple_substr(LOW_TRESHOLD_STR, 0, StrLength - 2, LOW_TRESHOLD_STR)</l>
 <l>endif</l>
+<l>tuple_number(LOW_TRESHOLD_STR, LOW_TRESHOLD)</l>
 <c>* ---------------</c>
 <c>* Read image</c>
 <c>* ---------------</c>
@@ -69,9 +71,10 @@
 <l>        gen_rectangle1(RegionRectangle, 0, Column1 + OFFSET, Height, Column2 - OFFSET)</l>
 <l>        union2(BlankBackground, RegionRectangle, BlankBackground)</l>
 <l>    endfor</l>
-<l>    complement(BlankBackground, BlankBackground)</l>
-<l>    paint_region(BlankBackground, Image, ImageResult, 0, 'fill')   </l>
 <l>    dev_display(Image)</l>
+<l>    complement(BlankBackground, BlankBackground)</l>
+<l>    access_channel(Image, Image1, 1)    </l>
+<l>    paint_region(BlankBackground, Image1, ImageResult, 0, 'fill')</l>
 <l>    dev_display(SelectedRegions)</l>
 <l>    *fill_up_shape(SelectedRegions, RegionFillUp, 'area', 1, 10000)</l>
 <c>    * ^[\w\W]+\\(\w+).[tif|tiff|gif|bmp|jpg|jpeg|jp2|png|pcx|pgm|ppm|pbm|xwd|ima|hobj]*$</c>
