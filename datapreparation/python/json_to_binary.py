@@ -2,6 +2,7 @@ import os
 import cv2
 import sys
 import json
+import string
 import numpy as np
 
 
@@ -26,7 +27,7 @@ def convert_json(source, destination):
                         i += 2
                     temp_img = cv2.fillPoly(img=temp_img, pts=np.array([coord], dtype=np.int32), color=(255, 255, 255))
                     bin_img = np.maximum(bin_img, temp_img)
-                path = os.path.join(destination, anns['info']['description'] + '_' + img['file_name'] + '_bin.jpg')
+                path = os.path.join(destination, img['file_name'][:-4] + '.png')
                 cv2.imwrite(path, bin_img)
 
 
