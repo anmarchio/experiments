@@ -71,6 +71,7 @@
 <l>        gen_rectangle1(RegionRectangle, 0, Column1 + OFFSET, Height, Column2 - OFFSET)</l>
 <l>        union2(BlankBackground, RegionRectangle, BlankBackground)</l>
 <l>    endfor</l>
+<l>    dev_disp_text('Asphalt Core Layer 13', 'window', 10, 10, 'black', [], [])</l>
 <l>    dev_display(Image)</l>
 <l>    complement(BlankBackground, BlankBackground)</l>
 <l>    access_channel(Image, Image1, 1)    </l>

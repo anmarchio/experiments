@@ -1,0 +1,20 @@
+@ECHO OFF
+
+REM =========
+REM AirCarbon
+REM =========
+
+set COMMANDLINE = "D:\dev\optimization\Optimization.Commandline\bin\Debug\Optimization.Commandline.exe"
+
+REM Parameter
+REM ---------
+set RUNS = 5
+set GENERATIONS = 200
+
+REM AirCarbon
+REM ---------
+set TRAIN_DIR = "AirCarbon2\160919_SGL\Blende5_6_1800mA_rov\t_2.jpg"
+REM t_2.jpg -- t_21.jpg
+set VAL_DIR = ""
+
+%COMMANDLINE% batch --backend=halcon --runs=%RUNS% --train-data-dir=%TRAIN_DIR% --val-data-dir=%VAL_DIR% --generations=%GENERATIONS% --results-dir=%RESULTS%
