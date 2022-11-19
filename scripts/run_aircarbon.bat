@@ -14,13 +14,19 @@ call SET GENERATIONS=150
 call SET CWDIR=D:/dev/evias_expmnts
 
 setlocal EnableDelayedExpansion 
-set expmnts=AirCarbon2\160919_SGL\Blende5_6_1800mA_rov AirCarbon2\160919_SGL\Blende5_6_1800mA_rov\t_2.jpg AirCarbon3\training AirCarbon3
+
+REM AirCarbon
+REM D:\evias_expmts\Aircarbon3\20210325_13h25_rov\training\images\t_80.jpg
+REM D:\evias_expmts\Aircarbon3\20210325_13h25_rov\training\labels\t_80.jpg
+REM Severstal Steel
+REM D:\evias_expmts\severstal-steel\train_images
+REM D:\evias_expmts\severstal-steel\train_binary
+
+set expmnts=Aircarbon3\20210325_13h25_rov\training\images\t_80.jpg Aircarbon3\20210325_13h25_rov\training\labels\t_80.jpg D:\evias_expmts\severstal-steel\train_images D:\evias_expmts\severstal-steel\train_binary
 
 REM ==========================================================
 REM Run Experiments
 REM ==========================================================
-
-	
 for %%e in (%expmnts%) do (
 	call echo RUNS: %RUNS%
 	call echo GENERATIONS: %GENERATIONS%
