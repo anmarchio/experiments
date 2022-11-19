@@ -11,7 +11,7 @@ REM Default parameters
 REM ----------------------------------------------------------
 call SET RUNS=15
 call SET GENERATIONS=150
-call SET CWDIR=D:\dev\evias_expmnts
+call SET CWDIR=D:\evias_expmts
 
 setlocal EnableDelayedExpansion 
 
@@ -42,24 +42,26 @@ REM ==========================================================
 REM Run Experiments
 REM ==========================================================
 REM for %%e in (%expmnts%) do (
-for /l %%i in (0 1 1) do (
+for /l %%i in (0 1 2) do (
 	call echo RUNS: %RUNS%
 	call echo GENERATIONS: %GENERATIONS%
 	
-	REM t_2.jpg -- t_21.jpg
-	call echo TRAIN_DIR: %CWDIR%\%%expmnts_train[%%i]%%
-	call echo VAL_DIR: %CWDIR%\%%expmnts_val[%%i]%%
-	call echo RESULTS_DIR: %CWDIR%\%%expmnts_res[%%i]%%
+	call SET TRAIN_DIR=%%CWDIR%%\%%expmnts_train[%%i]%%
+	call SET VAL_DIR=%%CWDIR%%\%%expmnts_val[%%i]%%
+	call SET RESULTS_DIR=%%CWDIR%%\%%expmnts_res[%%i]%%
 	
+	REM call echo TRAIN_DIR: %CWDIR%\%%expmnts_train[%%i]%%
+	REM call echo VAL_DIR: %CWDIR%\%%expmnts_val[%%i]%%
+	REM call echo RESULTS_DIR: %CWDIR%\%%expmnts_res[%%i]%%
+	call echo train-data-dir: %%TRAIN_DIR%%
+	call echo val-data-dir: %%VAL_DIR%%
+	call echo results-dir: %%RESULTS_DIR%%
+		
 	echo --------
 	echo Start evolution
 	echo ....................
-	
-	call SET TRAIN_DIR=%CWDIR%\%%expmnts_train[%%i]%%
-	call SET VAL_DIR=%CWDIR%\%%expmnts_val[%%i]%%
-	call SET RESULTS_DIR=%CWDIR%\%%expmnts_res[%%i]%%
-	
-	%COMMANDLINE% batch --backend=halcon --runs=%RUNS% --train-data-dir=%TRAIN_DIR% --val-data-dir=%VAL_DIR% --generations=%GENERATIONS% --results-dir=%RESULTS_DIR%
+		
+	%COMMANDLINE% batch --backend=halcon --runs=%RUNS% --train-data-dir=%%TRAIN_DIR%% --val-data-dir=%%VAL_DIR%% --generations=%GENERATIONS% --results-dir=%%RESULTS_DIR%%
 	
 	echo ....................
 	echo Finished
