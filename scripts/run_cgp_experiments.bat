@@ -28,15 +28,15 @@ REM D:\evias_expmts\Magnetic-Tile-Defect\MT_Blowhole\Imgs
 REM D:\evias_expmts\Magnetic-Tile-Defect\MT_Blowhole\Labels
 REM D:\evias_expmts\Magnetic-Tile-Defect\MT_Blowhole\Results
 
-set expmnts_train[0]=Aircarbon3\20210325_13h25_rov\training\images\t_80.jpg 
-set expmnts_val[0]=Aircarbon3\20210325_13h25_rov\training\labels\t_80.jpg 
-set expmnts_res[0]=Aircarbon3\20210325_13h25_rov\results 
-set expmnts_train[1]=severstal-steel\train_images 
-set expmnts_val[1]=severstal-steel\train_binary 
-set expmnts_res[1]=severstal-steel\results
-set expmnts_train[2]=Magnetic-Tile-Defect\MT_Blowhole\Imgs
-set expmnts_val[2]=Magnetic-Tile-Defect\MT_Blowhole\labels
-set expmnts_res[2]=Magnetic-Tile-Defect\MT_Blowhole\results
+set expmnts_train[0]=Aircarbon3\20210325_13h25_rov\training\80.jpg
+set expmnts_val[0]=Aircarbon3\20210325_13h25_rov\training\81.jpg
+set expmnts_res[0]=Aircarbon3\20210325_13h25_rov\results
+set expmnts_train[1]=severstal-steel\train_cgp
+set expmnts_val[1]=severstal-steel\val_cgp 
+set expmnts_res[1]=severstal-steel\results_cgp
+set expmnts_train[2]=Magnetic-Tile-Defect\MT_Blowhole_train
+set expmnts_val[2]=Magnetic-Tile-Defect\MT_Blowhole_val
+set expmnts_res[2]=Magnetic-Tile-Defect\results
 
 REM ==========================================================
 REM Run Experiments
@@ -61,7 +61,7 @@ for /l %%i in (0 1 2) do (
 	echo Start evolution
 	echo ....................
 		
-	%COMMANDLINE% batch --backend=halcon --runs=%RUNS% --train-data-dir=%%TRAIN_DIR%% --val-data-dir=%%VAL_DIR%% --generations=%GENERATIONS% --results-dir=%%RESULTS_DIR%%
+	call %COMMANDLINE% batch --backend=halcon --runs=%RUNS% --train-data-dir=%%TRAIN_DIR%% --val-data-dir=%%VAL_DIR%% --generations=%GENERATIONS% --results-dir=%%RESULTS_DIR%%
 	
 	echo ....................
 	echo Finished
