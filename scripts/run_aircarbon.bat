@@ -59,7 +59,7 @@ for /l %%i in (0 1 1) do (
 	call SET VAL_DIR=%CWDIR%\%%expmnts_val[%%i]%%
 	call SET RESULTS_DIR=%CWDIR%\%%expmnts_res[%%i]%%
 	
-	%COMMANDLINE% batch --backend=halcon --runs=%RUNS% --train-data-dir=%TRAIN_DIR% --val-data-dir=%VAL_DIR% --generations=%GENERATIONS% --results-dir=%RESULTS_DIR%
+	%COMMANDLINE% batch --backend=halcon --runs %RUNS% --train-data-dir %TRAIN_DIR% --val-data-dir %VAL_DIR% --generations %GENERATIONS% --results-dir %RESULTS_DIR%
 	
 	echo ....................
 	echo Finished
