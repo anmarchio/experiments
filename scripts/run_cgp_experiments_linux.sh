@@ -14,7 +14,7 @@ echo "Continue ..."
 # ==========================================================
 
 echo "------------"
-commandline = "mono /var/local/prime/optimization/Optimization.Commandline/bin/Debug/Optimization.Commandline.exe"
+commandline="mono /var/local/prime/optimization/Optimization.Commandline/bin/Debug/Optimization.Commandline.exe"
 
 # ----------------------------------------------------------
 # Default parameters
@@ -53,42 +53,42 @@ expmnts_val+=("Aircarbon3\20210325_13h25_rov\training\81.jpg_dark")
 expmnts_res+=("Aircarbon3\20210325_13h25_rov\results")
 
 # 5
-expmnts_train+= ("Aircarbon3\20210325_13h25_rov\training\80.jpg_bright")
+expmnts_train+=("Aircarbon3\20210325_13h25_rov\training\80.jpg_bright")
 expmnts_val+=("Aircarbon3\20210325_13h25_rov\training\81.jpg_bright")
 expmnts_res+=("Aircarbon3\20210325_13h25_rov\results")
 
 # 6
-expmnts_train+= ("Magnetic-Tile-Defect\MT_Blowhole_train")
+expmnts_train+=("Magnetic-Tile-Defect\MT_Blowhole_train")
 expmnts_val+=("Magnetic-Tile-Defect\MT_Blowhole_val")
 expmnts_res+=("Magnetic-Tile-Defect\results")
 
 # 7
-expmnts_train+= ("Aircarbon2\Blende5_6_1800mA_rov\training\t_8.jpg")
+expmnts_train+=("Aircarbon2\Blende5_6_1800mA_rov\training\t_8.jpg")
 expmnts_val+=("Aircarbon2\Blende5_6_1800mA_rov\training\t_12.jpg")
 expmnts_res+=("Aircarbon2\Blende5_6_1800mA_rov\results")
 
 # 8
-expmnts_train+= ("severstal-steel\train_cgp")
+expmnts_train+=("severstal-steel\train_cgp")
 expmnts_val+=("severstal-steel\val_cgp")
 expmnts_res+=("severstal-steel\results_cgp")
 
 # 9
-expmnts_train+= ("Pultrusion\resin_cgp\train")
+expmnts_train+=("Pultrusion\resin_cgp\train")
 expmnts_val+=("Pultrusion\resin_cgp\val")
 expmnts_res+=("Pultrusion\results")
 
 # 10
-expmnts_train+= ("Pultrusion\window_cgp\train")
+expmnts_train+=("Pultrusion\window_cgp\train")
 expmnts_val+=("Pultrusion\window_cgp\val")
 expmnts_res+=("Pultrusion\results")
 
 # 11
-expmnts_train+= ("Pultrusion\resin_cgp_augmntd\train")
+expmnts_train+=("Pultrusion\resin_cgp_augmntd\train")
 expmnts_val+=("Pultrusion\resin_cgp_augmntd\val")
 expmnts_res+=("Pultrusion\results")
 
 # 12
-expmnts_train+= ("KolektorSDD\kos10")
+expmnts_train+=("KolektorSDD\kos10")
 expmnts_val+=("KolektorSDD\kos25")
 expmnts_res+=("KolektorSDD\results")
 
