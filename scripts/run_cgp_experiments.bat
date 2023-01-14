@@ -19,8 +19,8 @@ call SET COMMANDLINE=D:\dev\optimization\Optimization.Commandline\bin\Debug\Opti
 REM ----------------------------------------------------------
 REM Default parameters
 REM ----------------------------------------------------------
-call SET RUNS=5
-call SET GENERATIONS=30
+call SET RUNS=3
+call SET GENERATIONS=150
 call SET CWDIR=D:\evias_expmts
 
 setlocal EnableDelayedExpansion 
@@ -53,13 +53,13 @@ set expmnts_train[6]=Magnetic-Tile-Defect\MT_Blowhole_train
 set expmnts_val[6]=Magnetic-Tile-Defect\MT_Blowhole_val
 set expmnts_res[6]=Magnetic-Tile-Defect\results
 
-set expmnts_train[7]=severstal-steel\train_cgp
-set expmnts_val[7]=severstal-steel\val_cgp 
-set expmnts_res[7]=severstal-steel\results_cgp
+set expmnts_train[7]=Aircarbon2\Blende5_6_1800mA_rov\training\t_8.jpg
+set expmnts_val[7]=Aircarbon2\Blende5_6_1800mA_rov\training\t_12.jpg
+set expmnts_res[7]=Aircarbon2\Blende5_6_1800mA_rov\results
 
-set expmnts_train[8]=Aircarbon2\Blende5_6_1800mA_rov\training\t_8.jpg
-set expmnts_val[8]=Aircarbon2\Blende5_6_1800mA_rov\training\t_12.jpg
-set expmnts_res[8]=Aircarbon2\Blende5_6_1800mA_rov\results
+set expmnts_train[8]=severstal-steel\train_cgp
+set expmnts_val[8]=severstal-steel\val_cgp 
+set expmnts_res[8]=severstal-steel\results_cgp
 
 set expmnts_train[9]=Pultrusion\resin_cgp\train
 set expmnts_val[9]=Pultrusion\resin_cgp\val
@@ -167,11 +167,16 @@ set expmnts_train[34]=MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\und
 set expmnts_val[34]=MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\undone_thread_hole\training
 set expmnts_res[34]=MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\undone_thread_hole\results
 
+set expmnts_train[35]=MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\undone_thread_hole_256\training
+set expmnts_val[35]=MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\undone_thread_hole_256\training
+set expmnts_res[35]=MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\undone_thread_hole_256\results
+
 REM ==========================================================
 REM Run Experiments
 REM ==========================================================
 REM for %%e in (%expmnts%) do (
-for /l %%i in (34 1 34) do (
+
+for /l %%i in (0 1 35) do (
 	call echo RUNS: %RUNS%
 	call echo GENERATIONS: %GENERATIONS%
 	
