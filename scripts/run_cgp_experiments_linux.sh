@@ -216,9 +216,9 @@ for i in {21..29}; do
 	echo "RUNS: $RUNS"
 	echo "GENERATIONS: $GENERATIONS"
 	
-	TRAIN_DIR=$CWDIR\${expmnts_train[$i]}
-	VAL_DIR=$CWDIR\${expmnts_val[$i]}
-	RESULTS_DIR=$CWDIR\${expmnts_res[$i]}
+	TRAIN_DIR="$CWDIR\${expmnts_train[$i]}"
+	VAL_DIR="$CWDIR\${expmnts_val[$i]}"
+	RESULTS_DIR="$CWDIR\${expmnts_res[$i]}"
 	
 	# echo "TRAIN_DIR: $CWDIR\${expmnts_train[$i]}"
 	# echo "VAL_DIR: $CWDIR\${expmnts_val[$i]}"
