@@ -4,7 +4,7 @@
 # TIMER
 # ==============
 
-SECONDS=3
+SECONDS=0
 echo "Waiting for $SECONDS sec ..."
 sleep $SECONDS
 echo "Continue ..."
@@ -14,14 +14,15 @@ echo "Continue ..."
 # ==========================================================
 
 echo "------------"
-commandline="mono /var/local/prime/optimization/Optimization.Commandline/bin/Debug/Optimization.Commandline.exe"
+mono_commandline="mono /var/local/prime/optimization/Optimization.Commandline/bin/Debug/Optimization.Commandline.exe"
+docker_commandline="docker run --network=host -i -v evias:/evias localhost:5000/cgp"
 
 # ----------------------------------------------------------
 # Default parameters
 # ----------------------------------------------------------
 RUNS=3
 GENERATIONS=150
-CWDIR="/mnt/sdc1"
+CWDIR="/evias"
 
 exmpts_train=()
 expmts_val=()
@@ -211,8 +212,8 @@ expmnts_res+=("MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thr
 # Run Experiments
 # ==========================================================
 # for exp in ${expmnts_train[@]}; do
-
-for i in {20..29}; do
+# {20..29}
+for i in {20..20}; do
 	echo "RUNS: $RUNS"
 	echo "GENERATIONS: $GENERATIONS"
 	
@@ -231,7 +232,9 @@ for i in {20..29}; do
 	echo "Start evolution"
 	echo "...................."
 		
-	$commandline batch --backend=halcon --runs=$RUNS --train-data-dir=$TRAIN_DIR --val-data-dir=$VAL_DIR --generations=$GENERATIONS
+	# alternative: 
+	# mono_commandline ...
+	$docker_commandline batch --backend=halcon --runs=$RUNS --train-data-dir=$TRAIN_DIR --val-data-dir=$VAL_DIR --generations=$GENERATIONS
 	# --results-dir=$RESULTS_DIR
 	
 	echo "...................."
