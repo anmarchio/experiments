@@ -1,9 +1,13 @@
+import json
+import os
 import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
+from os.path import join as p_join
 from matplotlib.patches import Polygon
 
+SPECIFIC_SOURCE_PATH = os.path.join("P:\\","99 Austausch_TVöD","mara","Dissertation","20230120results_dl2")
 
 def plot_sample():
     """
@@ -45,6 +49,31 @@ def plot_fitness_evolution(evolutions: list = None):
 
     # ax.plot(x, fit_avg, 'o', color='tab:brown')
     plt.grid(True)
+    ax.set_xlabel("Generations")
+    ax.set_ylabel("Fitness")
+    ax.legend()
+
+    plt.show()
+
+
+def plot_fitness_arrays(title: str, fitness_charts: []):
+
+    fig, ax = plt.subplots()
+    x = np.arange(0.0, len(fitness_charts[0]), 1.0)
+    colors = ['red', 'orange', 'brown', 'green', 'gray']
+    styles = ['-', '--', ':']
+    i = 0
+    for chart in fitness_charts:
+        if len(chart) == len(x):
+            linestyle = styles[i]
+            clr = colors[i]
+            ax.plot(x, chart, linestyle, color='tab:' + clr, label=str(i) + ": Offsprg Mean Fit")
+        i += 1
+    # ax.fill_between(x, fit_max, fit_min, alpha=0.2, label="Min/Max Range")
+
+    # ax.plot(x, fit_avg, 'o', color='tab:brown')
+    plt.grid(True)
+    ax.set_title(title)
     ax.set_xlabel("Generations")
     ax.set_ylabel("Fitness")
     ax.legend()
@@ -167,14 +196,80 @@ def computations_per_computing_unit():
     plt.show()
 
 
+def read_fitness_values(paths: dict(), filename: str, identifier: str):
+    fitness_arr = []
+    if os.path.exists(paths[filename]):
+        with open(paths[filename]) as fitness_file:
+            fitness_data = json.load(fitness_file)
+            for val in fitness_data:
+                fitness_arr.append(float(val[identifier]))
+    return fitness_arr
+
+
+def generate_plots(source_path, target_path):
+    # data[0]['Generation']
+    # data[0]['AverageOffspringFitness']
+    # src_data[0]['trainingDataDirectory']
+    for batch_name in os.listdir(source_path):
+        title = "undefined"
+        avg_off_fit = []
+        avg_pop_fit = []
+        best_ind_fit = []
+        analyzer_dir = os.path.join(source_path, batch_name, "Analyzer")
+
+        if not os.path.exists(analyzer_dir):
+            continue
+        i = 0
+        for iteration in os.listdir(analyzer_dir):
+            paths = {
+                'source': os.path.join(source_path, batch_name, "source.json"),
+                'AvgOffspringFit': os.path.join(source_path, batch_name, "Analyzer", str(i), "AvgOffspringFit.json"),
+                'AvgPopulationFit': os.path.join(source_path, batch_name, "Analyzer", str(i), "AvgPopulationFit.json"),
+                'BestIndividualFit': os.path.join(source_path, batch_name, "Analyzer", str(i), "BestIndividualFit.json")
+            }
+
+            # title from source.json
+            if os.path.exists(paths['source']):
+                with open(paths['source']) as sf:
+                    src_data = json.load(sf)
+                    title = src_data[0]['trainingDataDirectory']
+
+
+            avg_off_fit.append(read_fitness_values(paths, 'AvgOffspringFit', 'AverageOffspringFitness'))
+            avg_pop_fit.append(read_fitness_values(paths, 'AvgPopulationFit', 'AveragePopulationFitness'))
+            best_ind_fit.append(read_fitness_values(paths, 'BestIndividualFit', 'BestIndividualFitness'))
+
+            i += 1
+
+        # BestIndividualFit.json
+        plot_fitness_arrays(
+            title,
+            best_ind_fit
+        )
+
+
+
 def main() -> int:
+    results_path = p_join(os.path.curdir, 'results')
+    report_path = p_join(os.path.curdir, 'report')
+
     """Echo the input arguments to standard output"""
-    plot_sample()
-    fancy_mean_plot()
-    plot_fitness_evolution()
-    entropy_fitness_plot()
-    fitness_boxplots()
-    computations_per_computing_unit()
+    print("Create sample plots ...")
+    #plot_sample()
+    #fancy_mean_plot()
+    #plot_fitness_evolution()
+    #entropy_fitness_plot()
+    #fitness_boxplots()
+    #computations_per_computing_unit()
+
+    os.makedirs(report_path, mode=777, exist_ok=True)
+
+    # Creates HTML file report/index.html
+    if SPECIFIC_SOURCE_PATH:
+        generate_plots(SPECIFIC_SOURCE_PATH, report_path)
+    else:
+        generate_plots(results_path, report_path)
+    
     return 0
 
 
