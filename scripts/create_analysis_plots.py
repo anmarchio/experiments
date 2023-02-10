@@ -1,11 +1,10 @@
 import json
 import os
 import sys
+from os.path import join as p_join
 
 import matplotlib.pyplot as plt
 import numpy as np
-from os.path import join as p_join
-from matplotlib.patches import Polygon
 
 SPECIFIC_SOURCE_PATH = os.path.join("P:\\","99 Austausch_TVöD","mara","Dissertation","20230120results_dl2")
 
@@ -255,20 +254,20 @@ def main() -> int:
 
     """Echo the input arguments to standard output"""
     print("Create sample plots ...")
-    #plot_sample()
-    #fancy_mean_plot()
-    #plot_fitness_evolution()
-    #entropy_fitness_plot()
-    #fitness_boxplots()
-    #computations_per_computing_unit()
+    plot_sample()
+    fancy_mean_plot()
+    plot_fitness_evolution()
+    entropy_fitness_plot()
+    fitness_boxplots()
+    computations_per_computing_unit()
 
-    os.makedirs(report_path, mode=777, exist_ok=True)
+    # os.makedirs(report_path, mode=777, exist_ok=True)
 
     # Creates HTML file report/index.html
-    if SPECIFIC_SOURCE_PATH:
-        generate_plots(SPECIFIC_SOURCE_PATH, report_path)
-    else:
-        generate_plots(results_path, report_path)
+    # if SPECIFIC_SOURCE_PATH:
+    #     generate_plots(SPECIFIC_SOURCE_PATH, report_path)
+    # else:
+    #     generate_plots(results_path, report_path)
     
     return 0
 
