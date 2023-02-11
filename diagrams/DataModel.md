@@ -37,9 +37,24 @@ class AvgPopulationFit
 class AvgIndividualFit
 
 class Grid
-class GridNodes
-class Pipeline
-class Vector 
+class GridNodes {
+  HashCode: Int
+  Time: DateTime
+  Inputs: Int[]
+  Outputs: Int
+  ActiveNodes: Int[]
+}
+class GridNode {
+  In: Int
+  Name: String
+  Values: Float[]
+}
+class Pipeline {
+  Digraph: String
+}
+class Vector {
+  Values: Float[]
+}
 
 class Images
 class Image {
@@ -72,6 +87,7 @@ Analyzer "1" -- "1" AvgIndividualFit
 
 Run "1" -- "1" Grid
 Grid "1" -- "1" GridNodes
+GridNodes "1" -- "*" GridNode
 Grid "1" -- "1" Pipeline
 Grid "1" -- "1" Vector
 
