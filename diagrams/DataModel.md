@@ -28,7 +28,7 @@ class DataSet {
 class Analyzer
 
 class FitnessList {
-  FitnessValues: float[] 
+  values: float[] 
 }
 class AvgOffspringFit
 
@@ -37,8 +37,8 @@ class AvgPopulationFit
 class AvgIndividualFit
 
 class Individual {
-  Generation: Int
-  IndividualId: Int
+  id: Int
+  generation_number: Int
 }
 
 class Item {
@@ -48,16 +48,16 @@ class Item {
 
 class Grid
 class GridNodes {
-  HashCode: Int
-  Time: DateTime
-  Inputs: Int[]
-  Outputs: Int
-  ActiveNodes: Int[]
+  hash_code: Int
+  time: DateTime
+  inputs: Int[]
+  number_of_outputs: Int
+  active_nodes: Int[]
 }
 class GridNode {
-  In: Int
-  Name: String
-  Values: Float[]
+  in: Int
+  name: String
+  values: Float[]
 }
 class Pipeline {
   digraph: String
@@ -77,7 +77,7 @@ class Parameter {
 }
 
 class Vector {
-  Values: Float[]
+  values: Float[]
 }
 
 class Images
