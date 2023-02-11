@@ -47,6 +47,7 @@ class FitnessFunction {
 class DataSet {
   name: String
   location: String
+  url: String
 }
 
 class Analyzer
