@@ -36,6 +36,16 @@ class AvgPopulationFit
 
 class AvgIndividualFit
 
+class Individual {
+  Generation: Int
+  IndividualId: Int
+}
+
+class Item {
+  name: String
+  MCC: float
+}
+
 class Grid
 class GridNodes {
   HashCode: Int
@@ -55,14 +65,14 @@ class Pipeline {
   + string to_hdev()
 }
 
-class PipelineNode {
-  in: PipelineNode[]
-  next: PipelineNode[]
-  label: String
+class Node {
+  node_id: float
+  children: Node[]
+  name: String
 }
 
-class PipelineNodeParameter {
-  param_name: String
+class Parameter {
+  name: String
   value: abstract
 }
 
@@ -98,14 +108,17 @@ FitnessList <|- AvgIndividualFit
 Analyzer "1" -- "1" AvgOffspringFit 
 Analyzer "1" -- "1" AvgPopulationFit
 Analyzer "1" -- "1" AvgIndividualFit
+Analyzer "1" -- "*" Individual
+Individual "1" -- "*" Item
+Individual "1" -- "1" Pipeline
 
 Run "1" -- "1" Grid
 Grid "1" -- "1" GridNodes
 GridNodes "1" -- "*" GridNode
 Grid "1" -- "1" Pipeline
 Grid "1" -- "1" Vector
-Pipeline "1" -- "*" PipelineNode
-PipelineNode "1" -- "*" PipelineNodeParameter
+Pipeline "1" -- "*" Node
+Node "1" -- "*" Parameter
 
 Run "1" -- "1" Images
 Images "1" -- "*" Image
