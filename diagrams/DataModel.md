@@ -15,9 +15,33 @@ class Run {
   number: Int
 }
 
-class Configuration {
-  mu: Int
+class Configuration 
+
+class EvolutionStrategy {
+  rho: Int
   lambda: Int
+  plus_selection: bool
+  mu: Int
+}
+
+class HalconFitnessConfiguration {
+  region_score_weight: float
+  artifact_score_weight: float
+  fitness_score_weight: float
+  maximization: bool
+  weights: double[]
+  fitness_functions: FitnessFunction[]
+  excess_region_handling: Object
+  region_count_threshold: bool
+  execution_time_threshold: bool
+  use_execution_time_fitness_penalty: bool
+  execution_time_function_scale_factor: float
+  pixel_percentage_threshold: float
+  filename: String
+}
+
+class FitnessFunction {
+  label: String
 }
 
 class DataSet {
@@ -104,6 +128,9 @@ Run "1" -- "1" Analyzer
 FitnessList <|- AvgOffspringFit
 FitnessList <|- AvgPopulationFit
 FitnessList <|- AvgIndividualFit
+
+Configuration "1" -- "1" HalconFitnessConfiguration
+Configuration "1" -- "1" EvolutionStrategy
 
 Analyzer "1" -- "1" AvgOffspringFit 
 Analyzer "1" -- "1" AvgPopulationFit
