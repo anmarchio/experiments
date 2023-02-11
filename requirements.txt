@@ -4,3 +4,4 @@ numpy
 imgann
 scikit-learn
 pydot
+sqlalchemy

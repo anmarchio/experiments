@@ -6,7 +6,9 @@ from os.path import join as p_join
 import matplotlib.pyplot as plt
 import numpy as np
 
-SPECIFIC_SOURCE_PATH = os.path.join("P:\\","99 Austausch_TVöD","mara","Dissertation","20230120results_dl2")
+# SPECIFIC_SOURCE_PATH = os.path.join("P:\\", "99 Austausch_TVöD", "mara", "Dissertation", "20230120results_dl2")
+SPECIFIC_SOURCE_PATH = ""
+
 
 def plot_sample():
     """
@@ -55,8 +57,7 @@ def plot_fitness_evolution(evolutions: list = None):
     plt.show()
 
 
-def plot_fitness_arrays(title: str, fitness_charts: []):
-
+def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: []):
     fig, ax = plt.subplots()
     x = np.arange(0.0, len(fitness_charts[0]), 1.0)
     colors = ['red', 'orange', 'brown', 'green', 'gray']
@@ -66,9 +67,10 @@ def plot_fitness_arrays(title: str, fitness_charts: []):
         if len(chart) == len(x):
             linestyle = styles[i]
             clr = colors[i]
-            ax.plot(x, chart, linestyle, color='tab:' + clr, label=str(i) + ": Offsprg Mean Fit")
+            ax.plot(x, chart, linestyle, color='tab:' + clr, label=str(i) + ": " + axis_title)
         i += 1
-    # ax.fill_between(x, fit_max, fit_min, alpha=0.2, label="Min/Max Range")
+    ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
+    ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
 
     # ax.plot(x, fit_avg, 'o', color='tab:brown')
     plt.grid(True)
@@ -219,12 +221,12 @@ def generate_plots(source_path, target_path):
         if not os.path.exists(analyzer_dir):
             continue
         i = 0
-        for iteration in os.listdir(analyzer_dir):
+        for dir in os.listdir(analyzer_dir):
             paths = {
                 'source': os.path.join(source_path, batch_name, "source.json"),
-                'AvgOffspringFit': os.path.join(source_path, batch_name, "Analyzer", str(i), "AvgOffspringFit.json"),
-                'AvgPopulationFit': os.path.join(source_path, batch_name, "Analyzer", str(i), "AvgPopulationFit.json"),
-                'BestIndividualFit': os.path.join(source_path, batch_name, "Analyzer", str(i), "BestIndividualFit.json")
+                'AvgOffspringFit': os.path.join(source_path, batch_name, "Analyzer", dir, "AvgOffspringFit.json"),
+                'AvgPopulationFit': os.path.join(source_path, batch_name, "Analyzer", dir, "AvgPopulationFit.json"),
+                'BestIndividualFit': os.path.join(source_path, batch_name, "Analyzer", dir, "BestIndividualFit.json")
             }
 
             # title from source.json
@@ -233,42 +235,51 @@ def generate_plots(source_path, target_path):
                     src_data = json.load(sf)
                     title = src_data[0]['trainingDataDirectory']
 
-
             avg_off_fit.append(read_fitness_values(paths, 'AvgOffspringFit', 'AverageOffspringFitness'))
             avg_pop_fit.append(read_fitness_values(paths, 'AvgPopulationFit', 'AveragePopulationFitness'))
             best_ind_fit.append(read_fitness_values(paths, 'BestIndividualFit', 'BestIndividualFitness'))
 
             i += 1
 
-        # BestIndividualFit.json
         plot_fitness_arrays(
             title,
+            "Offspring Mean",
+            avg_off_fit
+        )
+        plot_fitness_arrays(
+            title,
+            "Population Mean",
+            avg_pop_fit
+        )
+        plot_fitness_arrays(
+            title,
+            "Best Individual Mean",
             best_ind_fit
         )
-
 
 
 def main() -> int:
     results_path = p_join(os.path.curdir, 'results')
     report_path = p_join(os.path.curdir, 'report')
 
-    """Echo the input arguments to standard output"""
+    # Echo the input arguments to standard output
     print("Create sample plots ...")
-    plot_sample()
-    fancy_mean_plot()
-    plot_fitness_evolution()
-    entropy_fitness_plot()
-    fitness_boxplots()
-    computations_per_computing_unit()
+
+    # plot_sample()
+    # fancy_mean_plot()
+    # plot_fitness_evolution()
+    # entropy_fitness_plot()
+    # fitness_boxplots()
+    # computations_per_computing_unit()
 
     # os.makedirs(report_path, mode=777, exist_ok=True)
 
     # Creates HTML file report/index.html
-    # if SPECIFIC_SOURCE_PATH:
-    #     generate_plots(SPECIFIC_SOURCE_PATH, report_path)
-    # else:
-    #     generate_plots(results_path, report_path)
-    
+    if SPECIFIC_SOURCE_PATH is not "":
+        generate_plots(SPECIFIC_SOURCE_PATH, report_path)
+    else:
+        generate_plots(results_path, report_path)
+
     return 0
 
 
