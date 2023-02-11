@@ -50,8 +50,22 @@ class GridNode {
   Values: Float[]
 }
 class Pipeline {
-  Digraph: String
+  digraph: String
+  + string get_digraph()
+  + string to_hdev()
 }
+
+class PipelineNode {
+  in: PipelineNode[]
+  next: PipelineNode[]
+  label: String
+}
+
+class PipelineNodeParameter {
+  param_name: String
+  value: abstract
+}
+
 class Vector {
   Values: Float[]
 }
@@ -90,8 +104,11 @@ Grid "1" -- "1" GridNodes
 GridNodes "1" -- "*" GridNode
 Grid "1" -- "1" Pipeline
 Grid "1" -- "1" Vector
+Pipeline "1" -- "*" PipelineNode
+PipelineNode "1" -- "*" PipelineNodeParameter
 
 Run "1" -- "1" Images
 Images "1" -- "*" Image
 Image "1" -- "1" ConfusionMatrix
 ```
+
