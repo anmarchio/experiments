@@ -10,7 +10,7 @@ class Run{
   number: Int
 }
 
-Comfiguration {
+class Configuration {
   Mu: Int
   Lambda: Int
 }
