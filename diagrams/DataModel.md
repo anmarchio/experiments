@@ -45,7 +45,8 @@ class Images
 class Image {
   filename: String
 }
-ConfusionMatrix {
+
+class ConfusionMatrix {
     true_positives: Int
     true_negatives: Int
     false_positives: Int
