@@ -6,8 +6,6 @@
 class Experiment {
   created_at: DateTime
   seed: Int
-  source_directory: String
-  validation_directory: String
 }
 
 class Run {
@@ -54,7 +52,9 @@ enum FitnessFunction {
 
 class DataSet {
   name: String
-  location: String
+  source_directory: String
+  validation_directory: String
+  description: String
   url: String
 }
 
