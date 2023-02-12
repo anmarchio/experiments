@@ -144,19 +144,23 @@ class Grid(Base):
     )
 
 
-class Images(Base):
-    __tablename__ = "grid"
-    analyzer_id = Column(Integer, primary_key=True)
-    grid_id = Column(Integer, ForeignKey("grid.grid_id"))
-    pipeline_id = Column(
-        Integer,
-        ForeignKey("pipeline.pipeline_id")
-    )
-    grid_nodes_id = Column(
-        Integer,
-        ForeignKey("grid_nodes.grid_nodes_id")
-    )
-    vector_id = Column(
-        Integer,
-        ForeignKey("vector.vector_id")
-    )
+class Image(Base):
+    __tablename__ = "image"
+    image_id = Column(Integer, primary_key=True)
+    run_id = Column(Integer, ForeignKey("run.run_id"))
+    confusion_matrix_id = Column(Integer, ForeignKey("confusion_matrix.confusion_matrix_id"))
+    filename = Column(String)
+
+
+class ConfusionMatrix(Base):
+    __tablename__ = "confusion_matrix"
+    confusion_matrix_id = Column(Integer, primary_key=True)
+    image_id = Column(Integer, ForeignKey("image.image_id"))
+    true_positives = Column(Integer)
+    true_negatives = Column(Integer)
+    false_positives = Column(Integer)
+    false_negatives = Column(Integer)
+    MCC = Column(float)
+    height = Column(Integer)
+    width = Column(Integer)
+    size_total = Column(Integer)
