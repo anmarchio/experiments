@@ -40,8 +40,13 @@ class HalconFitnessConfiguration {
   filename: String
 }
 
-class FitnessFunction {
-  label: String
+enum FitnessFunction {
+  MCC
+  F-Score
+  RegionScore
+  Accuracy
+  Precision
+  Recall
 }
 
 class DataSet {
