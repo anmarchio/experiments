@@ -96,8 +96,12 @@ class Grid {
 class GridNode {
   in: Int
   name: String
-  values: Float[]
 }
+
+class GridNodeValue {
+  value: Float
+}
+
 class Pipeline {
   digraph: String
   + string get_digraph()
@@ -154,6 +158,7 @@ Individual "1" -- "1" Pipeline
 
 Run "1" -- "1" Grid
 Grid "1" -- "*" GridNode
+GridNode "1" -- "*" GridNodeValue
 Grid "1" -- "1" Pipeline
 Grid "1" -- "1" Vector
 Vector "1" -- "*" Element
