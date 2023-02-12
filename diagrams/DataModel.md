@@ -85,14 +85,14 @@ class Item {
   MCC: float
 }
 
-class Grid
-class GridNodes {
+class Grid {
   hash_code: Int
   time: DateTime
-  inputs: Int[]
+  inputs: GridNode[]
   number_of_outputs: Int
-  active_nodes: Int[]
+  active_nodes: GridNode[]
 }
+
 class GridNode {
   in: Int
   name: String
@@ -153,8 +153,7 @@ Individual "1" -- "*" Item
 Individual "1" -- "1" Pipeline
 
 Run "1" -- "1" Grid
-Grid "1" -- "1" GridNodes
-GridNodes "1" -- "*" GridNode
+Grid "1" -- "*" GridNode
 Grid "1" -- "1" Pipeline
 Grid "1" -- "1" Vector
 Vector "1" -- "*" Element
