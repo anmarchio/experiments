@@ -6,8 +6,6 @@
 class Experiment {
   created_at: DateTime
   seed: Int
-  source_directory: String
-  validation_directory: String
 }
 
 class Run {
@@ -29,7 +27,6 @@ class HalconFitnessConfiguration {
   artifact_score_weight: float
   fitness_score_weight: float
   maximization: bool
-  weights: double[]
   fitness_functions: FitnessFunction[]
   excess_region_handling: Object
   region_count_threshold: bool
@@ -40,26 +37,43 @@ class HalconFitnessConfiguration {
   filename: String
 }
 
-class FitnessFunction {
-  label: String
+class Weight{
+  value: Int
+}
+
+enum FitnessFunction {
+  MCC
+  F-Score
+  RegionScore
+  Accuracy
+  Precision
+  Recall
 }
 
 class DataSet {
   name: String
-  location: String
+  source_directory: String
+  validation_directory: String
+  description: String
   url: String
 }
 
 class Analyzer
 
-class FitnessList {
-  values: float[] 
+class AvgOffspringFit {
+  generation: Int
+  average_offspring_fitness: Float
 }
-class AvgOffspringFit
 
-class AvgPopulationFit
+class AvgPopulationFit {
+  generation: Int
+  average_population_fitness: Float
+}
 
-class AvgIndividualFit
+class BestIndividualFit {
+  generation: Int
+  best_individiual_fitness: Float
+}
 
 class Individual {
   id: Int
@@ -71,19 +85,24 @@ class Item {
   MCC: float
 }
 
-class Grid
-class GridNodes {
+class Grid {
   hash_code: Int
   time: DateTime
-  inputs: Int[]
   number_of_outputs: Int
-  active_nodes: Int[]
 }
+
+class ActiveGridNodes
+class InputGridNodes
+
 class GridNode {
   in: Int
   name: String
-  values: Float[]
 }
+
+class GridNodeValue {
+  value: Float
+}
+
 class Pipeline {
   digraph: String
   + string get_digraph()
@@ -92,17 +111,18 @@ class Pipeline {
 
 class Node {
   node_id: float
-  children: Node[]
   name: String
 }
 
 class Parameter {
   name: String
-  value: abstract
+  value: String
 }
 
-class Vector {
-  values: Float[]
+class Vector
+
+class Element {
+  value: Float
 }
 
 class Image {
@@ -125,27 +145,31 @@ Experiment "*" -- "1" DataSet
 Experiment "*" -- "1" Configuration
 
 Run "1" -- "1" Analyzer
-FitnessList <|- AvgOffspringFit
-FitnessList <|- AvgPopulationFit
-FitnessList <|- AvgIndividualFit
 
 Configuration "1" -- "1" HalconFitnessConfiguration
 Configuration "1" -- "1" EvolutionStrategy
+HalconFitnessConfiguration "1" -- "*" Weight
 
-Analyzer "1" -- "1" AvgOffspringFit 
-Analyzer "1" -- "1" AvgPopulationFit
-Analyzer "1" -- "1" AvgIndividualFit
+Analyzer "1" -- "*" AvgOffspringFit 
+Analyzer "1" -- "*" AvgPopulationFit
+Analyzer "1" -- "*" BestIndividualFit
 Analyzer "1" -- "*" Individual
 Individual "1" -- "*" Item
 Individual "1" -- "1" Pipeline
 
 Run "1" -- "1" Grid
-Grid "1" -- "1" GridNodes
-GridNodes "1" -- "*" GridNode
+Grid "1" -- "1"  ActiveGridNodes
+Grid "1" -- "1"  InputGridNodes
+ActiveGridNodes "1" -- "*" GridNode
+InputGridNodes "1" -- "*" GridNode
+Grid "1" -- "*" GridNode
+GridNode "1" -- "*" GridNodeValue
 Grid "1" -- "1" Pipeline
 Grid "1" -- "1" Vector
+Vector "1" -- "*" Element
 Pipeline "1" -- "*" Node
 Node "1" -- "*" Parameter
+Node "1" -- "0..*" Node
 
 Run "1" -- "*" Image
 Image "1" -- "1" ConfusionMatrix
