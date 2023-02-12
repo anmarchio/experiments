@@ -29,7 +29,6 @@ class HalconFitnessConfiguration {
   artifact_score_weight: float
   fitness_score_weight: float
   maximization: bool
-  weights: double[]
   fitness_functions: FitnessFunction[]
   excess_region_handling: Object
   region_count_threshold: bool
@@ -38,6 +37,10 @@ class HalconFitnessConfiguration {
   execution_time_function_scale_factor: float
   pixel_percentage_threshold: float
   filename: String
+}
+
+class Weight{
+  value: Int
 }
 
 enum FitnessFunction {
@@ -136,6 +139,7 @@ FitnessList <|- AvgIndividualFit
 
 Configuration "1" -- "1" HalconFitnessConfiguration
 Configuration "1" -- "1" EvolutionStrategy
+HalconFitnessConfiguration "1" -- "*" Weight
 
 Analyzer "1" -- "1" AvgOffspringFit 
 Analyzer "1" -- "1" AvgPopulationFit
