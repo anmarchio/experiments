@@ -60,18 +60,18 @@ class DataSet {
 
 class Analyzer
 
-class GenerationFitness {
-  generation: Int
-}
 class AvgOffspringFit {
+  generation: Int
   average_offspring_fitness: Float
 }
 
 class AvgPopulationFit {
+  generation: Int
   average_population_fitness: Float
 }
 
 class BestIndividualFit {
+  generation: Int
   best_individiual_fitness: Float
 }
 
@@ -139,9 +139,6 @@ Experiment "*" -- "1" DataSet
 Experiment "*" -- "1" Configuration
 
 Run "1" -- "1" Analyzer
-GenerationFitness <|- AvgOffspringFit
-GenerationFitness <|- AvgPopulationFit
-GenerationFitness <|- BestIndividualFit
 
 Configuration "1" -- "1" HalconFitnessConfiguration
 Configuration "1" -- "1" EvolutionStrategy
