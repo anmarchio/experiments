@@ -67,7 +67,7 @@ class AvgOffspringFit
 
 class AvgPopulationFit
 
-class AvgIndividualFit
+class BestIndividualFit
 
 class Individual {
   id: Int
@@ -143,7 +143,7 @@ HalconFitnessConfiguration "1" -- "*" Weight
 
 Analyzer "1" -- "1" AvgOffspringFit 
 Analyzer "1" -- "1" AvgPopulationFit
-Analyzer "1" -- "1" AvgIndividualFit
+Analyzer "1" -- "1" BestIndividualFit
 Analyzer "1" -- "*" Individual
 Individual "1" -- "*" Item
 Individual "1" -- "1" Pipeline
