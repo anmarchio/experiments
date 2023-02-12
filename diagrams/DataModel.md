@@ -88,10 +88,11 @@ class Item {
 class Grid {
   hash_code: Int
   time: DateTime
-  inputs: GridNode[]
   number_of_outputs: Int
-  active_nodes: GridNode[]
 }
+
+class ActiveGridNodes
+class InputGridNodes
 
 class GridNode {
   in: Int
@@ -157,6 +158,10 @@ Individual "1" -- "*" Item
 Individual "1" -- "1" Pipeline
 
 Run "1" -- "1" Grid
+Grid "1" -- "1"  ActiveGridNodes
+Grid "1" -- "1"  InputGridNodes
+ActiveGridNodes "1" -- "*" GridNode
+InputGridNodes "1" -- "*" GridNode
 Grid "1" -- "*" GridNode
 GridNode "1" -- "*" GridNodeValue
 Grid "1" -- "1" Pipeline
