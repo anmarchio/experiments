@@ -4,7 +4,37 @@ def import_one(path: str):
     and translates them to python model objects
     """
     print('Importing %s', path)
-    pass
+    # Analyzer
+    #         |_0
+    #            |_ AvgOffspringFit.json
+    #            |_ AvgPopulationFit.json
+    #            |_ AvgIndividualFit.json
+    #            |_ individual_evaluation_log.json
+    #            |_ loader_evaluation_log.json
+
+    # Config
+    #       |_ EvoluationStrategy.txt
+    #       |_ Fitness.txt
+
+    # Exception
+    #          |_ 9917D8E0-20230202.txt
+
+    # Grid
+    #     |_0
+    #        |_ append_pipeline.txt
+    #        |_ grid.txt
+    #        |_ pipeline.txt
+    #        |_ vector.txt
+
+    # Images
+    #       |_0
+    #          |_ 16.bmp
+    #          |_ ...
+    #          |_ ...
+    #          |_ AppendPipelineConfusionMatrix.json
+    #          |_ ConfusionMatrix.json
+    #          |_ legend.txt
+    return False
 
 
 def import_many(paths: []):
@@ -13,5 +43,5 @@ def import_many(paths: []):
     cgp optimization experiments
     """
     for path in paths:
-        import_one(path)
-    print('Done importing.')
+        print(import_one(path))
+    print('Finished importing.')
