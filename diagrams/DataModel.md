@@ -61,13 +61,19 @@ class DataSet {
 class Analyzer
 
 class FitnessList {
-  values: float[] 
+  generation: Int
 }
-class AvgOffspringFit
+class AvgOffspringFit {
+  average_offspring_fitness: Float
+}
 
-class AvgPopulationFit
+class AvgPopulationFit {
+  average_population_fitness: Float
+}
 
-class BestIndividualFit
+class BestIndividualFit {
+  best_individiual_fitness: Float
+}
 
 class Individual {
   id: Int
@@ -141,9 +147,9 @@ Configuration "1" -- "1" HalconFitnessConfiguration
 Configuration "1" -- "1" EvolutionStrategy
 HalconFitnessConfiguration "1" -- "*" Weight
 
-Analyzer "1" -- "1" AvgOffspringFit 
-Analyzer "1" -- "1" AvgPopulationFit
-Analyzer "1" -- "1" BestIndividualFit
+Analyzer "1" -- "*" AvgOffspringFit 
+Analyzer "1" -- "*" AvgPopulationFit
+Analyzer "1" -- "*" BestIndividualFit
 Analyzer "1" -- "*" Individual
 Individual "1" -- "*" Item
 Individual "1" -- "1" Pipeline
