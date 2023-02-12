@@ -60,7 +60,7 @@ class DataSet {
 
 class Analyzer
 
-class FitnessList {
+class GenerationFitness {
   generation: Int
 }
 class AvgOffspringFit {
@@ -139,9 +139,9 @@ Experiment "*" -- "1" DataSet
 Experiment "*" -- "1" Configuration
 
 Run "1" -- "1" Analyzer
-FitnessList <|- AvgOffspringFit
-FitnessList <|- AvgPopulationFit
-FitnessList <|- AvgIndividualFit
+GenerationFitness <|- AvgOffspringFit
+GenerationFitness <|- AvgPopulationFit
+GenerationFitness <|- AvgIndividualFit
 
 Configuration "1" -- "1" HalconFitnessConfiguration
 Configuration "1" -- "1" EvolutionStrategy
