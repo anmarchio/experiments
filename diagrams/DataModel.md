@@ -106,13 +106,12 @@ class Pipeline {
 
 class Node {
   node_id: float
-  children: Node[]
   name: String
 }
 
 class Parameter {
   name: String
-  value: abstract
+  value: String
 }
 
 class Vector {
@@ -158,6 +157,7 @@ Grid "1" -- "1" Pipeline
 Grid "1" -- "1" Vector
 Pipeline "1" -- "*" Node
 Node "1" -- "*" Parameter
+Node "1" -- "0..*" Node
 
 Run "1" -- "*" Image
 Image "1" -- "1" ConfusionMatrix
