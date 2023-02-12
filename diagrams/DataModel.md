@@ -105,7 +105,6 @@ class Vector {
   values: Float[]
 }
 
-class Images
 class Image {
   filename: String
 }
@@ -148,8 +147,7 @@ Grid "1" -- "1" Vector
 Pipeline "1" -- "*" Node
 Node "1" -- "*" Parameter
 
-Run "1" -- "1" Images
-Images "1" -- "*" Image
+Run "1" -- "*" Image
 Image "1" -- "1" ConfusionMatrix
 ```
 
