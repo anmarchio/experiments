@@ -114,8 +114,10 @@ class Parameter {
   value: String
 }
 
-class Vector {
-  values: Float[]
+class Vector
+
+class Element {
+  value: Float
 }
 
 class Image {
@@ -155,6 +157,7 @@ Grid "1" -- "1" GridNodes
 GridNodes "1" -- "*" GridNode
 Grid "1" -- "1" Pipeline
 Grid "1" -- "1" Vector
+Vector "1" -- "*" Element
 Pipeline "1" -- "*" Node
 Node "1" -- "*" Parameter
 Node "1" -- "0..*" Node
