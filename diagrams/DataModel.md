@@ -141,7 +141,7 @@ Experiment "*" -- "1" Configuration
 Run "1" -- "1" Analyzer
 GenerationFitness <|- AvgOffspringFit
 GenerationFitness <|- AvgPopulationFit
-GenerationFitness <|- AvgIndividualFit
+GenerationFitness <|- BestIndividualFit
 
 Configuration "1" -- "1" HalconFitnessConfiguration
 Configuration "1" -- "1" EvolutionStrategy
