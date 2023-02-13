@@ -8,6 +8,11 @@ class Experiment {
   seed: Int
 }
 
+class Exception {
+  identifier: String
+  content: String
+}
+
 class Run {
   started_at: DateTime
   number: Int
@@ -144,6 +149,7 @@ class ConfusionMatrix {
 Experiment "1" -- "*" Run
 Experiment "*" -- "1" DataSet
 Experiment "*" -- "1" Configuration
+Experiment "1" -- "1" Exception
 
 Run "1" -- "1" Analyzer
 
