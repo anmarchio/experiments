@@ -8,7 +8,7 @@ class Experiment {
   seed: Int
 }
 
-class Exception {
+class ExceptionLog {
   identifier: String
   content: String
 }
@@ -149,7 +149,7 @@ class ConfusionMatrix {
 Experiment "1" -- "*" Run
 Experiment "*" -- "1" DataSet
 Experiment "*" -- "1" Configuration
-Experiment "1" -- "1" Exception
+Experiment "1" -- "1" ExceptionLog
 
 Run "1" -- "1" Analyzer
 
