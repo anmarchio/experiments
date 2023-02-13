@@ -7,9 +7,9 @@ from sqlalchemy.orm import sessionmaker
 import xml.etree.ElementTree as ET
 
 from api.models import Dataset, Experiment, Run, Base, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
-    Configuration, EvolutionStrategy, HalconFitnessConfiguration, Image, ConfusionMatrix
+    Configuration, EvolutionStrategy, HalconFitnessConfiguration, Image, ConfusionMatrix, ExceptionLog
 from api.test_data import AvgOffspringFit_0, AvgPopulationFit_0, BestIndividualFit_0, EVOLUTIONSTRATEGY_TXT, \
-    FITNESS_TXT, IMAGES_0, LEGEND_TXT
+    FITNESS_TXT, IMAGES_0, LEGEND_TXT, EXCEPTION_TXT
 
 SQLITE_TEST_PATH = "experiments_test.db"
 
@@ -236,7 +236,7 @@ class TestModel(unittest.TestCase):
                 confusion_matrix_id=confusion_matrix.confusion_matrix_id,
                 filename=img
             )
-            confusion_matrix.image_id=image.image_id
+            confusion_matrix.image_id = image.image_id
             self.session.add(image)
             self.session.add(confusion_matrix)
 
@@ -252,6 +252,29 @@ class TestModel(unittest.TestCase):
         # Remove from database
         self.session.query(Image).delete()
         self.session.query(ConfusionMatrix).delete()
+        self.session.commit()
+        self.session.flush()
+
+    def test_grid(self):
+        # Grid
+        #     |_0
+        #        |_ append_pipeline.txt
+        #        |_ grid.txt
+        #        |_ pipeline.txt
+        #        |_ vector.txt
+        exception_log = ExceptionLog(
+            exception_id=self.experiment.experiment_id,
+            identifier="A6BBA1CC-20230131",
+            content=EXCEPTION_TXT
+        )
+        self.session.add(exception_log)
+        self.session.commit()
+
+        # Count Exception Rows
+        self.assertEqual(self.session.query(ExceptionLog).count(), 1)
+
+        # Remove from database
+        self.session.delete(exception_log)
         self.session.commit()
         self.session.flush()
 

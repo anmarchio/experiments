@@ -180,3 +180,21 @@ LEGEND_TXT = \
     'Red: actual (ist)' \
     'Green: reference (soll)' \
     'Yellow: intersection of actual and reference, i.e. true positives'
+
+EXCEPTION_TXT = \
+    '2023-01-31 10:19:39.239 +01:00 [INF] batch --backend=halcon --runs=2 ' \
+    '--train-data-dir=/mnt/sdc1/evias_expmts/severstal-steel/train_cgp ' \
+    '--val-data-dir=/mnt/sdc1/evias_expmts/severstal-steel/val_cgp --generations=150' \
+    '2023-01-31 10:19:39.239 +01:00 [INF] Optimization.Commandline, Version=1.0.0.0, Culture=neutral, ' \
+    'PublicKeyToken=null' \
+    '2023-01-31 10:19:39.320 +01:00 [WRN] No seed was specified, seeding randomly.' \
+    '2023-01-31 10:19:39.320 +01:00 [INF] Seed: 1804018924' \
+    '2023-01-31 10:20:14.774 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an ' \
+    'exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, ' \
+    'Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: ' \
+    'CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> ' \
+    'Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 ' \
+    'B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be ' \
+    'of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: ' \
+    'MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> ' \
+    'System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude '

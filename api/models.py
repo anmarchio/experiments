@@ -280,3 +280,14 @@ class HalconFitnessConfiguration(Base):
     execution_time_function_time_scale_factor = Column(Float)
     pixel_percentage_threshold = Column(Float)
     filename = Column(String)
+
+
+class ExceptionLog(Base):
+    __tablename__ = "exception"
+    exception_id = Column(Integer, primary_key=True)
+    experiment_id = Column(
+        Integer,
+        ForeignKey("experiment.experiment_id")
+    )
+    identifier = Column(String)
+    content = Column(String)
