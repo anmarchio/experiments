@@ -9,9 +9,10 @@ import xml.etree.ElementTree as ET
 
 from api.models import Dataset, Experiment, Run, Base, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
     Configuration, EvolutionStrategy, HalconFitnessConfiguration, Image, ConfusionMatrix, ExceptionLog, Element, Vector, \
-    Grid, ActiveGridNodes, InputGridNodes, OutputGridNodes, GridNode, GridNodeValue
+    Grid, ActiveGridNodes, InputGridNodes, OutputGridNodes, GridNode, GridNodeValue, Pipeline, Individual, Node, \
+    Parameter
 from api.test_data import AvgOffspringFit_0, AvgPopulationFit_0, BestIndividualFit_0, EVOLUTIONSTRATEGY_TXT, \
-    FITNESS_TXT, IMAGES_0, LEGEND_TXT, EXCEPTION_TXT, VECTOR, GRID_TXT
+    FITNESS_TXT, IMAGES_0, LEGEND_TXT, EXCEPTION_TXT, VECTOR, GRID_TXT, APPEND_PIPELINE_TXT, LOADER_EVALUATION_LOG
 
 SQLITE_TEST_PATH = "experiments_test.db"
 
@@ -23,9 +24,9 @@ class TestModel(unittest.TestCase):
         Session = sessionmaker()
         Session.configure(bind=engine)
         self.session = Session()
-        self.create_dataset_experiment_grid_run()
+        self.create_dataset_experiment_grid_run_analyzer()
 
-    def create_dataset_experiment_grid_run(self) -> None:
+    def create_dataset_experiment_grid_run_analyzer(self) -> None:
         # Create dataset
         self.dataset = Dataset(
             name="CF_ReferenceSet_Small_Dark",
@@ -52,6 +53,7 @@ class TestModel(unittest.TestCase):
             number_of_inputs=int(lines[3][7:-1]),
             run_id=self.run.run_id
         )
+        self.analyzer = Analyzer(run_id=self.run.run_id)
 
         self.session.begin()
 
@@ -59,10 +61,11 @@ class TestModel(unittest.TestCase):
         self.session.add(self.experiment)
         self.session.add(self.run)
         self.session.add(self.grid)
+        self.session.add(self.analyzer)
         # Commit entries
         self.session.commit()
 
-    def test_analyzer(self):
+    def test_fitness_analyzers(self):
         # Analyzer
         #         |_0
         #            |_ AvgOffspringFit.json
@@ -75,15 +78,13 @@ class TestModel(unittest.TestCase):
         best_individual_fit_json = json.loads(BestIndividualFit_0)
 
         self.session.begin()
-        analyzer = Analyzer(run_id=self.run.run_id)
-        self.session.add(analyzer)
 
         for entry in avg_offspring_fit_json:
             avg_offspring_fit = AvgOffspringFit(
                 generation=int(entry['Generation']),
                 average_offspring_fitness=float(entry['AverageOffspringFitness'])
             )
-            avg_offspring_fit.analyzer_id = analyzer.analyzer_id
+            avg_offspring_fit.analyzer_id = self.analyzer.analyzer_id
             self.session.add(avg_offspring_fit)
 
         for entry in avg_population_fit_json:
@@ -91,7 +92,7 @@ class TestModel(unittest.TestCase):
                 generation=int(avg_population_fit_json[0]['Generation']),
                 average_population_fitness=float(entry['AveragePopulationFitness'])
             )
-            avg_population_fit.analyzer_id = analyzer.analyzer_id
+            avg_population_fit.analyzer_id = self.analyzer.analyzer_id
             self.session.add(avg_population_fit)
 
         for entry in best_individual_fit_json:
@@ -99,7 +100,7 @@ class TestModel(unittest.TestCase):
                 generation=int(entry['Generation']),
                 average_individual_fitness=float(entry['AverageIndividualFitness'])
             )
-            best_individual_fit.analyzer_id = analyzer.analyzer_id
+            best_individual_fit.analyzer_id = self.analyzer.analyzer_id
             self.session.add(best_individual_fit)
 
         self.session.commit()
@@ -122,7 +123,6 @@ class TestModel(unittest.TestCase):
         self.assertEqual(analyzer_row_count, [1, 3, 3, 3])
 
         # Remove from database
-        self.session.delete(analyzer)
         self.session.query(AvgOffspringFit).delete()
         self.session.query(AvgPopulationFit).delete()
         self.session.query(BestIndividualFit).delete()
@@ -390,7 +390,8 @@ class TestModel(unittest.TestCase):
 
             # Add node values
             values_in_brackets = re.search(r"\([0-9.,-]+\)", node.split(":")[2])
-            values = values_in_brackets.string[values_in_brackets.regs[0][0]+1:values_in_brackets.regs[0][1]-1].split(",")
+            values = values_in_brackets.string[
+                     values_in_brackets.regs[0][0] + 1:values_in_brackets.regs[0][1] - 1].split(",")
             for v in values:
                 grid_node_value = GridNodeValue(
                     grid_node_id=grid_node.grid_node_id,
@@ -402,8 +403,8 @@ class TestModel(unittest.TestCase):
 
         # Count Grid and Vector Rows
         self.assertEqual(
-                self.session.query(GridNode).count(),
-                100
+            self.session.query(GridNode).count(),
+            100
         )
 
         # Remove from database
@@ -416,8 +417,61 @@ class TestModel(unittest.TestCase):
         self.session.flush()
 
     def test_pipeline(self):
-        print("[WARNING] test_pipeline NOT implemented!")
-        pass
+        evaluation_loader_json = json.loads(LOADER_EVALUATION_LOG)
+        for i in range(len(evaluation_loader_json)):
+            run = evaluation_loader_json[str(i)]
+            individual = Individual(
+                analyzer_id=self.analyzer.analyzer_id,
+                individual_object_id=int(run[0]['IndividualId']),
+                fitness=float(run[0]['Fitness']['MCC'])
+            )
+            pipeline = Pipeline(
+                digraph=APPEND_PIPELINE_TXT,
+                individual_id=individual.individual_id,
+                grid_id=self.grid.grid_id
+            )
+            self.session.add(pipeline)
+
+            pipeline_nodes = run[0]['Pipeline']
+            for p_node in pipeline_nodes:
+                node = Node(
+                    cgp_node_id=float(p_node['NodeID']),
+                    name=p_node['Name'],
+                    children=str(p_node['Children']),
+                    pipeline_id=pipeline.pipeline_id
+                )
+                self.session.add(node)
+                parameters = p_node['Parameters']
+                for p in parameters:
+                    parameter = Parameter(
+                        name=p['Name'],
+                        value=p['Value'],
+                        node_id=node.node_id
+                    )
+                    self.session.add(parameter)
+
+        self.session.commit()
+
+        # Count Pipeline Rows
+        self.assertEqual(
+            [
+                self.session.query(Pipeline).count(),
+                self.session.query(Node).count(),
+                self.session.query(Parameter).count()
+            ],
+            [
+                1,
+                3,
+                10
+            ]
+        )
+
+        # Empty database
+        self.session.query(Pipeline).delete()
+        self.session.query(Node).delete()
+        self.session.query(Parameter).delete()
+        self.session.commit()
+        self.session.flush()
 
     def tearDown(self) -> None:
         # Empty database
@@ -425,6 +479,7 @@ class TestModel(unittest.TestCase):
         self.session.delete(self.experiment)
         self.session.delete(self.run)
         self.session.delete(self.grid)
+        self.session.delete(self.analyzer)
         self.session.commit()
         self.session.flush()
 

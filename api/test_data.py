@@ -198,3 +198,82 @@ EXCEPTION_TXT = \
     'of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: ' \
     'MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> ' \
     'System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude '
+
+LOADER_EVALUATION_LOG = \
+    '{' \
+    '"0": [ ' \
+    '{' \
+    '  "IndividualId": 5,' \
+    '     "Fitness": {' \
+    '       "MCC": 0.0' \
+    '     },' \
+    '     "Pipeline": [' \
+    '       {' \
+    '         "NodeID": 20.0,' \
+    '         "Children": [' \
+    '           6.0' \
+    '         ],' \
+    '         "Name": "VarThreshold",' \
+    '         "Parameters": [' \
+    '           {' \
+    '             "Name": "MaskWidth",' \
+    '             "Value": "23"' \
+    '           },' \
+    '           {' \
+    '             "Name": "MaskHeight",' \
+    '             "Value": "21"' \
+    '           },' \
+    '           {' \
+    '             "Name": "StdDevScale",' \
+    '             "Value": "0,8000001"' \
+    '           },' \
+    '           {' \
+    '             "Name": "AbsThreshold",' \
+    '             "Value": "61"' \
+    '           },' \
+    '           {' \
+    '             "Name": "LightDark",' \
+    '             "Value": "light"' \
+    '           }' \
+    '         ]' \
+    '       },' \
+    '       {' \
+    '         "NodeID": 6.0,' \
+    '         "Children": [' \
+    '           -1.0' \
+    '         ],' \
+    '         "Name": "GrayErosion",' \
+    '         "Parameters": [' \
+    '           {' \
+    '             "Name": "StructElement",' \
+    '             "Value": "Circle"' \
+    '           },' \
+    '           {' \
+    '             "Name": "A",' \
+    '             "Value": "28"' \
+    '           },' \
+    '           {' \
+    '             "Name": "B",' \
+    '             "Value": "28"' \
+    '           },' \
+    '           {' \
+    '             "Name": "GrayValueMax",' \
+    '             "Value": "40"' \
+    '           }' \
+    '         ]' \
+    '       },' \
+    '       {' \
+    '         "NodeID": -1.0,' \
+    '         "Children": [],' \
+    '         "Name": "HalconInputNode",' \
+    '        "Parameters": [' \
+    '           {' \
+    '             "Name": "ProgramInputIdentifier",' \
+    '             "Value": "-1"' \
+    '            }' \
+    '          ]' \
+    '        }' \
+    '      ]' \
+    '    }' \
+    '  ]' \
+    '}'

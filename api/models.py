@@ -107,7 +107,8 @@ class Individual(Base):
     __tablename__ = "individual"
     individual_id = Column(Integer, primary_key=True)
     analyzer_id = Column(Integer, ForeignKey("analyzer.analyzer_id"))
-    generation_number = Column(Integer)
+    individual_object_id = Column(Integer)
+    fitness = Column(Float)
 
 
 class Item(Base):
@@ -171,8 +172,10 @@ class Pipeline(Base):
 class Node(Base):
     __tablename__ = "node"
     node_id = Column(Integer, primary_key=True)
+    pipeline_id = Column(Integer, ForeignKey("pipeline.pipeline_id"))
     cgp_node_id = Column(Float)
     name = Column(String)
+    children = Column(String)
     # children = relationship(
     #    "Node",
     #    secondary=node_children,
