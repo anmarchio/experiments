@@ -120,8 +120,8 @@ class Item(Base):
 
 class Grid(Base):
     __tablename__ = "grid"
-    analyzer_id = Column(Integer, primary_key=True)
-    grid_id = Column(Integer, ForeignKey("grid.grid_id"))
+    grid_id = Column(Integer, primary_key=True)
+    run_id = Column(Integer, ForeignKey("run.run_id"))
     hash_code = Column(Integer)
     time = Column(DateTime, default=datetime.utcnow)
     number_of_inputs = Column(Integer)
@@ -145,6 +145,12 @@ class InputGridNodes(Base):
 class ActiveGridNodes(Base):
     __tablename__ = "active_grid_nodes"
     active_grid_nodes_id = Column(Integer, primary_key=True)
+    grid_id = Column(Integer, ForeignKey("grid.grid_id"))
+
+
+class OutputGridNodes(Base):
+    __tablename__ = "output_grid_nodes"
+    output_grid_nodes_id = Column(Integer, primary_key=True)
     grid_id = Column(Integer, ForeignKey("grid.grid_id"))
 
 
@@ -192,6 +198,7 @@ class Element(Base):
     __tablename__ = "element"
     element_id = Column(Integer, primary_key=True)
     vector_id = Column(Integer, ForeignKey("vector.vector_id"))
+    value = Column(Float)
 
 
 class GridNode(Base):
@@ -200,8 +207,10 @@ class GridNode(Base):
     input = Column(Integer)
     name = Column(String)
     grid_id = Column(Integer, ForeignKey("grid.grid_id"))
+    node_id = Column(Integer)
     input_grid_nodes_id = Column(Integer, ForeignKey("input_grid_nodes.input_grid_nodes_id"), default=None)
     active_grid_nodes_id = Column(Integer, ForeignKey("active_grid_nodes.active_grid_nodes_id"), default=None)
+    output_grid_nodes_id = Column(Integer, ForeignKey("output_grid_nodes.output_grid_nodes_id"), default=None)
 
 
 class GridNodeValue(Base):

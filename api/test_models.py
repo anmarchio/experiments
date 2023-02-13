@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 import unittest
 
 from sqlalchemy import create_engine, MetaData
@@ -7,9 +8,10 @@ from sqlalchemy.orm import sessionmaker
 import xml.etree.ElementTree as ET
 
 from api.models import Dataset, Experiment, Run, Base, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
-    Configuration, EvolutionStrategy, HalconFitnessConfiguration, Image, ConfusionMatrix, ExceptionLog
+    Configuration, EvolutionStrategy, HalconFitnessConfiguration, Image, ConfusionMatrix, ExceptionLog, Element, Vector, \
+    Grid, ActiveGridNodes, InputGridNodes, OutputGridNodes, GridNode, GridNodeValue
 from api.test_data import AvgOffspringFit_0, AvgPopulationFit_0, BestIndividualFit_0, EVOLUTIONSTRATEGY_TXT, \
-    FITNESS_TXT, IMAGES_0, LEGEND_TXT, EXCEPTION_TXT
+    FITNESS_TXT, IMAGES_0, LEGEND_TXT, EXCEPTION_TXT, VECTOR, GRID_TXT
 
 SQLITE_TEST_PATH = "experiments_test.db"
 
@@ -21,9 +23,9 @@ class TestModel(unittest.TestCase):
         Session = sessionmaker()
         Session.configure(bind=engine)
         self.session = Session()
-        self.create_dataset_experiment_run()
+        self.create_dataset_experiment_grid_run()
 
-    def create_dataset_experiment_run(self) -> None:
+    def create_dataset_experiment_grid_run(self) -> None:
         # Create dataset
         self.dataset = Dataset(
             name="CF_ReferenceSet_Small_Dark",
@@ -43,12 +45,20 @@ class TestModel(unittest.TestCase):
             legend=LEGEND_TXT,
             experiment_id=self.experiment.experiment_id
         )
+        lines = GRID_TXT.splitlines()
+        self.grid = Grid(
+            hash_code=int(lines[0][10:19]),
+            time=datetime.datetime.strptime(lines[1][6:25], '%m/%d/%Y %I:%M:%S %p'),
+            number_of_inputs=int(lines[3][7:-1]),
+            run_id=self.run.run_id
+        )
 
         self.session.begin()
 
         self.session.add(self.dataset)
         self.session.add(self.experiment)
         self.session.add(self.run)
+        self.session.add(self.grid)
         # Commit entries
         self.session.commit()
 
@@ -255,13 +265,9 @@ class TestModel(unittest.TestCase):
         self.session.commit()
         self.session.flush()
 
-    def test_grid(self):
-        # Grid
-        #     |_0
-        #        |_ append_pipeline.txt
-        #        |_ grid.txt
-        #        |_ pipeline.txt
-        #        |_ vector.txt
+    def test_exception(self):
+        # Exception
+        #          |_ 9917D8E0-20230202.txt
         exception_log = ExceptionLog(
             exception_id=self.experiment.experiment_id,
             identifier="A6BBA1CC-20230131",
@@ -278,11 +284,147 @@ class TestModel(unittest.TestCase):
         self.session.commit()
         self.session.flush()
 
+    def test_grid_vector(self):
+        # Grid
+        #     |_0
+        #        |_ append_pipeline.txt
+        #        |_ grid.txt
+        #        |_ pipeline.txt
+        #        |_ vector.txt
+        vector = Vector(
+            grid_id=self.grid.grid_id
+        )
+        self.session.add(vector)
+
+        vector_values = VECTOR.split(",")
+        for val in vector_values:
+            element = Element(
+                vector_id=vector.vector_id,
+                value=float(val)
+            )
+            self.session.add(element)
+
+        self.session.commit()
+
+        # Count Grid and Vector Rows
+        self.assertEqual(
+            [
+                self.session.query(Grid).count(),
+                self.session.query(Vector).count(),
+                self.session.query(Element).count()
+            ],
+            [
+                1,
+                1,
+                901
+            ]
+        )
+
+        # Remove from database
+        self.session.delete(vector)
+        self.session.query(Element).delete()
+        self.session.commit()
+        self.session.flush()
+
+    def test_grid_nodes(self):
+        # Grid
+        #     |_0
+        #        |_ append_pipeline.txt
+        #        |_ grid.txt
+        #        |_ pipeline.txt
+        #        |_ vector.txt
+        active_grid_nodes = ActiveGridNodes(
+            grid_id=self.grid.grid_id
+        )
+        self.session.add(active_grid_nodes)
+
+        input_grid_nodes = InputGridNodes(
+            grid_id=self.grid.grid_id
+        )
+        self.session.add(input_grid_nodes)
+
+        output_grid_nodes = OutputGridNodes(
+            grid_id=self.grid.grid_id
+        )
+        self.session.add(output_grid_nodes)
+
+        lines = GRID_TXT.splitlines()
+        # Inputs:
+        inputs = lines[4].split(" ")[1:-1]
+        # Outputs:
+        outputs = lines[15].split(" ")[1:-1]
+        # active Nodes:
+        active_nodes = lines[16].split(" ")[3:-1]
+
+        # grid nodes:
+        grid_nodes = []
+        for i in range(4, 14):
+            grid_nodes = grid_nodes + lines[i].split("|")
+
+        for node in grid_nodes:
+            if len(node) < 2:
+                continue
+
+            if node[0:3] == " {{" or node[0:2] == "{{":
+                node = re.search(r"{{([A-Za-z0-9,():.\s-]+)}}", node).group(1)
+
+            node_id_index = int(node.split(":")[0])
+            input_node_index = int(node.split(":")[2].split(" ")[1])
+
+            operator_name = re.search(r"(\s[A-Za-z0-9]+\()", node.split(":")[2]).group(1)
+            operator_name = operator_name[1:-1]
+
+            grid_node = GridNode(
+                grid_id=self.grid.grid_id,
+                node_id=node_id_index,
+                input=input_node_index,
+                name=operator_name
+            )
+            if node_id_index in inputs:
+                grid_node.input_grid_nodes_id = input_grid_nodes.input_grid_nodes_id
+            if node_id_index in active_nodes:
+                grid_node.active_grid_nodes_id = active_grid_nodes.active_grid_nodes_id
+            if node_id_index in outputs:
+                grid_node.output_grid_nodes_id = output_grid_nodes.output_grid_nodes_id
+            self.session.add(grid_node)
+
+            # Add node values
+            values_in_brackets = re.search(r"\([0-9.,-]+\)", node.split(":")[2])
+            values = values_in_brackets.string[values_in_brackets.regs[0][0]+1:values_in_brackets.regs[0][1]-1].split(",")
+            for v in values:
+                grid_node_value = GridNodeValue(
+                    grid_node_id=grid_node.grid_node_id,
+                    value=float(v),
+                )
+                self.session.add(grid_node_value)
+
+        self.session.commit()
+
+        # Count Grid and Vector Rows
+        self.assertEqual(
+                self.session.query(GridNode).count(),
+                100
+        )
+
+        # Remove from database
+        self.session.delete(active_grid_nodes)
+        self.session.delete(input_grid_nodes)
+        self.session.delete(output_grid_nodes)
+        self.session.query(GridNode).delete()
+        self.session.query(GridNodeValue).delete()
+        self.session.commit()
+        self.session.flush()
+
+    def test_pipeline(self):
+        print("[WARNING] test_pipeline NOT implemented!")
+        pass
+
     def tearDown(self) -> None:
         # Empty database
         self.session.delete(self.dataset)
         self.session.delete(self.experiment)
         self.session.delete(self.run)
+        self.session.delete(self.grid)
         self.session.commit()
         self.session.flush()
 
