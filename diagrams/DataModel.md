@@ -11,6 +11,7 @@ class Experiment {
 class Run {
   started_at: DateTime
   number: Int
+  legend: String
 }
 
 class Configuration 
