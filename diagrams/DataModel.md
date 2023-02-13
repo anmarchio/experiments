@@ -171,7 +171,7 @@ Grid "1" -- "1"  InputGridNodes
 Grid "1" -- "1"  OutputGridNodes
 ActiveGridNodes "1" -- "*" GridNode
 InputGridNodes "1" -- "*" GridNode
-OutputGridNodes "1" -- "*" Grid
+OutputGridNodes "1" -- "*" GridNode
 Grid "1" -- "*" GridNode
 GridNode "1" -- "*" GridNodeValue
 Grid "1" -- "1" Pipeline
