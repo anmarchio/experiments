@@ -3,6 +3,8 @@
 This is the database API for the experiments performed on the `optimization` project designed 
 to run cartesian genetic programming on images.
 It uses `sqlalchemy` to establish a communication between python models and a `SQLite` database.
+* SQLAlchemy: https://www.geeksforgeeks.org/sqlalchemy-core-creating-table/
+* Python SQLAlchemy with SQLite: https://realpython.com/python-sqlite-sqlalchemy/#working-with-sqlalchemy-and-python-objects
 
 All results created by `optimization` are ususally stores in a `results` directory, organized by a date string. 
 This project allows to import all results data encoded as `json`, `xml` and `txt` 
