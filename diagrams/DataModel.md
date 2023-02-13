@@ -99,6 +99,7 @@ class Grid {
 
 class ActiveGridNodes
 class InputGridNodes
+class OutputGridNodes
 
 class GridNode {
   in: Int
@@ -167,8 +168,10 @@ Individual "1" -- "1" Pipeline
 Run "1" -- "1" Grid
 Grid "1" -- "1"  ActiveGridNodes
 Grid "1" -- "1"  InputGridNodes
+Grid "1" -- "1"  OutputGridNodes
 ActiveGridNodes "1" -- "*" GridNode
 InputGridNodes "1" -- "*" GridNode
+OutputGridNodes "1" -- "*" Grid
 Grid "1" -- "*" GridNode
 GridNode "1" -- "*" GridNodeValue
 Grid "1" -- "1" Pipeline
