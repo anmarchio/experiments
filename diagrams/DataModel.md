@@ -85,6 +85,9 @@ class Individual {
   individual_object_id: Int
   generation_number: Int
 }
+note bottom of Individual
+  item --> image
+end note
 
 class Item {
   name: String
@@ -120,6 +123,10 @@ class Node {
   node_id: float
   name: String
 }
+note bottom of Node
+  children to node has not 
+  been implemented
+end note
 
 class Parameter {
   name: String
