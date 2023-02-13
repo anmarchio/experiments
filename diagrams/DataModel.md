@@ -82,7 +82,7 @@ class BestIndividualFit {
 }
 
 class Individual {
-  id: Int
+  individual_object_id: Int
   generation_number: Int
 }
 
