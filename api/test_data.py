@@ -277,3 +277,30 @@ LOADER_EVALUATION_LOG = \
     '    }' \
     '  ]' \
     '}'
+
+INDIVIDUAL_EVALUATION_LOG = \
+    '{' \
+    '"0": [' \
+    '  {' \
+    '     "FitnessValues": {' \
+    '       "MCC": 0.0' \
+    '      },' \
+    '      "IndividualId": 1,' \
+    '      "Item": "00cdb56a0.jpg"' \
+    '    },' \
+    '    {' \
+    '      "FitnessValues": {' \
+    '        "MCC": 0.0' \
+    '      },' \
+    '      "IndividualId": 1,' \
+    '      "Item": "00e0398ad.jpg"' \
+    '    },' \
+    '    {' \
+    '      "FitnessValues": {' \
+    '        "MCC": 0.0' \
+    '      },' \
+    '      "IndividualId": 1,' \
+    '      "Item": "000a4bcdd.jpg"' \
+    '    }' \
+    '  ]' \
+    '}'

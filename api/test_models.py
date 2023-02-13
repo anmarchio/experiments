@@ -10,9 +10,10 @@ import xml.etree.ElementTree as ET
 from api.models import Dataset, Experiment, Run, Base, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
     Configuration, EvolutionStrategy, HalconFitnessConfiguration, Image, ConfusionMatrix, ExceptionLog, Element, Vector, \
     Grid, ActiveGridNodes, InputGridNodes, OutputGridNodes, GridNode, GridNodeValue, Pipeline, Individual, Node, \
-    Parameter
+    Parameter, Item
 from api.test_data import AvgOffspringFit_0, AvgPopulationFit_0, BestIndividualFit_0, EVOLUTIONSTRATEGY_TXT, \
-    FITNESS_TXT, IMAGES_0, LEGEND_TXT, EXCEPTION_TXT, VECTOR, GRID_TXT, APPEND_PIPELINE_TXT, LOADER_EVALUATION_LOG
+    FITNESS_TXT, IMAGES_0, LEGEND_TXT, EXCEPTION_TXT, VECTOR, GRID_TXT, APPEND_PIPELINE_TXT, LOADER_EVALUATION_LOG, \
+    INDIVIDUAL_EVALUATION_LOG
 
 SQLITE_TEST_PATH = "experiments_test.db"
 
@@ -418,6 +419,7 @@ class TestModel(unittest.TestCase):
 
     def test_pipeline(self):
         evaluation_loader_json = json.loads(LOADER_EVALUATION_LOG)
+        individual = None
         for i in range(len(evaluation_loader_json)):
             run = evaluation_loader_json[str(i)]
             individual = Individual(
@@ -450,6 +452,17 @@ class TestModel(unittest.TestCase):
                     )
                     self.session.add(parameter)
 
+        individual_evaluation_json = json.loads(INDIVIDUAL_EVALUATION_LOG)
+        for i in range(len(individual_evaluation_json)):
+            items = individual_evaluation_json[str(i)]
+            for ind_item in items:
+                item = Item(
+                    MCC=ind_item['FitnessValues']['MCC'],
+                    name=ind_item['Item'],
+                    individual_id=individual.individual_id
+                )
+                self.session.add(item)
+
         self.session.commit()
 
         # Count Pipeline Rows
@@ -457,12 +470,14 @@ class TestModel(unittest.TestCase):
             [
                 self.session.query(Pipeline).count(),
                 self.session.query(Node).count(),
-                self.session.query(Parameter).count()
+                self.session.query(Parameter).count(),
+                self.session.query(Item).count()
             ],
             [
                 1,
                 3,
-                10
+                10,
+                3
             ]
         )
 
@@ -470,6 +485,7 @@ class TestModel(unittest.TestCase):
         self.session.query(Pipeline).delete()
         self.session.query(Node).delete()
         self.session.query(Parameter).delete()
+        self.session.query(Item).delete()
         self.session.commit()
         self.session.flush()
 
