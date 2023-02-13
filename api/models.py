@@ -43,6 +43,7 @@ class Run(Base):
     )
     started_at = Column(DateTime, default=datetime.utcnow())
     number = Column(Integer)
+    legend = Column(String)
 
 
 class Configuration(Base):
@@ -56,11 +57,10 @@ class Configuration(Base):
         Integer,
         ForeignKey("evolution_strategy.evolution_strategy_id")
     )
-    dataset_id = Column(
+    halcon_fitness_configuration_id = Column(
         Integer,
-        ForeignKey("dataset.dataset_id")
+        ForeignKey("halcon_fitness_configuration.halcon_fitness_configuration_id")
     )
-    number = Column(Integer)
 
 
 class Dataset(Base):
@@ -84,7 +84,7 @@ class BestIndividualFit(Base):
     best_individual_fit_id = Column(Integer, primary_key=True)
     analyzer_id = Column(Integer, ForeignKey("analyzer.analyzer_id"))
     generation = Column(Integer)
-    best_individual_fitness = Column(Float)
+    average_individual_fitness = Column(Float)
 
 
 class AvgPopulationFit(Base):
@@ -273,11 +273,10 @@ class HalconFitnessConfiguration(Base):
     artifact_score_weight = Column(Float)
     fitness_score_weight = Column(Float)
     maximization = Column(Boolean)
-    fitness_function = Column(Enum(FitnessFunction))
-    excess_region_handling = Column(Boolean)
+    excess_region_handling = Column(String)
     region_count_threshold = Column(Boolean)
     execution_time_threshold = Column(Boolean)
-    execution_time_fitness_penalty = Column(Boolean)
-    execution_time_fuction_time_scale_factor = Column(Float)
+    use_execution_time_fitness_penalty = Column(Boolean)
+    execution_time_function_time_scale_factor = Column(Float)
     pixel_percentage_threshold = Column(Float)
     filename = Column(String)

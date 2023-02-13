@@ -34,7 +34,7 @@ def import_one(path: str):
     #          |_ AppendPipelineConfusionMatrix.json
     #          |_ ConfusionMatrix.json
     #          |_ legend.txt
-    return False
+    return -1
 
 
 def import_many(paths: []):
