@@ -2,11 +2,12 @@ import datetime
 import json
 import re
 import unittest
-
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.orm import sessionmaker
 import xml.etree.ElementTree as ET
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from api.env_var import SQLITE_TEST_PATH
 from api.models import Dataset, Experiment, Run, Base, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
     Configuration, EvolutionStrategy, HalconFitnessConfiguration, Image, ConfusionMatrix, ExceptionLog, Element, Vector, \
     Grid, ActiveGridNodes, InputGridNodes, OutputGridNodes, GridNode, GridNodeValue, Pipeline, Individual, Node, \
@@ -14,8 +15,6 @@ from api.models import Dataset, Experiment, Run, Base, Analyzer, AvgOffspringFit
 from api.test_data import AvgOffspringFit_0, AvgPopulationFit_0, BestIndividualFit_0, EVOLUTIONSTRATEGY_TXT, \
     FITNESS_TXT, IMAGES_0, LEGEND_TXT, EXCEPTION_TXT, VECTOR, GRID_TXT, APPEND_PIPELINE_TXT, LOADER_EVALUATION_LOG, \
     INDIVIDUAL_EVALUATION_LOG
-
-SQLITE_TEST_PATH = "experiments_test.db"
 
 
 class TestModel(unittest.TestCase):
@@ -420,19 +419,20 @@ class TestModel(unittest.TestCase):
     def test_pipeline(self):
         evaluation_loader_json = json.loads(LOADER_EVALUATION_LOG)
         individual = None
+        pipeline = Pipeline(
+            digraph=APPEND_PIPELINE_TXT,
+            grid_id=self.grid.grid_id
+        )
+        self.session.add(pipeline)
+
         for i in range(len(evaluation_loader_json)):
             run = evaluation_loader_json[str(i)]
             individual = Individual(
                 analyzer_id=self.analyzer.analyzer_id,
                 individual_object_id=int(run[0]['IndividualId']),
+                pipeline_id=pipeline.pipeline_id,
                 fitness=float(run[0]['Fitness']['MCC'])
             )
-            pipeline = Pipeline(
-                digraph=APPEND_PIPELINE_TXT,
-                individual_id=individual.individual_id,
-                grid_id=self.grid.grid_id
-            )
-            self.session.add(pipeline)
 
             pipeline_nodes = run[0]['Pipeline']
             for p_node in pipeline_nodes:
