@@ -170,7 +170,7 @@ Analyzer "1" -- "*" AvgPopulationFit
 Analyzer "1" -- "*" BestIndividualFit
 Analyzer "1" -- "*" Individual
 Individual "1" -- "*" Item
-Individual "1" -- "1" Pipeline
+Individual "*" -- "1" Pipeline
 
 Run "1" -- "1" Grid
 Grid "1" -- "1"  ActiveGridNodes
