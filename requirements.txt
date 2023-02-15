@@ -4,3 +4,6 @@ numpy
 imgann
 scikit-learn
 pydot
+sqlalchemy
+beautifulsoup4
+lxml
