@@ -2,7 +2,7 @@ import argparse
 import os
 import sys
 
-from api.importing import import_one, import_many
+from importing import import_one, import_many
 
 PATH = os.path.join("C:\\", "dev", "experiments", "scripts", "results", "202302010706")
 
