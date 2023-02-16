@@ -7,3 +7,5 @@ pydot
 sqlalchemy
 beautifulsoup4
 lxml
+matplotlib-dashboard
+hvplot
