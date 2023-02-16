@@ -541,15 +541,15 @@ def import_one(path: str):
     return 0
 
 
-def import_many(paths: []):
+def import_many(path):
     """
     reads list of data containing
     cgp optimization experiments
     """
     i = 0
-    for path in paths:
-        progress = int(i / 10) * 10
-        print("|" + "=" * progress + "-" * (10 - progress) + "|")
-        print(import_one(path))
+    for dirname in os.listdir(path):
+        progress = int(i / 20) * 20
+        print("|" + "=" * progress + "-" * (20 - progress) + "|")
+        print(import_one(os.path.join(path,dirname)))
         i += 1
     print('Finished importing.')
