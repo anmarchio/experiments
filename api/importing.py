@@ -21,7 +21,7 @@ def exception_case(path):
     source_json_path = os.path.join(path, "source.json")
 
     existing_files = [os.path.exists(x) for x in [date_txt_path, overview_json_path, seed_txt_path, source_json_path]]
-    if [False, False, False, True] == existing_files:
+    if [False, False, False, True] == existing_files or [False, False, False, False] == existing_files :
 
         for exc in os.listdir(os.path.join(path, "exceptions")):
             dataset = Dataset.create_from_json(
