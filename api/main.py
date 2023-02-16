@@ -13,19 +13,11 @@ def main():
     argParser.add_argument("-im", "--importmany", help="import list of result dirs")
     args = argParser.parse_args()
 
-    test_path = [
-        "C:\\dev\\experiments\\test_api\\results\\202302010706",
-        "C:\\dev\experiments\\test_api\\results\\202301010001_excpt",
-        "C:\\dev\experiments\\test_api\\results\\202301010003_incompl",
-        "C:\\dev\experiments\\test_api\\results\\202301010002_empty"
-    ]
-    import_one(test_path[0])
-    """
     if args.importone != "":
         import_one(args.importone)
     elif args.importmany != "":
         import_many(args.importmany)
-    """
+
     #if DEV_MODE:
     #    DB.delete_session()
     #    if os.path.exists(SQLITE_PATH):
