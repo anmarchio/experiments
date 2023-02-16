@@ -4,26 +4,21 @@ import re
 import unittest
 import xml.etree.ElementTree as ET
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-from env_var import SQLITE_TEST_PATH
-from models import Dataset, Experiment, Run, Base, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
+from api.models import Dataset, Experiment, Run, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
     Configuration, EvolutionStrategy, HalconFitnessConfiguration, Image, ConfusionMatrix, ExceptionLog, Element, Vector, \
     Grid, ActiveGridNodes, InputGridNodes, OutputGridNodes, GridNode, GridNodeValue, Pipeline, Individual, Node, \
     Parameter, Item
-from test_data import AvgOffspringFit_0, AvgPopulationFit_0, BestIndividualFit_0, EVOLUTIONSTRATEGY_TXT, \
+from test_api.setup import setup_database, flush_database
+
+from test_var import AvgOffspringFit_0, AvgPopulationFit_0, BestIndividualFit_0, EVOLUTIONSTRATEGY_TXT, \
     FITNESS_TXT, IMAGES_0, LEGEND_TXT, EXCEPTION_TXT, VECTOR, GRID_TXT, APPEND_PIPELINE_TXT, LOADER_EVALUATION_LOG, \
     INDIVIDUAL_EVALUATION_LOG
 
 
-class TestModel(unittest.TestCase):
+
+class TestModels(unittest.TestCase):
     def setUp(self) -> None:
-        engine = create_engine(f"sqlite:///{SQLITE_TEST_PATH}")
-        Base.metadata.create_all(bind=engine)
-        Session = sessionmaker()
-        Session.configure(bind=engine)
-        self.session = Session()
+        self.session = setup_database()
         self.create_dataset_experiment_grid_run_analyzer()
 
     def create_dataset_experiment_grid_run_analyzer(self) -> None:
@@ -491,13 +486,17 @@ class TestModel(unittest.TestCase):
 
     def tearDown(self) -> None:
         # Empty database
-        self.session.delete(self.dataset)
-        self.session.delete(self.experiment)
-        self.session.delete(self.run)
-        self.session.delete(self.grid)
-        self.session.delete(self.analyzer)
-        self.session.commit()
-        self.session.flush()
+        flush_database(
+            self.session,
+            [
+                self.dataset,
+                self.experiment,
+                self.run,
+                self.grid,
+                self.analyzer
+            ]
+
+        )
 
 
 if __name__ == '__main__':

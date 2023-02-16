@@ -1,0 +1,634 @@
+2023-01-31 10:19:39.239 +01:00 [INF] batch --backend=halcon --runs=2 --train-data-dir=/mnt/sdc1/evias_expmts/severstal-steel/train_cgp --val-data-dir=/mnt/sdc1/evias_expmts/severstal-steel/val_cgp --generations=150
+2023-01-31 10:19:39.239 +01:00 [INF] Optimization.Commandline, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2023-01-31 10:19:39.320 +01:00 [WRN] No seed was specified, seeding randomly.
+2023-01-31 10:19:39.320 +01:00 [INF] Seed: 1804018924
+2023-01-31 10:20:14.774 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.781 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.786 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.791 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.796 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.801 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.806 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.812 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.817 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.821 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.826 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.831 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.837 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.843 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}
+2023-01-31 10:20:14.849 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=99, Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=13 StructElement=Circle A=28 B=15 NodeID=67, Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=52 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage () [0x00034] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute (HalconDotNet.HObject input) [0x00001] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00009] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.CloseEdges.Execute () [0x00028] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x00020] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.Pipeline.CGPNode`1[TOutput].Execute () [0x0005b] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPNode`1[TOutput].get_Output () [0x00013] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00038] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+   --- End of inner exception stack trace ---
+  at Optimization.HPipeline.OperatorNodes.Union2.Execute () [0x00072] in <f349ed0467cf448dba78041c2f3ddd3d>:0 
+  at Optimization.Pipeline.Pipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00069] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.CGPPipeline`6[TInput,TOutput,TNode,TInputNode,TOutputNode,TWeight].ExecuteSingle (TInput input) [0x00008] in <72814f08e6a04687a3388778082d2eb9>:0 
+  at Optimization.Pipeline.PipelineEvaluator`6[TInputData,TOutput,TPipeline,TNode,TPipeInput,TPipeOutput].EvaluateItem (Optimization.EvolutionStrategy.Interfaces.IIndividual individual, TInputData item, System.Object[] additional) [0x0007c] in <72814f08e6a04687a3388778082d2eb9>:0 
+   --- End of inner exception stack trace ---
+digraph Pipeline { 
+rankdir = "RL";99 [label="Union2\n"];
+46 [label="HistoToThresh\nSigma=3"];
+67 [label="Dilation1\nIterations=13\n StructElement=Circle\n A=28\n B=15"];
+39 [label="Closing\nA=20\n B=22\n C=-1.178097\n StructElementType=Circle"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+55 [label="CloseEdges\nMinAmplitude=52"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="MedianImage\nMaskType=circle\n Radius=51\n Margin=Ninety"];
+0 [label="GrayOpening\nStructElement=Circle\n A=25\n B=8\n GrayValueMax=0"];
+99 -> 46 [];
+99 -> 67 [];
+46 -> 39 [];
+46 -> 12 [];
+67 -> 55 [];
+39 -> 22 [];
+12 -> _1 [];
+55 -> 39 [];
+55 -> 8 [];
+22 -> 0 [];
+8 -> _1 [];
+0 -> _1 [];
+}

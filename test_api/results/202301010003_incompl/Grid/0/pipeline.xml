@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HalconPipeline xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <AdjacencyList>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>20</Head>
+      <Tail>-1</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+  </AdjacencyList>
+  <Name>DefaultName</Name>
+  <Nodes>
+    <HalconOperatorNode xsi:type="VarThreshold">
+      <NodeID>20</NodeID>
+      <MaskWidth>3</MaskWidth>
+      <MaskHeight>29</MaskHeight>
+      <StdDevScale>7.4505806E-08</StdDevScale>
+      <AbsThreshold>17</AbsThreshold>
+      <LightDark>light</LightDark>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="HalconInputNode">
+      <NodeID>-1</NodeID>
+      <ProgramInputIdentifier>-1</ProgramInputIdentifier>
+    </HalconOperatorNode>
+  </Nodes>
+  <AutoDisposeIntermediateOutputs>false</AutoDisposeIntermediateOutputs>
+</HalconPipeline>

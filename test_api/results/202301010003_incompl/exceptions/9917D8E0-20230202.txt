@@ -1,0 +1,1702 @@
+2023-02-02 19:03:00.489 +01:00 [INF] batch --backend=halcon --runs=3 --train-data-dir=C:\Users\Public\evias_expmts\\Aircarbon2\CF_ReferenceSet_Small_Dark --val-data-dir=C:\Users\Public\evias_expmts\\Aircarbon2\CF_ReferenceSet_Small_Dark --generations=150
+2023-02-02 19:03:00.490 +01:00 [INF] Optimization.Commandline, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2023-02-02 19:03:00.577 +01:00 [WRN] No seed was specified, seeding randomly.
+2023-02-02 19:03:00.578 +01:00 [INF] Seed: 1449031162
+2023-02-02 21:16:45.167 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=72, Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";72 [label="Connection\nNeighborhood=4"];
+52 [label="CloseEdges\nMinAmplitude=117"];
+5 [label="CoherenceEnhancingDiff\nSigma=0,5\n Rho=11\n Theta=0,4\n Iterations=280"];
+30 [label="Opening\nStructElement=Ellipse\n A=30\n B=22"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="ZeroCrossing\n"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=13\n GrayValueMax=5"];
+72 -> 52 [];
+52 -> 5 [];
+52 -> 30 [];
+5 -> _1 [];
+30 -> 24 [];
+24 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:16:45.245 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=72, Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";72 [label="Connection\nNeighborhood=4"];
+52 [label="CloseEdges\nMinAmplitude=117"];
+5 [label="CoherenceEnhancingDiff\nSigma=0,5\n Rho=11\n Theta=0,4\n Iterations=280"];
+30 [label="Opening\nStructElement=Ellipse\n A=30\n B=22"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="ZeroCrossing\n"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=13\n GrayValueMax=5"];
+72 -> 52 [];
+52 -> 5 [];
+52 -> 30 [];
+5 -> _1 [];
+30 -> 24 [];
+24 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:16:45.323 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=72, Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";72 [label="Connection\nNeighborhood=4"];
+52 [label="CloseEdges\nMinAmplitude=117"];
+5 [label="CoherenceEnhancingDiff\nSigma=0,5\n Rho=11\n Theta=0,4\n Iterations=280"];
+30 [label="Opening\nStructElement=Ellipse\n A=30\n B=22"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="ZeroCrossing\n"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=13\n GrayValueMax=5"];
+72 -> 52 [];
+52 -> 5 [];
+52 -> 30 [];
+5 -> _1 [];
+30 -> 24 [];
+24 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:16:45.372 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=72, Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";72 [label="Connection\nNeighborhood=4"];
+52 [label="CloseEdges\nMinAmplitude=117"];
+5 [label="CoherenceEnhancingDiff\nSigma=0,5\n Rho=11\n Theta=0,4\n Iterations=280"];
+30 [label="Opening\nStructElement=Ellipse\n A=30\n B=22"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="ZeroCrossing\n"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=13\n GrayValueMax=5"];
+72 -> 52 [];
+52 -> 5 [];
+52 -> 30 [];
+5 -> _1 [];
+30 -> 24 [];
+24 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:16:45.466 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=72, Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";72 [label="Connection\nNeighborhood=4"];
+52 [label="CloseEdges\nMinAmplitude=117"];
+5 [label="CoherenceEnhancingDiff\nSigma=0,5\n Rho=11\n Theta=0,4\n Iterations=280"];
+30 [label="Opening\nStructElement=Ellipse\n A=30\n B=22"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="ZeroCrossing\n"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=13\n GrayValueMax=5"];
+72 -> 52 [];
+52 -> 5 [];
+52 -> 30 [];
+5 -> _1 [];
+30 -> 24 [];
+24 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:16:45.529 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=72, Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=117 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";72 [label="Connection\nNeighborhood=4"];
+52 [label="CloseEdges\nMinAmplitude=117"];
+5 [label="CoherenceEnhancingDiff\nSigma=0,5\n Rho=11\n Theta=0,4\n Iterations=280"];
+30 [label="Opening\nStructElement=Ellipse\n A=30\n B=22"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="ZeroCrossing\n"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=13\n GrayValueMax=5"];
+72 -> 52 [];
+52 -> 5 [];
+52 -> 30 [];
+5 -> _1 [];
+30 -> 24 [];
+24 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:16:45.636 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=92, Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 72.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";92 [label="Union2\n"];
+52 [label="CloseEdges\nMinAmplitude=84"];
+71 [label="Connection\nNeighborhood=4"];
+7 [label="MedianImage\nMaskType=square\n Radius=28\n Margin=TwoFifityFive"];
+36 [label="Dilation1\nIterations=46\n StructElement=Ellipse\n A=7\n B=13"];
+50 [label="CloseEdges\nMinAmplitude=42"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+21 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+9 [label="GrayErosion\nStructElement=Circle\n A=1\n B=25\n GrayValueMax=2"];
+92 -> 52 [];
+92 -> 71 [];
+52 -> 7 [];
+52 -> 36 [];
+71 -> 50 [];
+7 -> _1 [];
+36 -> 21 [];
+50 -> 36 [];
+50 -> 9 [];
+21 -> 9 [];
+9 -> _1 [];
+}
+2023-02-02 21:16:45.655 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=92, Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 72.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";92 [label="Union2\n"];
+52 [label="CloseEdges\nMinAmplitude=84"];
+71 [label="Connection\nNeighborhood=4"];
+7 [label="MedianImage\nMaskType=square\n Radius=28\n Margin=TwoFifityFive"];
+36 [label="Dilation1\nIterations=46\n StructElement=Ellipse\n A=7\n B=13"];
+50 [label="CloseEdges\nMinAmplitude=42"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+21 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+9 [label="GrayErosion\nStructElement=Circle\n A=1\n B=25\n GrayValueMax=2"];
+92 -> 52 [];
+92 -> 71 [];
+52 -> 7 [];
+52 -> 36 [];
+71 -> 50 [];
+7 -> _1 [];
+36 -> 21 [];
+50 -> 36 [];
+50 -> 9 [];
+21 -> 9 [];
+9 -> _1 [];
+}
+2023-02-02 21:16:45.671 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=92, Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 72.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";92 [label="Union2\n"];
+52 [label="CloseEdges\nMinAmplitude=84"];
+71 [label="Connection\nNeighborhood=4"];
+7 [label="MedianImage\nMaskType=square\n Radius=28\n Margin=TwoFifityFive"];
+36 [label="Dilation1\nIterations=46\n StructElement=Ellipse\n A=7\n B=13"];
+50 [label="CloseEdges\nMinAmplitude=42"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+21 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+9 [label="GrayErosion\nStructElement=Circle\n A=1\n B=25\n GrayValueMax=2"];
+92 -> 52 [];
+92 -> 71 [];
+52 -> 7 [];
+52 -> 36 [];
+71 -> 50 [];
+7 -> _1 [];
+36 -> 21 [];
+50 -> 36 [];
+50 -> 9 [];
+21 -> 9 [];
+9 -> _1 [];
+}
+2023-02-02 21:16:45.702 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=92, Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 72.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";92 [label="Union2\n"];
+52 [label="CloseEdges\nMinAmplitude=84"];
+71 [label="Connection\nNeighborhood=4"];
+7 [label="MedianImage\nMaskType=square\n Radius=28\n Margin=TwoFifityFive"];
+36 [label="Dilation1\nIterations=46\n StructElement=Ellipse\n A=7\n B=13"];
+50 [label="CloseEdges\nMinAmplitude=42"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+21 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+9 [label="GrayErosion\nStructElement=Circle\n A=1\n B=25\n GrayValueMax=2"];
+92 -> 52 [];
+92 -> 71 [];
+52 -> 7 [];
+52 -> 36 [];
+71 -> 50 [];
+7 -> _1 [];
+36 -> 21 [];
+50 -> 36 [];
+50 -> 9 [];
+21 -> 9 [];
+9 -> _1 [];
+}
+2023-02-02 21:16:45.718 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=92, Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 72.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";92 [label="Union2\n"];
+52 [label="CloseEdges\nMinAmplitude=84"];
+71 [label="Connection\nNeighborhood=4"];
+7 [label="MedianImage\nMaskType=square\n Radius=28\n Margin=TwoFifityFive"];
+36 [label="Dilation1\nIterations=46\n StructElement=Ellipse\n A=7\n B=13"];
+50 [label="CloseEdges\nMinAmplitude=42"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+21 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+9 [label="GrayErosion\nStructElement=Circle\n A=1\n B=25\n GrayValueMax=2"];
+92 -> 52 [];
+92 -> 71 [];
+52 -> 7 [];
+52 -> 36 [];
+71 -> 50 [];
+7 -> _1 [];
+36 -> 21 [];
+50 -> 36 [];
+50 -> 9 [];
+21 -> 9 [];
+9 -> _1 [];
+}
+2023-02-02 21:16:45.733 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=92, Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=84 NodeID=52, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 72.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";92 [label="Union2\n"];
+52 [label="CloseEdges\nMinAmplitude=84"];
+71 [label="Connection\nNeighborhood=4"];
+7 [label="MedianImage\nMaskType=square\n Radius=28\n Margin=TwoFifityFive"];
+36 [label="Dilation1\nIterations=46\n StructElement=Ellipse\n A=7\n B=13"];
+50 [label="CloseEdges\nMinAmplitude=42"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+21 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+9 [label="GrayErosion\nStructElement=Circle\n A=1\n B=25\n GrayValueMax=2"];
+92 -> 52 [];
+92 -> 71 [];
+52 -> 7 [];
+52 -> 36 [];
+71 -> 50 [];
+7 -> _1 [];
+36 -> 21 [];
+50 -> 36 [];
+50 -> 9 [];
+21 -> 9 [];
+9 -> _1 [];
+}
+2023-02-02 21:29:28.023 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=71, Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";71 [label="Connection\nNeighborhood=4"];
+59 [label="CloseEdges\nMinAmplitude=246"];
+8 [label="GrayOpening\nStructElement=Circle\n A=16\n B=14\n GrayValueMax=5"];
+39 [label="SelectShape\nMin=82\n Max=99999\n Features=contlength"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+27 [label="AutoThreshold\nSigma=2"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=11\n GrayValueMax=20"];
+71 -> 59 [];
+59 -> 8 [];
+59 -> 39 [];
+8 -> _1 [];
+39 -> 27 [];
+27 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:29:28.065 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=71, Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";71 [label="Connection\nNeighborhood=4"];
+59 [label="CloseEdges\nMinAmplitude=246"];
+8 [label="GrayOpening\nStructElement=Circle\n A=16\n B=14\n GrayValueMax=5"];
+39 [label="SelectShape\nMin=82\n Max=99999\n Features=contlength"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+27 [label="AutoThreshold\nSigma=2"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=11\n GrayValueMax=20"];
+71 -> 59 [];
+59 -> 8 [];
+59 -> 39 [];
+8 -> _1 [];
+39 -> 27 [];
+27 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:29:28.112 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=71, Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";71 [label="Connection\nNeighborhood=4"];
+59 [label="CloseEdges\nMinAmplitude=246"];
+8 [label="GrayOpening\nStructElement=Circle\n A=16\n B=14\n GrayValueMax=5"];
+39 [label="SelectShape\nMin=82\n Max=99999\n Features=contlength"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+27 [label="AutoThreshold\nSigma=2"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=11\n GrayValueMax=20"];
+71 -> 59 [];
+59 -> 8 [];
+59 -> 39 [];
+8 -> _1 [];
+39 -> 27 [];
+27 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:29:28.175 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=71, Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";71 [label="Connection\nNeighborhood=4"];
+59 [label="CloseEdges\nMinAmplitude=246"];
+8 [label="GrayOpening\nStructElement=Circle\n A=16\n B=14\n GrayValueMax=5"];
+39 [label="SelectShape\nMin=82\n Max=99999\n Features=contlength"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+27 [label="AutoThreshold\nSigma=2"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=11\n GrayValueMax=20"];
+71 -> 59 [];
+59 -> 8 [];
+59 -> 39 [];
+8 -> _1 [];
+39 -> 27 [];
+27 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:29:28.222 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=71, Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";71 [label="Connection\nNeighborhood=4"];
+59 [label="CloseEdges\nMinAmplitude=246"];
+8 [label="GrayOpening\nStructElement=Circle\n A=16\n B=14\n GrayValueMax=5"];
+39 [label="SelectShape\nMin=82\n Max=99999\n Features=contlength"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+27 [label="AutoThreshold\nSigma=2"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=11\n GrayValueMax=20"];
+71 -> 59 [];
+59 -> 8 [];
+59 -> 39 [];
+8 -> _1 [];
+39 -> 27 [];
+27 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:29:28.253 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=4 NodeID=71, Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=246 NodeID=59, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";71 [label="Connection\nNeighborhood=4"];
+59 [label="CloseEdges\nMinAmplitude=246"];
+8 [label="GrayOpening\nStructElement=Circle\n A=16\n B=14\n GrayValueMax=5"];
+39 [label="SelectShape\nMin=82\n Max=99999\n Features=contlength"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+27 [label="AutoThreshold\nSigma=2"];
+4 [label="GrayErosion\nStructElement=Circle\n A=15\n B=11\n GrayValueMax=20"];
+71 -> 59 [];
+59 -> 8 [];
+59 -> 39 [];
+8 -> _1 [];
+39 -> 27 [];
+27 -> 4 [];
+4 -> _1 [];
+}
+2023-02-02 21:32:52.136 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union1: NodeID=94, Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";94 [label="Union1\n"];
+62 [label="Dilation1\nIterations=3\n StructElement=Rectangle\n A=10\n B=30"];
+58 [label="CloseEdges\nMinAmplitude=208"];
+4 [label="MedianWeighted\nMaskType=gauss\n MaskSize=3"];
+38 [label="Union1\n"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="RegionGrowing\nRasterHeight=1\n RasterWidth=1\n Tolerance=6\n MinRegionSize=100"];
+17 [label="SobelAmp\nFilterType=x_binomial\n MaskSize=5"];
+1 [label="BinomialFilter\nMaskHeight=13\n MaskWidth=3"];
+94 -> 62 [];
+62 -> 58 [];
+58 -> 4 [];
+58 -> 38 [];
+4 -> _1 [];
+38 -> 24 [];
+24 -> 17 [];
+17 -> 1 [];
+1 -> _1 [];
+}
+2023-02-02 21:32:52.465 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union1: NodeID=94, Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";94 [label="Union1\n"];
+62 [label="Dilation1\nIterations=3\n StructElement=Rectangle\n A=10\n B=30"];
+58 [label="CloseEdges\nMinAmplitude=208"];
+4 [label="MedianWeighted\nMaskType=gauss\n MaskSize=3"];
+38 [label="Union1\n"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="RegionGrowing\nRasterHeight=1\n RasterWidth=1\n Tolerance=6\n MinRegionSize=100"];
+17 [label="SobelAmp\nFilterType=x_binomial\n MaskSize=5"];
+1 [label="BinomialFilter\nMaskHeight=13\n MaskWidth=3"];
+94 -> 62 [];
+62 -> 58 [];
+58 -> 4 [];
+58 -> 38 [];
+4 -> _1 [];
+38 -> 24 [];
+24 -> 17 [];
+17 -> 1 [];
+1 -> _1 [];
+}
+2023-02-02 21:32:52.809 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union1: NodeID=94, Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";94 [label="Union1\n"];
+62 [label="Dilation1\nIterations=3\n StructElement=Rectangle\n A=10\n B=30"];
+58 [label="CloseEdges\nMinAmplitude=208"];
+4 [label="MedianWeighted\nMaskType=gauss\n MaskSize=3"];
+38 [label="Union1\n"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="RegionGrowing\nRasterHeight=1\n RasterWidth=1\n Tolerance=6\n MinRegionSize=100"];
+17 [label="SobelAmp\nFilterType=x_binomial\n MaskSize=5"];
+1 [label="BinomialFilter\nMaskHeight=13\n MaskWidth=3"];
+94 -> 62 [];
+62 -> 58 [];
+58 -> 4 [];
+58 -> 38 [];
+4 -> _1 [];
+38 -> 24 [];
+24 -> 17 [];
+17 -> 1 [];
+1 -> _1 [];
+}
+2023-02-02 21:32:53.140 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union1: NodeID=94, Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";94 [label="Union1\n"];
+62 [label="Dilation1\nIterations=3\n StructElement=Rectangle\n A=10\n B=30"];
+58 [label="CloseEdges\nMinAmplitude=208"];
+4 [label="MedianWeighted\nMaskType=gauss\n MaskSize=3"];
+38 [label="Union1\n"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="RegionGrowing\nRasterHeight=1\n RasterWidth=1\n Tolerance=6\n MinRegionSize=100"];
+17 [label="SobelAmp\nFilterType=x_binomial\n MaskSize=5"];
+1 [label="BinomialFilter\nMaskHeight=13\n MaskWidth=3"];
+94 -> 62 [];
+62 -> 58 [];
+58 -> 4 [];
+58 -> 38 [];
+4 -> _1 [];
+38 -> 24 [];
+24 -> 17 [];
+17 -> 1 [];
+1 -> _1 [];
+}
+2023-02-02 21:32:53.430 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union1: NodeID=94, Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";94 [label="Union1\n"];
+62 [label="Dilation1\nIterations=3\n StructElement=Rectangle\n A=10\n B=30"];
+58 [label="CloseEdges\nMinAmplitude=208"];
+4 [label="MedianWeighted\nMaskType=gauss\n MaskSize=3"];
+38 [label="Union1\n"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="RegionGrowing\nRasterHeight=1\n RasterWidth=1\n Tolerance=6\n MinRegionSize=100"];
+17 [label="SobelAmp\nFilterType=x_binomial\n MaskSize=5"];
+1 [label="BinomialFilter\nMaskHeight=13\n MaskWidth=3"];
+94 -> 62 [];
+62 -> 58 [];
+58 -> 4 [];
+58 -> 38 [];
+4 -> _1 [];
+38 -> 24 [];
+24 -> 17 [];
+17 -> 1 [];
+1 -> _1 [];
+}
+2023-02-02 21:32:53.602 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Union1: NodeID=94, Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Dilation1: Iterations=3 StructElement=Rectangle A=10 B=30 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=208 NodeID=58, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";94 [label="Union1\n"];
+62 [label="Dilation1\nIterations=3\n StructElement=Rectangle\n A=10\n B=30"];
+58 [label="CloseEdges\nMinAmplitude=208"];
+4 [label="MedianWeighted\nMaskType=gauss\n MaskSize=3"];
+38 [label="Union1\n"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 [label="RegionGrowing\nRasterHeight=1\n RasterWidth=1\n Tolerance=6\n MinRegionSize=100"];
+17 [label="SobelAmp\nFilterType=x_binomial\n MaskSize=5"];
+1 [label="BinomialFilter\nMaskHeight=13\n MaskWidth=3"];
+94 -> 62 [];
+62 -> 58 [];
+58 -> 4 [];
+58 -> 38 [];
+4 -> _1 [];
+38 -> 24 [];
+24 -> 17 [];
+17 -> 1 [];
+1 -> _1 [];
+}
+2023-02-02 21:56:21.786 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Ellipse A=15 B=16 NodeID=97, Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 76.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";97 [label="Opening\nStructElement=Ellipse\n A=15\n B=16"];
+61 [label="Union2\n"];
+25 [label="AutoThreshold\nSigma=5"];
+53 [label="CloseEdges\nMinAmplitude=138"];
+55 [label="CloseEdges\nMinAmplitude=169"];
+3 [label="GrayOpening\nStructElement=Circle\n A=28\n B=10\n GrayValueMax=0"];
+10 [label="SobelAmp\nFilterType=y\n MaskSize=7"];
+0 [label="GrayRangeRect\nMaskHeight=509\n MaskWidth=43"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=11\n StdDevScale=0,4000001\n AbsThreshold=122\n LightDark=not_equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+5 [label="EquHistoImage\n"];
+97 -> 61 [];
+97 -> 25 [];
+61 -> 53 [];
+61 -> 55 [];
+25 -> 3 [];
+53 -> 25 [];
+53 -> 10 [];
+55 -> 0 [];
+55 -> 28 [];
+3 -> _1 [];
+10 -> 5 [];
+0 -> _1 [];
+28 -> 10 [];
+5 -> _1 [];
+}
+2023-02-02 21:56:21.848 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Ellipse A=15 B=16 NodeID=97, Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 76.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";97 [label="Opening\nStructElement=Ellipse\n A=15\n B=16"];
+61 [label="Union2\n"];
+25 [label="AutoThreshold\nSigma=5"];
+53 [label="CloseEdges\nMinAmplitude=138"];
+55 [label="CloseEdges\nMinAmplitude=169"];
+3 [label="GrayOpening\nStructElement=Circle\n A=28\n B=10\n GrayValueMax=0"];
+10 [label="SobelAmp\nFilterType=y\n MaskSize=7"];
+0 [label="GrayRangeRect\nMaskHeight=509\n MaskWidth=43"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=11\n StdDevScale=0,4000001\n AbsThreshold=122\n LightDark=not_equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+5 [label="EquHistoImage\n"];
+97 -> 61 [];
+97 -> 25 [];
+61 -> 53 [];
+61 -> 55 [];
+25 -> 3 [];
+53 -> 25 [];
+53 -> 10 [];
+55 -> 0 [];
+55 -> 28 [];
+3 -> _1 [];
+10 -> 5 [];
+0 -> _1 [];
+28 -> 10 [];
+5 -> _1 [];
+}
+2023-02-02 21:56:21.911 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Ellipse A=15 B=16 NodeID=97, Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 76.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";97 [label="Opening\nStructElement=Ellipse\n A=15\n B=16"];
+61 [label="Union2\n"];
+25 [label="AutoThreshold\nSigma=5"];
+53 [label="CloseEdges\nMinAmplitude=138"];
+55 [label="CloseEdges\nMinAmplitude=169"];
+3 [label="GrayOpening\nStructElement=Circle\n A=28\n B=10\n GrayValueMax=0"];
+10 [label="SobelAmp\nFilterType=y\n MaskSize=7"];
+0 [label="GrayRangeRect\nMaskHeight=509\n MaskWidth=43"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=11\n StdDevScale=0,4000001\n AbsThreshold=122\n LightDark=not_equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+5 [label="EquHistoImage\n"];
+97 -> 61 [];
+97 -> 25 [];
+61 -> 53 [];
+61 -> 55 [];
+25 -> 3 [];
+53 -> 25 [];
+53 -> 10 [];
+55 -> 0 [];
+55 -> 28 [];
+3 -> _1 [];
+10 -> 5 [];
+0 -> _1 [];
+28 -> 10 [];
+5 -> _1 [];
+}
+2023-02-02 21:56:21.973 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Ellipse A=15 B=16 NodeID=97, Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 76.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";97 [label="Opening\nStructElement=Ellipse\n A=15\n B=16"];
+61 [label="Union2\n"];
+25 [label="AutoThreshold\nSigma=5"];
+53 [label="CloseEdges\nMinAmplitude=138"];
+55 [label="CloseEdges\nMinAmplitude=169"];
+3 [label="GrayOpening\nStructElement=Circle\n A=28\n B=10\n GrayValueMax=0"];
+10 [label="SobelAmp\nFilterType=y\n MaskSize=7"];
+0 [label="GrayRangeRect\nMaskHeight=509\n MaskWidth=43"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=11\n StdDevScale=0,4000001\n AbsThreshold=122\n LightDark=not_equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+5 [label="EquHistoImage\n"];
+97 -> 61 [];
+97 -> 25 [];
+61 -> 53 [];
+61 -> 55 [];
+25 -> 3 [];
+53 -> 25 [];
+53 -> 10 [];
+55 -> 0 [];
+55 -> 28 [];
+3 -> _1 [];
+10 -> 5 [];
+0 -> _1 [];
+28 -> 10 [];
+5 -> _1 [];
+}
+2023-02-02 21:56:22.036 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Ellipse A=15 B=16 NodeID=97, Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 76.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";97 [label="Opening\nStructElement=Ellipse\n A=15\n B=16"];
+61 [label="Union2\n"];
+25 [label="AutoThreshold\nSigma=5"];
+53 [label="CloseEdges\nMinAmplitude=138"];
+55 [label="CloseEdges\nMinAmplitude=169"];
+3 [label="GrayOpening\nStructElement=Circle\n A=28\n B=10\n GrayValueMax=0"];
+10 [label="SobelAmp\nFilterType=y\n MaskSize=7"];
+0 [label="GrayRangeRect\nMaskHeight=509\n MaskWidth=43"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=11\n StdDevScale=0,4000001\n AbsThreshold=122\n LightDark=not_equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+5 [label="EquHistoImage\n"];
+97 -> 61 [];
+97 -> 25 [];
+61 -> 53 [];
+61 -> 55 [];
+25 -> 3 [];
+53 -> 25 [];
+53 -> 10 [];
+55 -> 0 [];
+55 -> 28 [];
+3 -> _1 [];
+10 -> 5 [];
+0 -> _1 [];
+28 -> 10 [];
+5 -> _1 [];
+}
+2023-02-02 21:56:22.084 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Ellipse A=15 B=16 NodeID=97, Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Union2: NodeID=61, Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=169 NodeID=55, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 76.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.Union2.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\Union2.cs:Zeile 81.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";97 [label="Opening\nStructElement=Ellipse\n A=15\n B=16"];
+61 [label="Union2\n"];
+25 [label="AutoThreshold\nSigma=5"];
+53 [label="CloseEdges\nMinAmplitude=138"];
+55 [label="CloseEdges\nMinAmplitude=169"];
+3 [label="GrayOpening\nStructElement=Circle\n A=28\n B=10\n GrayValueMax=0"];
+10 [label="SobelAmp\nFilterType=y\n MaskSize=7"];
+0 [label="GrayRangeRect\nMaskHeight=509\n MaskWidth=43"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=11\n StdDevScale=0,4000001\n AbsThreshold=122\n LightDark=not_equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+5 [label="EquHistoImage\n"];
+97 -> 61 [];
+97 -> 25 [];
+61 -> 53 [];
+61 -> 55 [];
+25 -> 3 [];
+53 -> 25 [];
+53 -> 10 [];
+55 -> 0 [];
+55 -> 28 [];
+3 -> _1 [];
+10 -> 5 [];
+0 -> _1 [];
+28 -> 10 [];
+5 -> _1 [];
+}
+2023-02-02 21:57:21.553 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=75, Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";75 [label="Connection\nNeighborhood=8"];
+62 [label="Connection\nNeighborhood=8"];
+57 [label="CloseEdges\nMinAmplitude=206"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,1\n Low=20\n High=40\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=7\n StdDevScale=-0,4999999\n AbsThreshold=100\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+13 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+2 [label="KirschAmp\n"];
+75 -> 62 [];
+62 -> 57 [];
+57 -> 7 [];
+57 -> 27 [];
+7 -> _1 [];
+27 -> 13 [];
+13 -> 2 [];
+2 -> _1 [];
+}
+2023-02-02 21:57:21.617 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=75, Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";75 [label="Connection\nNeighborhood=8"];
+62 [label="Connection\nNeighborhood=8"];
+57 [label="CloseEdges\nMinAmplitude=206"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,1\n Low=20\n High=40\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=7\n StdDevScale=-0,4999999\n AbsThreshold=100\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+13 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+2 [label="KirschAmp\n"];
+75 -> 62 [];
+62 -> 57 [];
+57 -> 7 [];
+57 -> 27 [];
+7 -> _1 [];
+27 -> 13 [];
+13 -> 2 [];
+2 -> _1 [];
+}
+2023-02-02 21:57:21.664 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=75, Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";75 [label="Connection\nNeighborhood=8"];
+62 [label="Connection\nNeighborhood=8"];
+57 [label="CloseEdges\nMinAmplitude=206"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,1\n Low=20\n High=40\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=7\n StdDevScale=-0,4999999\n AbsThreshold=100\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+13 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+2 [label="KirschAmp\n"];
+75 -> 62 [];
+62 -> 57 [];
+57 -> 7 [];
+57 -> 27 [];
+7 -> _1 [];
+27 -> 13 [];
+13 -> 2 [];
+2 -> _1 [];
+}
+2023-02-02 21:57:21.725 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=75, Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";75 [label="Connection\nNeighborhood=8"];
+62 [label="Connection\nNeighborhood=8"];
+57 [label="CloseEdges\nMinAmplitude=206"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,1\n Low=20\n High=40\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=7\n StdDevScale=-0,4999999\n AbsThreshold=100\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+13 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+2 [label="KirschAmp\n"];
+75 -> 62 [];
+62 -> 57 [];
+57 -> 7 [];
+57 -> 27 [];
+7 -> _1 [];
+27 -> 13 [];
+13 -> 2 [];
+2 -> _1 [];
+}
+2023-02-02 21:57:21.772 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=75, Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";75 [label="Connection\nNeighborhood=8"];
+62 [label="Connection\nNeighborhood=8"];
+57 [label="CloseEdges\nMinAmplitude=206"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,1\n Low=20\n High=40\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=7\n StdDevScale=-0,4999999\n AbsThreshold=100\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+13 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+2 [label="KirschAmp\n"];
+75 -> 62 [];
+62 -> 57 [];
+57 -> 7 [];
+57 -> 27 [];
+7 -> _1 [];
+27 -> 13 [];
+13 -> 2 [];
+2 -> _1 [];
+}
+2023-02-02 21:57:21.835 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=75, Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: Connection: Neighborhood=8 NodeID=62, Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=206 NodeID=57, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";75 [label="Connection\nNeighborhood=8"];
+62 [label="Connection\nNeighborhood=8"];
+57 [label="CloseEdges\nMinAmplitude=206"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,1\n Low=20\n High=40\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=7\n StdDevScale=-0,4999999\n AbsThreshold=100\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+13 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+2 [label="KirschAmp\n"];
+75 -> 62 [];
+62 -> 57 [];
+57 -> 7 [];
+57 -> 27 [];
+7 -> _1 [];
+27 -> 13 [];
+13 -> 2 [];
+2 -> _1 [];
+}
+2023-02-02 21:57:26.745 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Rectangle A=25 B=24 NodeID=63, Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";63 [label="Opening\nStructElement=Rectangle\n A=25\n B=24"];
+53 [label="CloseEdges\nMinAmplitude=115"];
+50 [label="CloseEdges\nMinAmplitude=124"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,3\n Low=20\n High=30\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=25\n StdDevScale=-0,8\n AbsThreshold=87\n LightDark=equal"];
+19 [label="SobelAmp\nFilterType=x\n MaskSize=5"];
+30 [label="SelectShape\nMin=85\n Max=99999\n Features=rb"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="Roberts\nFilterType=gradient_sum"];
+25 [label="AutoThreshold\nSigma=1"];
+63 -> 53 [];
+63 -> 50 [];
+53 -> 7 [];
+53 -> 27 [];
+50 -> 19 [];
+50 -> 30 [];
+7 -> _1 [];
+27 -> 19 [];
+19 -> 8 [];
+30 -> 25 [];
+8 -> _1 [];
+25 -> _1 [];
+}
+2023-02-02 21:57:26.792 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Rectangle A=25 B=24 NodeID=63, Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";63 [label="Opening\nStructElement=Rectangle\n A=25\n B=24"];
+53 [label="CloseEdges\nMinAmplitude=115"];
+50 [label="CloseEdges\nMinAmplitude=124"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,3\n Low=20\n High=30\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=25\n StdDevScale=-0,8\n AbsThreshold=87\n LightDark=equal"];
+19 [label="SobelAmp\nFilterType=x\n MaskSize=5"];
+30 [label="SelectShape\nMin=85\n Max=99999\n Features=rb"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="Roberts\nFilterType=gradient_sum"];
+25 [label="AutoThreshold\nSigma=1"];
+63 -> 53 [];
+63 -> 50 [];
+53 -> 7 [];
+53 -> 27 [];
+50 -> 19 [];
+50 -> 30 [];
+7 -> _1 [];
+27 -> 19 [];
+19 -> 8 [];
+30 -> 25 [];
+8 -> _1 [];
+25 -> _1 [];
+}
+2023-02-02 21:57:26.823 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Rectangle A=25 B=24 NodeID=63, Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";63 [label="Opening\nStructElement=Rectangle\n A=25\n B=24"];
+53 [label="CloseEdges\nMinAmplitude=115"];
+50 [label="CloseEdges\nMinAmplitude=124"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,3\n Low=20\n High=30\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=25\n StdDevScale=-0,8\n AbsThreshold=87\n LightDark=equal"];
+19 [label="SobelAmp\nFilterType=x\n MaskSize=5"];
+30 [label="SelectShape\nMin=85\n Max=99999\n Features=rb"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="Roberts\nFilterType=gradient_sum"];
+25 [label="AutoThreshold\nSigma=1"];
+63 -> 53 [];
+63 -> 50 [];
+53 -> 7 [];
+53 -> 27 [];
+50 -> 19 [];
+50 -> 30 [];
+7 -> _1 [];
+27 -> 19 [];
+19 -> 8 [];
+30 -> 25 [];
+8 -> _1 [];
+25 -> _1 [];
+}
+2023-02-02 21:57:26.839 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Rectangle A=25 B=24 NodeID=63, Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";63 [label="Opening\nStructElement=Rectangle\n A=25\n B=24"];
+53 [label="CloseEdges\nMinAmplitude=115"];
+50 [label="CloseEdges\nMinAmplitude=124"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,3\n Low=20\n High=30\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=25\n StdDevScale=-0,8\n AbsThreshold=87\n LightDark=equal"];
+19 [label="SobelAmp\nFilterType=x\n MaskSize=5"];
+30 [label="SelectShape\nMin=85\n Max=99999\n Features=rb"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="Roberts\nFilterType=gradient_sum"];
+25 [label="AutoThreshold\nSigma=1"];
+63 -> 53 [];
+63 -> 50 [];
+53 -> 7 [];
+53 -> 27 [];
+50 -> 19 [];
+50 -> 30 [];
+7 -> _1 [];
+27 -> 19 [];
+19 -> 8 [];
+30 -> 25 [];
+8 -> _1 [];
+25 -> _1 [];
+}
+2023-02-02 21:57:26.886 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Rectangle A=25 B=24 NodeID=63, Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";63 [label="Opening\nStructElement=Rectangle\n A=25\n B=24"];
+53 [label="CloseEdges\nMinAmplitude=115"];
+50 [label="CloseEdges\nMinAmplitude=124"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,3\n Low=20\n High=30\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=25\n StdDevScale=-0,8\n AbsThreshold=87\n LightDark=equal"];
+19 [label="SobelAmp\nFilterType=x\n MaskSize=5"];
+30 [label="SelectShape\nMin=85\n Max=99999\n Features=rb"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="Roberts\nFilterType=gradient_sum"];
+25 [label="AutoThreshold\nSigma=1"];
+63 -> 53 [];
+63 -> 50 [];
+53 -> 7 [];
+53 -> 27 [];
+50 -> 19 [];
+50 -> 30 [];
+7 -> _1 [];
+27 -> 19 [];
+19 -> 8 [];
+30 -> 25 [];
+8 -> _1 [];
+25 -> _1 [];
+}
+2023-02-02 21:57:26.901 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: Opening: StructElement=Rectangle A=25 B=24 NodeID=63, Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=115 NodeID=53, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";63 [label="Opening\nStructElement=Rectangle\n A=25\n B=24"];
+53 [label="CloseEdges\nMinAmplitude=115"];
+50 [label="CloseEdges\nMinAmplitude=124"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,3\n Low=20\n High=30\n NonMaximumSuppression=nms"];
+27 [label="VarThreshold\nMaskWidth=13\n MaskHeight=25\n StdDevScale=-0,8\n AbsThreshold=87\n LightDark=equal"];
+19 [label="SobelAmp\nFilterType=x\n MaskSize=5"];
+30 [label="SelectShape\nMin=85\n Max=99999\n Features=rb"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+8 [label="Roberts\nFilterType=gradient_sum"];
+25 [label="AutoThreshold\nSigma=1"];
+63 -> 53 [];
+63 -> 50 [];
+53 -> 7 [];
+53 -> 27 [];
+50 -> 19 [];
+50 -> 30 [];
+7 -> _1 [];
+27 -> 19 [];
+19 -> 8 [];
+30 -> 25 [];
+8 -> _1 [];
+25 -> _1 [];
+}
+2023-02-02 22:01:54.810 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: AreaToRectangle: NodeID=69, Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";69 [label="AreaToRectangle\n"];
+50 [label="CloseEdges\nMinAmplitude=137"];
+5 [label="GrayErosion\nStructElement=Circle\n A=15\n B=25\n GrayValueMax=40"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=5\n StdDevScale=0,4000001\n AbsThreshold=12\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=7"];
+8 [label="SmoothImage\nFilter=gauss\n Alpha=11,85018"];
+69 -> 50 [];
+50 -> 5 [];
+50 -> 28 [];
+5 -> _1 [];
+28 -> 12 [];
+12 -> 8 [];
+8 -> _1 [];
+}
+2023-02-02 22:01:55.051 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: AreaToRectangle: NodeID=69, Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";69 [label="AreaToRectangle\n"];
+50 [label="CloseEdges\nMinAmplitude=137"];
+5 [label="GrayErosion\nStructElement=Circle\n A=15\n B=25\n GrayValueMax=40"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=5\n StdDevScale=0,4000001\n AbsThreshold=12\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=7"];
+8 [label="SmoothImage\nFilter=gauss\n Alpha=11,85018"];
+69 -> 50 [];
+50 -> 5 [];
+50 -> 28 [];
+5 -> _1 [];
+28 -> 12 [];
+12 -> 8 [];
+8 -> _1 [];
+}
+2023-02-02 22:01:55.303 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: AreaToRectangle: NodeID=69, Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";69 [label="AreaToRectangle\n"];
+50 [label="CloseEdges\nMinAmplitude=137"];
+5 [label="GrayErosion\nStructElement=Circle\n A=15\n B=25\n GrayValueMax=40"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=5\n StdDevScale=0,4000001\n AbsThreshold=12\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=7"];
+8 [label="SmoothImage\nFilter=gauss\n Alpha=11,85018"];
+69 -> 50 [];
+50 -> 5 [];
+50 -> 28 [];
+5 -> _1 [];
+28 -> 12 [];
+12 -> 8 [];
+8 -> _1 [];
+}
+2023-02-02 22:01:55.502 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: AreaToRectangle: NodeID=69, Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";69 [label="AreaToRectangle\n"];
+50 [label="CloseEdges\nMinAmplitude=137"];
+5 [label="GrayErosion\nStructElement=Circle\n A=15\n B=25\n GrayValueMax=40"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=5\n StdDevScale=0,4000001\n AbsThreshold=12\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=7"];
+8 [label="SmoothImage\nFilter=gauss\n Alpha=11,85018"];
+69 -> 50 [];
+50 -> 5 [];
+50 -> 28 [];
+5 -> _1 [];
+28 -> 12 [];
+12 -> 8 [];
+8 -> _1 [];
+}
+2023-02-02 22:01:55.654 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: AreaToRectangle: NodeID=69, Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";69 [label="AreaToRectangle\n"];
+50 [label="CloseEdges\nMinAmplitude=137"];
+5 [label="GrayErosion\nStructElement=Circle\n A=15\n B=25\n GrayValueMax=40"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=5\n StdDevScale=0,4000001\n AbsThreshold=12\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=7"];
+8 [label="SmoothImage\nFilter=gauss\n Alpha=11,85018"];
+69 -> 50 [];
+50 -> 5 [];
+50 -> 28 [];
+5 -> _1 [];
+28 -> 12 [];
+12 -> 8 [];
+8 -> _1 [];
+}
+2023-02-02 22:01:55.764 +01:00 [ERR] Optimization.Pipeline.CGPPipelineException: DefaultName caused an exception. ---> Optimization.Pipeline.OperatorException: Exception caused at: AreaToRectangle: NodeID=69, Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> Optimization.Pipeline.OperatorException: Exception caused at: CloseEdges: MinAmplitude=137 NodeID=50, CloseEdges expects one child to be of OperatorType.EdgeAmplitude ---> System.Exception: CloseEdges expects one child to be of OperatorType.EdgeAmplitude
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.GatherEdgeImage() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 103.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute(HObject input) in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 111.
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 83.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.HPipeline.OperatorNodes.CloseEdges.Execute() in C:\Users\Public\dev_mara\optimization\Optimization.HPipeline\OperatorNodes\CloseEdges.cs:Zeile 87.
+   bei Optimization.Pipeline.CGPNode`1.get_Output() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 56.
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 138.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+   bei Optimization.Pipeline.CGPNode`1.Execute() in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPNode.cs:Zeile 145.
+   bei Optimization.Pipeline.Pipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\Pipeline.cs:Zeile 167.
+   bei Optimization.Pipeline.CGPPipeline`6.ExecuteSingle(TInput input) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\CGPPipeline.cs:Zeile 82.
+   bei Optimization.Pipeline.PipelineEvaluator`6.EvaluateItem(IIndividual individual, TInputData item, Object[] additional) in C:\Users\Public\dev_mara\optimization\Optimization\Pipeline\PipelineEvaluator.cs:Zeile 62.
+   --- Ende der internen Ausnahmestapelüberwachung ---
+digraph Pipeline { 
+rankdir = "RL";69 [label="AreaToRectangle\n"];
+50 [label="CloseEdges\nMinAmplitude=137"];
+5 [label="GrayErosion\nStructElement=Circle\n A=15\n B=25\n GrayValueMax=40"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=5\n StdDevScale=0,4000001\n AbsThreshold=12\n LightDark=equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+12 [label="SobelAmp\nFilterType=x\n MaskSize=7"];
+8 [label="SmoothImage\nFilter=gauss\n Alpha=11,85018"];
+69 -> 50 [];
+50 -> 5 [];
+50 -> 28 [];
+5 -> _1 [];
+28 -> 12 [];
+12 -> 8 [];
+8 -> _1 [];
+}

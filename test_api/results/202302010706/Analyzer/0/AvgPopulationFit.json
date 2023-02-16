@@ -1,0 +1,606 @@
+[
+  {
+    "Generation": -1,
+    "AveragePopulationFitness": 0.002456475482855726
+  },
+  {
+    "Generation": 0,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 1,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 2,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 3,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 4,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 5,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 6,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 7,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 8,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 9,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 10,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 11,
+    "AveragePopulationFitness": 0.116718780739601
+  },
+  {
+    "Generation": 12,
+    "AveragePopulationFitness": 0.11720540704098828
+  },
+  {
+    "Generation": 13,
+    "AveragePopulationFitness": 0.11873289623117829
+  },
+  {
+    "Generation": 14,
+    "AveragePopulationFitness": 0.11873289623117829
+  },
+  {
+    "Generation": 15,
+    "AveragePopulationFitness": 0.11873289623117829
+  },
+  {
+    "Generation": 16,
+    "AveragePopulationFitness": 0.11873289623117829
+  },
+  {
+    "Generation": 17,
+    "AveragePopulationFitness": 0.11873289623117829
+  },
+  {
+    "Generation": 18,
+    "AveragePopulationFitness": 0.11873289623117829
+  },
+  {
+    "Generation": 19,
+    "AveragePopulationFitness": 0.11873289623117829
+  },
+  {
+    "Generation": 20,
+    "AveragePopulationFitness": 0.11873289623117829
+  },
+  {
+    "Generation": 21,
+    "AveragePopulationFitness": 0.11873289623117829
+  },
+  {
+    "Generation": 22,
+    "AveragePopulationFitness": 0.12631535168268926
+  },
+  {
+    "Generation": 23,
+    "AveragePopulationFitness": 0.12631535168268926
+  },
+  {
+    "Generation": 24,
+    "AveragePopulationFitness": 0.12631535168268926
+  },
+  {
+    "Generation": 25,
+    "AveragePopulationFitness": 0.12631535168268926
+  },
+  {
+    "Generation": 26,
+    "AveragePopulationFitness": 0.12631535168268926
+  },
+  {
+    "Generation": 27,
+    "AveragePopulationFitness": 0.12631535168268926
+  },
+  {
+    "Generation": 28,
+    "AveragePopulationFitness": 0.12631535168268926
+  },
+  {
+    "Generation": 29,
+    "AveragePopulationFitness": 0.12631535168268926
+  },
+  {
+    "Generation": 30,
+    "AveragePopulationFitness": 0.12631535168268926
+  },
+  {
+    "Generation": 31,
+    "AveragePopulationFitness": 0.13772295939413884
+  },
+  {
+    "Generation": 32,
+    "AveragePopulationFitness": 0.13772295939413884
+  },
+  {
+    "Generation": 33,
+    "AveragePopulationFitness": 0.13772295939413884
+  },
+  {
+    "Generation": 34,
+    "AveragePopulationFitness": 0.13772295939413884
+  },
+  {
+    "Generation": 35,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 36,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 37,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 38,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 39,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 40,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 41,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 42,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 43,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 44,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 45,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 46,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 47,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 48,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 49,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 50,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 51,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 52,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 53,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 54,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 55,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 56,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 57,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 58,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 59,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 60,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 61,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 62,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 63,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 64,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 65,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 66,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 67,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 68,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 69,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 70,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 71,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 72,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 73,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 74,
+    "AveragePopulationFitness": 0.13953326791176027
+  },
+  {
+    "Generation": 75,
+    "AveragePopulationFitness": 0.13964347682004294
+  },
+  {
+    "Generation": 76,
+    "AveragePopulationFitness": 0.13964347682004294
+  },
+  {
+    "Generation": 77,
+    "AveragePopulationFitness": 0.13964347682004294
+  },
+  {
+    "Generation": 78,
+    "AveragePopulationFitness": 0.13964347682004294
+  },
+  {
+    "Generation": 79,
+    "AveragePopulationFitness": 0.13964347682004294
+  },
+  {
+    "Generation": 80,
+    "AveragePopulationFitness": 0.13964347682004294
+  },
+  {
+    "Generation": 81,
+    "AveragePopulationFitness": 0.13964347682004294
+  },
+  {
+    "Generation": 82,
+    "AveragePopulationFitness": 0.21209665567142783
+  },
+  {
+    "Generation": 83,
+    "AveragePopulationFitness": 0.21209665567142783
+  },
+  {
+    "Generation": 84,
+    "AveragePopulationFitness": 0.21209665567142783
+  },
+  {
+    "Generation": 85,
+    "AveragePopulationFitness": 0.23311224411663797
+  },
+  {
+    "Generation": 86,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 87,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 88,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 89,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 90,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 91,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 92,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 93,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 94,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 95,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 96,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 97,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 98,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 99,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 100,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 101,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 102,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 103,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 104,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 105,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 106,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 107,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 108,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 109,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 110,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 111,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 112,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 113,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 114,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 115,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 116,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 117,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 118,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 119,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 120,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 121,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 122,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 123,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 124,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 125,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 126,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 127,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 128,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 129,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 130,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 131,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 132,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 133,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 134,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 135,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 136,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 137,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 138,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 139,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 140,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 141,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 142,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 143,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 144,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 145,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 146,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 147,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 148,
+    "AveragePopulationFitness": 0.24359048507361239
+  },
+  {
+    "Generation": 149,
+    "AveragePopulationFitness": 0.24359048507361239
+  }
+]

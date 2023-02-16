@@ -1,0 +1,152 @@
+{
+  "00cdb56a0.jpg": {
+    "true positives": 1133,
+    "true negatives": 407157,
+    "false positives": 0,
+    "false negatives": 1310,
+    "MCC": 0.67991666572020382,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00e0398ad.jpg": {
+    "true positives": 73136,
+    "true negatives": 146731,
+    "false positives": 171791,
+    "false negatives": 17942,
+    "MCC": 0.22361513048743209,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "000a4bcdd.jpg": {
+    "true positives": 0,
+    "true negatives": 397923,
+    "false positives": 0,
+    "false negatives": 11677,
+    "MCC": 0.0,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00ac8372f.jpg": {
+    "true positives": 1253,
+    "true negatives": 383388,
+    "false positives": 24520,
+    "false negatives": 439,
+    "MCC": 0.17972805036599979,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00f6e702c.jpg": {
+    "true positives": 2431,
+    "true negatives": 385501,
+    "false positives": 16079,
+    "false negatives": 5589,
+    "MCC": 0.17547528690679634,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00af2671f.jpg": {
+    "true positives": 20900,
+    "true negatives": 310545,
+    "false positives": 66238,
+    "false negatives": 11917,
+    "MCC": 0.30585483069712943,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00ec97699.jpg": {
+    "true positives": 7144,
+    "true negatives": 398229,
+    "false positives": 1082,
+    "false negatives": 3145,
+    "MCC": 0.77151319795195306,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00bc01bfe.jpg": {
+    "true positives": 1552,
+    "true negatives": 327783,
+    "false positives": 76450,
+    "false negatives": 3815,
+    "MCC": 0.028976386927337436,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00f1665e6.jpg": {
+    "true positives": 14197,
+    "true negatives": 284343,
+    "false positives": 109257,
+    "false negatives": 1803,
+    "MCC": 0.2574410047997383,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "000f6bf48.jpg": {
+    "true positives": 40697,
+    "true negatives": 184279,
+    "false positives": 150505,
+    "false negatives": 34119,
+    "MCC": 0.073112779276739814,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00bf8497a.jpg": {
+    "true positives": 2165,
+    "true negatives": 400112,
+    "false positives": 2552,
+    "false negatives": 4771,
+    "MCC": 0.36980112795115438,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "0a5cff3a7.jpg": {
+    "true positives": 2937,
+    "true negatives": 349980,
+    "false positives": 50111,
+    "false negatives": 6572,
+    "MCC": 0.0823497059141625,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00d639396.jpg": {
+    "true positives": 39637,
+    "true negatives": 241180,
+    "false positives": 108434,
+    "false negatives": 20349,
+    "MCC": 0.25802265930474239,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "0a4ad45a5.jpg": {
+    "true positives": 2204,
+    "true negatives": 222566,
+    "false positives": 183893,
+    "false negatives": 937,
+    "MCC": 0.043670112072700377,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  },
+  "00c88fed0.jpg": {
+    "true positives": 497,
+    "true negatives": 399312,
+    "false positives": 9727,
+    "false negatives": 64,
+    "MCC": 0.20438033772809622,
+    "height": 256,
+    "width": 1600,
+    "size total": 409600
+  }
+}

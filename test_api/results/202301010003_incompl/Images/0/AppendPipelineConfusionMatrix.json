@@ -1,0 +1,62 @@
+{
+  "16.bmp": {
+    "true positives": 762,
+    "true negatives": 3616356,
+    "false positives": 2027,
+    "false negatives": 5855,
+    "MCC": 0.17642199376349188,
+    "height": 2500,
+    "width": 1450,
+    "size total": 3625000
+  },
+  "17.bmp": {
+    "true positives": 550,
+    "true negatives": 3614134,
+    "false positives": 4188,
+    "false negatives": 6128,
+    "MCC": 0.096378225925839209,
+    "height": 2500,
+    "width": 1450,
+    "size total": 3625000
+  },
+  "19.bmp": {
+    "true positives": 2876,
+    "true negatives": 3605154,
+    "false positives": 1520,
+    "false negatives": 15450,
+    "MCC": 0.31894903253033274,
+    "height": 2500,
+    "width": 1450,
+    "size total": 3625000
+  },
+  "404.bmp": {
+    "true positives": 3001,
+    "true negatives": 3605506,
+    "false positives": 1459,
+    "false negatives": 15034,
+    "MCC": 0.33317144993748693,
+    "height": 2500,
+    "width": 1450,
+    "size total": 3625000
+  },
+  "42.bmp": {
+    "true positives": 726,
+    "true negatives": 3348519,
+    "false positives": 20777,
+    "false negatives": 4978,
+    "MCC": 0.0625244582922527,
+    "height": 2500,
+    "width": 1350,
+    "size total": 3375000
+  },
+  "88.bmp": {
+    "true positives": 433,
+    "true negatives": 2157675,
+    "false positives": 328,
+    "false negatives": 16564,
+    "MCC": 0.11922927789988451,
+    "height": 2500,
+    "width": 870,
+    "size total": 2175000
+  }
+}

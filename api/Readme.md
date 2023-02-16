@@ -20,4 +20,4 @@ to a database model stored in `SQLite SQL` abstractions.
 
 * Activate venv: `<YOUR_PROJECT_PATH>\venv\Scripts\activate.bat`
 * Run project: `python <YOUR_PROJECT_PATH>\api\main.py`  
-* Running the tests: `(venv) python <YOUR_PROJECT_PATH>\api\test_models.py -v`
+* Running the tests: `python -m unittest discover -s "<YOUR_PROJECT_PATH>/api/test" -v`

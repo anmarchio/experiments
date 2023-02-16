@@ -1,0 +1,606 @@
+[
+  {
+    "Generation": -1,
+    "BestIndividualFitness": 0.0
+  },
+  {
+    "Generation": 0,
+    "BestIndividualFitness": 0.0
+  },
+  {
+    "Generation": 1,
+    "BestIndividualFitness": 0.0
+  },
+  {
+    "Generation": 2,
+    "BestIndividualFitness": 0.0
+  },
+  {
+    "Generation": 3,
+    "BestIndividualFitness": 0.069937503789830949
+  },
+  {
+    "Generation": 4,
+    "BestIndividualFitness": 0.0708351806517037
+  },
+  {
+    "Generation": 5,
+    "BestIndividualFitness": 0.08508440465992162
+  },
+  {
+    "Generation": 6,
+    "BestIndividualFitness": 0.08508440465992162
+  },
+  {
+    "Generation": 7,
+    "BestIndividualFitness": 0.08508440465992162
+  },
+  {
+    "Generation": 8,
+    "BestIndividualFitness": 0.08508440465992162
+  },
+  {
+    "Generation": 9,
+    "BestIndividualFitness": 0.08508440465992162
+  },
+  {
+    "Generation": 10,
+    "BestIndividualFitness": 0.08508440465992162
+  },
+  {
+    "Generation": 11,
+    "BestIndividualFitness": 0.08508440465992162
+  },
+  {
+    "Generation": 12,
+    "BestIndividualFitness": 0.085883855752385718
+  },
+  {
+    "Generation": 13,
+    "BestIndividualFitness": 0.085883855752385718
+  },
+  {
+    "Generation": 14,
+    "BestIndividualFitness": 0.085883855752385718
+  },
+  {
+    "Generation": 15,
+    "BestIndividualFitness": 0.085883855752385718
+  },
+  {
+    "Generation": 16,
+    "BestIndividualFitness": 0.085883855752385718
+  },
+  {
+    "Generation": 17,
+    "BestIndividualFitness": 0.085883855752385718
+  },
+  {
+    "Generation": 18,
+    "BestIndividualFitness": 0.085883855752385718
+  },
+  {
+    "Generation": 19,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 20,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 21,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 22,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 23,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 24,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 25,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 26,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 27,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 28,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 29,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 30,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 31,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 32,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 33,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 34,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 35,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 36,
+    "BestIndividualFitness": 0.10730558893051091
+  },
+  {
+    "Generation": 37,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 38,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 39,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 40,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 41,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 42,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 43,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 44,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 45,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 46,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 47,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 48,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 49,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 50,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 51,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 52,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 53,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 54,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 55,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 56,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 57,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 58,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 59,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 60,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 61,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 62,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 63,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 64,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 65,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 66,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 67,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 68,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 69,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 70,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 71,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 72,
+    "BestIndividualFitness": 0.11169851253330047
+  },
+  {
+    "Generation": 73,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 74,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 75,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 76,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 77,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 78,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 79,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 80,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 81,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 82,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 83,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 84,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 85,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 86,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 87,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 88,
+    "BestIndividualFitness": 0.11169861817048338
+  },
+  {
+    "Generation": 89,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 90,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 91,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 92,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 93,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 94,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 95,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 96,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 97,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 98,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 99,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 100,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 101,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 102,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 103,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 104,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 105,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 106,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 107,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 108,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 109,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 110,
+    "BestIndividualFitness": 0.16999412484961851
+  },
+  {
+    "Generation": 111,
+    "BestIndividualFitness": 0.17551987538175803
+  },
+  {
+    "Generation": 112,
+    "BestIndividualFitness": 0.17551987538175803
+  },
+  {
+    "Generation": 113,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 114,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 115,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 116,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 117,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 118,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 119,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 120,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 121,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 122,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 123,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 124,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 125,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 126,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 127,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 128,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 129,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 130,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 131,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 132,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 133,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 134,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 135,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 136,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 137,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 138,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 139,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 140,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 141,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 142,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 143,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 144,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 145,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 146,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 147,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 148,
+    "BestIndividualFitness": 0.18444573972488135
+  },
+  {
+    "Generation": 149,
+    "BestIndividualFitness": 0.18444573972488135
+  }
+]

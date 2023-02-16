@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ESConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Rho>0</Rho>
+  <Lambda>4</Lambda>
+  <PlusSelection>true</PlusSelection>
+  <Mu>1</Mu>
+</ESConfiguration>

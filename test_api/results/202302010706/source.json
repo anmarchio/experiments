@@ -1,0 +1,6 @@
+[
+  {
+    "trainingDataDirectory": "/mnt/sdc1/evias_expmts/severstal-steel/train_cgp",
+    "validationDataDirectory": "/mnt/sdc1/evias_expmts/severstal-steel/val_cgp"
+  }
+]

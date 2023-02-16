@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HalconPipeline xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <AdjacencyList>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>35</Head>
+      <Tail>29</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>29</Head>
+      <Tail>1</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>1</Head>
+      <Tail>-1</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+  </AdjacencyList>
+  <Name>DefaultName</Name>
+  <Nodes>
+    <HalconOperatorNode xsi:type="Union1">
+      <NodeID>35</NodeID>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="FastThreshold">
+      <NodeID>29</NodeID>
+      <MinGray>248</MinGray>
+      <MaxGrayOffset>68</MaxGrayOffset>
+      <MinSize>13</MinSize>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="GrayDilation">
+      <NodeID>1</NodeID>
+      <StructElement>Circle</StructElement>
+      <A>29</A>
+      <B>27</B>
+      <GrayValueMax>0</GrayValueMax>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="HalconInputNode">
+      <NodeID>-1</NodeID>
+      <ProgramInputIdentifier>-1</ProgramInputIdentifier>
+    </HalconOperatorNode>
+  </Nodes>
+  <AutoDisposeIntermediateOutputs>false</AutoDisposeIntermediateOutputs>
+</HalconPipeline>

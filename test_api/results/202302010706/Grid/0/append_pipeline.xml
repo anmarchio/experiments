@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HalconPipeline xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <AdjacencyList>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>61</Head>
+      <Tail>30</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>61</Head>
+      <Tail>58</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>30</Head>
+      <Tail>20</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>58</Head>
+      <Tail>20</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>58</Head>
+      <Tail>14</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>20</Head>
+      <Tail>5</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>14</Head>
+      <Tail>8</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>5</Head>
+      <Tail>-1</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>8</Head>
+      <Tail>-1</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+  </AdjacencyList>
+  <Name>DefaultName</Name>
+  <Nodes>
+    <HalconOperatorNode xsi:type="Opening">
+      <NodeID>61</NodeID>
+      <StructElement>Rectangle</StructElement>
+      <A>15</A>
+      <B>13</B>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="Closing">
+      <NodeID>30</NodeID>
+      <A>14</A>
+      <B>30</B>
+      <C>-0.392699</C>
+      <StructElementType>Circle</StructElementType>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="CloseEdges">
+      <NodeID>58</NodeID>
+      <MinAmplitude>152</MinAmplitude>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="LocalThreshold">
+      <NodeID>20</NodeID>
+      <Method>adapted_std_deviation</Method>
+      <LightDark>dark</LightDark>
+      <MaskSize>31</MaskSize>
+      <Scale>0.2</Scale>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="SobelAmp">
+      <NodeID>14</NodeID>
+      <FilterType>y</FilterType>
+      <MaskSize>3</MaskSize>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="HighpassImage">
+      <NodeID>5</NodeID>
+      <MaskWidth>327</MaskWidth>
+      <MaskHeight>419</MaskHeight>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="GrayOpening">
+      <NodeID>8</NodeID>
+      <StructElement>Circle</StructElement>
+      <A>11</A>
+      <B>6</B>
+      <GrayValueMax>5</GrayValueMax>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="HalconInputNode">
+      <NodeID>-1</NodeID>
+      <ProgramInputIdentifier>-1</ProgramInputIdentifier>
+    </HalconOperatorNode>
+  </Nodes>
+  <AutoDisposeIntermediateOutputs>false</AutoDisposeIntermediateOutputs>
+</HalconPipeline>

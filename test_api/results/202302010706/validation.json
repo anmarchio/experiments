@@ -1,0 +1,16 @@
+[
+  {
+    "Fitness": {
+      "MCC": 0.24359048507361239
+    },
+    "Iteration": 0,
+    "IndividualId": 1201
+  },
+  {
+    "Fitness": {
+      "MCC": 0.23534055675386725
+    },
+    "Iteration": 1,
+    "IndividualId": 1202
+  }
+]

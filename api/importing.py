@@ -4,14 +4,43 @@ import re
 import xml.etree.ElementTree as ET
 from datetime import datetime
 
-from database import Database
-from models import Experiment, Run, Dataset, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
+from api.database import Database
+from api.models import Experiment, Run, Dataset, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
     Individual, Pipeline, Item, Parameter, Node, Grid, Configuration, EvolutionStrategy, HalconFitnessConfiguration, \
     ExceptionLog, Vector, Element, ActiveGridNodes, InputGridNodes, OutputGridNodes, GridNode, GridNodeValue, \
     ConfusionMatrix, Image
 
 # initialize database
 DB = Database()
+
+
+def exception_case(path):
+    date_txt_path = os.path.join(path, "date.txt")
+    overview_json_path = os.path.join(path, "overview.json")
+    seed_txt_path = os.path.join(path, "seed.txt")
+    source_json_path = os.path.join(path, "source.json")
+
+    existing_files = [os.path.exists(x) for x in [date_txt_path, overview_json_path, seed_txt_path, source_json_path]]
+    if [False, False, False, True] == existing_files:
+
+        for exc in os.listdir(os.path.join(path, "exceptions")):
+            dataset = Dataset.create_from_json(
+                source_json=source_json_path
+            )
+            DB.get_session().add(dataset)
+            DB.get_session().commit()
+
+            experiment = Experiment(
+                created_at=datetime.strptime(os.path.split(path)[-1][0:12], '%Y%m%d%H%M'),
+                dataset_id=dataset.dataset_id
+            )
+            DB.get_session().add(dataset)
+            DB.get_session().commit()
+
+            create_exception(path, experiment, exc)
+
+        print("[WARNING] Exceptions found. Aborting.")
+        return True
 
 
 def create_experiment_and_run_metadata(path: str):
@@ -57,6 +86,12 @@ def create_analyzer(path, experiment: Experiment, run_number):
         "AvgPopulationFit": os.path.join(path, "Analyzer", run_number, "AvgPopulationFit.json"),
         "BestIndividualFit": os.path.join(path, "Analyzer", run_number, "BestIndividualFit.json")
     }
+
+    # Check if the all files exist in run_number
+    if not all([os.path.exists(a[1]) for a in analyzer_files.items()]):
+        # exit method if one is not present
+        return 0
+
     run_entry = DB.get_session().query(Run).filter_by(
         experiment_id=experiment.experiment_id,
         number=int(run_number)
@@ -97,6 +132,12 @@ def create_individuals(path, experiment: Experiment, run_number):
         "loader_evaluation_log": os.path.join(path, "Analyzer", run_number, "loader_evaluation_log.json"),
         "append_pipeline": os.path.join(path, "Grid", run_number, "append_pipeline.txt")
     }
+
+    # Check if the all files exist in run_number
+    if not all([os.path.exists(a[1]) for a in individual_pipeline_files.items()]):
+        # exit method if one is not present
+        return 0
+
     run = DB.get_session().query(Run).filter_by(
         experiment_id=experiment.experiment_id,
         number=run_number
@@ -187,6 +228,12 @@ def create_config(path, experiment: Experiment):
         "EvolutionStrategy": os.path.join(path, "Config", "EvolutionStrategy.txt"),
         "Fitness": os.path.join(path, "Config", "Fitness.txt")
     }
+
+    # Check if the all files exist in run_number
+    if not all([os.path.exists(a[1]) for a in config_files.items()]):
+        # exit method if one is not present
+        return 0
+
     f_es = open(config_files['EvolutionStrategy'], "r")
     f_fit = open(config_files['Fitness'], "r")
 
@@ -238,10 +285,14 @@ def create_config(path, experiment: Experiment):
 
 def create_exception(path, experiment, exception):
     print("\tReading exception ", exception)
+
+    if not os.path.exists(os.path.join(path, "exceptions", exception)):
+        return 0
+
     f = open(os.path.join(path, "exceptions", exception), "r")
     exception_log = ExceptionLog(
-        exception_id=experiment.experiment_id,
-        identifier=exception.split(".")[1],
+        experiment_id=experiment.experiment_id,
+        identifier=exception.split(".")[0],
         content=f.read()
     )
     DB.get_session().add(exception_log)
@@ -314,10 +365,8 @@ def create_grid_nodes(grid, lines):
         DB.get_session().commit()
 
         # Add node values
-        values_in_brackets = re.search(r"\([0-9.,-]+\)", node.split(":")[2])
-        values = values_in_brackets.string[
-                 values_in_brackets.regs[0][0] + 1:values_in_brackets.regs[0][1] - 1].split(",")
-        for v in values:
+        values = re.findall(r"\([0-9.,-E]+\)", node.split(":")[2])[0]
+        for v in values[1:-1].split(","):
             grid_node_value = GridNodeValue(
                 grid_node_id=grid_node.grid_node_id,
                 value=float(v),
@@ -356,6 +405,12 @@ def create_grid(path, experiment: Experiment, run_number):
         "pipeline": os.path.join(path, "Grid", run_number, "pipeline.txt"),
         "vector": os.path.join(path, "Grid", run_number, "vector.txt")
     }
+
+    # Check if the all files exist in run_number
+    if not all([os.path.exists(g[1]) for g in grid_files.items()]):
+        # exit method if one is not present
+        return 0
+
     run = DB.get_session().query(Run).filter_by(
         experiment_id = experiment.experiment_id,
         number=int(run_number)).first()
@@ -387,6 +442,12 @@ def create_images(path, experiment: Experiment, run_number):
         "ConfusionMatrix": os.path.join(path, "Images", run_number, "ConfusionMatrix.json"),
         "legend": os.path.join(path, "Images", run_number, "legend.txt"),
     }
+
+    # Check if the all files exist in run_number
+    if not all([os.path.exists(img[1]) for img in images_files.items()]):
+        # exit method if one is not present
+        return 0
+
     run = DB.get_session().query(Run).filter_by(
             experiment_id=experiment.experiment_id,
             number=int(run_number)
@@ -422,6 +483,11 @@ def import_one(path: str):
     and translates them to python model objects
     """
     print('Importing ', path)
+    #
+    # Exceptions only
+    #
+    if exception_case(path):
+        return 0
     # ...
     #    |_ date.txt
     #    |_ overview.json
@@ -439,8 +505,7 @@ def import_one(path: str):
     #            |_ loader_evaluation_log.json
     for run_number in os.listdir(os.path.join(path, "Analyzer")):
         create_analyzer(path, experiment, run_number)
-        create_individuals(path, experiment, run_number)
-    #
+        create_individuals(path, experiment, run_number)    #
     # Config
     #       |_ EvoluationStrategy.txt
     #       |_ Fitness.txt
@@ -483,8 +548,8 @@ def import_many(paths: []):
     """
     i = 0
     for path in paths:
-        progress = int(i / 10)
-        print("|" + "=" * progress + "-" * (1 - progress) + "|")
+        progress = int(i / 10) * 10
+        print("|" + "=" * progress + "-" * (10 - progress) + "|")
         print(import_one(path))
         i += 1
     print('Finished importing.')

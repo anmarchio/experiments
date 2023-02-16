@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HalconFitnessConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <RegionScoreWeight>0</RegionScoreWeight>
+  <ArtifactScoreWeight>0</ArtifactScoreWeight>
+  <FitnessScoreWeight>1</FitnessScoreWeight>
+  <Maximization>true</Maximization>
+  <Weights>
+    <double>1</double>
+  </Weights>
+  <FitnessFunctions>
+    <FitnessFunction>MCC</FitnessFunction>
+  </FitnessFunctions>
+  <ExcessRegionHandling>None</ExcessRegionHandling>
+  <RegionCountThreshold xsi:nil="true" />
+  <ExecutionTimeThreshold xsi:nil="true" />
+  <UseExecutionTimeFitnessPenalty>false</UseExecutionTimeFitnessPenalty>
+  <ExecutionTimeFunctionScaleFactor>0</ExecutionTimeFunctionScaleFactor>
+  <PixelPercentageThreshold>0.699999988079071</PixelPercentageThreshold>
+  <Filename>/Default/</Filename>
+</HalconFitnessConfiguration>
