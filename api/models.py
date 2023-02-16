@@ -1,5 +1,6 @@
 import enum
 import json
+import os
 from datetime import datetime
 
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Boolean
@@ -122,16 +123,25 @@ class Dataset(Base):
 
     @staticmethod
     def create_from_json(source_json: str):
-        with open(source_json) as f:
-            jsondata = json.load(f)
-            dataset = Dataset(
-                name=jsondata[0]['trainingDataDirectory'].split("\\")[-1],
-                source_directory=jsondata[0]['validationDataDirectory'],
-                validation_directory=jsondata[0]['validationDataDirectory'],
-                description="",
-                url=""
-            )
-            return dataset
+        name_str = "unknown"
+        src_dir = "unknown"
+        val_dir = "unknown"
+        if os.path.exists(source_json):
+            with open(source_json) as f:
+                jsondata = json.load(f)
+                name_str = jsondata[0]['trainingDataDirectory'].split("\\")[-1]
+                src_dir = jsondata[0]['trainingDataDirectory']
+                val_dir = jsondata[0]['validationDataDirectory']
+
+        dataset = Dataset(
+            name=name_str,
+            source_directory=src_dir,
+            validation_directory=val_dir,
+            description="",
+            url=""
+        )
+        return dataset
+
 
 
 class Analyzer(Base):
