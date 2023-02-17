@@ -258,27 +258,29 @@ def generate_plots(source_path, target_path):
         )
 
 
+def show_sample_plots():
+    # Echo the input arguments to standard output
+    print("Create sample plots ...")
+
+    plot_sample()
+    fancy_mean_plot()
+    plot_fitness_evolution()
+    entropy_fitness_plot()
+    fitness_boxplots()
+    computations_per_computing_unit()
+
 def main() -> int:
     results_path = p_join(os.path.curdir, 'results')
     report_path = p_join(os.path.curdir, 'report')
 
-    # Echo the input arguments to standard output
-    print("Create sample plots ...")
-
-    # plot_sample()
-    # fancy_mean_plot()
-    # plot_fitness_evolution()
-    # entropy_fitness_plot()
-    # fitness_boxplots()
-    # computations_per_computing_unit()
-
+    show_sample_plots()
     # os.makedirs(report_path, mode=777, exist_ok=True)
 
     # Creates HTML file report/index.html
-    if SPECIFIC_SOURCE_PATH is not "":
-        generate_plots(SPECIFIC_SOURCE_PATH, report_path)
-    else:
-        generate_plots(results_path, report_path)
+    # if SPECIFIC_SOURCE_PATH is not "":
+    #    generate_plots(SPECIFIC_SOURCE_PATH, report_path)
+    # else:
+    #    generate_plots(results_path, report_path)
 
     return 0
 
