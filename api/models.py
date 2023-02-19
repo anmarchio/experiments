@@ -143,7 +143,6 @@ class Dataset(Base):
         )
         return dataset
 
-
     @staticmethod
     def get_runs_fitness_by_dataset(session: Session):
         # Experiments by dataset
@@ -162,7 +161,8 @@ class Dataset(Base):
                 for r in expr:
                     if r is not None:
                         analyzer = session.query(Analyzer).filter_by(run_id=r.run_id).first()
-                        best_ind_fit.append(session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
+                        best_ind_fit.append(
+                            session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
             # Line Header
             # Dataset   | Experiment date   | list(run)
             datasets_fitness_lists[ds.dataset_id] = {
@@ -171,8 +171,6 @@ class Dataset(Base):
                 "values": best_ind_fit
             }
         return datasets_fitness_lists
-
-
 
 
 class Analyzer(Base):
@@ -248,7 +246,6 @@ class AvgOffspringFit(Base):
                 )
                 avg_offspring_fit.analyzer_id = analyzer.analyzer_id
                 session.add(avg_offspring_fit)
-
 
 
 class Pipeline(Base):

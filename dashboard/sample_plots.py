@@ -1,3 +1,5 @@
+from random import randrange
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -53,16 +55,18 @@ def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: []):
     fig, ax = plt.subplots()
     x = np.arange(0.0, len(fitness_charts[0]), 1.0)
     colors = ['red', 'orange', 'brown', 'green', 'gray']
-    styles = ['-', '--', ':']
+    # https://matplotlib.org/2.1.2/api/_as_gen/matplotlib.pyplot.plot.html
+    styles = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>']
     i = 0
     for chart in fitness_charts:
         if len(chart) == len(x):
-            linestyle = styles[i]
+            linestyle = styles[randrange(len(styles))]
             clr = colors[i]
             ax.plot(x, chart, linestyle, color='tab:' + clr, label=str(i) + ": " + axis_title)
         i += 1
-    ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
-    ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
+    if len(fitness_charts) > 1:
+        ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
+        ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
 
     # ax.plot(x, fit_avg, 'o', color='tab:brown')
     plt.grid(True)

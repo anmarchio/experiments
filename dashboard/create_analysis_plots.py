@@ -98,6 +98,8 @@ def read_database_and_show_plots():
         for r in list_of_runs_fitness[k]["values"]:
             fit_values.append([f.best_individual_fitness for f in r])
 
+        if list_of_runs_fitness[k]["source"] != "unknown":
+            print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
         plot_fitness_arrays(
             os.path.split(list_of_runs_fitness[k]["source"])[-1],
             "Best Individual",
