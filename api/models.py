@@ -48,28 +48,6 @@ class Experiment(Base):
         )
         return experiment
 
-    @staticmethod
-    def get_runs_fitness_by_dataset(session: Session):
-        # Experiments by dataset
-        datasets = session.query(Dataset).all()
-        datasets_fitness_lists = {}
-
-        for ds in datasets:
-            experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
-            exp_runs = []
-            for exp in experiments:
-                tmp_runs = session.query(Run).filter_by(experiment_id=exp.experiment_id).all()
-                if len(tmp_runs) > 0:
-                    exp_runs.append(tmp_runs)
-            best_ind_fit = []
-            for expr in exp_runs:
-                for r in expr:
-                    if r is not None:
-                        analyzer = session.query(Analyzer).filter_by(run_id=r.run_id).first()
-                        best_ind_fit.append(session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
-            datasets_fitness_lists[ds.dataset_id] = best_ind_fit
-        return datasets_fitness_lists
-
 
 class Run(Base):
     __tablename__ = "run"
@@ -164,6 +142,36 @@ class Dataset(Base):
             url=""
         )
         return dataset
+
+
+    @staticmethod
+    def get_runs_fitness_by_dataset(session: Session):
+        # Experiments by dataset
+        datasets = session.query(Dataset).all()
+        datasets_fitness_lists = {}
+
+        for ds in datasets:
+            experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
+            exp_runs = []
+            for exp in experiments:
+                tmp_runs = session.query(Run).filter_by(experiment_id=exp.experiment_id).all()
+                if len(tmp_runs) > 0:
+                    exp_runs.append(tmp_runs)
+            best_ind_fit = []
+            for expr in exp_runs:
+                for r in expr:
+                    if r is not None:
+                        analyzer = session.query(Analyzer).filter_by(run_id=r.run_id).first()
+                        best_ind_fit.append(session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
+            # Line Header
+            # Dataset   | Experiment date   | list(run)
+            datasets_fitness_lists[ds.dataset_id] = {
+                "name": ds.name,
+                "source": ds.source_directory,
+                "values": best_ind_fit
+            }
+        return datasets_fitness_lists
+
 
 
 

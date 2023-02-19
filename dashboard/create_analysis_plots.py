@@ -5,7 +5,7 @@ from os.path import join as p_join
 
 from api import env_var
 from api.database import Database
-from api.models import Experiment
+from api.models import Experiment, Dataset
 from sample_plots import plot_fitness_arrays, plot_sample, fancy_mean_plot, plot_fitness_evolution, \
     entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit
 
@@ -89,27 +89,20 @@ def show_sample_plots():
 def read_database_and_show_plots():
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
-    list_of_runs_fitness = Experiment.get_runs_fitness_by_dataset(db.get_session())
+    list_of_runs_fitness = Dataset.get_runs_fitness_by_dataset(db.get_session())
     for k in list_of_runs_fitness.keys():
-        if len(list_of_runs_fitness[k]) == 0:
+        if len(list_of_runs_fitness[k]["values"]) == 0:
             print("Empty experiment")
             continue
         fit_values = []
-        for r in list_of_runs_fitness[k]:
+        for r in list_of_runs_fitness[k]["values"]:
             fit_values.append([f.best_individual_fitness for f in r])
 
         plot_fitness_arrays(
-            "experiment",
-            "Best Individual Fit",
+            os.path.split(list_of_runs_fitness[k]["source"])[-1],
+            "Best Individual",
             fit_values
         )
-    """
-    plot_fitness_arrays(
-        title,
-        "Offspring Mean",
-        avg_off_fit
-    )
-    """
 
 
 def main() -> int:
