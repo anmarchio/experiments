@@ -5,6 +5,7 @@ from datetime import datetime
 
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Boolean
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import Session
 
 Base = declarative_base()
 
@@ -46,6 +47,28 @@ class Experiment(Base):
             dataset_id=dataset_id
         )
         return experiment
+
+    @staticmethod
+    def get_runs_fitness_by_dataset(session: Session):
+        # Experiments by dataset
+        datasets = session.query(Dataset).all()
+        datasets_fitness_lists = {}
+
+        for ds in datasets:
+            experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
+            exp_runs = []
+            for exp in experiments:
+                tmp_runs = session.query(Run).filter_by(experiment_id=exp.experiment_id).all()
+                if len(tmp_runs) > 0:
+                    exp_runs.append(tmp_runs)
+            best_ind_fit = []
+            for expr in exp_runs:
+                for r in expr:
+                    if r is not None:
+                        analyzer = session.query(Analyzer).filter_by(run_id=r.run_id).first()
+                        best_ind_fit.append(session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
+            datasets_fitness_lists[ds.dataset_id] = best_ind_fit
+        return datasets_fitness_lists
 
 
 class Run(Base):
@@ -155,7 +178,7 @@ class BestIndividualFit(Base):
     best_individual_fit_id = Column(Integer, primary_key=True)
     analyzer_id = Column(Integer, ForeignKey("analyzer.analyzer_id"))
     generation = Column(Integer)
-    average_individual_fitness = Column(Float)
+    best_individual_fitness = Column(Float)
 
     @staticmethod
     def create_from_json(
@@ -165,9 +188,9 @@ class BestIndividualFit(Base):
         with open(path) as f:
             fit_json = json.load(f)
             for entry in fit_json:
-                best_individual_fit = AvgOffspringFit(
+                best_individual_fit = BestIndividualFit(
                     generation=int(entry['Generation']),
-                    average_offspring_fitness=float(entry['BestIndividualFitness'])
+                    best_individual_fitness=float(entry['BestIndividualFitness'])
                 )
                 best_individual_fit.analyzer_id = analyzer.analyzer_id
                 session.add(best_individual_fit)
@@ -188,9 +211,9 @@ class AvgPopulationFit(Base):
         with open(path) as f:
             fit_json = json.load(f)
             for entry in fit_json:
-                avg_population_fit = AvgOffspringFit(
+                avg_population_fit = AvgPopulationFit(
                     generation=int(entry['Generation']),
-                    average_offspring_fitness=float(entry['AveragePopulationFitness'])
+                    average_population_fitness=float(entry['AveragePopulationFitness'])
                 )
                 avg_population_fit.analyzer_id = analyzer.analyzer_id
                 session.add(avg_population_fit)

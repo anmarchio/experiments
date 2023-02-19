@@ -102,6 +102,8 @@ def create_analyzer(path, experiment: Experiment, run_number):
     DB.get_session().add(analyzer)
     DB.get_session().commit()
 
+    run_entry.analyzer_id = analyzer.analyzer_id
+
     AvgOffspringFit.create_from_json(
         analyzer_files['AvgOffspringFit'],
         analyzer,
@@ -505,7 +507,8 @@ def import_one(path: str):
     #            |_ loader_evaluation_log.json
     for run_number in os.listdir(os.path.join(path, "Analyzer")):
         create_analyzer(path, experiment, run_number)
-        create_individuals(path, experiment, run_number)    #
+        create_individuals(path, experiment, run_number)
+    #
     # Config
     #       |_ EvoluationStrategy.txt
     #       |_ Fitness.txt

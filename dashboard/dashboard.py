@@ -5,11 +5,13 @@ from matplotlib_dashboard import MatplotlibDashboard
 import pandas as pd, numpy as np
 import hvplot.pandas  # noqa
 
+
 def hvplot_test():
     idx = pd.date_range('1/1/2000', periods=1000)
     df = pd.DataFrame(np.random.randn(1000, 4), index=idx, columns=list('ABCD')).cumsum()
-    #df.hvplot()
+    # df.hvplot()
     df.plot()
+
 
 def matplot_dashboard():
     # https://pypi.org/project/matplotlib-dashboard/
@@ -33,7 +35,8 @@ def matplot_dashboard():
     dashboard['right'].set_title('right bar')
 
     from PIL import Image
-    img = os.path.join("C:\\","dev","experiments", "test_api","results","202301010003_incompl","Images","0","16.bmp.jpg")
+    img = os.path.join("C:\\", "dev", "experiments", "test_api", "results", "202301010003_incompl", "Images", "0",
+                       "16.bmp.jpg")
     dashboard['down'].imshow(Image.open(img))
     dashboard['down'].get_xaxis().set_ticks([])
     dashboard['down'].get_yaxis().set_ticks([])
