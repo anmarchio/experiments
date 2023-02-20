@@ -100,11 +100,18 @@ def read_database_and_show_plots():
 
         if list_of_runs_fitness[k]["source"] != "unknown":
             print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
-        plot_fitness_arrays(
-            os.path.split(list_of_runs_fitness[k]["source"])[-1],
-            "Best Individual",
-            fit_values
-        )
+            split_path = os.path.split(list_of_runs_fitness[k]["source"])
+            if list_of_runs_fitness[k]["name"] not in ["unknown", "train", "train_cgp", "training"]:
+                fig_title = list_of_runs_fitness[k]["name"]
+            elif len(split_path) > 1:
+                fig_title = split_path[-2] + split_path[-1]
+            else:
+                fig_title = split_path[-1]
+            plot_fitness_arrays(
+                fig_title,
+                "Best Individual",
+                fit_values
+            )
 
 
 def main() -> int:

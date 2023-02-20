@@ -28,16 +28,21 @@ class Experiment(Base):
         date = None
         with open(date_txt, "r") as f_date:
             try:
-                date = datetime.strptime(f_date.readline()[7:-1], '%m/%d/%Y %I:%M:%S %p')
+                tmp = f_date.readline()[7:-1]
+                date = datetime.strptime(tmp, '%m/%d/%Y %I:%M:%S %p')
             except:
                 print("date not us standard")
-            else:
                 try:
                     date = datetime.strptime(f_date.readline()[7:-1], '%d.%m.%Y %H:%M:%S')
                 except:
                     print("date not european")
-                finally:
-                    date = datetime.utcnow()
+                    try:
+                        date_path = os.path.normpath(date_txt).split(os.path.sep)
+                        date = datetime.strptime(date_path[-2], '%Y%m%d%H%M')
+                    except:
+                        print("folder not working")
+                    finally:
+                        date = datetime.utcnow()
         seed_value = 0
         with open(seed_txt, "r") as f_seed:
             seed_value = int(f_seed.read())
@@ -75,17 +80,22 @@ class Run(Base):
             for line in f_date.readlines():
                 if "Iteration" in line:
                     run_number = int(line[10:13])
+
                     try:
                         date = datetime.strptime(f_date.readline()[7:-1], '%m/%d/%Y %I:%M:%S %p')
                     except:
                         print("date not us standard")
-                    else:
                         try:
                             date = datetime.strptime(f_date.readline()[7:-1], '%d.%m.%Y %H:%M:%S')
                         except:
                             print("date not european")
-                        finally:
-                            date = datetime.utcnow()
+                            try:
+                                date_path = os.path.normpath(date_txt).split(os.path.sep)
+                                date = datetime.strptime(date_path[-2], '%Y%m%d%H%M')
+                            except:
+                                print("folder not working")
+                            finally:
+                                date = datetime.utcnow()
                     run = Run(
                         experiment_id=experiment.experiment_id,
                         started_at=date,
