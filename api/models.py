@@ -176,6 +176,7 @@ class Dataset(Base):
             # Line Header
             # Dataset   | Experiment date   | list(run)
             datasets_fitness_lists[ds.dataset_id] = {
+                "id": ds.dataset_id,
                 "name": ds.name,
                 "source": ds.source_directory,
                 "values": best_ind_fit
@@ -237,7 +238,7 @@ class AvgPopulationFit(Base):
 
 class AvgOffspringFit(Base):
     __tablename__ = "avg_offspring_fit"
-    best_individual_fit_id = Column(Integer, primary_key=True)
+    avg_offspring_fit_id = Column(Integer, primary_key=True)
     analyzer_id = Column(Integer, ForeignKey("analyzer.analyzer_id"))
     generation = Column(Integer)
     average_offspring_fitness = Column(Float)
