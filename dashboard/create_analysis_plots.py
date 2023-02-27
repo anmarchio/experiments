@@ -103,19 +103,20 @@ def read_database_and_show_plots():
         for r in list_of_runs_fitness[k]["values"]:
             fit_values.append([f.best_individual_fitness for f in r])
 
-        if list_of_runs_fitness[k]["source"] != "unknown":
+        if len(list_of_runs_fitness[k]["values"]) > 0:
             print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
             split_path = os.path.split(list_of_runs_fitness[k]["source"])
             if list_of_runs_fitness[k]["name"] not in ["unknown", "train", "train_cgp", "training"]:
                 fig_title = str(id) + ", " + list_of_runs_fitness[k]["name"]
             elif len(split_path) > 1:
-                fig_title = str(id) + ", " +split_path[-2] + split_path[-1]
+                fig_title = str(id) + ", " + split_path[-2] + split_path[-1]
             else:
-                fig_title = str(id) + ", " +split_path[-1]
+                fig_title = str(id) + ", " + split_path[-1]
             plot_fitness_arrays(
                 fig_title,
                 "Best Individual",
-                fit_values
+                fit_values,
+                path=p_join(os.path.curdir, '../scripts/report/' + str(k) + '.png')
             )
 
 

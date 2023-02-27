@@ -36,4 +36,22 @@ SELECT dataset.dataset_id, dataset.source_directory, experiment.experiment_id, e
 * Show datasets for which no experiment exists (NULL)
 ```
 SELECT dataset.dataset_id, dataset.source_directory, experiment.experiment_id, experiment.created_at FROM dataset LEFT JOIN experiment ON experiment.dataset_id=dataset.dataset_id WHERE experiment_id IS NULL
+SELECT experiment.dataset_id, dataset.source_directory, experiment.experiment_id, experiment.created_at FROM experiment LEFT JOIN run ON experiment.dataset_id=dataset.dataset_id WHERE experiment_id IS NULL
+SELECT run.dataset_id, dataset.source_directory, experiment.experiment_id, experiment.created_at FROM analyzer LEFT JOIN run ON experiment.dataset_id=dataset.dataset_id WHERE experiment_id IS NULL
+```
+
+* analyzer runs
+
+```
+SELECT * FROM run ORDER BY run.analyzer_id
+```
+or
+```
+SELECT * FROM best_individual_fit ORDER BY analyzer_id
+```
+
+*Exception ID:*
+```
+SELECT * FROM exception ORDER BY experiment_id
+SELECT * FROM exception WHERE experiment_id IS NULL
 ```

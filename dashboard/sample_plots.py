@@ -51,7 +51,7 @@ def plot_fitness_evolution(evolutions: list = None):
     plt.show()
 
 
-def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: []):
+def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: [], path=""):
     fig, ax = plt.subplots()
     x = np.arange(0.0, len(fitness_charts[0]), 1.0)
     colors = ['red', 'orange', 'brown', 'green', 'gray']
@@ -75,7 +75,10 @@ def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: []):
     ax.set_ylabel("Fitness")
     ax.legend()
 
-    plt.show()
+    if path == "":
+        plt.show()
+    else:
+        plt.savefig(path)
 
 
 def fancy_mean_plot():
