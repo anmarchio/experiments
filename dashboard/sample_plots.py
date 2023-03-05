@@ -54,9 +54,12 @@ def plot_fitness_evolution(evolutions: list = None):
 def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: [], path=""):
     fig, ax = plt.subplots()
     x = np.arange(0.0, len(fitness_charts[0]), 1.0)
-    colors = ['red', 'orange', 'brown', 'green', 'gray']
     # https://matplotlib.org/2.1.2/api/_as_gen/matplotlib.pyplot.plot.html
-    styles = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>']
+    colors = ['blue', 'orange', 'green', 'red', 'purple', 'brown',
+              'pink', 'gray', 'olive', 'cyan']
+
+    styles = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', 's', 'p', '*', 'h', 'H', '+', 'x', 'D',
+              'd', '|', '_']
     i = 0
     for chart in fitness_charts:
         if len(chart) == len(x):
@@ -64,15 +67,18 @@ def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: [], path=""
             clr = colors[i]
             ax.plot(x, chart, linestyle, color='tab:' + clr, label=str(i) + ": " + axis_title)
         i += 1
-    if len(fitness_charts) > 1:
-        ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
-        ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
+        if i > len(colors) - 1:
+            i = 0
+    # if len(fitness_charts) > 1:
+    #    ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
+    #    ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
 
     # ax.plot(x, fit_avg, 'o', color='tab:brown')
     plt.grid(True)
     ax.set_title(title)
     ax.set_xlabel("Generations")
     ax.set_ylabel("Fitness")
+    ax.set_ylim([0.0, 1.0])
     ax.legend()
 
     if path == "":

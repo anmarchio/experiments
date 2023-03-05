@@ -40,6 +40,13 @@ SELECT experiment.dataset_id, dataset.source_directory, experiment.experiment_id
 SELECT run.dataset_id, dataset.source_directory, experiment.experiment_id, experiment.created_at FROM analyzer LEFT JOIN run ON experiment.dataset_id=dataset.dataset_id WHERE experiment_id IS NULL
 ```
 
+* Count datasets by name or source directory
+
+```
+SELECT count(name), * FROM dataset GROUP BY name
+SELECT count(source_directory), * FROM dataset GROUP BY source_directory
+```
+
 * analyzer runs
 
 ```

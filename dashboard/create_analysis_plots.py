@@ -86,10 +86,16 @@ def show_sample_plots():
     computations_per_computing_unit()
 
 
-def read_database_and_show_plots():
+def read_database_and_show_plots(grouped_dataset=False):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
-    list_of_runs_fitness = Dataset.get_runs_fitness_by_dataset(db.get_session())
+    list_of_runs_fitness = {}
+
+    if grouped_dataset:
+        list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session())
+    else:
+        list_of_runs_fitness = Dataset.get_runs_fitness_by_each_dataset(db.get_session())
+
     cnt = 0
     for k in list_of_runs_fitness.keys():
         id = list_of_runs_fitness[k]["id"]
@@ -127,7 +133,7 @@ def main() -> int:
     #show_sample_plots()
     # os.makedirs(report_path, mode=777, exist_ok=True)
 
-    read_database_and_show_plots()
+    read_database_and_show_plots(grouped_dataset=True)
 
     # Creates HTML file report/index.html
     #if SPECIFIC_SOURCE_PATH is not "":
