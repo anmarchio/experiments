@@ -58,14 +58,15 @@ def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: [], path=""
     colors = ['blue', 'orange', 'green', 'red', 'purple', 'brown',
               'pink', 'gray', 'olive', 'cyan']
 
-    styles = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', 's', 'p', '*', 'h', 'H', '+', 'x', 'D',
+    markers = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', 's', 'p', '*', 'h', 'H', '+', 'x', 'D',
               'd', '|', '_']
+
+    styles = ['-', '--', '-.', ':', 'solid', 'dashed', 'dashdot', 'dotted']
     i = 0
     for chart in fitness_charts:
         if len(chart) == len(x):
-            linestyle = styles[randrange(len(styles))]
             clr = colors[i]
-            ax.plot(x, chart, linestyle, color='tab:' + clr, label=str(i) + ": " + axis_title)
+            ax.plot(x, chart, linestyle=styles[randrange(len(styles)-1)], color='tab:' + clr, label=str(i) + ": " + axis_title)
         i += 1
         if i > len(colors) - 1:
             i = 0
