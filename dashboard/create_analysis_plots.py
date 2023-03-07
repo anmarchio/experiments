@@ -1,13 +1,14 @@
 import json
 import os
+import statistics
 import sys
 from os.path import join as p_join
 
 from api import env_var
 from api.database import Database
 from api.models import Dataset
-from sample_plots import plot_fitness_arrays, plot_sample, fancy_mean_plot, plot_fitness_evolution, \
-    entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit
+from sample_plots import plot_sample, fancy_mean_plot, plot_fitness_evolution, \
+    entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit, plot_mean_std_dev_fitness_arrays
 
 # SPECIFIC_SOURCE_PATH = os.path.join("P:\\", "99 Austausch_TVöD", "mara", "Dissertation", "20230120results_dl2")
 
@@ -86,6 +87,21 @@ def show_sample_plots():
     computations_per_computing_unit()
 
 
+def get_mean_and_var(list_of_runs_fitness):
+    return []
+
+
+def compute_mean_and_std_dev(fit_values):
+    mean_std_dev_fit_values = []
+    for i in range(len(fit_values[0])):
+        values = [chrt[i] for chrt in fit_values]
+        if len(values) > 1:
+            mean_std_dev_fit_values.append([statistics.mean(values), statistics.stdev(values)])
+        else:
+            mean_std_dev_fit_values.append([values[0], 0.0])
+    return mean_std_dev_fit_values
+
+
 def read_database_and_show_plots(grouped_dataset=False):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
@@ -109,6 +125,8 @@ def read_database_and_show_plots(grouped_dataset=False):
         for r in list_of_runs_fitness[k]["values"]:
             fit_values.append([f.best_individual_fitness for f in r])
 
+        mean_std_dev_fit_values = compute_mean_and_std_dev(fit_values)
+
         if len(list_of_runs_fitness[k]["values"]) > 0:
             print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
             split_path = os.path.split(list_of_runs_fitness[k]["source"])
@@ -118,10 +136,11 @@ def read_database_and_show_plots(grouped_dataset=False):
                 fig_title = str(id) + ", " + split_path[-2] + split_path[-1]
             else:
                 fig_title = str(id) + ", " + split_path[-1]
-            plot_fitness_arrays(
+            plot_mean_std_dev_fitness_arrays(
                 fig_title,
                 "Best Individual",
                 fit_values,
+                mean_std_dev_fit_values,
                 path=p_join(os.path.curdir, '../scripts/report/' + str(k) + '.png')
             )
 
@@ -130,15 +149,15 @@ def main() -> int:
     results_path = p_join(os.path.curdir, '../scripts/results')
     report_path = p_join(os.path.curdir, '../scripts/report')
 
-    #show_sample_plots()
+    # show_sample_plots()
     # os.makedirs(report_path, mode=777, exist_ok=True)
 
     read_database_and_show_plots(grouped_dataset=True)
 
     # Creates HTML file report/index.html
-    #if SPECIFIC_SOURCE_PATH is not "":
+    # if SPECIFIC_SOURCE_PATH is not "":
     #  generate_plots_from_json(SPECIFIC_SOURCE_PATH, report_path)
-    #else:
+    # else:
     #  generate_plots_from_json(results_path, report_path)
 
     return 0

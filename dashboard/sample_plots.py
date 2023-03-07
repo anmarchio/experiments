@@ -51,17 +51,26 @@ def plot_fitness_evolution(evolutions: list = None):
     plt.show()
 
 
-def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: [], path=""):
+def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts: [], mean_std_dev_fit_values: [], path=""):
     fig, ax = plt.subplots()
     x = np.arange(0.0, len(fitness_charts[0]), 1.0)
-    # https://matplotlib.org/2.1.2/api/_as_gen/matplotlib.pyplot.plot.html
+    """
+    Linestyles and colors are listed at matplotlib tutorials:
+    
+        https://matplotlib.org/2.1.2/api/_as_gen/matplotlib.pyplot.plot.html
+    
+    The following lists contain all values available for generating plots:
+    
+        * colors
+        * markers (e. g. triangles on the lines)
+        * styles (e. g. dots alligned on straight lines)     
+    """
     colors = ['blue', 'orange', 'green', 'red', 'purple', 'brown',
               'pink', 'gray', 'olive', 'cyan']
-
     markers = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', 's', 'p', '*', 'h', 'H', '+', 'x', 'D',
               'd', '|', '_']
-
     styles = ['-', '--', '-.', ':', 'solid', 'dashed', 'dashdot', 'dotted']
+
     i = 0
     for chart in fitness_charts:
         if len(chart) == len(x):
@@ -70,11 +79,19 @@ def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: [], path=""
         i += 1
         if i > len(colors) - 1:
             i = 0
+
+    ax.plot(x, [v[0] for v in mean_std_dev_fit_values], linestyle='-', color='tab:red', label="Mean")
+    ax.plot(x, [v[0] + v[1] for v in mean_std_dev_fit_values], linestyle='-', color='tab:orange')
+    ax.fill_between(x, [v[0] for v in mean_std_dev_fit_values], [v[0] + v[1] for v in mean_std_dev_fit_values],
+                    alpha=0.2, label="StdDev")
+    ax.plot(x, [v[0] - v[1] for v in mean_std_dev_fit_values], linestyle='-', color='tab:orange')
+    ax.fill_between(x, [v[0] for v in mean_std_dev_fit_values], [v[0] - v[1] for v in mean_std_dev_fit_values],
+                    alpha=0.2, label="StdDev")
     # if len(fitness_charts) > 1:
     #    ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
     #    ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
-
     # ax.plot(x, fit_avg, 'o', color='tab:brown')
+
     plt.grid(True)
     ax.set_title(title)
     ax.set_xlabel("Generations")
