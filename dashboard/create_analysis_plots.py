@@ -58,21 +58,26 @@ def generate_plots_from_json(source_path, target_path):
             best_ind_fit.append(read_fitness_values(paths, 'BestIndividualFit', 'BestIndividualFitness'))
 
             i += 1
-
-        plot_fitness_arrays(
-            title,
-            "Offspring Mean",
-            avg_off_fit
+        plot_mean_std_dev_fitness_arrays(
+            title=title,
+            axis_title="Offspring Mean",
+            fitness_charts=avg_off_fit,
+            mean_std_dev_fit_values=[],
+            path=''
         )
-        plot_fitness_arrays(
-            title,
-            "Population Mean",
-            avg_pop_fit
+        plot_mean_std_dev_fitness_arrays(
+            title=title,
+            axis_title="Population Mean",
+            fitness_charts=avg_pop_fit,
+            mean_std_dev_fit_values=[],
+            path=''
         )
-        plot_fitness_arrays(
-            title,
-            "Best Individual Mean",
-            best_ind_fit
+        plot_mean_std_dev_fitness_arrays(
+            title=title,
+            axis_title="Best Individual Mean",
+            fitness_charts=best_ind_fit,
+            mean_std_dev_fit_values=[],
+            path=''
         )
 
 
@@ -85,10 +90,6 @@ def show_sample_plots():
     entropy_fitness_plot()
     fitness_boxplots()
     computations_per_computing_unit()
-
-
-def get_mean_and_var(list_of_runs_fitness):
-    return []
 
 
 def compute_mean_and_std_dev(fit_values):
