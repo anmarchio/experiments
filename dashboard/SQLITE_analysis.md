@@ -38,6 +38,7 @@ SELECT dataset.dataset_id, dataset.source_directory, experiment.experiment_id, e
 SELECT dataset.dataset_id, dataset.source_directory, experiment.experiment_id, experiment.created_at FROM dataset LEFT JOIN experiment ON experiment.dataset_id=dataset.dataset_id WHERE experiment_id IS NULL
 SELECT experiment.dataset_id, dataset.source_directory, experiment.experiment_id, experiment.created_at FROM experiment LEFT JOIN run ON experiment.dataset_id=dataset.dataset_id WHERE experiment_id IS NULL
 SELECT run.run_id, run.started_at, experiment.experiment_id, experiment.created_at FROM run LEFT JOIN experiment ON run.experiment_id=experiment.experiment_id WHERE experiment.experiment_id<45
+SELECT * FROM dataset WHERE name="unknown"
 ```
 
 * Count datasets by name or source directory

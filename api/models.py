@@ -81,13 +81,13 @@ class Run(Base):
             for line in f_date.readlines():
                 if "Iteration" in line:
                     run_number = int(line[10:13])
-
+                    tmp = f_date.readline()[7:-1]
                     try:
-                        date = datetime.strptime(f_date.readline()[7:-1], '%m/%d/%Y %I:%M:%S %p')
+                        date = datetime.strptime(tmp, '%m/%d/%Y %I:%M:%S %p')
                     except:
                         print("date not us standard")
                         try:
-                            date = datetime.strptime(f_date.readline()[7:-1], '%d.%m.%Y %H:%M:%S')
+                            date = datetime.strptime(tmp, '%d.%m.%Y %H:%M:%S')
                         except:
                             print("date not european")
                             try:
@@ -149,7 +149,7 @@ class Dataset(Base):
                     print("Bad json format. Try regex ...")
                     f2 = open(source_json, "r")
                     txt = f2.read()
-                    src_val_path = re.search(r'"[A-Z]:\\[a-zA-Z-_\\:]*"', txt)
+                    src_val_path = re.search(r'"[A-Z]:\\[a-zA-Z0-9-_\\:]*"', txt)
                     if src_val_path is None:
                         print("Regex failed. Set to unknown ...")
                     else:
