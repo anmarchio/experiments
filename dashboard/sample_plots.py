@@ -51,31 +51,54 @@ def plot_fitness_evolution(evolutions: list = None):
     plt.show()
 
 
-def plot_fitness_arrays(title: str, axis_title: str, fitness_charts: []):
+def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts: [], mean_std_dev_fit_values: [], path=""):
     fig, ax = plt.subplots()
     x = np.arange(0.0, len(fitness_charts[0]), 1.0)
-    colors = ['red', 'orange', 'brown', 'green', 'gray']
-    # https://matplotlib.org/2.1.2/api/_as_gen/matplotlib.pyplot.plot.html
-    styles = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>']
+    """
+    Linestyles and colors are listed at matplotlib tutorials:
+    
+        https://matplotlib.org/2.1.2/api/_as_gen/matplotlib.pyplot.plot.html
+    
+    The following lists contain all values available for generating plots:
+    
+        * colors
+        * markers (e. g. triangles on the lines)
+        * styles (e. g. dots alligned on straight lines)     
+    """
+    colors = ['blue', 'orange', 'green', 'red', 'purple', 'brown',
+              'pink', 'gray', 'olive', 'cyan']
+    markers = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', 's', 'p', '*', 'h', 'H', '+', 'x', 'D',
+              'd', '|', '_']
+    styles = ['-', '--', '-.', ':', 'solid', 'dashed', 'dashdot', 'dotted']
+
     i = 0
     for chart in fitness_charts:
         if len(chart) == len(x):
-            linestyle = styles[randrange(len(styles))]
-            clr = colors[i]
-            ax.plot(x, chart, linestyle, color='tab:' + clr, label=str(i) + ": " + axis_title)
-        i += 1
-    if len(fitness_charts) > 1:
-        ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
-        ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
+            # clr = colors[randrange(len(colors)-1)]
+            ax.plot(x, chart, linestyle=styles[randrange(len(styles)-1)], color='tab:gray', label=str(i) + ": " + axis_title)
+        i = i + 1
 
+    ax.plot(x, [v[0] for v in mean_std_dev_fit_values], linestyle='-', color='tab:red', label="Mean")
+    ax.plot(x, [v[0] + v[1] for v in mean_std_dev_fit_values], linestyle='-', color='tab:orange')
+    ax.plot(x, [v[0] - v[1] for v in mean_std_dev_fit_values], linestyle='dotted', color='tab:orange')
+    ax.fill_between(x, [v[0] + v[1] for v in mean_std_dev_fit_values], [v[0] - v[1] for v in mean_std_dev_fit_values],
+                    alpha=0.2, color='tab:orange', label="StdDev")
+    # if len(fitness_charts) > 1:
+    #    ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
+    #    ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
     # ax.plot(x, fit_avg, 'o', color='tab:brown')
+
     plt.grid(True)
     ax.set_title(title)
     ax.set_xlabel("Generations")
     ax.set_ylabel("Fitness")
+    ax.set_ylim([0.0, 1.0])
     ax.legend()
 
-    plt.show()
+    if path == "":
+        plt.show()
+    else:
+        plt.savefig(path)
 
 
 def fancy_mean_plot():

@@ -21,3 +21,21 @@ to a database model stored in `SQLite SQL` abstractions.
 * Activate venv: `<YOUR_PROJECT_PATH>\venv\Scripts\activate.bat`
 * Run project: `python <YOUR_PROJECT_PATH>\api\main.py`  
 * Running the tests: `python -m unittest discover -s "<YOUR_PROJECT_PATH>/api/test" -v`
+
+## Import Data from Json
+
+```
+chcp 1252
+SET PATH1="P:\99 Austausch_TVöD\mara\Dissertation\20220111results"
+REM experiments\venv\Scripts\activate.bat
+REM cd experiments\api\
+python experiments\api\main.py --importmany %PATH1%
+
+SET PATH2="P:\99 Austausch_TVöD\mara\Dissertation\20230118results_adminc"
+python experiments\api\main.py --importmany %PATH2%
+
+SET PATH3="P:\99 Austausch_TVöD\mara\Dissertation\20230120results_dl2"
+python experiments\api\main.py --importmany %PATH3%
+
+ROBOCOPY "experiments.db" "P:\99 Austausch_TVöD\mara\Dissertation\experiments.db" /MIR /LOG+:log.txt
+```
