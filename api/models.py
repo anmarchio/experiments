@@ -28,13 +28,13 @@ class Experiment(Base):
             dataset_id: int):
         date = None
         with open(date_txt, "r") as f_date:
+            tmp = f_date.readline()[7:-1]
             try:
-                tmp = f_date.readline()[7:-1]
                 date = datetime.strptime(tmp, '%m/%d/%Y %I:%M:%S %p')
             except:
                 print("date not us standard")
                 try:
-                    date = datetime.strptime(f_date.readline()[7:-1], '%d.%m.%Y %H:%M:%S')
+                    date = datetime.strptime(tmp, '%d.%m.%Y %H:%M:%S')
                 except:
                     print("date not european")
                     try:
