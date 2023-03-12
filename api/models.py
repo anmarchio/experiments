@@ -149,13 +149,13 @@ class Dataset(Base):
                     print("Bad json format. Try regex ...")
                     f2 = open(source_json, "r")
                     txt = f2.read()
-                    src_val_path = re.search(r'"[A-Z]:\\[a-zA-Z0-9-_\\:]*"', txt)
+                    src_val_path = re.findall(r'"[A-Z]:\\[a-zA-Z0-9-_\\:.]*"', txt)
                     if src_val_path is None:
                         print("Regex failed. Set to unknown ...")
                     else:
-                        name_str = src_val_path.group(0).split("\\")[-1]
-                        src_dir = src_val_path.group(0)
-                        val_dir = src_val_path.group(0)
+                        name_str = src_val_path[0].split("\\")[-1]
+                        src_dir = src_val_path[1]
+                        val_dir = src_val_path[1]
 
         dataset = Dataset(
             name=name_str,
