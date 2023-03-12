@@ -1,6 +1,7 @@
 import enum
 import json
 import os
+import re
 from datetime import datetime
 
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Boolean
@@ -139,10 +140,22 @@ class Dataset(Base):
         val_dir = "unknown"
         if os.path.exists(source_json):
             with open(source_json) as f:
-                jsondata = json.load(f)
-                name_str = jsondata[0]['trainingDataDirectory'].split("\\")[-1]
-                src_dir = jsondata[0]['trainingDataDirectory']
-                val_dir = jsondata[0]['validationDataDirectory']
+                try:
+                    jsondata = json.load(f)
+                    name_str = jsondata[0]['trainingDataDirectory'].split("\\")[-1]
+                    src_dir = jsondata[0]['trainingDataDirectory']
+                    val_dir = jsondata[0]['validationDataDirectory']
+                except Exception:
+                    print("Bad json format. Try regex ...")
+                    f2 = open(source_json, "r")
+                    txt = f2.read()
+                    src_val_path = re.search(r'"[A-Z]:\\[a-zA-Z-_\\:]*"', txt)
+                    if src_val_path is None:
+                        print("Regex failed. Set to unknown ...")
+                    else:
+                        name_str = src_val_path.group(0).split("\\")[-1]
+                        src_dir = src_val_path.group(0)
+                        val_dir = src_val_path.group(0)
 
         dataset = Dataset(
             name=name_str,
@@ -183,7 +196,6 @@ class Dataset(Base):
             }
         return datasets_fitness_lists
 
-
     @staticmethod
     def get_runs_fitness_by_grouped_dataset(session: Session):
         # Experiments by dataset
@@ -192,7 +204,8 @@ class Dataset(Base):
 
         for ds in datasets:
             same_source_directory = session.query(Dataset).filter_by(source_directory=ds.source_directory).all()
-            experiments = session.query(Experiment).filter(Experiment.dataset_id.in_(([x.dataset_id for x in same_source_directory]))).all()
+            experiments = session.query(Experiment).filter(
+                Experiment.dataset_id.in_(([x.dataset_id for x in same_source_directory]))).all()
             exp_runs = []
             for exp in experiments:
                 tmp_runs = session.query(Run).filter_by(experiment_id=exp.experiment_id).all()
