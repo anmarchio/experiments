@@ -34,7 +34,7 @@ def exception_case(path):
                 created_at=datetime.strptime(os.path.split(path)[-1][0:12], '%Y%m%d%H%M'),
                 dataset_id=dataset.dataset_id
             )
-            DB.get_session().add(dataset)
+            DB.get_session().add(experiment)
             DB.get_session().commit()
 
             create_exception(path, experiment, exc)
