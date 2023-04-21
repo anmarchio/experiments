@@ -51,7 +51,27 @@ def plot_fitness_evolution(evolutions: list = None):
     plt.show()
 
 
-def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts: [], mean_std_dev_fit_values: [], path=""):
+def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names: [], mean_std_dev_fit_values: [], path=""):
+    N = len(np.array(mean_std_dev_fit_values)[:,0])
+    ind = np.arange(N)
+    width = 0.35
+
+    fig = plt.subplots(figsize=(10, 7))
+    plt.bar(ind, np.array(mean_std_dev_fit_values)[:,0], width, yerr=np.array(mean_std_dev_fit_values)[:,1])
+
+    plt.ylabel(axis_title)
+    plt.title(title)
+    # plt.xticks(ind, ('T1', 'T2', 'T3', 'T4', 'T5'))
+    # plt.yticks(np.arange(0, 81, 10))
+
+    if path == "":
+        plt.show()
+    else:
+        plt.savefig(path)
+
+
+def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts: [], mean_std_dev_fit_values: [],
+                                     path=""):
     fig, ax = plt.subplots()
     x = np.arange(0.0, len(fitness_charts[0]), 1.0)
     """
@@ -68,14 +88,15 @@ def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts
     colors = ['blue', 'orange', 'green', 'red', 'purple', 'brown',
               'pink', 'gray', 'olive', 'cyan']
     markers = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', 's', 'p', '*', 'h', 'H', '+', 'x', 'D',
-              'd', '|', '_']
+               'd', '|', '_']
     styles = ['-', '--', '-.', ':', 'solid', 'dashed', 'dashdot', 'dotted']
 
     i = 0
     for chart in fitness_charts:
         if len(chart) == len(x):
             # clr = colors[randrange(len(colors)-1)]
-            ax.plot(x, chart, linestyle=styles[randrange(len(styles)-1)], color='tab:gray', label=str(i) + ": " + axis_title)
+            ax.plot(x, chart, linestyle=styles[randrange(len(styles) - 1)], color='tab:gray',
+                    label=str(i) + ": " + axis_title)
         i = i + 1
 
     ax.plot(x, [v[0] for v in mean_std_dev_fit_values], linestyle='-', color='tab:red', label="Mean")

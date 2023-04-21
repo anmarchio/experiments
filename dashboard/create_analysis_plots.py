@@ -8,7 +8,8 @@ from api import env_var
 from api.database import Database
 from api.models import Dataset
 from sample_plots import plot_sample, fancy_mean_plot, plot_fitness_evolution, \
-    entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit, plot_mean_std_dev_fitness_arrays
+    entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit, plot_mean_std_dev_fitness_arrays, \
+    plot_fitness_per_dataset
 
 # SPECIFIC_SOURCE_PATH = os.path.join("P:\\", "99 Austausch_TVöD", "mara", "Dissertation", "20230120results_dl2")
 
@@ -103,6 +104,18 @@ def compute_mean_and_std_dev(fit_values):
     return mean_std_dev_fit_values
 
 
+def extract_dataset_name(list_of_runs_fitness, k):
+    print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
+    split_path = os.path.split(list_of_runs_fitness[k]["source"])
+    if list_of_runs_fitness[k]["name"] not in ["unknown", "train", "train_cgp", "training"]:
+        fig_title = str(id) + ", " + list_of_runs_fitness[k]["name"]
+    elif len(split_path) > 1:
+        fig_title = str(id) + ", " + split_path[-2] + split_path[-1]
+    else:
+        fig_title = str(id) + ", " + split_path[-1]
+    return fig_title
+
+
 def read_database_and_show_plots(grouped_dataset=False):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
@@ -129,21 +142,53 @@ def read_database_and_show_plots(grouped_dataset=False):
         mean_std_dev_fit_values = compute_mean_and_std_dev(fit_values)
 
         if len(list_of_runs_fitness[k]["values"]) > 0:
-            print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
-            split_path = os.path.split(list_of_runs_fitness[k]["source"])
-            if list_of_runs_fitness[k]["name"] not in ["unknown", "train", "train_cgp", "training"]:
-                fig_title = str(id) + ", " + list_of_runs_fitness[k]["name"]
-            elif len(split_path) > 1:
-                fig_title = str(id) + ", " + split_path[-2] + split_path[-1]
-            else:
-                fig_title = str(id) + ", " + split_path[-1]
+            dataset_name = extract_dataset_name(list_of_runs_fitness, k)
+
             plot_mean_std_dev_fitness_arrays(
-                fig_title,
+                dataset_name,
                 "Best Individual",
                 fit_values,
                 mean_std_dev_fit_values,
                 path=p_join(os.path.curdir, '../scripts/report/' + str(k) + '.png')
             )
+
+
+def compute_best_mean_and_std_dev(list_of_runs_fitness, k):
+    best_fit_values = [v[-1].best_individual_fitness for v in list_of_runs_fitness[k]["values"]]
+
+    if len(best_fit_values) > 1:
+        return [statistics.mean(best_fit_values), statistics.stdev(best_fit_values)]
+    return [best_fit_values[0], 0.0]
+
+
+def read_database_and_plot_fitness_per_dataset():
+    db = Database()
+    print("DB path: " + env_var.SQLITE_PATH)
+
+    list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session())
+    dataset_names = []
+    mean_std_dev_fit_per_dataset = []
+
+    for k in list_of_runs_fitness.keys():
+        id = list_of_runs_fitness[k]["id"]
+        if len(list_of_runs_fitness[k]["values"]) > 0:
+            print("ID: ", id, ", reading ...")
+        else:
+            print("ID: ", id, ", [EMPTY]")
+            continue
+
+        mean_std_dev_fit_per_dataset.append(compute_best_mean_and_std_dev(list_of_runs_fitness, k))
+
+        if len(list_of_runs_fitness[k]["values"]) > 0:
+            dataset_names.append(extract_dataset_name(list_of_runs_fitness, k))
+
+    plot_fitness_per_dataset(
+        "Fitness per Dataset",
+        "Fitness",
+        dataset_names,
+        mean_std_dev_fit_per_dataset,
+        path=p_join(os.path.curdir, '../scripts/report/fitness_per_dataset.png')
+    )
 
 
 def main() -> int:
@@ -153,7 +198,12 @@ def main() -> int:
     # show_sample_plots()
     # os.makedirs(report_path, mode=777, exist_ok=True)
 
-    read_database_and_show_plots(grouped_dataset=True)
+    read_database_and_plot_fitness_per_dataset()
+
+    yesno = input('Continue read_database_and_show_plots? (y/n)')
+
+    if yesno == "y":
+        read_database_and_show_plots(grouped_dataset=True)
 
     # Creates HTML file report/index.html
     # if SPECIFIC_SOURCE_PATH is not "":
