@@ -44,7 +44,7 @@ def main():
 
     yesno = input('Plot complexity and fitness? (y/n)')
     if yesno == "y":
-        compute_complexity_and_plot_fitness()
+        compute_complexity_and_fitness_correlation()
 
     yesno = input('Read DB and show plot with ALL FITNESS? (y/n)')
     if yesno == "y":

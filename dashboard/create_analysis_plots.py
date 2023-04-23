@@ -11,6 +11,34 @@ from sample_plots import plot_sample, fancy_mean_plot, plot_fitness_evolution, \
     entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit, plot_mean_std_dev_fitness_arrays, \
     plot_fitness_per_dataset
 
+def compute_complexity_and_fitness_correlation():
+    """
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    """
+    raise NotImplementedError
+    norm_arr_dict = read_from_file(list_path)
+    norm_arr_dict_list = jsonify(norm_arr_dict)
+
+    out_file_name = os.path.join("out", datetime.datetime.utcnow().strftime('%Y%m%d-%H%M%S') + 'data_arr')
+    try:
+        with open(out_file_name + '.json', 'w') as fp:
+            json.dump(norm_arr_dict_list, fp)
+    except Exception as e:
+        print("[ERROR] dumping json failed: " + e)
+        try:
+            w = csv.writer(open(out_file_name + '.csv', "w"))
+            for key, val in norm_arr_dict_list.items():
+                w.writerow([key, val])
+        except Exception as e:
+            print("[ERROR] dumping pkl failed: " + e)
+            with open(out_file_name + ".txt", "w") as f:
+                f.write(str(dict))
+                f.close()
+
+    call_plot_for_norm_arr(norm_arr_dict_list)
 
 def read_fitness_values(paths: dict(), filename: str, identifier: str):
     fitness_arr = []
