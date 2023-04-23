@@ -1,4 +1,19 @@
-# Experiment Goals
+# Experiments
+
+This repository contains all scripts that were designed to analyze data from image processing using the cartesian genetic programming implementation in https://gitlab.cc-asp.fraunhofer.de/opm/evias/optimization.
+
+### Repository Overview
+* identify_rovings_aircarbon: `datapreparation\python\identify_roving.py`
+* json_to_binary: `datapreparation\python\json_to_binary.py`
+* import_many: `api\main.py`
+* crop_to_tiles: `datapreparation\python\crop_to_tiles.py`
+* crop_to_tile Blende5: `datapreparation\python\crop_to_tiles.py C:\Users\mara_c10\Desktop\2022_CGP_Experimente\Owncloud_AirCarbon3\Annotation\AirCarbon2\160919_SGL\Blende5_6_1800mA C:\Users\mara_c10\Desktop\2022_CGP_Experimente\Owncloud_AirCarbon3\Annotation\AirCarbon2\160919_SGL\Blende5_6_1800mA_rov 140`
+* Dashboard: `dashboard\dashboard.py`
+
+
+### Research Questions
+
+#### Image Entropy Analysis
 
 * Entropie der Bilder (einfach vs komplex)
 * Entropie der Daten allgemein
@@ -7,7 +22,7 @@
 * kann man im Voraus - ohne Daten- abschätzen, ob CGP geeignet ist?
 
 
-**Fragen an die Anwender:**
+#### Fragen an die Anwender:
 
 
 - Dimensionsreduktion: welche Algorithmen kommen in Frage?

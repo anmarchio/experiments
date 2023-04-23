@@ -11,10 +11,6 @@ from sample_plots import plot_sample, fancy_mean_plot, plot_fitness_evolution, \
     entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit, plot_mean_std_dev_fitness_arrays, \
     plot_fitness_per_dataset
 
-# SPECIFIC_SOURCE_PATH = os.path.join("P:\\", "99 Austausch_TVöD", "mara", "Dissertation", "20230120results_dl2")
-
-SPECIFIC_SOURCE_PATH = ""
-
 
 def read_fitness_values(paths: dict(), filename: str, identifier: str):
     fitness_arr = []
