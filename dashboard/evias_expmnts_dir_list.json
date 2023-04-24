@@ -1,0 +1,138 @@
+{
+  "AirCarbon3_80.jpg_dark_1": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_1\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_1\\labels"
+  },
+  "AirCarbon3_80.jpg_dark_2": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_2\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_2\\labels"
+  },
+  "AirCarbon3_80.jpg_dark_3": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_3\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_3\\labels"
+  },
+  "AirCarbon3_80.jpg_dark_4": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_4\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_4\\labels"
+  },
+  "AirCarbon3_80.jpg_dark_5": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_5\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_5\\labels"
+  },
+  "AirCarbon3_80.jpg_bright": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_bright\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_bright\\labels"
+  },
+  "MT_Blowhole_train": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Magnetic-Tile-Defect\\MT_Blowhole_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Magnetic-Tile-Defect\\MT_Blowhole_train\\labels"
+  },
+  "AirCarbon2_t_8.jpg": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Aircarbon2\\Blende5_6_1800mA_rov\\training\\t_8.jpg\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Aircarbon2\\Blende5_6_1800mA_rov\\training\\t_8.jpg\\labels"
+  },
+  "severstal-steel": {
+    "images": "C:\\Users\\Public\\evias_expmts\\severstal-steel\\train_cgp\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\severstal-steel\\train_cgp\\labels"
+  },
+  "Pultrusion_Resin": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Pultrusion\\resin_cgp\\train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Pultrusion\\resin_cgp\\train\\labels"
+  },
+  "Pultrusion_Window": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Pultrusion\\window_cgp\\train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Pultrusion\\window_cgp\\train\\labels"
+  },
+  "Pultrusion_Resin_Augmtd": {
+    "images": "C:\\Users\\Public\\evias_expmts\\Pultrusion\\resin_cgp_augmntd\\train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\Pultrusion\\resin_cgp_augmntd\\train\\labels"
+  },
+  "KolektorSDD": {
+    "images": "C:\\Users\\Public\\evias_expmts\\KolektorSDD\\kos10\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\KolektorSDD\\kos10\\labels"
+  },
+  "FabricDefectsAITEX": {
+    "images": "C:\\Users\\Public\\evias_expmts\\FabricDefectsAITEX\\train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\FabricDefectsAITEX\\train\\labels"
+  },
+  "MVTec_AD_Carpet": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\carpet_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\carpet_train\\labels"
+  },
+  "MVTec_D_Leather": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\leather_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\leather_train\\labels"
+  },
+  "MVTec_AD_Capsule": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\capsule_crack_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\capsule_crack_train\\labels"
+  },
+  "MVTec_AD_Metal_Nut": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\metal_nut_color_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\metal_nut_color_train\\labels"
+  },
+  "MVTec_AD_Pill_Crack": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\pill_crack_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\pill_crack_train\\labels"
+  },
+  "MVTec_AD_Grid_Thread": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\grid_thread_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\grid_thread_train\\labels"
+  },
+  "MVTec_AD_Tile_Crack": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\tile_crack_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\tile_crack_train\\labels"
+  },
+  "MVTec_AD_Wood_Scratch": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\wood_scratch_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\wood_scratch_train\\labels"
+  },
+  "MVTec_AD_Zipper_Rough": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\zipper_rough_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\zipper_rough_train\\labels"
+  },
+  "MVTec_AD_Bottle_Broken_Lg": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_large_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_large_train\\labels"
+  },
+  "MVTec_AD_Bottle_Broken_Sm": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_small_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_small_train\\labels"
+  },
+  "MVTec_AD_Cable_Missing": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\cable_missing_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\cable_missing_train\\labels"
+  },
+  "MVTec_AD_Hazelnut_Crack": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\hazelnut_crack_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\hazelnut_crack_train\\labels"
+  },
+  "MVTec_AD_Screw_Scratch": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\screw_scratch_neck_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\screw_scratch_neck_train\\labels"
+  },
+  "MVTec_AD_Transistor_Case": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\transistor_damaged_case_train\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MVTecAnomalyDetection\\transistor_damaged_case_train\\labels"
+  },
+  "MAIPreform2_Spule0-0315_Upside": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone\\training\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone\\training\\labels"
+  },
+  "MAIPreform2_Spule1_0117_Upside": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule1_01117_Upside\\undone\\training\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule1_01117_Upside\\undone\\training\\labels"
+  },
+  "MAIPreform2_Spule2-0816_Upside": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule2-0816_Upside\\undone\\durchlauf2\\training\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule2-0816_Upside\\undone\\durchlauf2\\training\\labels"
+  },
+  "MAIPreform2_Spule0-0315_Upside Thread": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone_thread_hole\\training\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone_thread_hole\\training\\labels"
+  },
+  "MAIPreform2_Spule0-0315_Upside Thread 256": {
+    "images": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone_thread_hole_256\\training\\images",
+    "labels": "C:\\Users\\Public\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone_thread_hole_256\\training\\labels"
+  }
+}

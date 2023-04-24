@@ -2,43 +2,51 @@ import json
 import os
 import statistics
 import sys
+from datetime import datetime
 from os.path import join as p_join
 
 from api import env_var
 from api.database import Database
 from api.models import Dataset
+from dashboard.utils import read_dir_to_norm_dict
 from sample_plots import plot_sample, fancy_mean_plot, plot_fitness_evolution, \
     entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit, plot_mean_std_dev_fitness_arrays, \
     plot_fitness_per_dataset
 
-def compute_complexity_and_fitness_correlation():
-    """
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    """
-    raise NotImplementedError
-    norm_arr_dict = read_from_file(list_path)
-    norm_arr_dict_list = jsonify(norm_arr_dict)
 
-    out_file_name = os.path.join("out", datetime.datetime.utcnow().strftime('%Y%m%d-%H%M%S') + 'data_arr')
-    try:
-        with open(out_file_name + '.json', 'w') as fp:
-            json.dump(norm_arr_dict_list, fp)
-    except Exception as e:
-        print("[ERROR] dumping json failed: " + e)
-        try:
-            w = csv.writer(open(out_file_name + '.csv', "w"))
-            for key, val in norm_arr_dict_list.items():
-                w.writerow([key, val])
-        except Exception as e:
-            print("[ERROR] dumping pkl failed: " + e)
-            with open(out_file_name + ".txt", "w") as f:
-                f.write(str(dict))
-                f.close()
+def compute_complexity_and_fitness_correlation(read_dir_path):
+    norm_arr_dict = read_dir_to_norm_dict(read_dir_path)
 
-    call_plot_for_norm_arr(norm_arr_dict_list)
+    IMAGE_METRICS = [
+        "Entropy",
+         "Blurriness",
+         "Brightness",
+         "Img Size",
+         "Lbl Size",
+         "label_count_per_image",
+         "relative_label_size",
+         "hist_entropy",
+         "jpeg_complexity",
+         "fractal_dimension",
+         "texture_features",
+         "edge_density",
+         "laplacian_variance",
+         "num_superpixels"
+    ]
+
+    for metric in IMAGE_METRICS:
+        create_boxplot(
+            norm_arr_dict[metric],
+            save_to=os.path.join(os.path.pardir, "out", datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') + metric + '_bplot.png')
+        )
+
+        correlation = get_correlation(norm_arr_dict[metric])
+
+        create_scatterplot(
+            norm_arr_dict[metric],
+            save_to=os.path.join(os.path.pardir, "out", datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') + metric + '_scatterplot.png')
+        )
+
 
 def read_fitness_values(paths: dict(), filename: str, identifier: str):
     fitness_arr = []
