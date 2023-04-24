@@ -5,61 +5,104 @@ import sys
 from datetime import datetime
 from os.path import join as p_join
 
+import numpy as np
+
 from api import env_var
 from api.database import Database
 from api.models import Dataset
-from dashboard.utils import read_dir_to_norm_dict
-from sample_plots import plot_sample, fancy_mean_plot, plot_fitness_evolution, \
-    entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit, plot_mean_std_dev_fitness_arrays, \
+from dashboard.sample_plots import plot_mean_std_dev_fitness_arrays, plot_sample, fancy_mean_plot, \
+    plot_fitness_evolution, entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit, \
     plot_fitness_per_dataset
+from dashboard.utils import read_file_and_return_norm_dict
 
 
-def create_boxplot(param, save_to):
+def create_boxplot(param, metric_means, save_to):
     raise NotImplementedError
 
 
-def get_correlation(param):
+def create_scatterplot(param, fitness_per_dataset, metric_means, save_to):
     raise NotImplementedError
 
 
-def create_scatterplot(param, save_to):
-    raise NotImplementedError
+def compute_complexity_and_fitness_correlation(json_file_path):
+    norm_arr_dict = read_file_and_return_norm_dict(json_file_path)
 
-
-def compute_complexity_and_fitness_correlation(read_dir_path):
-    norm_arr_dict = read_dir_to_norm_dict(read_dir_path)
-
-    IMAGE_METRICS = [
+    # 14 metrics
+    COMPLEXITY_METRICS = [
         "Entropy",
-         "Blurriness",
-         "Brightness",
-         "Img Size",
-         "Lbl Size",
-         "label_count_per_image",
-         "relative_label_size",
-         "hist_entropy",
-         "jpeg_complexity",
-         "fractal_dimension",
-         "texture_features",
-         "edge_density",
-         "laplacian_variance",
-         "num_superpixels"
+        "Blurriness",
+        "Brightness",
+        "Img Size",
+        "Lbl Size",
+        "label_count_per_image",
+        "relative_label_size",
+        "hist_entropy",
+        "jpeg_complexity",
+        "fractal_dimension",
+        "texture_features",
+        "edge_density",
+        "laplacian_variance",
+        "num_superpixels"
     ]
 
-    for metric in IMAGE_METRICS:
-        print("Compute Boxplot for " + metric)
+    """
+    Diagram
+    =======
+    
+    Image Entropy
+    |
+    |x (CF1)
+    |   x (NCF)
+    |       x (MVTec AD)
+    |_____________x__ Fitness
+        
+    Table
+    =====
+    | Dataset    | Avg. Fit. | Entropy |
+    ------------------------------------
+    | MVTec Tile | 0.34      | 0.13    |
+    (...)    
+    """
+
+    print("| Dataset    | Avg. Fit. | Entropy | # Images |")
+    print("------------------------------------------------")
+
+    """
+    Plot of Complexity Metrics per Dataset
+    """
+    fitness_per_dataset = get_fitness_per_dataset()
+    for i in range(len(COMPLEXITY_METRICS)):
+        metric_means = np.array([])
+
+        for k in norm_arr_dict:
+            if len(norm_arr_dict[k]) > 0:
+                metric_means = np.append(metric_means, [np.mean(norm_arr_dict[k][i])])
+            else:
+                metric_means = np.append(metric_means, [0.0])
+
+            print("Metric: " + COMPLEXITY_METRICS[i])
+            print("| " + k + " | " + str(fitness_per_dataset[k]) + " | " + str(metric_means[i]) + " |")
+
+        # get Pearson's r
+        r = np.corrcoef(fitness_per_dataset, metric_means)
+        correlation = r[0, 1]
+        print("Correlation for " + COMPLEXITY_METRICS[i] + ": " + str(correlation))
+
         create_boxplot(
-            norm_arr_dict[metric],
-            save_to=os.path.join(os.path.pardir, "out", datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') + metric + '_bplot.png')
+            COMPLEXITY_METRICS[i],
+            metric_means,
+            save_to=os.path.join(os.path.pardir, "out", "plots",
+                                 datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') +
+                                 COMPLEXITY_METRICS[i] + "_bplot.png")
         )
 
-        correlation = get_correlation(norm_arr_dict[metric])
-        print("Correlation for " + metric + ": " + str(correlation))
-
-        print("Compute Scatterplot for " + metric)
         create_scatterplot(
-            norm_arr_dict[metric],
-            save_to=os.path.join(os.path.pardir, "out", datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') + metric + '_scatterplot.png')
+            COMPLEXITY_METRICS[i],
+            fitness_per_dataset,
+            metric_means,
+            save_to=os.path.join(os.path.pardir, "out", "plots",
+                                 datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') +
+                                 COMPLEXITY_METRICS[i] + "_scatterplot.png")
         )
 
 

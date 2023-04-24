@@ -12,7 +12,7 @@ from dashboard.sample_plots import computations_per_computing_unit, plot_sample,
 
 # SPECIFIC_SOURCE_PATH = os.path.join("P:\\", "99 Austausch_TVöD", "mara", "Dissertation", "20230120results_dl2")
 SPECIFIC_SOURCE_PATH = ""
-SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "datapreparation", "evias_exmpts_dir_list.json")
+SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230329-163243data_arr.json")
 
 def main():
     """
@@ -43,7 +43,7 @@ def main():
         os.makedirs(report_path, mode=777, exist_ok=True)
 
     yesno = input('Plot complexity and fitness? (y/n)')
-    if yesno == "y" and SAMPLE_IMAGES_DIR_PATH is not "":
+    if yesno == "y" and SAMPLE_IMAGES_DIR_PATH != "":
         "|||||||||||||||||||||||||||||||||||||||||||||"
         "                     HERE                    "
         "|||||||||||||||||||||||||||||||||||||||||||||"
@@ -61,7 +61,7 @@ def main():
     yesno = input('Generate HTML reports? (y/n)')
     if yesno == "y":
         # Creates HTML file report/index.html
-        if SPECIFIC_SOURCE_PATH is not "":
+        if SPECIFIC_SOURCE_PATH != "":
             generate_plots_from_json(SPECIFIC_SOURCE_PATH, report_path)
         else:
             generate_plots_from_json(results_path, report_path)
