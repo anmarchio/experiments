@@ -14,6 +14,18 @@ from sample_plots import plot_sample, fancy_mean_plot, plot_fitness_evolution, \
     plot_fitness_per_dataset
 
 
+def create_boxplot(param, save_to):
+    raise NotImplementedError
+
+
+def get_correlation(param):
+    raise NotImplementedError
+
+
+def create_scatterplot(param, save_to):
+    raise NotImplementedError
+
+
 def compute_complexity_and_fitness_correlation(read_dir_path):
     norm_arr_dict = read_dir_to_norm_dict(read_dir_path)
 
@@ -35,13 +47,16 @@ def compute_complexity_and_fitness_correlation(read_dir_path):
     ]
 
     for metric in IMAGE_METRICS:
+        print("Compute Boxplot for " + metric)
         create_boxplot(
             norm_arr_dict[metric],
             save_to=os.path.join(os.path.pardir, "out", datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') + metric + '_bplot.png')
         )
 
         correlation = get_correlation(norm_arr_dict[metric])
+        print("Correlation for " + metric + ": " + str(correlation))
 
+        print("Compute Scatterplot for " + metric)
         create_scatterplot(
             norm_arr_dict[metric],
             save_to=os.path.join(os.path.pardir, "out", datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') + metric + '_scatterplot.png')
