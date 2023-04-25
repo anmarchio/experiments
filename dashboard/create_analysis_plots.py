@@ -87,7 +87,7 @@ def compute_complexity_and_fitness_correlation(json_file_path):
         create_complexity_plot(
             "Complexity per Dataset",
             COMPLEXITY_METRICS[i],
-            mean_fitness_and_complexity_per_dataset.keys(),
+            list(mean_fitness_and_complexity_per_dataset.keys()),
             comp_arr,
             path=os.path.join("out", "plots",
                                  datetime.now().strftime('%Y%m%d-%H%M%S') +

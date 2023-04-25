@@ -33,7 +33,7 @@ def create_complexity_plot(title, metric, keys, x, path=""):
     # set the y-axis label
     ax.set_ylabel(metric)
     # plot the data as bar plots
-    ax.bar(keys, x)
+    ax.bar(['None' if v is None else v for v in keys],x)
     # save the plot to a file, if path is provided
     if path == "":
         plt.show()
