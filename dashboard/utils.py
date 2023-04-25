@@ -2,32 +2,44 @@ import json
 import os
 import statistics
 
+import numpy as np
+
 from api import env_var
 from api.database import Database
 from api.models import Dataset
+from dashboard.vars import PATH_TO_DATASET_NAME_MAP
 
 
-def get_mean_fitness_per_dataset(dataset_names):
+def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
     list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session())
-    mean_fitness_per_dataset = {}
 
-    source_names=[]
+    mean_fitness_and_complexity_per_dataset = {}
+
     for k in list_of_runs_fitness.keys():
-        source_names.append(list_of_runs_fitness[k]['source'])
-    return source_names
-    for k in list_of_runs_fitness.keys():
-        for name in dataset_names:
-            index = list_of_runs_fitness[k]['source'].find(name)
-            if index > -1:
-                # extract best fitness for dataset
-                mean, stddev = compute_best_mean_and_std_dev(list_of_runs_fitness, k)
-                if name in mean_fitness_per_dataset:
-                    mean_fitness_per_dataset[name].append(mean)
-                else:
-                    mean_fitness_per_dataset[name] = [mean]
-    return mean_fitness_per_dataset
+        # Get key for the dataset to source mapping
+        dataset_name = PATH_TO_DATASET_NAME_MAP[list_of_runs_fitness[k]['source']]
+
+        # Get mean and stdv
+        fitness_mean, fitness_stddev = compute_best_mean_and_std_dev(list_of_runs_fitness, k)
+        complexity_mean = 0.0
+        if dataset_name is not None and len(norm_arr_dict[dataset_name]) > 0:
+            values = []
+            for img in norm_arr_dict[dataset_name]:
+                if m_idx < len(img):
+                    values.append(img[m_idx])
+            # complexity_mean = np.mean([img[m_idx] for img in norm_arr_dict[dataset_name]])
+            complexity_mean = np.mean(values)
+
+            # Check if key is already in dict
+        if dataset_name in mean_fitness_and_complexity_per_dataset.keys():
+            mean_fitness_and_complexity_per_dataset[dataset_name][0].append(fitness_mean)
+            mean_fitness_and_complexity_per_dataset[dataset_name][1].append(complexity_mean)
+        else:
+            mean_fitness_and_complexity_per_dataset[dataset_name] = [[fitness_mean], [complexity_mean]]
+
+    return mean_fitness_and_complexity_per_dataset
 
 
 def extract_dataset_name(list_of_runs_fitness, k):

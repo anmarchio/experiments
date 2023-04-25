@@ -9,30 +9,14 @@ from dashboard.dashboard import matplot_dashboard, hvplot_test
 from dashboard.plotting import computations_per_computing_unit, plot_sample, plot_fitness_evolution, \
     fancy_mean_plot, entropy_fitness_plot, fitness_boxplots
 
-
 # SPECIFIC_SOURCE_PATH = os.path.join("P:\\", "99 Austausch_TVöD", "mara", "Dissertation", "20230120results_dl2")
+from dashboard.vars import PATH_TO_DATASET_NAME_MAP
+
 SPECIFIC_SOURCE_PATH = ""
 SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230329-163243data_arr.json")
 
+
 def main():
-    """
-    Dashboard
-    """
-    yesno = input("Print Dashboard Plots (y/n):")
-    if yesno == 'y':
-        matplot_dashboard()
-        hvplot_test()
-    """
-    Sample Plots
-    """
-    yesno = input("Print Sample Plots (y/n):")
-    if yesno == 'y':
-        plot_sample()
-        plot_fitness_evolution()
-        fancy_mean_plot()
-        entropy_fitness_plot()
-        fitness_boxplots()
-        computations_per_computing_unit()
     """
     Plots from Database
     """
@@ -65,6 +49,25 @@ def main():
             generate_plots_from_json(SPECIFIC_SOURCE_PATH, report_path)
         else:
             generate_plots_from_json(results_path, report_path)
+
+    """
+    Dashboard Samples
+    """
+    yesno = input("Print Dashboard Plots (y/n):")
+    if yesno == 'y':
+        matplot_dashboard()
+        hvplot_test()
+    """
+    Sample Plots
+    """
+    yesno = input("Print Sample Plots (y/n):")
+    if yesno == 'y':
+        plot_sample()
+        plot_fitness_evolution()
+        fancy_mean_plot()
+        entropy_fitness_plot()
+        fitness_boxplots()
+        computations_per_computing_unit()
 
     return 0
 

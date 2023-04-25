@@ -4,12 +4,41 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def create_boxplot(param, metric_means, save_to):
-    raise NotImplementedError
+def create_boxplot(title, idx, norm_array_dict, save_to):
+    # raise NotImplementedError
+    pass
 
 
-def create_scatterplot(param, fitness_per_dataset, metric_means, save_to):
-    raise NotImplementedError
+def create_scatterplot(title, x_complexity, y_fitness, save_to=""):
+    fig, ax = plt.subplots()
+    # color = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:blue']
+    ax.scatter(x_complexity, y_fitness, c='#1f77b4')
+    # ax.set_xlim(0, 1)
+    # ax.set_ylim(0, 1)
+    ax.set_title(title)
+    ax.legend()
+    ax.grid(True)
+
+    if save_to == "":
+        plt.show()
+    else:
+        plt.savefig(save_to)
+
+
+def create_complexity_plot(title, metric, keys, x, save_to=""):
+    # create a new figure
+    fig, ax = plt.subplots()
+    # set the title of the plot
+    ax.set_title(title)
+    # set the y-axis label
+    ax.set_ylabel(metric)
+    # plot the data as bar plots
+    ax.bar(keys, x)
+    # save the plot to a file, if path is provided
+    if save_to != "":
+        plt.savefig(save_to)
+    else:
+        plt.show()
 
 
 def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names: [], mean_std_dev_fit_values: [], path=""):

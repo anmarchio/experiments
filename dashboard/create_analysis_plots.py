@@ -9,7 +9,7 @@ from api import env_var
 from api.database import Database
 from api.models import Dataset
 from dashboard.plotting import plot_mean_std_dev_fitness_arrays, plot_fitness_per_dataset, create_boxplot, \
-    create_scatterplot
+    create_scatterplot, create_complexity_plot
 from dashboard.utils import read_file_and_return_norm_dict, mean_std_dev_fitness_per_dataset, compute_mean_and_std_dev, \
     extract_dataset_name, get_mean_fitness_per_dataset
 
@@ -51,46 +51,59 @@ def compute_complexity_and_fitness_correlation(json_file_path):
     | MVTec Tile | 0.34      | 0.13    |
     (...)    
     """
-    print("| Dataset    | Avg. Fit. | Entropy | # Images |")
-    print("------------------------------------------------")
+
     """
     Plot of Complexity Metrics per Dataset
     """
-    mean_fitness_per_dataset = get_mean_fitness_per_dataset(list(norm_arr_dict.keys()))
-
+    f = open(os.path.join("out", "plots", datetime.now().strftime('%Y%m%d-%H%M%S') + "_metrics.txt"), "w")
     for i in range(len(COMPLEXITY_METRICS)):
-        metric_means = np.array([])
+        mean_fitness_and_complexity_per_dataset = get_mean_fitness_per_dataset(norm_arr_dict, i)
 
-        for k in norm_arr_dict:
-            if len(norm_arr_dict[k]) > 0:
-                metric_means = np.append(metric_means, [np.mean(norm_arr_dict[k][i])])
-            else:
-                metric_means = np.append(metric_means, [0.0])
+        f.write("Metric: " + COMPLEXITY_METRICS[i] + "\n")
+        print("Metric: " + COMPLEXITY_METRICS[i])
 
-            print("Metric: " + COMPLEXITY_METRICS[i])
-            print("| " + k + " | " + str(mean_fitness_per_dataset[k]) + " | " + str(metric_means[i]) + " |")
+        f.write("| Dataset    | Avg. Fit. | Entropy | # Images |\n")
+        print("| Dataset    | Avg. Fit. | Entropy | # Images |")
+        for k in mean_fitness_and_complexity_per_dataset:
+            mean_fitness = np.nanmean(mean_fitness_and_complexity_per_dataset[k][0])
+            mean_complexity = np.nanmean(mean_fitness_and_complexity_per_dataset[k][1])
+            if k is None:
+                k = 'None'
+            if mean_fitness is None:
+                mean_fitness = 0.0
+            if mean_complexity is None:
+                mean_complexity = 0.0
+            print("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " |")
+            f.write("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " |\n")
 
         # get Pearson's r
-        r = np.corrcoef(mean_fitness_per_dataset, metric_means)
+        fit_arr = [mean_fitness_and_complexity_per_dataset[k][0][0] for k in mean_fitness_and_complexity_per_dataset]
+        comp_arr = [mean_fitness_and_complexity_per_dataset[k][1][0] for k in mean_fitness_and_complexity_per_dataset]
+        r = np.corrcoef(fit_arr, comp_arr)
         correlation = r[0, 1]
-        print("Correlation for " + COMPLEXITY_METRICS[i] + ": " + str(correlation))
+        f.write("\nCorrelation for " + COMPLEXITY_METRICS[i] + ": " + str(correlation) + "\n")
+        print("\nCorrelation for " + COMPLEXITY_METRICS[i] + ": " + str(correlation))
 
-        create_boxplot(
+        create_complexity_plot(
+            "Complexity per Dataset",
             COMPLEXITY_METRICS[i],
-            metric_means,
-            save_to=os.path.join(os.path.pardir, "out", "plots",
-                                 datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') +
+            mean_fitness_and_complexity_per_dataset.keys(),
+            comp_arr,
+            save_to=os.path.join("out", "plots",
+                                 datetime.now().strftime('%Y%m%d-%H%M%S') +
                                  COMPLEXITY_METRICS[i] + "_bplot.png")
         )
 
         create_scatterplot(
             COMPLEXITY_METRICS[i],
-            mean_fitness_per_dataset,
-            metric_means,
-            save_to=os.path.join(os.path.pardir, "out", "plots",
-                                 datetime.strptime(datetime.utcnow(), '%Y%m%d-%H%M%S') +
+            fit_arr,
+            comp_arr,
+            save_to=os.path.join("out", "plots",
+                                 datetime.now().strftime('%Y%m%d-%H%M%S') +
                                  COMPLEXITY_METRICS[i] + "_scatterplot.png")
         )
+        f.write("----------------------------------------------------------------\n\n")
+    f.close()
 
 
 def read_fitness_values(paths: dict(), filename: str, identifier: str):
