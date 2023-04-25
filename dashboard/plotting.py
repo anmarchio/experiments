@@ -25,7 +25,7 @@ def create_scatterplot(title, x_complexity, y_fitness, save_to=""):
         plt.savefig(save_to)
 
 
-def create_complexity_plot(title, metric, keys, x, save_to=""):
+def create_complexity_plot(title, metric, keys, x, path=""):
     # create a new figure
     fig, ax = plt.subplots()
     # set the title of the plot
@@ -35,10 +35,10 @@ def create_complexity_plot(title, metric, keys, x, save_to=""):
     # plot the data as bar plots
     ax.bar(keys, x)
     # save the plot to a file, if path is provided
-    if save_to != "":
-        plt.savefig(save_to)
-    else:
+    if path == "":
         plt.show()
+    else:
+        plt.savefig(path)
 
 
 def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names: [], mean_std_dev_fit_values: [], path=""):

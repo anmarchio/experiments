@@ -89,7 +89,7 @@ def compute_complexity_and_fitness_correlation(json_file_path):
             COMPLEXITY_METRICS[i],
             mean_fitness_and_complexity_per_dataset.keys(),
             comp_arr,
-            save_to=os.path.join("out", "plots",
+            path=os.path.join("out", "plots",
                                  datetime.now().strftime('%Y%m%d-%H%M%S') +
                                  COMPLEXITY_METRICS[i] + "_bplot.png")
         )
