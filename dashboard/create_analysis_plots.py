@@ -55,6 +55,7 @@ def compute_complexity_and_fitness_correlation(json_file_path):
     """
     Plot of Complexity Metrics per Dataset
     """
+    pearson_rs = {}
     f = open(os.path.join("out", "plots", datetime.now().strftime('%Y%m%d-%H%M%S') + "_metrics.txt"), "w")
     for i in range(len(COMPLEXITY_METRICS)):
         mean_fitness_and_complexity_per_dataset = get_mean_fitness_per_dataset(norm_arr_dict, i)
@@ -81,7 +82,7 @@ def compute_complexity_and_fitness_correlation(json_file_path):
         comp_arr = [mean_fitness_and_complexity_per_dataset[k][1][0] for k in mean_fitness_and_complexity_per_dataset]
         r = np.corrcoef(fit_arr, comp_arr)
         correlation = r[0, 1]
-        f.write("\nCorrelation for " + COMPLEXITY_METRICS[i] + ": " + str(correlation) + "\n")
+        pearson_rs[COMPLEXITY_METRICS[i]] = correlation
         print("\nCorrelation for " + COMPLEXITY_METRICS[i] + ": " + str(correlation))
 
         create_complexity_plot(
@@ -103,6 +104,10 @@ def compute_complexity_and_fitness_correlation(json_file_path):
                                  COMPLEXITY_METRICS[i] + "_scatterplot.png")
         )
         f.write("----------------------------------------------------------------\n\n")
+
+    f.write("| Metric | Cor(fit, v) |\n")
+    for p in pearson_rs.keys():
+        f.write("| " + p + " | " + str(pearson_rs[p]) + "|\n")
     f.close()
 
 

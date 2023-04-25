@@ -32,8 +32,11 @@ def create_complexity_plot(title, metric, keys, x, path=""):
     ax.set_title(title)
     # set the y-axis label
     ax.set_ylabel(metric)
-    # plot the data as bar plots
-    ax.bar(['None' if v is None else v for v in keys],x)
+    # plot the data as horizontal bar plots
+    x_labels = ['None' if v is None else v for v in keys]
+    ax.barh(x_labels, x, align='center', height=0.5, orientation='horizontal')
+    # set the y-axis tick labels
+    ax.set_yticklabels(x_labels)
     # save the plot to a file, if path is provided
     if path == "":
         plt.show()
