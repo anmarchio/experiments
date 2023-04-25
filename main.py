@@ -6,7 +6,7 @@ from os.path import join as p_join
 from dashboard.create_analysis_plots import read_database_and_plot_fitness_per_dataset, read_database_and_show_plots, \
     generate_plots_from_json, compute_complexity_and_fitness_correlation
 from dashboard.dashboard import matplot_dashboard, hvplot_test
-from dashboard.sample_plots import computations_per_computing_unit, plot_sample, plot_fitness_evolution, \
+from dashboard.plotting import computations_per_computing_unit, plot_sample, plot_fitness_evolution, \
     fancy_mean_plot, entropy_fitness_plot, fitness_boxplots
 
 

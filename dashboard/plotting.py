@@ -4,6 +4,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+def create_boxplot(param, metric_means, save_to):
+    raise NotImplementedError
+
+
+def create_scatterplot(param, fitness_per_dataset, metric_means, save_to):
+    raise NotImplementedError
+
+
 def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names: [], mean_std_dev_fit_values: [], path=""):
     N = len(np.array(mean_std_dev_fit_values)[:, 0])
     ind = np.arange(N)
