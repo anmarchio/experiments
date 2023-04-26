@@ -12,45 +12,11 @@ from dashboard.plotting import plot_mean_std_dev_fitness_arrays, plot_fitness_pe
     create_scatterplot, create_complexity_plot
 from dashboard.utils import read_file_and_return_norm_dict, mean_std_dev_fitness_per_dataset, compute_mean_and_std_dev, \
     extract_dataset_name, get_mean_fitness_per_dataset
-
-# 14 metrics
-COMPLEXITY_METRICS = [
-    "Entropy",
-    "Blurriness",
-    "Brightness",
-    "Img Size",
-    "Lbl Size",
-    "label_count_per_image",
-    "relative_label_size",
-    "hist_entropy",
-    "jpeg_complexity",
-    "fractal_dimension",
-    "texture_features",
-    "edge_density",
-    "laplacian_variance",
-    "num_superpixels"
-]
+from dashboard.vars import COMPLEXITY_METRICS
 
 
 def compute_complexity_and_fitness_correlation(json_file_path):
     norm_arr_dict = read_file_and_return_norm_dict(json_file_path)
-    """
-    Diagram
-    =============================
-    Image Entropy
-    |
-    |x (CF1)
-    |   x (NCF)
-    |       x (MVTec AD)
-    |_____________x__ Fitness
-        
-    Table
-    =============================
-    | Dataset    | Avg. Fit. | Entropy |
-    ------------------------------------
-    | MVTec Tile | 0.34      | 0.13    |
-    (...)    
-    """
 
     """
     Plot of Complexity Metrics per Dataset

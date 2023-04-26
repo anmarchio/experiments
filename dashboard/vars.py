@@ -1,4 +1,25 @@
 """
+Complexity Metrics
+---
+Name of 14 (!) metrics that were selected for the complexity analysis study.
+"""
+COMPLEXITY_METRICS = [
+    "Entropy",
+    "Blurriness",
+    "Brightness",
+    "Img Size",
+    "Lbl Size",
+    "label_count_per_image",
+    "relative_label_size",
+    "hist_entropy",
+    "jpeg_complexity",
+    "fractal_dimension",
+    "texture_features",
+    "edge_density",
+    "laplacian_variance",
+    "num_superpixels"
+]
+"""
 Dataset folder names as they appear on the source location
 """
 DATASET_NAMES = [
