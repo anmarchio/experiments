@@ -3,6 +3,14 @@
 ## Data Objects
 
 ```plantuml
+
+class User {
+  name: String
+  email: String
+  hash: String
+  created_at: DateTime
+}
+
 class Experiment {
   created_at: DateTime
   seed: Int
@@ -153,6 +161,8 @@ class ConfusionMatrix {
     width: Int
     size_total: Int
 }
+
+User "1" -- "*" Experiment
 
 Experiment "1" -- "*" Run
 Experiment "*" -- "1" DataSet
