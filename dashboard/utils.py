@@ -21,6 +21,9 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
         # Get key for the dataset to source mapping
         dataset_name = PATH_TO_DATASET_NAME_MAP[list_of_runs_fitness[k]['source']]
 
+        # Get number of images contained in dataset
+        number_of_images = list_of_runs_fitness[k]['number_of_images']
+
         # Get mean and stdv
         fitness_mean, fitness_stddev = compute_best_mean_and_std_dev(list_of_runs_fitness, k)
         complexity_mean = 0.0
@@ -37,7 +40,7 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
             mean_fitness_and_complexity_per_dataset[dataset_name][0].append(fitness_mean)
             mean_fitness_and_complexity_per_dataset[dataset_name][1].append(complexity_mean)
         else:
-            mean_fitness_and_complexity_per_dataset[dataset_name] = [[fitness_mean], [complexity_mean]]
+            mean_fitness_and_complexity_per_dataset[dataset_name] = [[fitness_mean], [complexity_mean], number_of_images]
 
     return mean_fitness_and_complexity_per_dataset
 
@@ -78,6 +81,7 @@ def compute_best_mean_and_std_dev(list_of_runs_fitness, k):
 def mean_std_dev_fitness_per_dataset(list_of_runs_fitness):
     dataset_names = []
     mean_std_dev_fit_per_dataset = []
+    number_of_images = []
 
     for k in list_of_runs_fitness.keys():
         id = list_of_runs_fitness[k]["id"]
@@ -91,7 +95,10 @@ def mean_std_dev_fitness_per_dataset(list_of_runs_fitness):
 
         if len(list_of_runs_fitness[k]["values"]) > 0:
             dataset_names.append(extract_dataset_name(list_of_runs_fitness, k))
-    return dataset_names, mean_std_dev_fit_per_dataset
+
+        number_of_images.append(list_of_runs_fitness[k]["number_of_images"])
+
+    return dataset_names, mean_std_dev_fit_per_dataset, number_of_images
 
 
 def read_file_and_return_norm_dict(file_name: str) -> {}:

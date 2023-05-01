@@ -13,10 +13,31 @@ This repository contains all scripts that were designed to analyze data from ima
 ## Setup and Usage
 
 ### Quick Start
-tbd
+
+1. Set up a python environment using `python -m venv <PATH>\venv`, then activate environment by `venv\Scripts\activate.bat`
+1. Install requirements: `python -m pip install -r requirements.txt`
+1. Execute `main.py` by `python main.py`
 
 ### Run Scripts
-tbd
+
+The repository contains the following function to process experimental data:
+
+#### API
+
+* `experiments\api` contains a database wrapper for SQLite written with `SQLAlquemy`
+* it can be used to **import** data from `CGP optimization` and analyze them as follows
+  * `python api\main.py --importmany "<PATH>\test_api\many_results_dir"`
+  * `python api\main.py --importone "<PATH>\test_api\one_result_dir"`
+* database is stored (or created if it doesn not exist) in: `<PATH>\api\experiments.db`
+* For more details on how to use the database api, see: [api/Readme.md](api/Readme.md)
+
+#### Dashboard
+
+* **TBD**
+
+#### Plotting Data
+
+* **TBD**
 
 ## Research Questions
 

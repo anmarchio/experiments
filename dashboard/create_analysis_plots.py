@@ -34,14 +34,15 @@ def compute_complexity_and_fitness_correlation(json_file_path):
         for k in mean_fitness_and_complexity_per_dataset:
             mean_fitness = np.nanmean(mean_fitness_and_complexity_per_dataset[k][0])
             mean_complexity = np.nanmean(mean_fitness_and_complexity_per_dataset[k][1])
+            number_of_images = mean_fitness_and_complexity_per_dataset[k][2]
             if k is None:
                 k = 'None'
             if mean_fitness is None:
                 mean_fitness = 0.0
             if mean_complexity is None:
                 mean_complexity = 0.0
-            print("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " |")
-            f.write("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " |\n")
+            print("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " | " + str(number_of_images)  + " |")
+            f.write("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " | " + str(number_of_images)  +  " |\n")
 
         # get Pearson's r
         fit_arr = [mean_fitness_and_complexity_per_dataset[k][0][0] for k in mean_fitness_and_complexity_per_dataset]
@@ -185,7 +186,7 @@ def read_database_and_plot_fitness_per_dataset():
     print("DB path: " + env_var.SQLITE_PATH)
 
     list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session())
-    dataset_names, mean_std_dev_fit_per_dataset = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
+    dataset_names, mean_std_dev_fit_per_dataset, _ = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
 
     plot_fitness_per_dataset(
         "Fitness per Dataset",
