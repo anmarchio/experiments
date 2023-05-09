@@ -13,7 +13,8 @@ from dashboard.plotting import computations_per_computing_unit, plot_sample, plo
 from dashboard.vars import PATH_TO_DATASET_NAME_MAP
 
 SPECIFIC_SOURCE_PATH = ""
-SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230329-163243data_arr.json")
+# SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230329-163243data_arr.json")
+SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230509-025213data_arr.json")
 
 
 def main():

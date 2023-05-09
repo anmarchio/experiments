@@ -219,7 +219,7 @@ class Dataset(Base):
                         best_ind_fit.append(
                             session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
             number_of_images = 0
-            if exp_runs[0][0] is not None:
+            if len(exp_runs) > 0 and exp_runs[0][0] is not None:
                 number_of_images = session.query(Image).filter_by(run_id=exp_runs[0][0].run_id).count()
             # Line Header
             # Dataset   | Experiment date   | list(run)
