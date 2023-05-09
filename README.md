@@ -176,30 +176,48 @@ Detailed numbers of entropy and fitness analysis for 32 datasets in the followin
 | Textile (CF) | Fraunhofer | MAIPreform2_Spule0-0315_Upside Thread | 0.17135897128539657 | 0.1486841085239903 |
 | Textile (CF) | Fraunhofer | MAIPreform2_Spule0-0315_Upside Thread 256 | 0.20414281389085984 | 0.1516273617808818 |
 
-Correlation between different metrics and achieved fitness:
+Correlation between different complexity metrics **of the full image frame** and achieved fitness:
 
 | Metric | Cor(fit, v) |
 | ------ | ----------- |
-| Entropy | **0.3333065705521979**|
-| Blurriness | 0.25439760238103315|
-| Brightness | 0.3014321222979049|
-| Img Size | 0.26911331967136043|
-| Lbl Size | **0.4410566759758734**|
-| label_count_per_image | 0.329338014352925|
-| relative_label_size | 0.2057934599847992|
-| hist_entropy | 0.20465583325336342|
-| jpeg_complexity | 0.13138968956377578|
-| fractal_dimension | **-0.025641841230255702**|
-| texture_features | 0.05000227367080492|
-| edge_density | 0.19970673740901201|
-| laplacian_variance | 0.161659397897984|
-| num_superpixels | 0.088234929261432|
+| entropy_arr | 0.2412421767996174|
+| blurriness_arr | 0.2762887926996353|
+| brightness_arr | 0.2708873690090166|
+| image_size | 0.2568331938079588|
+| hist_entropy | **0.43440727765649656**|
+| jpeg_complexity | **0.3812743862992159** |
+| fractal_dimension | 0.22649332946167774|
+| texture_features | 0.28321464597815343|
+| edge_density | 0.1244109910153665|
+| laplacian_variance | 0.05243821001731175|
+| num_superpixels | 0.09958786261625971|
 
-Estimation for the hole images:
+Estimation for the whole image:
 
-* `max r_{fit, entropy} = 0.441` for absolute lbl size; this is, however, a bad indicator.
-* `max r_{fit, entropy} = 0.333` is the actual "best" choice, showing a positive correlation.
-* `min r_{fit, entropy} = -0.026` worst choice, indicating no correlation at all.
+* `max r_{fit, hist_entropy} = 0.0.434` actual "best" choice, histogram_entropy of the image;
+* `max r_{fit, jpeg_complexity} = 0.333` shows a positive correlation between JPEG complexity and fitness.
+* `min r_{fit, laplacian_variance} = 0.0524` worst choice, indicating no correlation at all.
+
+Correlation between the same complexity metrics **of the each label** and achieved fitness:
+
+| Metric | Cor(fit, v) |
+| ------ | ----------- |
+| label_count_per_image | 0.1808766400116384|
+| label_size | 0.15095686543906062|
+| relative_label_size | 0.053125526798248744|
+| lbl_hist_entropy | 0.17735363985009658|
+| lbl_fractal_dimension | 0.14932066630947147|
+| lbl_texture_features | **0.4111840109022833**|
+| lbl_edge_density | **0.32382825397606485**|
+| lbl_laplacian_variance | 0.2990078843142231|
+| lbl_num_superpixels | **0.36620833983254**|
+
+Estimation for the whole image:
+
+* `max r_{fit, lbl_texture_features} = 0.0.434` actual "best" choice, texture_feature of the labels;
+* `max r_{fit, lbl_edge_density} = 0.324` shows a positive correlation between edge density of labels and fitness.
+* `max r_{fit, lbl_num_superpixels} = 0.366` shows a positive correlation between number of superpixels in the label and fitness.
+* `min r_{fit, relative_label_size} = 0.0531` worst choice, indicating no correlation at all.
 
 ## (DRAFT) Experiment Plan
 

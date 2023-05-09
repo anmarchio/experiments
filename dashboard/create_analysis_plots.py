@@ -73,7 +73,8 @@ def compute_complexity_and_fitness_correlation(json_file_path):
         f.write("----------------------------------------------------------------\n\n")
 
     f.write("| Metric | Cor(fit, v) |\n")
-    for p in pearson_rs.keys():
+    for p in pearson_rs:
+        print("| " + p + " | " + str(pearson_rs[p]) + "|\n")
         f.write("| " + p + " | " + str(pearson_rs[p]) + "|\n")
     f.close()
 
