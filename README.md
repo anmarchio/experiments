@@ -140,41 +140,42 @@ Metrics selected for complexity analysis:
 Detailed numbers of entropy and fitness analysis for 32 datasets in the following table.
 * 15 material surface types
 * from 6 institutions
+* Most promising Metric: hist_entropy
 
-| Material | Publisher |Dataset    | Avg. Fit. | Entropy | # Images |
-| ---------| --------- | ---------- | --------- | ------- | ---------- |
-| Textile (CF) | Fraunhofer | AirCarbon2_t_8.jpg | 0.028007573720837224 | 0.0 |
-| Textile (CF)| Fraunhofer | None | 0.11639334005129832 | 0.0 |
-| Textile | AITEX | FabricDefectsAITEX | 0.12925214267501545 | 0.18115724487902538 |
-| Electrical Isolators | Kollektor | KolektorSDD | 0.06565332278979708 | 0.2607629765599094 |
-| Textile (CF) | Fraunhofer | MAIPreform2_Spule0-0315_Upside | 0.3162098588409003 | 0.07732000907737828 |
-| Textile (CF) | Fraunhofer | MAIPreform2_Spule1_0117_Upside | 0.05651153345646755 | 0.09592946341948642 |
-| Bottle | MVTec | MVTec_AD_Bottle_Broken_Lg | 0.26225513731343236 | 0.27172080559406375 |
-| Bottle | MVTec | MVTec_AD_Bottle_Broken_Sm | 0.28464968029224386 | 0.2267863767074405 |
-| Cable | MVTec | MVTec_AD_Cable_Missing | 0.7171056969044834 | 0.38411058037076246 |
-| Plastic Capsule | MVTec | MVTec_AD_Capsule | 0.15132567662349938 | 0.23202616829406658 |
-| Textile | MVTec | MVTec_AD_Carpet | 0.21769846447384691 | 0.24669284386009335 |
-| Textile | MVTec  | MVTec_AD_Grid_Thread | 0.31599391828086065 | 0.3041597566404906 |
-| Hazelnut | MVTec  | MVTec_AD_Hazelnut_Crack | 0.24522991041826714 | 0.2984493662841539 |
-| Leather | MVTec  | MVTec_D_Leather | 0.3542320590261696 | 0.27032127158300534 |
-| Metal | MVTec  | MVTec_AD_Metal_Nut | 0.11186050396653803 | 0.20937995460265713 |
-| Plastic Pill | MVTec  | MVTec_AD_Pill_Crack | 0.14955956290744649 | 0.2081181417641098 |
-| Metal | MVTec  | MVTec_AD_Screw_Scratch | 0.1228070613385369 | 0.2086407295600606 |
-| Tile | MVTec  | MVTec_AD_Tile_Crack | 0.3972601328978305 | 0.2956153390179142 |
-| Electrical | MVTec  | MVTec_AD_Transistor_Case | 0.05139396346164535 | 0.36294296745567173 |
-| Wood | MVTec  | MVTec_AD_Wood_Scratch | 0.375791355016471 | 0.246296433390055 |
-| Textile | MVTec  | MVTec_AD_Zipper_Rough | 0.28612142322204837 | 0.27566764596340676 |
-| Magnetic Tile | Chinese Academy of Sciences, Beijing | MT_Blowhole_train | 0.2929250686247117 | 0.07685783331968511 |
-| Fluid resin | Fraunhofer | Pultrusion_Resin | 0.49831744566300235 | 0.1375543476918154 |
-| Fluid resin | Fraunhofer | Pultrusion_Resin_Augmtd | 0.2771436150817633 | 0.1375628748526754 |
-| Fluid resin | Fraunhofer | Pultrusion_Window | 0.4796498058298121 | 0.14266296066088133 |
-| Metal | Severstal| severstal-steel | 0.17722965975016708 | 0.0 |
-| Textile (CF) | Fraunhofer | MAIPreform2_Spule2-0816_Upside | 0.2561302994819138 | 0.10558612754780487 |
-| Textile (CF) | Fraunhofer | AirCarbon3_80.jpg_dark_1 | 0.07822264997999262 | 0.2375699870681196 |
-| Textile (CF) | Fraunhofer | AirCarbon3_80.jpg_dark_2 | 0.1519621493143124 | 0.2690541107118067 |
-| Textile (CF) | Fraunhofer | AirCarbon3_80.jpg_dark_3 | 0.1650572882182899 | 0.2555525203569724 |
-| Textile (CF) | Fraunhofer | MAIPreform2_Spule0-0315_Upside Thread | 0.17135897128539657 | 0.1486841085239903 |
-| Textile (CF) | Fraunhofer | MAIPreform2_Spule0-0315_Upside Thread 256 | 0.20414281389085984 | 0.1516273617808818 |
+| Index | Material | Publisher |Dataset    | Avg. Fit. | Entropy | # Images |
+| ---------| ---------| --------- | ---------- | --------- | ------- | ---------- |
+| 1 | Textile (CF) | Fraunhofer | AirCarbon2_t_8.jpg | 0.028007573720837224 | 0.0 | 24 |
+| 2 | Textile (CF) | Fraunhofer | None | 0.11639334005129832 | 0.0 | 120 |
+| 3 | Textile | AITEX | FabricDefectsAITEX | 0.12925214267501545 | 0.08898475129502198 | 20 |
+| 4 | Electrical Isolators | Kolektor | KolektorSDD | 0.06565332278979708 | 0.1854995622470775 | 8 |
+| 5 | Textile (CF) | Fraunhofer | MAIPreform2_Spule0-0315_Upside | 0.3162098588409003 | 0.07637775804258891 | 0 |
+| 6 | Textile (CF) | Fraunhofer | MAIPreform2_Spule1_0117_Upside | 0.05651153345646755 | 0.07540744696603166 | 0 |
+| 7 | Bottle | MVTec | MVTec_AD_Bottle_Broken_Lg | 0.26225513731343236 | 0.24739057555342808 | 10 |
+| 8 | Bottle | MVTec | MVTec_AD_Bottle_Broken_Sm | 0.28464968029224386 | 0.20974516945485644 | 11 |
+| 9 | Cable | MVTec | MVTec_AD_Cable_Missing | 0.7171056969044834 | 0.006219981210434028 | 6 |
+| 10 | Plastic | MVTec | MVTec_AD_Capsule | 0.15132567662349938 | 0.23862904045319938 | 10 |
+| 11 | Textile | MVTec | MVTec_AD_Carpet | 0.21769846447384691 | 0.24625022158438528 | 10 |
+| 12 | Textile | MVTec | MVTec_AD_Grid_Thread | 0.31599391828086065 | 0.18638536582071882 | 5 |
+| 13 | Food | MVTec | MVTec_AD_Hazelnut_Crack | 0.24522991041826714 | 0.28874295314587556 | 9 |
+| 14 | Leather | MVTec | MVTec_D_Leather | 0.3542320590261696 | 0.22254874510981257 | 10 |
+| 15 | Metal | MVTec | MVTec_AD_Metal_Nut | 0.11186050396653803 | 0.21342241164492512 | 11 |
+| 16 | Plastic | MVTec | MVTec_AD_Pill_Crack | 0.14955956290744649 | 0.212558998235946 | 13 |
+| 17 | Metal | MVTec | MVTec_AD_Screw_Scratch | 0.1228070613385369 | 0.194833379388579 | 12 |
+| 18 | Tile | MVTec | MVTec_AD_Tile_Crack | 0.3972601328978305 | 0.27402751836689565 | 8 |
+| 19 | Electronics | MVTec | MVTec_AD_Transistor_Case | 0.05139396346164535 | 0.004769530039571607 | 5 |
+| 20 | Wood | MVTec | MVTec_AD_Wood_Scratch | 0.375791355016471 | 0.2981424586359251 | 9 |
+| 21 | Clothing | MVTec | MVTec_AD_Zipper_Rough | 0.28612142322204837 | 0.24371921336595997 | 8 |
+| 22 | Magnetic Tile | Chinese Academy of Sciences, Beijing | MT_Blowhole_train | 0.2929250686247117 | 0.08759798879800851 | 57 |
+| 23 | Fluid resin | Fraunhofer | Pultrusion_Resin | 0.49831744566300235 | 0.23080805473192298 | 20 |
+| 24 | Fluid resin | Fraunhofer | Pultrusion_Resin_Augmtd | 0.2771436150817633 | 0.23112276440949117 | 20 |
+| 25 | Fluid resin | Fraunhofer | Pultrusion_Window | 0.4796498058298121 | 0.22871400226162347 | 20 |
+| 26 | Metal | Severstal | severstal-steel | 0.17722965975016708 | 0.0 | 15 |
+| 27 | Textile (CF) | Fraunhofer | MAIPreform2_Spule2-0816_Upside | 0.2561302994819138 | 0.08064016914079145 | 0 |
+| 28 | Textile (CF) | Fraunhofer | AirCarbon3_80.jpg_dark_1 | 0.07822264997999262 | 0.0526113017372107 | 16 |
+| 29 | Textile (CF) | Fraunhofer | AirCarbon3_80.jpg_dark_2 | 0.1519621493143124 | 0.17829923905605988 | 16 |
+| 30 | Textile (CF) | Fraunhofer | AirCarbon3_80.jpg_dark_3 | 0.1650572882182899 | 0.16056480354069902 | 16 |
+| 31 | Textile (CF) | Fraunhofer | MAIPreform2_Spule0-0315_Upside Thread | 0.17135897128539657 | 0.14445421392625396 | 30 |
+| 32 | Textile (CF) | Fraunhofer | MAIPreform2_Spule0-0315_Upside Thread 256 | 0.20414281389085984 | 0.13529143814053632 | 29 |
 
 Correlation between different complexity metrics **of the full image frame** and achieved fitness:
 
