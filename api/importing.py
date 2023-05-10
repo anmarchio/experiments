@@ -197,6 +197,9 @@ def create_individuals(path, experiment: Experiment, run_number):
     f_individual = open(individual_pipeline_files['individual_evaluation_log'], "r")
     individual_evaluation_json = json.load(f_individual)
     for j in range(len(individual_evaluation_json)):
+        if str(j) not in individual_evaluation_json.keys():
+            print("[ERROR] " + str(j) + " not in individual_evaluation_json.keys")
+            continue
         items = individual_evaluation_json[str(j)]
 
         print("\t Reading items in run ", str(run_number), " for individual ", str(j)," of ", len(individual_evaluation_json), " ...")
