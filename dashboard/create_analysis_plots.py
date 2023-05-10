@@ -1,18 +1,82 @@
 import json
 import os
-import statistics
-import sys
+from datetime import datetime
 from os.path import join as p_join
+
+import numpy as np
 
 from api import env_var
 from api.database import Database
 from api.models import Dataset
-from sample_plots import plot_sample, fancy_mean_plot, plot_fitness_evolution, \
-    entropy_fitness_plot, fitness_boxplots, computations_per_computing_unit, plot_mean_std_dev_fitness_arrays
+from dashboard.plotting import plot_mean_std_dev_fitness_arrays, plot_fitness_per_dataset, create_boxplot, \
+    create_scatterplot, create_complexity_plot
+from dashboard.utils import read_file_and_return_norm_dict, mean_std_dev_fitness_per_dataset, compute_mean_and_std_dev, \
+    extract_dataset_name, get_mean_fitness_per_dataset
+from dashboard.vars import COMPLEXITY_METRICS
 
-# SPECIFIC_SOURCE_PATH = os.path.join("P:\\", "99 Austausch_TVöD", "mara", "Dissertation", "20230120results_dl2")
 
-SPECIFIC_SOURCE_PATH = ""
+def compute_complexity_and_fitness_correlation(json_file_path):
+    norm_arr_dict = read_file_and_return_norm_dict(json_file_path)
+
+    """
+    Plot of Complexity Metrics per Dataset
+    """
+    pearson_rs = {}
+    f = open(os.path.join("out", "plots", datetime.now().strftime('%Y%m%d-%H%M%S') + "_metrics.txt"), "w")
+    for i in range(len(COMPLEXITY_METRICS)):
+        mean_fitness_and_complexity_per_dataset = get_mean_fitness_per_dataset(norm_arr_dict, i)
+
+        f.write("Metric: " + COMPLEXITY_METRICS[i] + "\n")
+        print("Metric: " + COMPLEXITY_METRICS[i])
+
+        f.write("| Dataset    | Avg. Fit. | Entropy | # Images |\n")
+        print("| Dataset    | Avg. Fit. | Entropy | # Images |")
+        for k in mean_fitness_and_complexity_per_dataset:
+            mean_fitness = np.nanmean(mean_fitness_and_complexity_per_dataset[k][0])
+            mean_complexity = np.nanmean(mean_fitness_and_complexity_per_dataset[k][1])
+            number_of_images = mean_fitness_and_complexity_per_dataset[k][2]
+            if k is None:
+                k = 'None'
+            if mean_fitness is None:
+                mean_fitness = 0.0
+            if mean_complexity is None:
+                mean_complexity = 0.0
+            print("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " | " + str(number_of_images)  + " |")
+            f.write("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " | " + str(number_of_images)  +  " |\n")
+
+        # get Pearson's r
+        fit_arr = [mean_fitness_and_complexity_per_dataset[k][0][0] for k in mean_fitness_and_complexity_per_dataset]
+        comp_arr = [mean_fitness_and_complexity_per_dataset[k][1][0] for k in mean_fitness_and_complexity_per_dataset]
+        r = np.corrcoef(fit_arr, comp_arr)
+        correlation = r[0, 1]
+        pearson_rs[COMPLEXITY_METRICS[i]] = correlation
+        print("\nCorrelation for " + COMPLEXITY_METRICS[i] + ": " + str(correlation))
+
+        create_complexity_plot(
+            "Complexity per Dataset",
+            COMPLEXITY_METRICS[i],
+            list(mean_fitness_and_complexity_per_dataset.keys()),
+            comp_arr,
+            path=os.path.join("out", "plots",
+                                 datetime.now().strftime('%Y%m%d-%H%M%S') +
+                                 COMPLEXITY_METRICS[i] + "_bplot.png")
+        )
+
+        create_scatterplot(
+            COMPLEXITY_METRICS[i],
+            fit_arr,
+            comp_arr,
+            save_to=os.path.join("out", "plots",
+                                 datetime.now().strftime('%Y%m%d-%H%M%S') +
+                                 COMPLEXITY_METRICS[i] + "_scatterplot.png")
+        )
+        f.write("----------------------------------------------------------------\n\n")
+
+    f.write("| Metric | Cor(fit, v) |\n")
+    for p in pearson_rs:
+        print("| " + p + " | " + str(pearson_rs[p]) + "|\n")
+        f.write("| " + p + " | " + str(pearson_rs[p]) + "|\n")
+    f.close()
 
 
 def read_fitness_values(paths: dict(), filename: str, identifier: str):
@@ -81,28 +145,6 @@ def generate_plots_from_json(source_path, target_path):
         )
 
 
-def show_sample_plots():
-    # Echo the input arguments to standard output
-    print("Create sample plots ...")
-    plot_sample()
-    fancy_mean_plot()
-    plot_fitness_evolution()
-    entropy_fitness_plot()
-    fitness_boxplots()
-    computations_per_computing_unit()
-
-
-def compute_mean_and_std_dev(fit_values):
-    mean_std_dev_fit_values = []
-    for i in range(len(fit_values[0])):
-        values = [chrt[i] for chrt in fit_values]
-        if len(values) > 1:
-            mean_std_dev_fit_values.append([statistics.mean(values), statistics.stdev(values)])
-        else:
-            mean_std_dev_fit_values.append([values[0], 0.0])
-    return mean_std_dev_fit_values
-
-
 def read_database_and_show_plots(grouped_dataset=False):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
@@ -129,16 +171,10 @@ def read_database_and_show_plots(grouped_dataset=False):
         mean_std_dev_fit_values = compute_mean_and_std_dev(fit_values)
 
         if len(list_of_runs_fitness[k]["values"]) > 0:
-            print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
-            split_path = os.path.split(list_of_runs_fitness[k]["source"])
-            if list_of_runs_fitness[k]["name"] not in ["unknown", "train", "train_cgp", "training"]:
-                fig_title = str(id) + ", " + list_of_runs_fitness[k]["name"]
-            elif len(split_path) > 1:
-                fig_title = str(id) + ", " + split_path[-2] + split_path[-1]
-            else:
-                fig_title = str(id) + ", " + split_path[-1]
+            dataset_name = extract_dataset_name(list_of_runs_fitness, k)
+
             plot_mean_std_dev_fitness_arrays(
-                fig_title,
+                dataset_name,
                 "Best Individual",
                 fit_values,
                 mean_std_dev_fit_values,
@@ -146,25 +182,17 @@ def read_database_and_show_plots(grouped_dataset=False):
             )
 
 
-def main() -> int:
-    results_path = p_join(os.path.curdir, '../scripts/results')
-    report_path = p_join(os.path.curdir, '../scripts/report')
+def read_database_and_plot_fitness_per_dataset():
+    db = Database()
+    print("DB path: " + env_var.SQLITE_PATH)
 
-    # show_sample_plots()
-    # os.makedirs(report_path, mode=777, exist_ok=True)
+    list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session())
+    dataset_names, mean_std_dev_fit_per_dataset, _ = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
 
-    read_database_and_show_plots(grouped_dataset=True)
-
-    # Creates HTML file report/index.html
-    # if SPECIFIC_SOURCE_PATH is not "":
-    #  generate_plots_from_json(SPECIFIC_SOURCE_PATH, report_path)
-    # else:
-    #  generate_plots_from_json(results_path, report_path)
-
-    return 0
-
-
-if __name__ == '__main__':
-    main()
-    # next section explains the use of sys.exit
-    sys.exit()
+    plot_fitness_per_dataset(
+        "Fitness per Dataset",
+        "Fitness",
+        dataset_names,
+        mean_std_dev_fit_per_dataset,
+        path=p_join(os.path.curdir, '../scripts/report/fitness_per_dataset.png')
+    )

@@ -218,13 +218,18 @@ class Dataset(Base):
                         analyzer = session.query(Analyzer).filter_by(run_id=r.run_id).first()
                         best_ind_fit.append(
                             session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
+            number_of_images = 0
+            if len(exp_runs) > 0 and exp_runs[0][0] is not None:
+                number_of_images = session.query(Image).filter_by(run_id=exp_runs[0][0].run_id).count()
             # Line Header
             # Dataset   | Experiment date   | list(run)
+
             datasets_fitness_lists[ds.dataset_id] = {
                 "id": ds.dataset_id,
                 "name": ds.name,
                 "source": ds.source_directory,
-                "values": best_ind_fit
+                "values": best_ind_fit,
+                "number_of_images": number_of_images
             }
         return datasets_fitness_lists
 

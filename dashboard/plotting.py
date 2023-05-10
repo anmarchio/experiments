@@ -4,28 +4,122 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_sample():
-    """
-    Sample borrowed from matplotlib tutorial
-    https://matplotlib.org/stable/gallery/lines_bars_and_markers/fill_between_demo.html#sphx-glr-gallery-lines-bars-and-markers-fill-between-demo-py
-    """
-    N = 21
-    x = np.linspace(0, 10, 11)
+def create_boxplot(title, idx, norm_array_dict, save_to):
+    # raise NotImplementedError
+    pass
 
-    y = [3.9, 4.4, 10.8, 10.3, 11.2, 13.1, 14.1, 9.9, 13.9, 15.1, 12.5]
-    # fit a linear curve an estimate its y-values and their error.
 
-    a, b = np.polyfit(x, y, deg=1)
-    y_est = a * x + b
-    y_err = x.std() * np.sqrt(1 / len(x) +
-                              (x - x.mean()) ** 2 / np.sum((x - x.mean()) ** 2))
-
+def create_scatterplot(title, x_complexity, y_fitness, save_to=""):
     fig, ax = plt.subplots()
-    ax.plot(x, y_est, '-')
-    ax.fill_between(x, y_est - y_err, y_est + y_err, alpha=0.2)
-    ax.plot(x, y, 'o', color='tab:brown')
+    # color = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:blue']
+    ax.scatter(x_complexity, y_fitness, c='#1f77b4')
+    # ax.set_xlim(0, 1)
+    # ax.set_ylim(0, 1)
+    ax.set_title(title)
+    ax.legend()
+    ax.grid(True)
+
+    if save_to == "":
+        plt.show()
+    else:
+        plt.savefig(save_to)
+
+
+def create_complexity_plot(title, metric, keys, x, path=""):
+    # create a new figure
+    fig, ax = plt.subplots()
+    # set the title of the plot
+    ax.set_title(title)
+    # set the x-axis label
+    ax.set_xlabel(metric)
+    # plot the data as horizontal bar plots
+    x_labels = ['None' if v is None else v for v in keys]
+    ax.barh(x_labels, x, align='center', height=0.5, orientation='horizontal')
+    # set the y-axis tick labels
+    ax.set_yticklabels(x_labels)
+    # save the plot to a file, if path is provided
+    if path == "":
+        plt.show()
+    else:
+        plt.savefig(path)
+
+
+def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names: [], mean_std_dev_fit_values: [], path=""):
+    N = len(np.array(mean_std_dev_fit_values)[:, 0])
+    ind = np.arange(N)
+    width = 0.35
+
+    fig = plt.subplots(figsize=(10, 7))
+    plt.bar(ind, np.array(mean_std_dev_fit_values)[:, 0], width, yerr=np.array(mean_std_dev_fit_values)[:, 1])
+
+    plt.ylabel(axis_title)
+    plt.title(title)
+    # plt.xticks(ind, ('T1', 'T2', 'T3', 'T4', 'T5'))
+    # plt.yticks(np.arange(0, 81, 10))
+
+    if path == "":
+        plt.show()
+    else:
+        plt.savefig(path)
+
+
+def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts: [], mean_std_dev_fit_values: [],
+                                     path=""):
+    fig, ax = plt.subplots()
+    x = np.arange(0.0, len(fitness_charts[0]), 1.0)
+    """
+    Linestyles and colors are listed at matplotlib tutorials:
+    
+        https://matplotlib.org/2.1.2/api/_as_gen/matplotlib.pyplot.plot.html
+    
+    The following lists contain all values available for generating plots:
+    
+        * colors
+        * markers (e. g. triangles on the lines)
+        * styles (e. g. dots alligned on straight lines)     
+    """
+    colors = ['blue', 'orange', 'green', 'red', 'purple', 'brown',
+              'pink', 'gray', 'olive', 'cyan']
+    markers = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', 's', 'p', '*', 'h', 'H', '+', 'x', 'D',
+               'd', '|', '_']
+    styles = ['-', '--', '-.', ':', 'solid', 'dashed', 'dashdot', 'dotted']
+
+    i = 0
+    for chart in fitness_charts:
+        if len(chart) == len(x):
+            # clr = colors[randrange(len(colors)-1)]
+            ax.plot(x, chart, linestyle=styles[randrange(len(styles) - 1)], color='tab:gray',
+                    label=str(i) + ": " + axis_title)
+        i = i + 1
+
+    ax.plot(x, [v[0] for v in mean_std_dev_fit_values], linestyle='-', color='tab:red', label="Mean")
+    ax.plot(x, [v[0] + v[1] for v in mean_std_dev_fit_values], linestyle='-', color='tab:orange')
+    ax.plot(x, [v[0] - v[1] for v in mean_std_dev_fit_values], linestyle='dotted', color='tab:orange')
+    ax.fill_between(x, [v[0] + v[1] for v in mean_std_dev_fit_values], [v[0] - v[1] for v in mean_std_dev_fit_values],
+                    alpha=0.2, color='tab:orange', label="StdDev")
+    # if len(fitness_charts) > 1:
+    #    ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
+    #    ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
+    # ax.plot(x, fit_avg, 'o', color='tab:brown')
+
     plt.grid(True)
-    plt.show()
+    ax.set_title(title)
+    ax.set_xlabel("Generations")
+    ax.set_ylabel("Fitness")
+    ax.set_ylim([0.0, 1.0])
+    ax.legend()
+
+    if path == "":
+        plt.show()
+    else:
+        plt.savefig(path)
+
+
+"""
+==========================================
+Sample Plot Functions
+==========================================
+"""
 
 
 def plot_fitness_evolution(evolutions: list = None):
@@ -51,54 +145,28 @@ def plot_fitness_evolution(evolutions: list = None):
     plt.show()
 
 
-def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts: [], mean_std_dev_fit_values: [], path=""):
+def plot_sample():
+    """
+    Sample borrowed from matplotlib tutorial
+    https://matplotlib.org/stable/gallery/lines_bars_and_markers/fill_between_demo.html#sphx-glr-gallery-lines-bars-and-markers-fill-between-demo-py
+    """
+    N = 21
+    x = np.linspace(0, 10, 11)
+
+    y = [3.9, 4.4, 10.8, 10.3, 11.2, 13.1, 14.1, 9.9, 13.9, 15.1, 12.5]
+    # fit a linear curve an estimate its y-values and their error.
+
+    a, b = np.polyfit(x, y, deg=1)
+    y_est = a * x + b
+    y_err = x.std() * np.sqrt(1 / len(x) +
+                              (x - x.mean()) ** 2 / np.sum((x - x.mean()) ** 2))
+
     fig, ax = plt.subplots()
-    x = np.arange(0.0, len(fitness_charts[0]), 1.0)
-    """
-    Linestyles and colors are listed at matplotlib tutorials:
-    
-        https://matplotlib.org/2.1.2/api/_as_gen/matplotlib.pyplot.plot.html
-    
-    The following lists contain all values available for generating plots:
-    
-        * colors
-        * markers (e. g. triangles on the lines)
-        * styles (e. g. dots alligned on straight lines)     
-    """
-    colors = ['blue', 'orange', 'green', 'red', 'purple', 'brown',
-              'pink', 'gray', 'olive', 'cyan']
-    markers = ['-', '--', ':', '.', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', 's', 'p', '*', 'h', 'H', '+', 'x', 'D',
-              'd', '|', '_']
-    styles = ['-', '--', '-.', ':', 'solid', 'dashed', 'dashdot', 'dotted']
-
-    i = 0
-    for chart in fitness_charts:
-        if len(chart) == len(x):
-            # clr = colors[randrange(len(colors)-1)]
-            ax.plot(x, chart, linestyle=styles[randrange(len(styles)-1)], color='tab:gray', label=str(i) + ": " + axis_title)
-        i = i + 1
-
-    ax.plot(x, [v[0] for v in mean_std_dev_fit_values], linestyle='-', color='tab:red', label="Mean")
-    ax.plot(x, [v[0] + v[1] for v in mean_std_dev_fit_values], linestyle='-', color='tab:orange')
-    ax.plot(x, [v[0] - v[1] for v in mean_std_dev_fit_values], linestyle='dotted', color='tab:orange')
-    ax.fill_between(x, [v[0] + v[1] for v in mean_std_dev_fit_values], [v[0] - v[1] for v in mean_std_dev_fit_values],
-                    alpha=0.2, color='tab:orange', label="StdDev")
-    # if len(fitness_charts) > 1:
-    #    ax.fill_between(x, fitness_charts[0], fitness_charts[-1], alpha=0.2, label="Range of Runs")
-    #    ax.fill_between(x, fitness_charts[1], fitness_charts[-1], alpha=0.2, label="Range of Runs")
-    # ax.plot(x, fit_avg, 'o', color='tab:brown')
-
+    ax.plot(x, y_est, '-')
+    ax.fill_between(x, y_est - y_err, y_est + y_err, alpha=0.2)
+    ax.plot(x, y, 'o', color='tab:brown')
     plt.grid(True)
-    ax.set_title(title)
-    ax.set_xlabel("Generations")
-    ax.set_ylabel("Fitness")
-    ax.set_ylim([0.0, 1.0])
-    ax.legend()
-
-    if path == "":
-        plt.show()
-    else:
-        plt.savefig(path)
+    plt.show()
 
 
 def fancy_mean_plot():
