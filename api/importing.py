@@ -4,8 +4,8 @@ import re
 import xml.etree.ElementTree as ET
 from datetime import datetime
 
-from api.database import Database
-from api.models import Experiment, Run, Dataset, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
+from database import Database
+from models import Experiment, Run, Dataset, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
     Individual, Pipeline, Item, Parameter, Node, Grid, Configuration, EvolutionStrategy, HalconFitnessConfiguration, \
     ExceptionLog, Vector, Element, ActiveGridNodes, InputGridNodes, OutputGridNodes, GridNode, GridNodeValue, \
     ConfusionMatrix, Image
@@ -197,6 +197,9 @@ def create_individuals(path, experiment: Experiment, run_number):
     f_individual = open(individual_pipeline_files['individual_evaluation_log'], "r")
     individual_evaluation_json = json.load(f_individual)
     for j in range(len(individual_evaluation_json)):
+        if str(j) not in individual_evaluation_json.keys():
+            print("[ERROR] " + str(j) + " not in individual_evaluation_json.keys")
+            continue
         items = individual_evaluation_json[str(j)]
 
         print("\t Reading items in run ", str(run_number), " for individual ", str(j)," of ", len(individual_evaluation_json), " ...")
