@@ -10,6 +10,10 @@ from api.models import Dataset
 from dashboard.vars import PATH_TO_DATASET_NAME_MAP
 
 
+def clean_up_dataset_metadata():
+    pass
+
+
 def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
@@ -54,6 +58,11 @@ def extract_dataset_name(list_of_runs_fitness, k):
         fig_title = str(id) + ", " + split_path[-2] + split_path[-1]
     else:
         fig_title = str(id) + ", " + split_path[-1]
+    fig_title = fig_title.replace('_train', '')
+    fig_title = fig_title.replace('train', '')
+    fig_title = fig_title.replace('train_cgp', '')
+    fig_title = fig_title.replace('_large', '_lg')
+    fig_title = fig_title.replace('_small', '_sm')
     return fig_title
 
 

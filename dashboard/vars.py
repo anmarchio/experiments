@@ -59,7 +59,13 @@ DATASET_NAMES = [
     'MVTec_AD_Bottle_Broken_Sm', 'MVTec_AD_Cable_Missing', 'MVTec_AD_Hazelnut_Crack', 'MVTec_AD_Screw_Scratch',
     'MVTec_AD_Transistor_Case', 'MAIPreform2_Spule0-0315_Upside', 'MAIPreform2_Spule1_0117_Upside',
     'MAIPreform2_Spule2-0816_Upside',
-    'MAIPreform2_Spule0-0315_Upside Thread', 'MAIPreform2_Spule0-0315_Upside Thread 256'
+    'MAIPreform2_Spule0-0315_Upside Thread', 'MAIPreform2_Spule0-0315_Upside Thread 256',
+    'AirCarbon3_81.jpg',
+    'AirCarbon3_81.jpg_bright',
+    'AirCarbon3_81.jpg_dark',
+    'CF_ReferenceSet',
+    'CF_ReferenceSet_Small_Dark',
+    'CF_ReferenceSet_Small_Light'
 ]
 
 """
@@ -74,9 +80,9 @@ RIGHT: dataset name
 """
 PATH_TO_DATASET_NAME_MAP = {
     '"D:\\evias_expmts\\Aircarbon2\\Blende5_6_1800mA_rov\\training\\t_12.jpg"': DATASET_NAMES[7],
-    '"D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\81.jpg"': None,
-    '"D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\81.jpg_bright"': None,
-    '"D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\81.jpg_dark"': None,
+    '"D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\81.jpg"': DATASET_NAMES[34],
+    '"D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\81.jpg_bright"': DATASET_NAMES[35],
+    '"D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\81.jpg_dark"': DATASET_NAMES[36],
     '"D:\\evias_expmts\\FabricDefectsAITEX\\val"': DATASET_NAMES[13],
     '"D:\\evias_expmts\\KolektorSDD\\kos25"': DATASET_NAMES[12],
     '"D:\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone\\training"': DATASET_NAMES[29],
@@ -114,17 +120,17 @@ PATH_TO_DATASET_NAME_MAP = {
     '/mnt/sdc1/MVTecAnomalyDetection/transistor_damaged_case_train': DATASET_NAMES[28],
     '/mnt/sdc1/MVTecAnomalyDetection/wood_scratch_train': DATASET_NAMES[21],
     '/mnt/sdc1/MVTecAnomalyDetection/zipper_rough_train': DATASET_NAMES[22],
-    '/mnt/sdc1/evias_expmts/Aircarbon2/CF_ReferenceSet': None,
-    '/mnt/sdc1/evias_expmts/Aircarbon2/CF_ReferenceSet_Small_Dark': None,
-    '/mnt/sdc1/evias_expmts/Aircarbon2\\CF_ReferenceSet': None,
+    '/mnt/sdc1/evias_expmts/Aircarbon2/CF_ReferenceSet': DATASET_NAMES[37],
+    '/mnt/sdc1/evias_expmts/Aircarbon2/CF_ReferenceSet_Small_Dark': DATASET_NAMES[38],
+    '/mnt/sdc1/evias_expmts/Aircarbon2\\CF_ReferenceSet': DATASET_NAMES[37],
     '/mnt/sdc1/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule1_0117_Upside/undone/training': DATASET_NAMES[30],
     '/mnt/sdc1/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule2-0816_Upside/undone/durchlauf2/training':
         DATASET_NAMES[31],
     '/mnt/sdc1/evias_expmts/severstal-steel/train_cgp': DATASET_NAMES[8],
     '/mnt/sdc1/evias_expmts/severstal-steel\\train_cgp': DATASET_NAMES[8],
-    'C:\\Users\\Public\\evias_expmts\\\\Aircarbon2\\CF_ReferenceSet': None,
-    'C:\\Users\\Public\\evias_expmts\\\\Aircarbon2\\CF_ReferenceSet_Small_Dark': None,
-    'C:\\Users\\Public\\evias_expmts\\\\Aircarbon2\\CF_ReferenceSet_Small_Light': None,
+    'C:\\Users\\Public\\evias_expmts\\\\Aircarbon2\\CF_ReferenceSet': DATASET_NAMES[37],
+    'C:\\Users\\Public\\evias_expmts\\\\Aircarbon2\\CF_ReferenceSet_Small_Dark': DATASET_NAMES[38],
+    'C:\\Users\\Public\\evias_expmts\\\\Aircarbon2\\CF_ReferenceSet_Small_Light': DATASET_NAMES[39],
     'C:\\Users\\Public\\evias_expmts\\\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_1': DATASET_NAMES[0],
     'C:\\Users\\Public\\evias_expmts\\\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_2': DATASET_NAMES[1],
     'C:\\Users\\Public\\evias_expmts\\\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_3': DATASET_NAMES[2],

@@ -9,7 +9,7 @@ from api import env_var
 from api.database import Database
 from api.models import Dataset
 from dashboard.plotting import plot_mean_std_dev_fitness_arrays, plot_fitness_per_dataset, create_boxplot, \
-    create_scatterplot, create_complexity_plot
+    create_scatterplot, create_complexity_plot, plot_fitness_per_dataset_horizontal
 from dashboard.utils import read_file_and_return_norm_dict, mean_std_dev_fitness_per_dataset, compute_mean_and_std_dev, \
     extract_dataset_name, get_mean_fitness_per_dataset
 from dashboard.vars import COMPLEXITY_METRICS
@@ -41,8 +41,10 @@ def compute_complexity_and_fitness_correlation(json_file_path):
                 mean_fitness = 0.0
             if mean_complexity is None:
                 mean_complexity = 0.0
-            print("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " | " + str(number_of_images)  + " |")
-            f.write("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " | " + str(number_of_images)  +  " |\n")
+            print("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " | " + str(
+                number_of_images) + " |")
+            f.write("| " + k + " | " + str(mean_fitness) + " | " + str(mean_complexity) + " | " + str(
+                number_of_images) + " |\n")
 
         # get Pearson's r
         fit_arr = [mean_fitness_and_complexity_per_dataset[k][0][0] for k in mean_fitness_and_complexity_per_dataset]
@@ -58,8 +60,8 @@ def compute_complexity_and_fitness_correlation(json_file_path):
             list(mean_fitness_and_complexity_per_dataset.keys()),
             comp_arr,
             path=os.path.join("out", "plots",
-                                 datetime.now().strftime('%Y%m%d-%H%M%S') +
-                                 COMPLEXITY_METRICS[i] + "_bplot.png")
+                              datetime.now().strftime('%Y%m%d-%H%M%S') +
+                              COMPLEXITY_METRICS[i] + "_bplot.png")
         )
 
         create_scatterplot(
@@ -178,21 +180,30 @@ def read_database_and_show_plots(grouped_dataset=False):
                 "Best Individual",
                 fit_values,
                 mean_std_dev_fit_values,
-                path=p_join(os.path.curdir, '../scripts/report/' + str(k) + '.png')
+                path=os.path.join("scripts", "report" + str(k) + ".png")
             )
 
 
-def read_database_and_plot_fitness_per_dataset():
+def read_database_and_plot_fitness_per_dataset(min_generations: int = 0, max_generations: int = None):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
 
-    list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session())
+    list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session(), min_generations,
+                                                                       max_generations)
     dataset_names, mean_std_dev_fit_per_dataset, _ = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
-
+    """
     plot_fitness_per_dataset(
         "Fitness per Dataset",
         "Fitness",
         dataset_names,
         mean_std_dev_fit_per_dataset,
-        path=p_join(os.path.curdir, '../scripts/report/fitness_per_dataset.png')
+        path=os.path.join("scripts", "report", "fitness_per_dataset.png")
+    )
+    """
+    plot_fitness_per_dataset_horizontal(
+        "Fitness per Dataset",
+        "Fitness",
+        dataset_names,
+        mean_std_dev_fit_per_dataset,
+        path=os.path.join("scripts", "report", "fitness_per_dataset.png")
     )

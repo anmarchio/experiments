@@ -197,7 +197,7 @@ class Dataset(Base):
         return datasets_fitness_lists
 
     @staticmethod
-    def get_runs_fitness_by_grouped_dataset(session: Session):
+    def get_runs_fitness_by_grouped_dataset(session: Session, min_generations:int = None, max_generations:int = None):
         # Experiments by dataset
         datasets = session.query(Dataset).group_by(Dataset.source_directory).all()
         datasets_fitness_lists = {}
@@ -216,8 +216,19 @@ class Dataset(Base):
                 for r in expr:
                     if r is not None:
                         analyzer = session.query(Analyzer).filter_by(run_id=r.run_id).first()
-                        best_ind_fit.append(
-                            session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
+                        """
+                        Check here whether the number of individual fitness values (= generations) 
+                        is either
+                        * min_generations OR max_generations is None
+                        * or is within min_generations & max_generations
+                        """
+                        if min_generations is None or \
+                            max_generations is None or \
+                            min_generations < \
+                            session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).count()\
+                            < max_generations:
+                            best_ind_fit.append(
+                                session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
             number_of_images = 0
             if len(exp_runs) > 0 and exp_runs[0][0] is not None:
                 number_of_images = session.query(Image).filter_by(run_id=exp_runs[0][0].run_id).count()
