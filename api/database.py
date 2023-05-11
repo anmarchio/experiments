@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from env_var import SQLITE_PATH
-from models import Base
+from api.env_var import SQLITE_PATH
+from api.models import Base
 
 
 class Database:
