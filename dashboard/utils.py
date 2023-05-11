@@ -61,6 +61,7 @@ def extract_dataset_name(list_of_runs_fitness, k):
     fig_title = fig_title.replace('_train', '')
     fig_title = fig_title.replace('train', '')
     fig_title = fig_title.replace('train_cgp', '')
+    fig_title = fig_title.replace('_cgp', '')
     fig_title = fig_title.replace('_large', '_lg')
     fig_title = fig_title.replace('_small', '_sm')
     return fig_title
