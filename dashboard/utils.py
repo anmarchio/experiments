@@ -10,16 +10,19 @@ from api.models import Dataset
 from dashboard.vars import PATH_TO_DATASET_NAME_MAP
 
 
-def clean_up_dataset_metadata():
-    pass
-
-
 def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
     list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session())
 
     mean_fitness_and_complexity_per_dataset = {}
+
+    #for k in list_of_runs_fitness.keys():
+    #    # Get key for the dataset to source mapping
+    #    try:
+    #        print("Name for " + list_of_runs_fitness[k]['source'] + " is: " + PATH_TO_DATASET_NAME_MAP[list_of_runs_fitness[k]['source']])
+    #    except:
+    #        print("[ERROR] no key for " + list_of_runs_fitness[k]['source'])
 
     for k in list_of_runs_fitness.keys():
         # Get key for the dataset to source mapping
@@ -80,6 +83,7 @@ def extract_dataset_name(list_of_runs_fitness, k):
         fig_title = str(run_id) + ", " + split_path[-2] + split_path[-1]
     else:
         fig_title = str(run_id) + ", " + split_path[-1]
+    fig_title = fig_title.replace('_training', '')
     fig_title = fig_title.replace('_train', '')
     fig_title = fig_title.replace('train', '')
     fig_title = fig_title.replace('train_cgp', '')
