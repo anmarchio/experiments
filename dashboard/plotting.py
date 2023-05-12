@@ -44,43 +44,44 @@ def create_complexity_plot(title, metric, keys, x, path=""):
         plt.savefig(path)
 
 
-def plot_fitness_per_dataset_horizontal(title: str, metric: str, keys, x, path=""):
-    # create a new figure
+def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names, mean_std_dev_fit_values: [],
+                             orientation: str = 'h', path=""):
     fig, ax = plt.subplots()
-    # set the title of the plot
-    ax.set_title(title)
-    # set the x-axis label
-    ax.set_xlabel(metric)
-    # plot the data as horizontal bar plots
-    x_labels = ['None' if v is None else v for v in keys]
-    ax.barh(x_labels, np.array(x)[:, 0], align='center', height=0.35, xerr=np.array(x)[:, 1], orientation='horizontal')
-    # set the y-axis tick labels
-    ax.set_yticklabels(x_labels)
-    plt.xticks(np.arange(0.0, 1.0, 0.1))
-    plt.grid(axis='x')
-    # save the plot to a file, if path is provided
-    if path == "":
-        plt.show()
+    if orientation == 'v':
+        # create a new figure
+        ax.set_xlabel(axis_title)
+        # plot the data as horizontal bar plots
+        x_labels = ['None' if v is None else v for v in dataset_names]
+        ax.barh(x_labels,
+                np.array(mean_std_dev_fit_values)[:, 0],
+                align='center',
+                height=0.35,
+                xerr=np.array(mean_std_dev_fit_values)[:, 1],
+                orientation='horizontal')
+        # set the y-axis tick labels
+        ax.set_yticklabels(x_labels)
+        plt.xticks(np.arange(0.0, 1.0, 0.1))
+        plt.grid(axis='x')
+        # save the plot to a file, if path is provided
+        if path == "":
+            plt.show()
+        else:
+            plt.savefig(path)
     else:
-        plt.savefig(path)
+        N = len(np.array(mean_std_dev_fit_values)[:, 0])
+        ind = np.arange(N)
+        width = 0.35
+        #fig = plt.subplots(figsize=(10, 7))
+        plt.bar(ind, np.array(mean_std_dev_fit_values)[:, 0], width, yerr=np.array(mean_std_dev_fit_values)[:, 1])
 
+        plt.ylabel(axis_title)
+        plt.xlabel("Dataset ID")
 
-def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names: [], mean_std_dev_fit_values: [], path=""):
-    N = len(np.array(mean_std_dev_fit_values)[:, 0])
-    ind = np.arange(N)
-    width = 0.35
+        plt.yticks(np.arange(0.0, 1.0, 0.1))
+        plt.xticks(np.arange(0, N, 1))
+        plt.grid(axis='y')
 
-    fig = plt.subplots(figsize=(10, 7))
-    plt.bar(ind, np.array(mean_std_dev_fit_values)[:, 0], width, yerr=np.array(mean_std_dev_fit_values)[:, 1])
-
-    plt.ylabel(axis_title)
-    plt.xlabel("Dataset ID")
     plt.title(title)
-
-    plt.yticks(np.arange(0.0, 1.0, 0.1))
-    plt.xticks(np.arange(0, N, 1))
-    plt.grid(axis='y')
-
     if path == "":
         plt.show()
     else:

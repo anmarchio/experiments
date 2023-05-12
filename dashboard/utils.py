@@ -44,20 +44,42 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
             mean_fitness_and_complexity_per_dataset[dataset_name][0].append(fitness_mean)
             mean_fitness_and_complexity_per_dataset[dataset_name][1].append(complexity_mean)
         else:
-            mean_fitness_and_complexity_per_dataset[dataset_name] = [[fitness_mean], [complexity_mean], number_of_images]
+            mean_fitness_and_complexity_per_dataset[dataset_name] = [[fitness_mean], [complexity_mean],
+                                                                     number_of_images]
 
     return mean_fitness_and_complexity_per_dataset
+
+
+def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_per_dataset: []):
+    print("| ID ", "| Dataset ", "| Mean", "| Std Dev |")
+    if np.array(mean_std_dev_fit_per_dataset)[:, 0].size != \
+            np.array(mean_std_dev_fit_per_dataset)[:, 1].size != \
+            len(dataset_names):
+        print("[ERROR] Array Mismatch")
+    for i in range(np.array(mean_std_dev_fit_per_dataset)[:, 0].size):
+        # [:, 0] = mean
+        # [:, 1] = std dev
+        ds_id = dataset_names[i].split(",")[0]
+        name = dataset_names[i].split(",")[1]
+        print(
+            "| " + ds_id,
+            " | " + name,
+            " | " + str(np.array(mean_std_dev_fit_per_dataset)[:, 0][i]) +
+            " | " + str(np.array(mean_std_dev_fit_per_dataset)[:, 1][i]) +
+            " |"
+        )
 
 
 def extract_dataset_name(list_of_runs_fitness, k):
     print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
     split_path = os.path.split(list_of_runs_fitness[k]["source"])
+    run_id = str(list_of_runs_fitness[k]["id"])
     if list_of_runs_fitness[k]["name"] not in ["unknown", "train", "train_cgp", "training"]:
-        fig_title = str(id) + ", " + list_of_runs_fitness[k]["name"]
+        fig_title = str(run_id) + ", " + list_of_runs_fitness[k]["name"]
     elif len(split_path) > 1:
-        fig_title = str(id) + ", " + split_path[-2] + split_path[-1]
+        fig_title = str(run_id) + ", " + split_path[-2] + split_path[-1]
     else:
-        fig_title = str(id) + ", " + split_path[-1]
+        fig_title = str(run_id) + ", " + split_path[-1]
     fig_title = fig_title.replace('_train', '')
     fig_title = fig_title.replace('train', '')
     fig_title = fig_title.replace('train_cgp', '')

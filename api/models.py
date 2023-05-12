@@ -154,7 +154,7 @@ class Dataset(Base):
                         print("Regex failed. Set to unknown ...")
                     else:
                         name_str = src_val_path[0].split("\\")[-1]
-                        src_dir = src_val_path[1]
+                        src_dir = src_val_path[0]
                         val_dir = src_val_path[1]
 
         dataset = Dataset(

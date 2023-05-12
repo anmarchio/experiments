@@ -1,17 +1,16 @@
 import json
 import os
 from datetime import datetime
-from os.path import join as p_join
 
 import numpy as np
 
 from api import env_var
 from api.database import Database
 from api.models import Dataset
-from dashboard.plotting import plot_mean_std_dev_fitness_arrays, plot_fitness_per_dataset, create_boxplot, \
-    create_scatterplot, create_complexity_plot, plot_fitness_per_dataset_horizontal
+from dashboard.plotting import plot_mean_std_dev_fitness_arrays, plot_fitness_per_dataset, create_scatterplot, \
+    create_complexity_plot
 from dashboard.utils import read_file_and_return_norm_dict, mean_std_dev_fitness_per_dataset, compute_mean_and_std_dev, \
-    extract_dataset_name, get_mean_fitness_per_dataset
+    extract_dataset_name, get_mean_fitness_per_dataset, print_fitness_values_in_table
 from dashboard.vars import COMPLEXITY_METRICS
 
 
@@ -184,6 +183,7 @@ def read_database_and_show_plots(grouped_dataset=False):
             )
 
 
+
 def read_database_and_plot_fitness_per_dataset(min_generations: int = 0, max_generations: int = None):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
@@ -191,19 +191,14 @@ def read_database_and_plot_fitness_per_dataset(min_generations: int = 0, max_gen
     list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session(), min_generations,
                                                                        max_generations)
     dataset_names, mean_std_dev_fit_per_dataset, _ = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
-    """
+
     plot_fitness_per_dataset(
         "Fitness per Dataset",
         "Fitness",
         dataset_names,
         mean_std_dev_fit_per_dataset,
+        orientation='v',
         path=os.path.join("scripts", "report", "fitness_per_dataset.png")
     )
-    """
-    plot_fitness_per_dataset_horizontal(
-        "Fitness per Dataset",
-        "Fitness",
-        dataset_names,
-        mean_std_dev_fit_per_dataset,
-        path=os.path.join("scripts", "report", "fitness_per_dataset.png")
-    )
+
+    print_fitness_values_in_table(dataset_names, mean_std_dev_fit_per_dataset)
