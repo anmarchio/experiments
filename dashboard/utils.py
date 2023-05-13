@@ -75,9 +75,9 @@ def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_per_datase
 
 def extract_dataset_name(list_of_runs_fitness, k):
     print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
-    split_path = os.path.split(list_of_runs_fitness[k]["source"])
-    run_id = str(list_of_runs_fitness[k]["id"])
-    if list_of_runs_fitness[k]["name"] not in ["unknown", "train", "train_cgp", "training"]:
+    split_path = list_of_runs_fitness[k]['source'].split(os.sep)
+    run_id = str(list_of_runs_fitness[k]['id'])
+    if list_of_runs_fitness[k]['name'] not in ['unknown', 'train', 'train"', 'train_cgp', 'training']:
         fig_title = str(run_id) + ", " + list_of_runs_fitness[k]["name"]
     elif len(split_path) > 1:
         fig_title = str(run_id) + ", " + split_path[-2] + split_path[-1]
@@ -90,6 +90,7 @@ def extract_dataset_name(list_of_runs_fitness, k):
     fig_title = fig_title.replace('_cgp', '')
     fig_title = fig_title.replace('_large', '_lg')
     fig_title = fig_title.replace('_small', '_sm')
+    fig_title = fig_title.replace('\"', '')
     return fig_title
 
 

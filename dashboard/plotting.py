@@ -89,7 +89,7 @@ def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names, mean_st
 
 
 def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts: [], mean_std_dev_fit_values: [],
-                                     path=""):
+                                     path="", show_legend: bool = False):
     fig, ax = plt.subplots()
     x = np.arange(0.0, len(fitness_charts[0]), 1.0)
     """
@@ -109,13 +109,14 @@ def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts
                'd', '|', '_']
     styles = ['-', '--', '-.', ':', 'solid', 'dashed', 'dashdot', 'dotted']
 
-    i = 0
-    for chart in fitness_charts:
-        if len(chart) == len(x):
-            # clr = colors[randrange(len(colors)-1)]
-            ax.plot(x, chart, linestyle=styles[randrange(len(styles) - 1)], color='tab:gray',
-                    label=str(i) + ": " + axis_title)
-        i = i + 1
+    if show_legend:
+        i = 0
+        for chart in fitness_charts:
+            if len(chart) == len(x):
+                # clr = colors[randrange(len(colors)-1)]
+                ax.plot(x, chart, linestyle=styles[randrange(len(styles) - 1)], color='tab:gray',
+                        label=str(i) + ": " + axis_title)
+            i = i + 1
 
     ax.plot(x, [v[0] for v in mean_std_dev_fit_values], linestyle='-', color='tab:red', label="Mean")
     ax.plot(x, [v[0] + v[1] for v in mean_std_dev_fit_values], linestyle='-', color='tab:orange')

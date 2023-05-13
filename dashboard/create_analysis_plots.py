@@ -146,7 +146,7 @@ def generate_plots_from_json(source_path, target_path):
         )
 
 
-def read_database_and_show_plots(grouped_dataset=False):
+def read_database_and_show_plots(grouped_dataset=False, show_legend=False):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
     list_of_runs_fitness = {}
@@ -172,6 +172,8 @@ def read_database_and_show_plots(grouped_dataset=False):
         mean_std_dev_fit_values = compute_mean_and_std_dev(fit_values)
 
         if len(list_of_runs_fitness[k]["values"]) > 0:
+            if k in [3, 16, 17]:
+                print("Inspect")
             dataset_name = extract_dataset_name(list_of_runs_fitness, k)
 
             plot_mean_std_dev_fitness_arrays(
@@ -179,9 +181,9 @@ def read_database_and_show_plots(grouped_dataset=False):
                 "Best Individual",
                 fit_values,
                 mean_std_dev_fit_values,
-                path=os.path.join("scripts", "report" + str(k) + ".png")
+                path=os.path.join("scripts", "report", str(k) + ".png"),
+                show_legend=show_legend
             )
-
 
 
 def read_database_and_plot_fitness_per_dataset(min_generations: int = 0, max_generations: int = None):

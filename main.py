@@ -64,7 +64,7 @@ def main() -> int:
         """
         Plots fitness evolution plot for every dataset
         """
-        read_database_and_show_plots(grouped_dataset=True)
+        read_database_and_show_plots(grouped_dataset=True, show_legend=True)
 
     # yesno = input('Generate HTML reports? (y/n)')
     if selection == 4:
