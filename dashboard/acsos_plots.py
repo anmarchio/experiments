@@ -1,10 +1,11 @@
 import os
+from datetime import datetime
 
 import numpy as np
 
 from dashboard.acsos_vars import ACSOS_DATASET_NAMES, ACSOS_STD_DEV, ACSOS_MEANS, ACSOS_NUMBER_OF_IMAGES, \
-    ACSOS_NUMBER_OF_RUNS
-from dashboard.plotting import plot_fitness_per_dataset
+    ACSOS_NUMBER_OF_RUNS, IMG_HIST_ENTROPY_VALUES, LBL_EDGE_DENSITY_VALUES
+from dashboard.plotting import plot_fitness_per_dataset, create_complexity_plot
 from dashboard.utils import print_fitness_values_in_table
 
 
@@ -26,4 +27,22 @@ def create_fitness_plot():
 
 
 def create_acsos_complexity_plot():
-    pass
+    create_complexity_plot(
+        "Mean Image Histogram Entropy per Dataset",
+        "Histogram Entropy",
+        ACSOS_DATASET_NAMES,
+        IMG_HIST_ENTROPY_VALUES,
+        path=os.path.join("out", "plots",
+                          datetime.now().strftime('%Y%m%d-%H%M%S') +
+                          "histogram_entropy_bplot.png")
+    )
+
+    create_complexity_plot(
+        "Mean Label Edge Density per Dataset",
+        "Edge Density",
+        ACSOS_DATASET_NAMES,
+        LBL_EDGE_DENSITY_VALUES,
+        path=os.path.join("out", "plots",
+                          datetime.now().strftime('%Y%m%d-%H%M%S') +
+                          "lbl_edge_density_bplot.png")
+    )

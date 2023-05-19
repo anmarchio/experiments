@@ -27,7 +27,7 @@ def create_scatterplot(title, x_complexity, y_fitness, save_to=""):
 
 def create_complexity_plot(title, metric, keys, x, path=""):
     # create a new figure
-    fig, ax = plt.subplots(figsize=(7, 7))
+    fig, ax = plt.subplots(figsize=(10, 10))
     # set the title of the plot
     ax.set_title(title)
     # set the x-axis label
