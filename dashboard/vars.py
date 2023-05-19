@@ -66,8 +66,9 @@ DATASET_NAMES = [
     'CF_ReferenceSet',
     'CF_ReferenceSet_Small_Dark',
     'CF_ReferenceSet_Small_Light',
-    '80.jpg',
-    '80.jpg_dark'
+    'AirCarbon3_80.jpg',
+    '80.jpg_dark',
+    'MVTec_AD_Toothbrush_Sm'
 ]
 
 """
@@ -124,7 +125,7 @@ PATH_TO_DATASET_NAME_MAP = {
     '/mnt/sdc1/MVTecAnomalyDetection/hazelnut_crack_train': DATASET_NAMES[26],
     '/mnt/sdc1/MVTecAnomalyDetection/screw_scratch_neck_train': DATASET_NAMES[27],
     '/mnt/sdc1/MVTecAnomalyDetection/tile_crack_train': DATASET_NAMES[20],
-    '/mnt/sdc1/MVTecAnomalyDetection/toothbrush_small_train': None,
+    '/mnt/sdc1/MVTecAnomalyDetection/toothbrush_small_train': DATASET_NAMES[42],
     '/mnt/sdc1/MVTecAnomalyDetection/transistor_damaged_case_train': DATASET_NAMES[28],
     '/mnt/sdc1/MVTecAnomalyDetection/wood_scratch_train': DATASET_NAMES[21],
     '/mnt/sdc1/MVTecAnomalyDetection/zipper_rough_train': DATASET_NAMES[22],

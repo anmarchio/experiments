@@ -17,39 +17,27 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
 
     mean_fitness_and_complexity_per_dataset = {}
 
-    #for k in list_of_runs_fitness.keys():
-    #    # Get key for the dataset to source mapping
-    #    try:
-    #        print("Name for " + list_of_runs_fitness[k]['source'] + " is: " + PATH_TO_DATASET_NAME_MAP[list_of_runs_fitness[k]['source']])
-    #    except:
-    #        print("[ERROR] no key for " + list_of_runs_fitness[k]['source'])
+    dataset_names, mean_std_dev_fit_per_dataset, number_of_images = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
 
-    for k in list_of_runs_fitness.keys():
-        # Get key for the dataset to source mapping
-        dataset_name = PATH_TO_DATASET_NAME_MAP[list_of_runs_fitness[k]['source']]
+    for i in range(len(mean_std_dev_fit_per_dataset)):
+        dataset_name = dataset_names[i][1] # name
+        fitness_mean = mean_std_dev_fit_per_dataset[i][0] # mean
+        fitness_stddev = mean_std_dev_fit_per_dataset[i][1] # std dev
 
-        # Get number of images contained in dataset
-        number_of_images = list_of_runs_fitness[k]['number_of_images']
-
-        # Get mean and stdv
-        fitness_mean, fitness_stddev = compute_best_mean_and_std_dev(list_of_runs_fitness, k)
+        # compute the related complexity value
         complexity_mean = 0.0
-        if dataset_name is not None and len(norm_arr_dict[dataset_name]) > 0:
+        if dataset_name in norm_arr_dict.keys() and len(norm_arr_dict[dataset_name]) > 0:
             values = []
             for img in norm_arr_dict[dataset_name]:
                 if m_idx < len(img):
                     values.append(img[m_idx])
             # complexity_mean = np.mean([img[m_idx] for img in norm_arr_dict[dataset_name]])
             complexity_mean = np.mean(values)
-
-            # Check if key is already in dict
-        if dataset_name in mean_fitness_and_complexity_per_dataset.keys():
-            mean_fitness_and_complexity_per_dataset[dataset_name][0].append(fitness_mean)
-            mean_fitness_and_complexity_per_dataset[dataset_name][1].append(complexity_mean)
         else:
-            mean_fitness_and_complexity_per_dataset[dataset_name] = [[fitness_mean], [complexity_mean],
-                                                                     number_of_images]
+            print("[ERROR] " + dataset_name + " not in norm_arr_dict")
 
+        mean_fitness_and_complexity_per_dataset[dataset_name] = [[fitness_mean], [complexity_mean],
+                                                                 number_of_images[i]]
     return mean_fitness_and_complexity_per_dataset
 
 
@@ -162,7 +150,7 @@ def mean_std_dev_fitness_per_dataset(list_of_runs_fitness):
             mean_std_dev_fit_per_dataset.append(compute_best_mean_and_std_dev(values))
 
             ids, name = extract_dataset_name(linked_list_of_runs_fitness[k][0]["name"], linked_list_of_runs_fitness[k][0]["source"], indices)
-            dataset_names.append([ids, name])
+            dataset_names.append([ids, k])
 
             number_of_images.append(linked_list_of_runs_fitness[k][0]["number_of_images"])
 

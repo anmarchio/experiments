@@ -37,6 +37,7 @@ def create_complexity_plot(title, metric, keys, x, path=""):
     ax.barh(x_labels, x, align='center', height=0.5, orientation='horizontal')
     # set the y-axis tick labels
     ax.set_yticklabels(x_labels)
+    plt.grid(axis='x')
     # save the plot to a file, if path is provided
     if path == "":
         plt.show()
