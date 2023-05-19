@@ -28,13 +28,13 @@ def create_fitness_plot():
 
 def create_acsos_complexity_plot():
     create_complexity_plot(
-        "Mean Image Histogram Entropy per Dataset",
-        "Histogram Entropy",
+        "Mean Image JPEG Complexity per Dataset",
+        "JPEG Complexity",
         ACSOS_DATASET_NAMES,
         IMG_HIST_ENTROPY_VALUES,
         path=os.path.join("out", "plots",
                           datetime.now().strftime('%Y%m%d-%H%M%S') +
-                          "histogram_entropy_bplot.png")
+                          "jpeg_complexity_bplot.png")
     )
 
     create_complexity_plot(
