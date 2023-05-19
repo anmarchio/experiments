@@ -15,11 +15,12 @@ from dashboard.vars import COMPLEXITY_METRICS
 
 
 def compute_complexity_and_fitness_correlation(json_file_path):
+    """
+    Plot of Correlation of Complexity and CGP Fitness per metric
+    """
+    # normalize values computed from images to [0,1]
     norm_arr_dict = read_file_and_return_norm_dict(json_file_path)
-
-    """
-    Plot of Complexity Metrics per Dataset
-    """
+    # create txt file for values before plotting
     pearson_rs = {}
     f = open(os.path.join("out", "plots", datetime.now().strftime('%Y%m%d-%H%M%S') + "_metrics.txt"), "w")
     for i in range(len(COMPLEXITY_METRICS)):
@@ -147,6 +148,10 @@ def generate_plots_from_json(source_path, target_path):
 
 
 def read_database_and_show_plots(grouped_dataset=False, show_legend=False):
+    """
+    Reads fitness evolution per dataset for all runs
+    and write it to plots showing their mean and std dev per generation
+    """
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
     list_of_runs_fitness = {}
@@ -174,8 +179,9 @@ def read_database_and_show_plots(grouped_dataset=False, show_legend=False):
         if len(list_of_runs_fitness[k]["values"]) > 0:
             if k in [3, 16, 17]:
                 print("Inspect")
-            dataset_name = extract_dataset_name(list_of_runs_fitness, k)
-
+            run_id, dataset_name = extract_dataset_name(list_of_runs_fitness, k)
+            if show_legend:
+                dataset_name = str(run_id) + ", " + dataset_name
             plot_mean_std_dev_fitness_arrays(
                 dataset_name,
                 "Best Individual",
@@ -186,7 +192,7 @@ def read_database_and_show_plots(grouped_dataset=False, show_legend=False):
             )
 
 
-def read_database_and_plot_fitness_per_dataset(min_generations: int = 0, max_generations: int = None):
+def read_database_and_plot_fitness_per_dataset(min_generations: int = 0, max_generations: int = None, show_names=False):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
 
@@ -200,7 +206,8 @@ def read_database_and_plot_fitness_per_dataset(min_generations: int = 0, max_gen
         dataset_names,
         mean_std_dev_fit_per_dataset,
         orientation='v',
-        path=os.path.join("scripts", "report", "fitness_per_dataset.png")
+        path=os.path.join("scripts", "report", "fitness_per_dataset.png"),
+        show_names=show_names
     )
 
     print_fitness_values_in_table(dataset_names, mean_std_dev_fit_per_dataset)

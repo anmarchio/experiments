@@ -45,40 +45,45 @@ def create_complexity_plot(title, metric, keys, x, path=""):
 
 
 def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names, mean_std_dev_fit_values: [],
-                             orientation: str = 'h', path=""):
-    fig, ax = plt.subplots()
+                             orientation: str = 'h', path="", show_names=True):
+    fig, ax = plt.subplots(figsize=(10, 10))
+    indices = [str(i) for i in range(1, len(np.array(mean_std_dev_fit_values)[:, 0]) + 1)]
     if orientation == 'v':
         # create a new figure
         ax.set_xlabel(axis_title)
+
+        # create labels for datasets (either integers or name strings)
+        if show_names:
+            indices = ['None' if v is None else v[1] for v in dataset_names]
+
         # plot the data as horizontal bar plots
-        x_labels = ['None' if v is None else v for v in dataset_names]
-        ax.barh(x_labels,
+        ax.barh(indices,
                 np.array(mean_std_dev_fit_values)[:, 0],
                 align='center',
-                height=0.35,
+                height=0.6,
                 xerr=np.array(mean_std_dev_fit_values)[:, 1],
                 orientation='horizontal')
+
         # set the y-axis tick labels
-        ax.set_yticklabels(x_labels)
+        ax.set_yticklabels(indices)
         plt.xticks(np.arange(0.0, 1.0, 0.1))
         plt.grid(axis='x')
+
         # save the plot to a file, if path is provided
         if path == "":
             plt.show()
         else:
             plt.savefig(path)
     else:
-        N = len(np.array(mean_std_dev_fit_values)[:, 0])
-        ind = np.arange(N)
         width = 0.35
         #fig = plt.subplots(figsize=(10, 7))
-        plt.bar(ind, np.array(mean_std_dev_fit_values)[:, 0], width, yerr=np.array(mean_std_dev_fit_values)[:, 1])
+        plt.bar(indices, np.array(mean_std_dev_fit_values)[:, 0], width, yerr=np.array(mean_std_dev_fit_values)[:, 1])
 
         plt.ylabel(axis_title)
         plt.xlabel("Dataset ID")
 
         plt.yticks(np.arange(0.0, 1.0, 0.1))
-        plt.xticks(np.arange(0, N, 1))
+        plt.xticks(np.arange(0, indices, 1))
         plt.grid(axis='y')
 
     plt.title(title)

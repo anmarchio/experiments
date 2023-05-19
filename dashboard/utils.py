@@ -62,36 +62,43 @@ def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_per_datase
     for i in range(np.array(mean_std_dev_fit_per_dataset)[:, 0].size):
         # [:, 0] = mean
         # [:, 1] = std dev
-        ds_id = dataset_names[i].split(",")[0]
-        name = dataset_names[i].split(",")[1]
+        ds_id = dataset_names[i][0]
+        name = dataset_names[i][1]
         print(
             "| " + ds_id,
             " | " + name,
-            " | " + str(np.array(mean_std_dev_fit_per_dataset)[:, 0][i]) +
-            " | " + str(np.array(mean_std_dev_fit_per_dataset)[:, 1][i]) +
+            " | " + str(round(np.array(mean_std_dev_fit_per_dataset)[:, 0][i], 3)) +
+            " | " + str(round(np.array(mean_std_dev_fit_per_dataset)[:, 1][i], 3)) +
             " |"
         )
 
 
-def extract_dataset_name(list_of_runs_fitness, k):
-    print("source: ", os.path.split(list_of_runs_fitness[k]["source"])[-1])
-    split_path = list_of_runs_fitness[k]['source'].split(os.sep)
-    run_id = str(list_of_runs_fitness[k]['id'])
-    if list_of_runs_fitness[k]['name'] not in ['unknown', 'train', 'train"', 'train_cgp', 'training']:
-        fig_title = str(run_id) + ", " + list_of_runs_fitness[k]["name"]
+def extract_dataset_name(name, source, idxs: []):
+    """
+    Extracts the name of a dataset from within a system path
+    and removes all irrelevant characters or non-dataset related labels.
+    """
+    print("source: ", source)
+    split_path = source.split(os.sep)
+    run_ids = ""
+    for idx in idxs:
+        run_ids = str(idx) + ","
+    if name not in ['unknown', 'train', 'train"', 'train_cgp', 'train_cgp"',  'training']:
+        fig_title = name
     elif len(split_path) > 1:
-        fig_title = str(run_id) + ", " + split_path[-2] + split_path[-1]
+        fig_title = split_path[-2] + split_path[-1]
     else:
-        fig_title = str(run_id) + ", " + split_path[-1]
+        fig_title = split_path[-1]
     fig_title = fig_title.replace('_training', '')
     fig_title = fig_title.replace('_train', '')
+    fig_title = fig_title.replace('/training', '')
     fig_title = fig_title.replace('train', '')
     fig_title = fig_title.replace('train_cgp', '')
     fig_title = fig_title.replace('_cgp', '')
     fig_title = fig_title.replace('_large', '_lg')
     fig_title = fig_title.replace('_small', '_sm')
     fig_title = fig_title.replace('\"', '')
-    return fig_title
+    return run_ids, fig_title
 
 
 def compute_mean_and_std_dev(fit_values):
@@ -105,8 +112,8 @@ def compute_mean_and_std_dev(fit_values):
     return mean_std_dev_fit_values
 
 
-def compute_best_mean_and_std_dev(list_of_runs_fitness, k):
-    best_fit_values = [v[-1].best_individual_fitness for v in list_of_runs_fitness[k]["values"]]
+def compute_best_mean_and_std_dev(values: []):
+    best_fit_values = [v[-1].best_individual_fitness for v in values]
 
     if len(best_fit_values) > 1:
         return [statistics.mean(best_fit_values), statistics.stdev(best_fit_values)]
@@ -115,25 +122,49 @@ def compute_best_mean_and_std_dev(list_of_runs_fitness, k):
     return [best_fit_values[0], 0.0]
 
 
+def data_linking(list_of_runs_fitness):
+    linked_list = {}
+    for k in list_of_runs_fitness.keys():
+        source = list_of_runs_fitness[k]['source'].replace('"', '')
+        source = source.replace(' ', '')
+        dataset_name = PATH_TO_DATASET_NAME_MAP[source]
+
+        if dataset_name in linked_list.keys():
+            linked_list[dataset_name].append(list_of_runs_fitness[k])
+        else:
+            linked_list[dataset_name] = [list_of_runs_fitness[k]]
+
+    return linked_list
+
+
 def mean_std_dev_fitness_per_dataset(list_of_runs_fitness):
+    linked_list_of_runs_fitness = data_linking(list_of_runs_fitness)
+
     dataset_names = []
     mean_std_dev_fit_per_dataset = []
     number_of_images = []
 
-    for k in list_of_runs_fitness.keys():
-        id = list_of_runs_fitness[k]["id"]
-        if len(list_of_runs_fitness[k]["values"]) > 0:
-            print("ID: ", id, ", reading ...")
-        else:
-            print("ID: ", id, ", [EMPTY]")
-            continue
+    for k in linked_list_of_runs_fitness.keys():
+        values = []
+        indices = []
 
-        mean_std_dev_fit_per_dataset.append(compute_best_mean_and_std_dev(list_of_runs_fitness, k))
+        for rf in linked_list_of_runs_fitness[k]:
+            if len(rf["values"]) > 0:
+                values += rf["values"]
+                indices.append(rf["id"])
+                print("ID: ", str(rf["id"]), ", reading ...")
+            else:
+                print("ID: ", str(rf["id"]), ", [EMPTY]")
+                continue
 
-        if len(list_of_runs_fitness[k]["values"]) > 0:
-            dataset_names.append(extract_dataset_name(list_of_runs_fitness, k))
+        if len(values) > 0:
+            # only add values to list if not empty
+            mean_std_dev_fit_per_dataset.append(compute_best_mean_and_std_dev(values))
 
-        number_of_images.append(list_of_runs_fitness[k]["number_of_images"])
+            ids, name = extract_dataset_name(linked_list_of_runs_fitness[k][0]["name"], linked_list_of_runs_fitness[k][0]["source"], indices)
+            dataset_names.append([ids, name])
+
+            number_of_images.append(linked_list_of_runs_fitness[k][0]["number_of_images"])
 
     return dataset_names, mean_std_dev_fit_per_dataset, number_of_images
 

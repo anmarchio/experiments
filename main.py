@@ -17,9 +17,9 @@ SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "202
 
 
 def show_program_menu():
-    print('1 - Plot complexity and fitness for evias datasets')
-    print('2 - Read DB and show plot with ALL FITNESS values')
-    print('3 - Read DB and show plots')
+    print('1 - Create plots of complexity and fitness for every evias datasets')
+    print('2 - Read DB and create 1 plot with all fitness values')
+    print('3 - Read DB and create one plot for each dataset')
     print('4 - Generate HTML reports')
     print('5 - Print Dashboard Plots')
     print('6 - Print Sample Plots')
@@ -48,23 +48,27 @@ def main() -> int:
     # yesno = input('Plot complexity and fitness? (y/n)')
     if selection == 1 and SAMPLE_IMAGES_DIR_PATH != "":
         """
-        Create complexity plots for image frames & labels and plot them as bar chart and scatterplot
+        Create complexity plots for image frames & labels 
+        and plot them as bar chart and scatterplot
         """
         compute_complexity_and_fitness_correlation(SAMPLE_IMAGES_DIR_PATH)
 
     # yesno = input('Read DB and show plot with ALL FITNESS? (y/n)')
     if selection == 2:
         """
-        Plots 1 graph with all mean fitness & std dev 
+        Plots 1 plot that contains all mean fitness & std dev values
+        from datasets between a minimum and maximum number of generations 
         """
-        read_database_and_plot_fitness_per_dataset(140, 500)
+        yesno = input('Show dataset names in plot? (y/n)')
+        read_database_and_plot_fitness_per_dataset(140, 500, show_names=(yesno == 'y'))
 
     # yesno = input('read_database_and_show_plots? (y/n)')
     if selection == 3:
         """
         Plots fitness evolution plot for every dataset
         """
-        read_database_and_show_plots(grouped_dataset=True, show_legend=True)
+        yesno = input('Show legend in plots? (y/n)')
+        read_database_and_show_plots(grouped_dataset=True, show_legend=(yesno == 'y'))
 
     # yesno = input('Generate HTML reports? (y/n)')
     if selection == 4:

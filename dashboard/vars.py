@@ -65,7 +65,9 @@ DATASET_NAMES = [
     'AirCarbon3_81.jpg_dark',
     'CF_ReferenceSet',
     'CF_ReferenceSet_Small_Dark',
-    'CF_ReferenceSet_Small_Light'
+    'CF_ReferenceSet_Small_Light',
+    '80.jpg',
+    '80.jpg_dark'
 ]
 
 """
@@ -88,6 +90,7 @@ PATH_TO_DATASET_NAME_MAP = {
     '"D:\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone\\training"': DATASET_NAMES[29],
     '"D:\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule1_0117_Upside\\undone\\training"': DATASET_NAMES[30],
     '"D:\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_large_val"': DATASET_NAMES[23],
+    'D:\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_large_train': DATASET_NAMES[23],
     '"D:\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_small_val"': DATASET_NAMES[24],
     '"D:\\evias_expmts\\MVTecAnomalyDetection\\cable_missing_val"': DATASET_NAMES[25],
     '"D:\\evias_expmts\\MVTecAnomalyDetection\\capsule_crack_val"': DATASET_NAMES[16],
@@ -129,8 +132,7 @@ PATH_TO_DATASET_NAME_MAP = {
     '/mnt/sdc1/evias_expmts/Aircarbon2/CF_ReferenceSet_Small_Dark': DATASET_NAMES[38],
     '/mnt/sdc1/evias_expmts/Aircarbon2\\CF_ReferenceSet': DATASET_NAMES[37],
     '/mnt/sdc1/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule1_0117_Upside/undone/training': DATASET_NAMES[30],
-    '/mnt/sdc1/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule2-0816_Upside/undone/durchlauf2/training':
-        DATASET_NAMES[31],
+    '/mnt/sdc1/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule2-0816_Upside/undone/durchlauf2/training': DATASET_NAMES[31],
     '/mnt/sdc1/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone/training': DATASET_NAMES[29],
     '/mnt/sdc1/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole/training': DATASET_NAMES[32],
     '/mnt/sdc1/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training': DATASET_NAMES[33],
@@ -183,5 +185,22 @@ PATH_TO_DATASET_NAME_MAP = {
     'D:\\evias_expmts\\Pultrusion\\resin_cgp\\train': DATASET_NAMES[9],
     'D:\\evias_expmts\\Pultrusion\\resin_cgp_augmntd\\train': DATASET_NAMES[11],
     'D:\\evias_expmts\\Pultrusion\\window_cgp\\train': DATASET_NAMES[10],
+    'D:\\evias_expmts\\Aircarbon2\\Blende5_6_1800mA_rov\\training\\t_8.jpg': DATASET_NAMES[7],
+    'D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg': DATASET_NAMES[40],
+    'D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_bright': DATASET_NAMES[5],
+    'D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark': DATASET_NAMES[41],
+    'D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_4': DATASET_NAMES[3],
+    'D:\\evias_expmts\\Aircarbon3\\20210325_13h25_rov\\training\\80.jpg_dark_5': DATASET_NAMES[4],
+    'D:\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_small_train': DATASET_NAMES[24],
+    'D:\\evias_expmts\\MVTecAnomalyDetection\\cable_missing_train': DATASET_NAMES[25],
+    'D:\\evias_expmts\\MVTecAnomalyDetection\\screw_scratch_neck_train': DATASET_NAMES[27],
+    'D:\\evias_expmts\\MVTecAnomalyDetection\\pill_crack_train': DATASET_NAMES[18],
+    'D:\\evias_expmts\\MVTecAnomalyDetection\\hazelnut_crack_train': DATASET_NAMES[26],
+    'D:\\evias_expmts\\MVTecAnomalyDetection\\transistor_damaged_case_train': DATASET_NAMES[28],
+    'D:\\evias_expmts\\MVTecAnomalyDetection\\wood_scratch_train': DATASET_NAMES[21],
+    'D:\\evias_expmts\\MVTecAnomalyDetection\\zipper_rough_train': DATASET_NAMES[22],
+    'D:\\evias_expmts\\Magnetic-Tile-Defect\\MT_Blowhole_train': DATASET_NAMES[6],
+    'D:\\evias_expmts\\Pultrusion\\train': DATASET_NAMES[9],
+    'D:\\evias_expmts\\severstal-steel\\train_cgp': DATASET_NAMES[8],
     'unknown': None
     }
