@@ -27,14 +27,14 @@ def create_scatterplot(title, x_complexity, y_fitness, save_to=""):
 
 def create_complexity_plot(title, metric, keys, x, path=""):
     # create a new figure
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(7, 7))
     # set the title of the plot
     ax.set_title(title)
     # set the x-axis label
     ax.set_xlabel(metric)
     # plot the data as horizontal bar plots
     x_labels = ['None' if v is None else v for v in keys]
-    ax.barh(x_labels, x, align='center', height=0.5, orientation='horizontal')
+    ax.barh(x_labels, x, align='center', height=0.7, orientation='horizontal')
     # set the y-axis tick labels
     ax.set_yticklabels(x_labels)
     plt.grid(axis='x')

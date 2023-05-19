@@ -17,7 +17,7 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
 
     mean_fitness_and_complexity_per_dataset = {}
 
-    dataset_names, mean_std_dev_fit_per_dataset, number_of_images = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
+    dataset_names, mean_std_dev_fit_per_dataset, number_of_images, _ = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
 
     for i in range(len(mean_std_dev_fit_per_dataset)):
         dataset_name = dataset_names[i][1] # name
@@ -41,8 +41,8 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
     return mean_fitness_and_complexity_per_dataset
 
 
-def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_per_dataset: []):
-    print("| ID ", "| Dataset ", "| Mean", "| Std Dev |")
+def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_per_dataset: [], number_of_images: [], number_of_runs: []):
+    print("| ID ", "| Dataset ", "| Mean", "| Std Dev |", "| # Runs |", "| # Imgs |")
     if np.array(mean_std_dev_fit_per_dataset)[:, 0].size != \
             np.array(mean_std_dev_fit_per_dataset)[:, 1].size != \
             len(dataset_names):
@@ -53,10 +53,12 @@ def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_per_datase
         ds_id = dataset_names[i][0]
         name = dataset_names[i][1]
         print(
-            "| " + ds_id,
+            "| " + str(i),
             " | " + name,
             " | " + str(round(np.array(mean_std_dev_fit_per_dataset)[:, 0][i], 3)) +
             " | " + str(round(np.array(mean_std_dev_fit_per_dataset)[:, 1][i], 3)) +
+            " | " + str(number_of_runs[i]) +
+            " | " + str(number_of_images[i]) +
             " |"
         )
 
@@ -131,6 +133,7 @@ def mean_std_dev_fitness_per_dataset(list_of_runs_fitness):
     dataset_names = []
     mean_std_dev_fit_per_dataset = []
     number_of_images = []
+    number_of_runs = []
 
     for k in linked_list_of_runs_fitness.keys():
         values = []
@@ -153,8 +156,9 @@ def mean_std_dev_fitness_per_dataset(list_of_runs_fitness):
             dataset_names.append([ids, k])
 
             number_of_images.append(linked_list_of_runs_fitness[k][0]["number_of_images"])
+            number_of_runs.append(len(values))
 
-    return dataset_names, mean_std_dev_fit_per_dataset, number_of_images
+    return dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs
 
 
 def read_file_and_return_norm_dict(file_name: str) -> {}:
