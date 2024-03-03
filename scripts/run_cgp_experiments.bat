@@ -14,14 +14,15 @@ REM SETUP
 REM ==========================================================
 
 ECHO ------------
-call SET COMMANDLINE=D:\dev\optimization\Optimization.Commandline\bin\Debug\Optimization.Commandline.exe
+REM call SET COMMANDLINE=D:\dev\optimization\Optimization.Commandline\bin\Debug\Optimization.Commandline.exe
+call SET COMMANDLINE=C:\Users\Public\dev_mara\optimization\Optimization.Commandline\bin\Debug\Optimization.Commandline.exe
 
 REM ----------------------------------------------------------
 REM Default parameters
 REM ----------------------------------------------------------
-call SET RUNS=3
-call SET GENERATIONS=150
-call SET CWDIR=D:\evias_expmts
+call SET RUNS=1
+call SET GENERATIONS=300
+call SET CWDIR=C:\Users\Public\evias_expmts\
 
 setlocal EnableDelayedExpansion 
 
@@ -171,12 +172,28 @@ set expmnts_train[35]=MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\und
 set expmnts_val[35]=MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\undone_thread_hole_256\training
 set expmnts_res[35]=MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\undone_thread_hole_256\results
 
+set expmnts_train[36]=Aircarbon2\CF_ReferenceSet
+set expmnts_val[36]=Aircarbon2\CF_ReferenceSet
+set expmnts_res[36]=Aircarbon2\results
+
+set expmnts_train[37]=Aircarbon2\CF_ReferenceSet_Small_Light
+set expmnts_val[37]=Aircarbon2\CF_ReferenceSet_Small_Light
+set expmnts_res[37]=Aircarbon2\results
+
+set expmnts_train[38]=Aircarbon2\CF_ReferenceSet_Small_Dark
+set expmnts_val[38]=Aircarbon2\CF_ReferenceSet_Small_Dark
+set expmnts_res[38]=Aircarbon2\results
+
+set expmnts_train[39]=severstal-steel\train_cgp
+set expmnts_val[39]=severstal-steel\val_cgp 
+set expmnts_res[39]=severstal-steel\results_cgp
+
 REM ==========================================================
 REM Run Experiments
 REM ==========================================================
 REM for %%e in (%expmnts%) do (
 
-for /l %%i in (0 1 35) do (
+for /l %%i in (5 1 5) do (
 	call echo RUNS: %RUNS%
 	call echo GENERATIONS: %GENERATIONS%
 	
