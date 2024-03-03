@@ -37,5 +37,5 @@ python experiments\api\main.py --importmany %PATH2%
 SET PATH3="P:\99 Austausch_TVöD\mara\Dissertation\20230120results_dl2"
 python experiments\api\main.py --importmany %PATH3%
 
-ROBOCOPY "experiments.db" "P:\99 Austausch_TVöD\mara\Dissertation\experiments.db" /MIR /LOG+:log.txt
+ROBOCOPY "." "P:\99 Austausch_TVöD\mara\Dissertation" "experiments.db" /MIR /LOG+:log.txt
 ```

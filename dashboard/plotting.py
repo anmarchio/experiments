@@ -27,16 +27,17 @@ def create_scatterplot(title, x_complexity, y_fitness, save_to=""):
 
 def create_complexity_plot(title, metric, keys, x, path=""):
     # create a new figure
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(10, 10))
     # set the title of the plot
     ax.set_title(title)
     # set the x-axis label
     ax.set_xlabel(metric)
     # plot the data as horizontal bar plots
     x_labels = ['None' if v is None else v for v in keys]
-    ax.barh(x_labels, x, align='center', height=0.5, orientation='horizontal')
+    ax.barh(x_labels, x, align='center', height=0.7, orientation='horizontal')
     # set the y-axis tick labels
     ax.set_yticklabels(x_labels)
+    plt.grid(axis='x')
     # save the plot to a file, if path is provided
     if path == "":
         plt.show()
@@ -44,19 +45,49 @@ def create_complexity_plot(title, metric, keys, x, path=""):
         plt.savefig(path)
 
 
-def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names: [], mean_std_dev_fit_values: [], path=""):
-    N = len(np.array(mean_std_dev_fit_values)[:, 0])
-    ind = np.arange(N)
-    width = 0.35
+def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names, mean_std_dev_fit_values: [],
+                             orientation: str = 'h', path="", show_names=True):
+    fig, ax = plt.subplots(figsize=(10, 10))
+    indices = [str(i) for i in range(1, len(np.array(mean_std_dev_fit_values)[:, 0]) + 1)]
+    if orientation == 'v':
+        # create a new figure
+        ax.set_xlabel(axis_title)
 
-    fig = plt.subplots(figsize=(10, 7))
-    plt.bar(ind, np.array(mean_std_dev_fit_values)[:, 0], width, yerr=np.array(mean_std_dev_fit_values)[:, 1])
+        # create labels for datasets (either integers or name strings)
+        if show_names:
+            indices = ['None' if v is None else v[1] for v in dataset_names]
 
-    plt.ylabel(axis_title)
+        # plot the data as horizontal bar plots
+        ax.barh(indices,
+                np.array(mean_std_dev_fit_values)[:, 0],
+                align='center',
+                height=0.6,
+                xerr=np.array(mean_std_dev_fit_values)[:, 1],
+                orientation='horizontal')
+
+        # set the y-axis tick labels
+        ax.set_yticklabels(indices)
+        plt.xticks(np.arange(0.0, 1.0, 0.1))
+        plt.grid(axis='x')
+
+        # save the plot to a file, if path is provided
+        if path == "":
+            plt.show()
+        else:
+            plt.savefig(path)
+    else:
+        width = 0.35
+        #fig = plt.subplots(figsize=(10, 7))
+        plt.bar(indices, np.array(mean_std_dev_fit_values)[:, 0], width, yerr=np.array(mean_std_dev_fit_values)[:, 1])
+
+        plt.ylabel(axis_title)
+        plt.xlabel("Dataset ID")
+
+        plt.yticks(np.arange(0.0, 1.0, 0.1))
+        plt.xticks(np.arange(0, indices, 1))
+        plt.grid(axis='y')
+
     plt.title(title)
-    # plt.xticks(ind, ('T1', 'T2', 'T3', 'T4', 'T5'))
-    # plt.yticks(np.arange(0, 81, 10))
-
     if path == "":
         plt.show()
     else:
@@ -64,7 +95,7 @@ def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names: [], mea
 
 
 def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts: [], mean_std_dev_fit_values: [],
-                                     path=""):
+                                     path="", show_legend: bool = False):
     fig, ax = plt.subplots()
     x = np.arange(0.0, len(fitness_charts[0]), 1.0)
     """
@@ -84,13 +115,14 @@ def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts
                'd', '|', '_']
     styles = ['-', '--', '-.', ':', 'solid', 'dashed', 'dashdot', 'dotted']
 
-    i = 0
-    for chart in fitness_charts:
-        if len(chart) == len(x):
-            # clr = colors[randrange(len(colors)-1)]
-            ax.plot(x, chart, linestyle=styles[randrange(len(styles) - 1)], color='tab:gray',
-                    label=str(i) + ": " + axis_title)
-        i = i + 1
+    if show_legend:
+        i = 0
+        for chart in fitness_charts:
+            if len(chart) == len(x):
+                # clr = colors[randrange(len(colors)-1)]
+                ax.plot(x, chart, linestyle=styles[randrange(len(styles) - 1)], color='tab:gray',
+                        label=str(i) + ": " + axis_title)
+            i = i + 1
 
     ax.plot(x, [v[0] for v in mean_std_dev_fit_values], linestyle='-', color='tab:red', label="Mean")
     ax.plot(x, [v[0] + v[1] for v in mean_std_dev_fit_values], linestyle='-', color='tab:orange')
