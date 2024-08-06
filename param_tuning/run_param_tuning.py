@@ -42,14 +42,12 @@ def run_param_tuning() -> int:
     # Read the dot content from the file
     dot_content = read_dot_file(file_path)
     # Parse the dot content
-    nodes, edges = parse_dot(dot_content)
+    graph = parse_dot(dot_content)
     # Print the nodes
-    for node in nodes.values():
-        print(node)
-    # Optionally, print the edges
-    print("Edges:")
-    for edge in edges:
-        print(edge)
+    for k in graph.keys():
+        print(k + ":")
+        for p in graph[k].keys():
+            print("\t" + p + ": " + str(graph[k][p]))
 
     """
     Simulated Annealing

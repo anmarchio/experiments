@@ -1,0 +1,1 @@
+hdevelop -run template.hdev

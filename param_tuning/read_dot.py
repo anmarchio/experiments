@@ -1,5 +1,6 @@
 import re
 
+
 class Node:
     def __init__(self, id, label, params):
         self.id = id
@@ -9,32 +10,32 @@ class Node:
     def __repr__(self):
         return f"Node(id={self.id}, label={self.label}, params={self.params})"
 
+
 def parse_dot(dot_content):
-    node_pattern = re.compile(r'(\w+) \[label="([\w]+)(?:\\n([\w]+=([\w\d]+))\\n([\w]+=([\w\d]+))\\n([\w]+=([\w\d]+)))?"\];')
-    edge_pattern = re.compile(r'(\w+) -> (\w+) \[\];')
+    # Split the input string based on ';' and strip whitespace
+    segments = [segment.strip() for segment in dot_content.split(';') if segment.strip()]
+    segments.reverse()
 
-    nodes = {}
-    edges = []
+    result_dict = {}
 
-    for line in dot_content.splitlines():
-        node_match = node_pattern.match(line)
-        if node_match:
-            node_id = node_match.group(1)
-            label = node_match.group(2)
-            params = {
-                node_match.group(3): node_match.group(4),
-                node_match.group(5): node_match.group(6),
-                node_match.group(7): node_match.group(8)
-            } if node_match.group(3) else {}
-            nodes[node_id] = Node(node_id, label, params)
-        else:
-            edge_match = edge_pattern.match(line)
-            if edge_match:
-                source = edge_match.group(1)
-                target = edge_match.group(2)
-                edges.append((source, target))
+    for segment in segments:
+        match = re.match(r'(\S+)\s+\[label="(.+?)"\]', segment)
+        if match:
+            node_id, label = match.groups()
+            if 'HalconInputNode' in label:
+                # result_dict['ignore'] = label
+                pass
+            else:
+                parts = label.split('\\n')
+                key = parts[0]
+                values = {}
+                for part in parts[1:]:
+                    param, value = part.split('=')
+                    values[param.strip()] = value.strip()
+                result_dict[key] = values
 
-    return nodes, edges
+    return result_dict
+
 
 def read_dot_file(file_path):
     with open(file_path, 'r') as file:
