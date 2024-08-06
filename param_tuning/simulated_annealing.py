@@ -30,7 +30,8 @@ def simulated_annealing(objective, bounds, n_iterations, step_size, temp):
 
     return best, best_eval
 
-def run_simulated_annealing():
+
+def run_simulated_annealing(objective, bounds):
     # Run Simulated Annealing
     n_iterations = 1000
     step_size = 0.1

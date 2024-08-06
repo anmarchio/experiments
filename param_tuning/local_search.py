@@ -20,7 +20,7 @@ def local_search(objective, bounds, n_iterations, step_size):
 
     return best, best_eval
 
-def run_local_search(bounds):
+def run_local_search(objective, bounds):
     # Run Local Search
     n_iterations = 1000
     step_size = 0.1
