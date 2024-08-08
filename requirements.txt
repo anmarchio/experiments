@@ -9,3 +9,6 @@ beautifulsoup4
 lxml
 matplotlib-dashboard
 hvplot
+scikit-image~=0.19
+scikit-learn~=1.3
+keras>=2.6
