@@ -8,7 +8,7 @@ from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import extract_bounds_from_graph, translate_to_hdev, write_hdev_code_to_file, write_to_file, \
     print_tex
 from read_dot import read_dot_file, parse_dot
-from settings import source_json_path, pipeline_txt_path, results_path
+from settings import source_json_path, pipeline_txt_path, results_path, HDEV_RESULT
 
 
 def run_pipeline(graph):
@@ -22,7 +22,7 @@ def run_pipeline(graph):
 
     # Execute Pipeline
     os.system("hdevelop -run " + hdev_path)
-
+    raise NotImplementedError
     """
     TO DO:
     - create 'pipeline-date' folder
@@ -32,6 +32,7 @@ def run_pipeline(graph):
     """
 
     # Evaluate Results
+    prediction_path = os.path.join(HDEV_RESULT, "out")
     labels_arr, predictions_arr = load_data(graph['training_path'] + "labels", prediction_path)
     scores = get_scores(labels_arr, predictions_arr)
     """

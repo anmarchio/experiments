@@ -22,4 +22,4 @@ pipeline_txt_path = os.path.join(experiments_path, "Grid", "2", "pipeline.txt")
 
 results_path = p_join(os.path.curdir, '../scripts/results')
 
-HDEV_FOLDER = os.path.join("C:\\", "dev", "experiments", "test")
+HDEV_RESULT = os.path.join("C:\\", "dev", "experiments", "test")

@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 from param_tuning.hdev.hdev_template import HDEV_FUNCTIONS, HDEV_HEADER, HDEV_FOOTER, HDEV_TEMPLATE_CODE
-from settings import HDEV_FOLDER
+from settings import HDEV_RESULT
 
 
 def extract_bounds_from_graph(graph):
@@ -32,17 +32,21 @@ def print_tex(results_path):
 
 
 def translate_to_hdev(graph):
-    """
-    input_path := 'C:/dev/experiments/test/'
-    output_path := 'C:/dev/experiments/test/'
-    """
+    # HDEV xml style header
     hdev_output = HDEV_HEADER
-    hdev_output += "<l>source_path := '" + graph['training_path'].replace("\\","/") + "'</l>\n"
+
+    # define source and output path for reading image and writing results (binary images)
+    hdev_output += "<l>source_path := '" + graph['training_path'].replace("\\", "/") + "/images'</l>\n"
+
     hdev_output += "<l>output_path := '"
-    for item in HDEV_FOLDER.split(os.sep):
+    for item in HDEV_RESULT.split(os.sep):
         hdev_output += item + "/"
     hdev_output += "'</l>\n"
+
     hdev_output += HDEV_TEMPLATE_CODE
+
+    # decode pipeline and translate to hdev code
+    # node by node from graph dict
     for k in graph['pipeline'].keys():
         if k in HDEV_FUNCTIONS.keys():
             hdev_output += "<l>    " + \
@@ -58,13 +62,15 @@ def translate_to_hdev(graph):
 
             hdev_output += ")</l>\n"
 
+    # add the footer hdev code
+    # to write results to binary image
     hdev_output += HDEV_FOOTER
 
     return hdev_output
 
 
 def write_hdev_code_to_file(file_path: object, hdev_code: object) -> object:
-    hdev_path = HDEV_FOLDER + os.path.sep + \
+    hdev_path = HDEV_RESULT + os.path.sep + \
                 file_path.split(os.path.sep)[-4] + "-" + \
                 file_path.split(os.path.sep)[-3] + "-" + \
                 file_path.split(os.path.sep)[-2] + \
