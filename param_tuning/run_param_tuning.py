@@ -8,8 +8,7 @@ from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import extract_bounds_from_graph, translate_to_hdev, write_hdev_code_to_file, write_to_file, \
     print_tex
 from read_dot import read_dot_file, parse_dot
-
-from os.path import join as p_join
+from settings import source_json_path, pipeline_txt_path, results_path
 
 
 def run_pipeline(graph):
@@ -18,8 +17,8 @@ def run_pipeline(graph):
 
     hdev_code = translate_to_hdev(graph)
 
-    raise NotImplementedError
-    hdev_path = write_hdev_code_to_file(graph.path, hdev_code)
+    # raise NotImplementedError
+    hdev_path = write_hdev_code_to_file(graph['path'], hdev_code)
 
     # Execute Pipeline
     os.system("hdevelop -run " + hdev_path)
@@ -33,7 +32,7 @@ def run_pipeline(graph):
     """
 
     # Evaluate Results
-    labels_arr, predictions_arr = load_data(labels_path, prediction_path)
+    labels_arr, predictions_arr = load_data(graph['training_path'] + "labels", prediction_path)
     scores = get_scores(labels_arr, predictions_arr)
     """
     scores = {
@@ -63,24 +62,16 @@ def run_param_tuning() -> int:
     """
     Read the filter pipeline
     """
-    experiment_path = os.path.join("C:\\", "dev", "experiments", "scripts", "results", "202302191650")
-    source_path = os.path.join(experiment_path, "source.json")
-    pipeline_path = os.path.join(experiment_path, "Grid", "2", "pipeline.txt")
-
-    with open(source_path, 'r') as file:
-        data = json.load(file)
-    training_data_dir = ""
-    for item in data:
-        training_data_dir = item['trainingDataDirectory']
-
-    results_path = p_join(os.path.curdir, '../scripts/results')
-
-    dot_content = read_dot_file(pipeline_path)
+    dot_content = read_dot_file(pipeline_txt_path)
 
     pipeline = parse_dot(dot_content)
 
-    pipeline['path'] = pipeline_path
-    pipeline['datetime'] = pipeline_path.split(os.sep)[-4]
+    pipeline['path'] = pipeline_txt_path
+    pipeline['datetime'] = pipeline_txt_path.split(os.sep)[-4]
+
+    with open(source_json_path, 'r') as file:
+        data = json.load(file)
+    pipeline['training_path'] = data[0]['trainingDataDirectory']
 
     """
     Simulated Annealing

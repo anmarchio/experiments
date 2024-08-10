@@ -2,7 +2,8 @@ import os
 
 import numpy as np
 
-from param_tuning.hdev.hdev_template import HDEV_FUNCTIONS, HDEV_HEADER, HDEV_FOOTER, HDEV_FOLDER
+from param_tuning.hdev.hdev_template import HDEV_FUNCTIONS, HDEV_HEADER, HDEV_FOOTER, HDEV_TEMPLATE_CODE
+from settings import HDEV_FOLDER
 
 
 def extract_bounds_from_graph(graph):
@@ -31,19 +32,28 @@ def print_tex(results_path):
 
 
 def translate_to_hdev(graph):
+    """
+    input_path := 'C:/dev/experiments/test/'
+    output_path := 'C:/dev/experiments/test/'
+    """
     hdev_output = HDEV_HEADER
-
-    for k in graph.keys():
+    hdev_output += "<l>source_path := '" + graph['training_path'].replace("\\","/") + "'</l>\n"
+    hdev_output += "<l>output_path := '"
+    for item in HDEV_FOLDER.split(os.sep):
+        hdev_output += item + "/"
+    hdev_output += "'</l>\n"
+    hdev_output += HDEV_TEMPLATE_CODE
+    for k in graph['pipeline'].keys():
         if k in HDEV_FUNCTIONS.keys():
             hdev_output += "<l>    " + \
                            HDEV_FUNCTIONS[k]['name'] + "(" + \
                            HDEV_FUNCTIONS[k]['in'] + ", " + \
                            HDEV_FUNCTIONS[k]['out'] + ", "
             i = 0
-            for p in graph[k].keys():
-                hdev_output += graph[k][p]
+            for p in graph['pipeline'][k].keys():
+                hdev_output += graph['pipeline'][k][p]
                 i += 1
-                if i < len(graph[k].keys()):
+                if i < len(graph['pipeline'][k].keys()):
                     hdev_output += ", "
 
             hdev_output += ")</l>\n"

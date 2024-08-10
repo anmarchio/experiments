@@ -8,15 +8,8 @@ from dashboard.create_analysis_plots import read_database_and_plot_fitness_per_d
 from dashboard.dashboard import matplot_dashboard, hvplot_test
 from dashboard.plotting import computations_per_computing_unit, plot_sample, plot_fitness_evolution, \
     fancy_mean_plot, entropy_fitness_plot, fitness_boxplots, create_complexity_plot
-from param_tuning.run_param_tuning import run_param_tuning
 
-# SPECIFIC_SOURCE_PATH = os.path.join("P:\\", "99 Austausch_TVöD", "mara", "Dissertation", "20230120results_dl2")
-
-SPECIFIC_SOURCE_PATH = ""
-# SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230329-163243data_arr.json")
-# SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230509-025213data_arr.json")
-# SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230512-151338data_arr.json")
-SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230519-999data_arr_DEBUG.json")
+from settings import SAMPLE_IMAGES_DIR_PATH, SPECIFIC_SOURCE_PATH
 
 
 def show_program_menu():
