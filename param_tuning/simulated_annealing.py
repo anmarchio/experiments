@@ -6,6 +6,7 @@ from param_tuning.utils import extract_bounds_from_graph
 def simulated_annealing(graph, objective, bounds, n_iterations, step_size, temp):
     # Initialize the best solution with a random point within the bounds
     best = bounds[:, 0] + np.random.rand(len(bounds)) * (bounds[:, 1] - bounds[:, 0])
+
     best_eval = objective(graph, best)
     curr, curr_eval = best, best_eval
     scores = [best_eval]

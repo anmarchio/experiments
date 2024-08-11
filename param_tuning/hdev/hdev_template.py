@@ -34,7 +34,7 @@ HDEV_FOOTER = "<c>    * --------------</c>\n"\
         "<c>    * --------------</c>\n"\
         "<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>\n"\
         "<l>    paint_region(Region, ImageResult, ImageResult, 255, 'margin')</l>\n"\
-        "<l>    out_img_path := output_path + 'out/' + Index</l>\n"\
+        "<l>    out_img_path := output_path + '/' + Index</l>\n"\
         "<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>\n"\
         "<l>endfor</l>\n" \
         "<l>exit()</l>\n" \
