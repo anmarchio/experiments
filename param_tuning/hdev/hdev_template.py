@@ -23,13 +23,17 @@ HDEV_TEMPLATE_CODE = "<l>list_image_files(source_path, 'default', [], ImageFiles
         "<l>    get_image_size(Image, Width, Height)</l>\n"\
         "<c>    * --------------</c>\n"\
         "<c>    * CGP Code Block</c>\n"\
-        "<c>    * --------------    </c>\n"
+        "<c>    * --------------    </c>\n"\
+        "<l>    try</l>\n"
 
-HDEV_MIDDLE = "<l>    binomial_filter(Image, Image, 35, 29)</l>\n"\
-        "<l>    fast_threshold(Image, Region, 155, 196, 22)\n"\
+HDEV_MIDDLE = "<l>        binomial_filter(Image, Image, 35, 29)</l>\n"\
+        "<l>        fast_threshold(Image, Region, 155, 196, 22)\n"\
         "</l>\n"
 
-HDEV_FOOTER = "<c>    * --------------</c>\n"\
+HDEV_FOOTER = "<l>    catch (Exception)</l>\n"\
+        "<l>        gen_empty_region(Region)</l>\n"\
+        "<l>    endtry        </l>\n"\
+        "<c>    * --------------</c>\n"\
         "<c>    * END Code Block</c>\n"\
         "<c>    * --------------</c>\n"\
         "<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>\n"\

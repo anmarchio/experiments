@@ -73,7 +73,7 @@ def translate_to_hdev(graph, params):
     # node by node from graph dict
     for k in graph['pipeline'].keys():
         if k in HDEV_FUNCTIONS.keys():
-            hdev_output += "<l>    " + \
+            hdev_output += "<l>        " + \
                            HDEV_FUNCTIONS[k]['name'] + "(" + \
                            HDEV_FUNCTIONS[k]['in'] + ", " + \
                            HDEV_FUNCTIONS[k]['out'] + ", "

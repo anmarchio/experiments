@@ -18,6 +18,7 @@ def run_pipeline(graph, params):
     """
     TO DO
     -----
+    - decode the path correctly!
     - include correct bounds
     - make sure to include `all` MVTec nodes/algorithms
     """
@@ -75,7 +76,7 @@ def get_pipeline_from_data_structure():
     return pipeline
 
 
-def run_sa_experiments() -> int:
+def run_sa_experiments():
     pipeline = get_pipeline_from_data_structure()
 
     """
@@ -89,27 +90,43 @@ def run_sa_experiments() -> int:
     """
     Write Latex
     """
-    #print_tex(results_path)
+    # print_tex(results_path)
     """
     file_path (source) | Algorithm | sa_best_params0 | sa_best_params1 | sa_best_score
     """
     return 0
 
+
 def run_ls_experiments() -> int:
     pipeline = get_pipeline_from_data_structure()
-
+    raise NotImplementedError
     """
     Local Search
     """
     ls_best_params, ls_best_score = run_local_search(pipeline, objective)
 
-    write_to_file(results_path, 'ls', ls_best_params, ls_best_score)
+    write_to_file(results_path, 'ls', pipeline['training_path'], pipeline['datetime'], pipeline['path'], ls_best_params,
+                  ls_best_score)
+
+    return 0
+
+
+def run_param_tuning() -> int:
+    """
+    TO DO
+    =====
+    - walk through databese
+    - Select pipeline entry
+    - feed to run_sa_experiments
+    """
+    run_sa_experiments()
+
+    run_ls_experiments()
 
     return 0
 
 
 if __name__ == '__main__':
-    run_sa_experiments()
-    run_ls_experiments()
+    run_param_tuning()
     # next section explains the use of sys.exit
     sys.exit()
