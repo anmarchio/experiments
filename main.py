@@ -27,7 +27,6 @@ def show_program_menu():
     return 0
 
 
-
 def main() -> int:
     """
     Set Default Paths
