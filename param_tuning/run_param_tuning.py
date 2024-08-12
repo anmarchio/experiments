@@ -58,10 +58,43 @@ def objective(graph, params):
     return -performance  # Minimize negative performance to maximize performance
 
 
+def raw_source_directory(ds_src_dir):
+    replace_strings = ["\"",
+                       "D:\\evias_expmts",
+                       "/mnt/sdc1/",
+                       "C:\\Users\\Public\\evias_expmts"]
+
+    for item in replace_strings:
+        ds_src_dir = ds_src_dir.replace(item, "")
+
+    ds_src_dir = ds_src_dir.replace("\\\\", os.sep)
+    ds_src_dir = ds_src_dir.replace("\\", os.sep)
+    ds_src_dir = ds_src_dir.replace("/", os.sep)
+
+    if ds_src_dir == "unknown":
+        return None
+
+    return ds_src_dir
+
+
 def get_pipeline_from_data_structure():
     """
     Read the filter pipeline
     """
+    ds_src_dir = "\"D:\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_large_train\""
+    ds_src_dir2 = "/mnt/sdc1/MAIPreform2.0/20170502_Compositence/Spule1_0117_Upside/undone/training"
+    ds_src_dir3 = "C:\\Users\\Public\\evias_expmts\\\\FabricDefectsAITEX\\train"
+    ds_src_dir4 = "D:\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone\\training"
+    ds_src_dir5 = "unknown"
+
+    raw_source_directory(ds_src_dir)
+    raw_source_directory(ds_src_dir2)
+    raw_source_directory(ds_src_dir3)
+    raw_source_directory(ds_src_dir4)
+    raw_source_directory(ds_src_dir5)
+
+    raise NotImplementedError
+
     dot_content = read_dot_file(pipeline_txt_path)
 
     pipeline = parse_dot(dot_content)
