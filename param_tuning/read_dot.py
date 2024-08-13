@@ -39,9 +39,3 @@ def parse_dot(dot_content):
                 result_dict['pipeline'][key] = values
 
     return result_dict
-
-
-def read_dot_file(file_path):
-    with open(file_path, 'r') as file:
-        dot_content = file.read()
-    return dot_content

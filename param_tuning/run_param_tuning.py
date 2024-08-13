@@ -7,7 +7,7 @@ from param_tuning.data_handling import load_data, get_scores
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import extract_bounds_from_graph, translate_to_hdev, write_hdev_code_to_file, write_to_file, \
     print_tex, get_pipeline_folder_name
-from read_dot import read_dot_file, parse_dot
+from read_dot import parse_dot
 from settings import source_json_path, pipeline_txt_path, results_path, HDEV_RESULT
 
 
@@ -58,53 +58,32 @@ def objective(graph, params):
     return -performance  # Minimize negative performance to maximize performance
 
 
-def raw_source_directory(ds_src_dir):
+def raw_source_directory(dataset_source_directory):
     replace_strings = ["\"",
-                       "D:\\evias_expmts",
+                       "D:\\evias_expmts\\",
                        "/mnt/sdc1/",
-                       "C:\\Users\\Public\\evias_expmts"]
+                       "C:\\Users\\Public\\evias_expmts\\\\",
+                       "C:\\Users\\Public\\evias_expmts\\"]
 
     for item in replace_strings:
-        ds_src_dir = ds_src_dir.replace(item, "")
+        dataset_source_directory = dataset_source_directory.replace(item, "")
 
-    ds_src_dir = ds_src_dir.replace("\\\\", os.sep)
-    ds_src_dir = ds_src_dir.replace("\\", os.sep)
-    ds_src_dir = ds_src_dir.replace("/", os.sep)
+    dataset_source_directory = dataset_source_directory.replace("\\", os.sep)
+    dataset_source_directory = dataset_source_directory.replace("/", os.sep)
 
-    if ds_src_dir == "unknown":
+    if dataset_source_directory == "unknown":
         return None
 
-    return ds_src_dir
+    return dataset_source_directory
 
 
 def get_pipeline_from_data_structure():
     """
     Read the filter pipeline
     """
-    ds_src_dir = "\"D:\\evias_expmts\\MVTecAnomalyDetection\\bottle_broken_large_train\""
-    ds_src_dir2 = "/mnt/sdc1/MAIPreform2.0/20170502_Compositence/Spule1_0117_Upside/undone/training"
-    ds_src_dir3 = "C:\\Users\\Public\\evias_expmts\\\\FabricDefectsAITEX\\train"
-    ds_src_dir4 = "D:\\evias_expmts\\MAIPreform2.0\\20170502_Compositence\\Spule0-0315_Upside\\undone\\training"
-    ds_src_dir5 = "unknown"
-
-    raw_source_directory(ds_src_dir)
-    raw_source_directory(ds_src_dir2)
-    raw_source_directory(ds_src_dir3)
-    raw_source_directory(ds_src_dir4)
-    raw_source_directory(ds_src_dir5)
-
-    raise NotImplementedError
-
-    dot_content = read_dot_file(pipeline_txt_path)
-
-    pipeline = parse_dot(dot_content)
-
-    pipeline['path'] = pipeline_txt_path
+    pipeline = parse_dot(get_pipeline_dot_content())
+    pipeline['path'] = raw_source_directory(get_dataset_source_directory())
     pipeline['datetime'] = pipeline_txt_path.split(os.sep)[-4]
-
-    with open(source_json_path, 'r') as file:
-        data = json.load(file)
-    pipeline['training_path'] = data[0]['trainingDataDirectory']
 
     return pipeline
 
@@ -148,13 +127,15 @@ def run_param_tuning() -> int:
     """
     TO DO
     =====
-    - walk through databese
+    - walk through database
     - Select pipeline entry
     - feed to run_sa_experiments
     """
-    run_sa_experiments()
+    experiment_datasets = get_experiments_by_dataset()
 
-    run_ls_experiments()
+    run_sa_experiments(experiment_datasets)
+
+    run_ls_experiments(experiment_datasets)
 
     return 0
 
