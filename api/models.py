@@ -167,6 +167,39 @@ class Dataset(Base):
         return dataset
 
     @staticmethod
+    def _get_exp_runs(session, experiments):
+        exp_runs = []
+
+        for exp in experiments:
+            tmp_runs = session.query(Run).filter_by(experiment_id=exp.experiment_id).all()
+            if len(tmp_runs) > 0:
+                exp_runs.append(tmp_runs)
+
+        return exp_runs
+    @staticmethod
+    def _get_best_ind_fit(session, exp_runs):
+        best_ind_fit = []
+        for expr in exp_runs:
+            for r in expr:
+                if r is not None:
+                    analyzer = session.query(Analyzer).filter_by(run_id=r.run_id).first()
+                    best_ind_fit.append(
+                        session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
+        return best_ind_fit
+
+    @staticmethod
+    def _get_best_pipelines(session, exp_runs):
+        best_pipelines = []
+        for expr in exp_runs:
+            for r in expr:
+                if r is not None:
+                    grid = session.query(Grid).filter_by(run_id=r.run_id).first()
+                    best_pipelines.append(
+                        session.query(Pipeline).filter_by(grid_id=grid.grid_id).all())
+
+
+        return best_pipelines
+    @staticmethod
     def get_runs_fitness_by_each_dataset(session: Session):
         # Experiments by dataset
         datasets = session.query(Dataset).all()
@@ -174,18 +207,11 @@ class Dataset(Base):
 
         for ds in datasets:
             experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
-            exp_runs = []
-            for exp in experiments:
-                tmp_runs = session.query(Run).filter_by(experiment_id=exp.experiment_id).all()
-                if len(tmp_runs) > 0:
-                    exp_runs.append(tmp_runs)
-            best_ind_fit = []
-            for expr in exp_runs:
-                for r in expr:
-                    if r is not None:
-                        analyzer = session.query(Analyzer).filter_by(run_id=r.run_id).first()
-                        best_ind_fit.append(
-                            session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
+
+            exp_runs = Dataset._get_exp_runs(session, experiments)
+
+            best_ind_fit = Dataset._get_best_ind_fit(session, exp_runs)
+
             # Line Header
             # Dataset   | Experiment date   | list(run)
             datasets_fitness_lists[ds.dataset_id] = {
@@ -197,6 +223,30 @@ class Dataset(Base):
         return datasets_fitness_lists
 
     @staticmethod
+    def get_runs_pipeline_by_each_dataset(session: Session):
+        # Experiments by dataset
+        datasets = session.query(Dataset).all()
+        datasets_pipeline_lists = {}
+
+        for ds in datasets:
+            experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
+
+            exp_runs = Dataset._get_exp_runs(session, experiments)
+
+            # Get pipeline of best individual by fitness
+            best_pipelines = Dataset._get_best_pipelines(session, exp_runs)
+
+            # Line Header
+            # Dataset   | Experiment date   | list(run)
+            datasets_pipeline_lists[ds.dataset_id] = {
+                "id": ds.dataset_id,
+                "name": ds.name,
+                "source": ds.source_directory,
+                "best_pipeline": best_pipelines
+            }
+        return datasets_pipeline_lists
+
+    @staticmethod
     def get_runs_fitness_by_grouped_dataset(session: Session, min_generations:int = None, max_generations:int = None):
         # Experiments by dataset
         datasets = session.query(Dataset).group_by(Dataset.source_directory).all()
@@ -206,11 +256,9 @@ class Dataset(Base):
             same_source_directory = session.query(Dataset).filter_by(source_directory=ds.source_directory).all()
             experiments = session.query(Experiment).filter(
                 Experiment.dataset_id.in_(([x.dataset_id for x in same_source_directory]))).all()
-            exp_runs = []
-            for exp in experiments:
-                tmp_runs = session.query(Run).filter_by(experiment_id=exp.experiment_id).all()
-                if len(tmp_runs) > 0:
-                    exp_runs.append(tmp_runs)
+
+            exp_runs = Dataset._get_exp_runs(session, experiments)
+
             best_ind_fit = []
             for expr in exp_runs:
                 for r in expr:

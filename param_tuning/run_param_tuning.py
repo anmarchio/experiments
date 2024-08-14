@@ -2,6 +2,7 @@ import json
 import sys
 import os
 
+from api.models import Dataset
 from local_search import run_local_search
 from param_tuning.data_handling import load_data, get_scores
 from param_tuning.simulated_annealing import run_simulated_annealing
@@ -131,7 +132,8 @@ def run_param_tuning() -> int:
     - Select pipeline entry
     - feed to run_sa_experiments
     """
-    experiment_datasets = get_experiments_by_dataset()
+    raise ValueError
+    experiment_datasets = Dataset.get_runs_pipeline_by_each_dataset()
 
     run_sa_experiments(experiment_datasets)
 
