@@ -2,6 +2,7 @@ import json
 import sys
 import os
 
+from api.database import Database
 from api.models import Dataset
 from local_search import run_local_search
 from param_tuning.data_handling import load_data, get_scores
@@ -132,12 +133,16 @@ def run_param_tuning() -> int:
     - Select pipeline entry
     - feed to run_sa_experiments
     """
-    raise ValueError
-    experiment_datasets = Dataset.get_runs_pipeline_by_each_dataset()
+    db = Database()
+    experiment_datasets = Dataset.get_runs_pipeline_by_each_dataset(db.get_session())
 
-    run_sa_experiments(experiment_datasets)
+    for item in experiment_datasets:
+        result = run_sa_experiments(item)
+        save_result_somewhere()
 
-    run_ls_experiments(experiment_datasets)
+    for item in experiment_datasets:
+        run_ls_experiments(item)
+        save_result_somewhere()
 
     return 0
 
