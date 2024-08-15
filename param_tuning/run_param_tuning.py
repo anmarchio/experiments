@@ -7,7 +7,7 @@ from local_search import run_local_search
 from param_tuning.data_handling import load_data, get_scores
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import translate_to_hdev, write_hdev_code_to_file, write_to_file, \
-    get_pipeline_folder_name_by_datetime
+    get_pipeline_folder_name_by_datetime, write_csv_and_tex
 from read_dot import parse_dot
 from settings import RESULTS_PATH, HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 
