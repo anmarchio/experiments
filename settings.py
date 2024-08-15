@@ -13,13 +13,23 @@ SPECIFIC_SOURCE_PATH = ""
 # SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230512-151338data_arr.json")
 SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230519-999data_arr_DEBUG.json")
 
-"""
-Parameter Tuning Variables
-"""
-experiments_path = os.path.join("C:\\", "dev", "experiments", "scripts", "results", "202302191650")
-source_json_path = os.path.join(experiments_path, "source.json")
-pipeline_txt_path = os.path.join(experiments_path, "Grid", "2", "pipeline.txt")
 
-results_path = p_join(os.path.curdir, '../scripts/results')
+"""
+Default Path
+"""
+WDIR = os.path.join("C:\\", "dev", "experiments")
 
-HDEV_RESULT = os.path.join("C:\\", "dev", "experiments", "test")
+"""
+Output Path for Subsequent Pipeline Optimization (SA, LS)
+"""
+RESULTS_PATH = p_join(os.path.curdir, os.path.join(os.pardir, "scripts", "results"))
+HDEV_RESULTS_PATH = os.path.join(WDIR, "test")
+PARAM_TUNING_RESULTS_PATH = os.path.join(HDEV_RESULTS_PATH, "param_tuning")
+
+"""
+Test Parameter Variables
+"""
+# TEST_EXPERIMENT_PATH = os.path.join(WDIR, "scripts", "results", "202302191650")
+TEST_EXPERIMENT_PATH = os.path.join(WDIR, "scripts", "results", "202302021900")
+TEST_SOURCE_JSON_PATH = os.path.join(TEST_EXPERIMENT_PATH, "source.json")
+TEST_PIPELINE_TXT_PATH = os.path.join(TEST_EXPERIMENT_PATH, "Grid", "2", "pipeline.txt")

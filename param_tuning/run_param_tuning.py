@@ -1,16 +1,15 @@
-import json
-import sys
 import os
+import sys
 
 from api.database import Database
 from api.models import Dataset
 from local_search import run_local_search
 from param_tuning.data_handling import load_data, get_scores
 from param_tuning.simulated_annealing import run_simulated_annealing
-from param_tuning.utils import extract_bounds_from_graph, translate_to_hdev, write_hdev_code_to_file, write_to_file, \
-    print_tex, get_pipeline_folder_name
+from param_tuning.utils import translate_to_hdev, write_hdev_code_to_file, write_to_file, \
+    get_pipeline_folder_name_by_datetime
 from read_dot import parse_dot
-from settings import source_json_path, pipeline_txt_path, results_path, HDEV_RESULT
+from settings import RESULTS_PATH, HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 
 
 def run_pipeline(graph, params):
@@ -24,9 +23,9 @@ def run_pipeline(graph, params):
     - include correct bounds
     - make sure to include `all` MVTec nodes/algorithms
     """
-    hdev_path = write_hdev_code_to_file(graph['path'], hdev_code)
+    hdev_path = write_hdev_code_to_file(graph['datetime'], hdev_code)
 
-    prediction_path = os.path.join(HDEV_RESULT, get_pipeline_folder_name(graph['path']))
+    prediction_path = os.path.join(HDEV_RESULT, get_pipeline_folder_name_by_datetime(graph['result_path']))
     if not os.path.exists(prediction_path):
         os.mkdir(prediction_path)
 
@@ -79,75 +78,79 @@ def raw_source_directory(dataset_source_directory):
     return dataset_source_directory
 
 
-def get_pipeline_from_data_structure():
-    """
-    Read the filter pipeline
-    """
-    pipeline = parse_dot(get_pipeline_dot_content())
-    pipeline['path'] = raw_source_directory(get_dataset_source_directory())
-    pipeline['datetime'] = pipeline_txt_path.split(os.sep)[-4]
+def get_graph_dict_from_pipeline(pipeline: str):
+    graph = {
+        'training_path': pipeline['source_directory'],
+        'result_path': RESULTS_PATH,  # <= has to be the date and time?
+        'datetime': pipeline['datetime'],
+        'pipeline': parse_dot(pipeline.digraph)
+    }
 
-    return pipeline
-
-
-def run_sa_experiments():
-    pipeline = get_pipeline_from_data_structure()
-
-    """
-    Simulated Annealing
-    """
-    sa_best_params, sa_best_score = run_simulated_annealing(pipeline, objective)
-
-    write_to_file(results_path, 'sa', pipeline['training_path'], pipeline['datetime'], pipeline['path'], sa_best_params,
-                  sa_best_score)
-
-    """
-    Write Latex
-    """
-    # print_tex(results_path)
-    """
-    file_path (source) | Algorithm | sa_best_params0 | sa_best_params1 | sa_best_score
-    """
-    return 0
-
-
-def run_ls_experiments() -> int:
-    pipeline = get_pipeline_from_data_structure()
-    raise NotImplementedError
-    """
-    Local Search
-    """
-    ls_best_params, ls_best_score = run_local_search(pipeline, objective)
-
-    write_to_file(results_path, 'ls', pipeline['training_path'], pipeline['datetime'], pipeline['path'], ls_best_params,
-                  ls_best_score)
-
-    return 0
-
+    return graph
 
 def run_param_tuning() -> int:
-    """
-    TO DO
-    =====
-    - walk through database
-    - Select pipeline entry
-    - feed to run_sa_experiments
-    """
     db = Database()
-    experiment_datasets = Dataset.get_runs_pipeline_by_each_dataset(db.get_session())
 
-    for item in experiment_datasets:
-        result = run_sa_experiments(item)
-        save_result_somewhere()
+    """
+    Dataset.get_runs_pipeline_by_each_dataset returns the dictionary as follows:
 
-    for item in experiment_datasets:
-        run_ls_experiments(item)
-        save_result_somewhere()
+        datasets_pipeline_lists[ds.dataset_id] = {
+            "id": ds.dataset_id,
+            "name": ds.name,
+            "source": ds.source_directory,
+            "run_created_at": [e.created_at for e in experiment_runs],
+            "best_pipelines": best_pipelines
+        }
+    """
+    experiment_datasets = Dataset.get_pipeline_by_each_dataset(db.get_session())
+
+    for dataset in experiment_datasets:
+        print("Really each pipeline?!?")
+        # raise ValueError("Really each pipeline?!?")
+
+        for pipeline in dataset['best_pipelines']:
+            """
+            Convert pipeline to dict:
+
+                graph = {
+                    'training_path': None,
+                    'result_path': None
+                    'datetime': None,
+                    'pipeline': pipeline.digraph
+                }
+            """
+            graph = get_graph_dict_from_pipeline(pipeline)
+
+            algorithms = [
+                "sa",
+                "ls"
+            ]
+
+            best_params = []
+            best_score = 0.0
+
+            for algorithm in algorithms:
+                if algorithm == "sa":
+                    # Simulated Annealing
+                    best_params, best_score = run_simulated_annealing(graph, objective)
+                elif algorithm == "ls":
+                    # Local Search
+                    best_params, best_score = run_local_search(graph, objective)
+
+                write_to_file(PARAM_TUNING_RESULTS_PATH, algorithm, graph['training_path'], graph['datetime'],
+                              graph['path'],
+                              best_params,
+                              best_score)
+
+        """
+        Write to Latex Table:
+            file_path (source) | Algorithm | sa_best_params0 | sa_best_params1 | sa_best_score
+        """
+        write_csv_and_tex(PARAM_TUNING_RESULTS_PATH)
 
     return 0
 
 
 if __name__ == '__main__':
     run_param_tuning()
-    # next section explains the use of sys.exit
     sys.exit()

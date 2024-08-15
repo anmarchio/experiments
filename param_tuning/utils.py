@@ -4,7 +4,7 @@ import numpy as np
 
 from datetime import datetime
 from param_tuning.hdev.hdev_template import HDEV_FUNCTIONS, HDEV_HEADER, HDEV_FOOTER, HDEV_TEMPLATE_CODE
-from settings import HDEV_RESULT
+from settings import HDEV_RESULTS_PATH
 
 
 def extract_bounds_from_graph(graph):
@@ -24,13 +24,14 @@ def extract_bounds_from_graph(graph):
     return bounds
 
 
-def write_to_file(results_path, algorithm, source, experiment_datetime, experiment_path, best_params, best_score):
+def write_to_file(result_file_path, algorithm, source, experiment_datetime, experiment_path, best_params, best_score):
     # def save_scores_to_db(scores: [], model_name: str, root_path: str, dataset_path: {}):
     # existing_results = load_results(RESULTS_DB_PATH)
     current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    """
     new_results = [
         {
-            # "ID": str(len(existing_results)),
+            #"ID": str(len(existing_results)),
             "datetime": current_datetime,
             "algorithm": algorithm,
             "source": source,
@@ -40,21 +41,66 @@ def write_to_file(results_path, algorithm, source, experiment_datetime, experime
             "best_score": best_score
         }
     ]
-    line = current_datetime + ";" + \
-           algorithm + ";" + source + ";" + \
-           experiment_datetime + ";" + \
-           experiment_path + ";" + \
-           best_params + ";" + \
-           best_score + ";\n"
-    # xisting_results.extend(new_results)
+    # existing_results.extend(new_results)
     # save_results(existing_results, RESULTS_DB_PATH)
-    f = open(results_path, "a")
+    """
+    line = ""
+
+    if not os.path.exists(result_file_path):
+        line = "datetime; source; experiment_datetime; experiment_path; best_params; best_score;\n"
+
+    line += current_datetime + ";" + \
+            algorithm + ";" + \
+            source + ";" + \
+            experiment_datetime + ";" + \
+            experiment_path + ";" + \
+            best_params + ";" + \
+            best_score + ";\n"
+
+    f = open(result_file_path + ".csv", "a")
     f.write(line)
     f.close()
 
 
-def print_tex(results_path):
-    raise NotImplementedError
+def write_csv_and_tex(read_from_path: str):
+    f = open(read_from_path + ".csv", "r")
+    lines = f.readlines()
+
+    tex_table = "\\begin{table}[h]\n" + \
+                "   \\centering" + \
+                "   \\caption{\\textcolor{magenta}{Segmentation results of optimization heuristics applied for parameter tuning on CGP outputs; the optimizers comprise \\textit{local search (LS)} and \\textit{simmulated annealing (SA)}}}" + \
+                "   \\label{tab:further_optimization}" + \
+                "   \\resizebox{0.4\columnwidth}{!}{%" + \
+                "       \\begin{tabular}{c l l l c c c c}" + \
+                "           \\toprule" + \
+                "           \\textbf{Date} & \\textbf{Dataset} & \\textbf{Expmt Date} & $\overline{Path}$ & \\textbf{Best Params} & \\textbf{Best Scores} \\\\" + \
+                "           \\midrule\n"
+
+    for i in range(len(lines)):
+        if i > 0:
+            cols = f.readline().split(";")
+            # header = "datetime; source; experiment_datetime; experiment_path; best_params; best_score;\n"
+
+            tex_table += "           "
+
+            for c in range(len(cols)):
+                tex_table += cols[c]
+
+                if c < len(cols) - 1:
+                    tex_table += " &"
+
+                tex_table += "\\\\\n"
+
+    tex_table += "			\\bottomrule" + \
+                 "		\\end{tabular}" + \
+                 "	}" + \
+                 "\\end{table}"
+    f.close()
+
+    print(tex_table)
+    fw = open(read_from_path + ".txt", "w")
+    fw.write(tex_table)
+    fw.close()
 
 
 def translate_to_hdev(graph, params):
@@ -65,7 +111,7 @@ def translate_to_hdev(graph, params):
     hdev_output += "<l>source_path := '" + graph['training_path'].replace("\\", "/") + "/images'</l>\n"
 
     hdev_output += "<l>output_path := '"
-    hdev_output += get_pipeline_folder_name(graph['path']).replace("\\", "/") + "'</l>\n"
+    hdev_output += get_pipeline_folder_name_by_datetime(graph['path']).replace("\\", "/") + "'</l>\n"
 
     hdev_output += HDEV_TEMPLATE_CODE
 
@@ -96,15 +142,14 @@ def translate_to_hdev(graph, params):
     return hdev_output
 
 
-def get_pipeline_folder_name(file_path):
-    return HDEV_RESULT + os.path.sep + \
-        file_path.split(os.path.sep)[-4] + "-" + \
-        file_path.split(os.path.sep)[-3] + "-" + \
-        file_path.split(os.path.sep)[-2]
+def get_pipeline_folder_name_by_datetime(date_string):
+    # testtime = "2022-11-19 13:19:50.000000"
+    date_object = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
+    return HDEV_RESULTS_PATH + os.path.sep + date_object.strftime("%Y%m%d%H%M")
 
 
-def write_hdev_code_to_file(file_path: str, hdev_code: str) -> str:
-    hdev_path = get_pipeline_folder_name(file_path) + ".hdev"
+def write_hdev_code_to_file(date_string: str, hdev_code: str) -> str:
+    hdev_path = get_pipeline_folder_name_by_datetime(date_string) + ".hdev"
 
     f = open(hdev_path, "w")
     f.write(hdev_code)

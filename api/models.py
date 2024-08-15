@@ -167,7 +167,7 @@ class Dataset(Base):
         return dataset
 
     @staticmethod
-    def _get_exp_runs(session, experiments):
+    def _get_experiment_runs(session, experiments):
         exp_runs = []
 
         for exp in experiments:
@@ -176,6 +176,8 @@ class Dataset(Base):
                 exp_runs.append(tmp_runs)
 
         return exp_runs
+
+
     @staticmethod
     def _get_best_ind_fit(session, exp_runs):
         best_ind_fit = []
@@ -208,7 +210,7 @@ class Dataset(Base):
         for ds in datasets:
             experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
 
-            exp_runs = Dataset._get_exp_runs(session, experiments)
+            exp_runs = Dataset._get_experiment_runs(session, experiments)
 
             best_ind_fit = Dataset._get_best_ind_fit(session, exp_runs)
 
@@ -223,7 +225,7 @@ class Dataset(Base):
         return datasets_fitness_lists
 
     @staticmethod
-    def get_runs_pipeline_by_each_dataset(session: Session):
+    def get_pipeline_by_each_dataset(session: Session):
         # Experiments by dataset
         datasets = session.query(Dataset).all()
         datasets_pipeline_lists = {}
@@ -231,19 +233,19 @@ class Dataset(Base):
         for ds in datasets:
             experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
 
-            exp_runs = Dataset._get_exp_runs(session, experiments)
+            experiment_runs = Dataset._get_experiment_runs(session, experiments)
 
-            # Get pipeline of best individual by fitness
-            best_pipelines = Dataset._get_best_pipelines(session, exp_runs)
+            # Get pipelines of best individual by fitness
+            best_pipelines = Dataset._get_best_pipelines(session, experiment_runs)
 
-            # Line Header
-            # Dataset   | Experiment date   | list(run)
             datasets_pipeline_lists[ds.dataset_id] = {
                 "id": ds.dataset_id,
                 "name": ds.name,
                 "source": ds.source_directory,
-                "best_pipeline": best_pipelines
+                "run_created_at": [e.created_at for e in experiment_runs],
+                "best_pipelines": best_pipelines
             }
+
         return datasets_pipeline_lists
 
     @staticmethod
@@ -257,7 +259,7 @@ class Dataset(Base):
             experiments = session.query(Experiment).filter(
                 Experiment.dataset_id.in_(([x.dataset_id for x in same_source_directory]))).all()
 
-            exp_runs = Dataset._get_exp_runs(session, experiments)
+            exp_runs = Dataset._get_experiment_runs(session, experiments)
 
             best_ind_fit = []
             for expr in exp_runs:

@@ -3,18 +3,21 @@ import os
 
 import cv2
 import numpy as np
-from keras.src.utils import img_to_array
+#from keras.src.utils import img_to_array
 
-from skimage.feature import graycomatrix, graycoprops
+#from skimage.feature import graycomatrix, graycoprops
+#from keras.src.utils import img_to_array
+from skimage.feature.texture import graycomatrix, graycoprops
 from skimage.io import imread
-from skimage.measure import shannon_entropy
+#from skimage.measure import shannon_entropy
 
 from decimal import Decimal
+
+from skimage.measure.entropy import shannon_entropy
 from sklearn.metrics import confusion_matrix
 
 # IMG_SIZE = 256
 IMG_SIZE = 128
-
 
 def extract_features(image):
     # Example: Using Grey Level Co-occurrence Matrix (GLCM) and Shannon Entropy
@@ -37,6 +40,7 @@ def load_binary_images(data_path):
             # Load binary images and extract features
             img = imread(os.path.join(data_path, img_file), as_gray=True)
             features = extract_features(img)
+            features = extract_features(img)
             images.append(features)
 
             # Load corresponding labeled masks
@@ -55,6 +59,7 @@ def load_data(train_images: [], train_labels: [], mask_as_gray=True):
         for i in range(len(train_images)):
             img = cv2.imread(train_images[i])
             img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
+
             img_array = img_to_array(img) / 255.0
             images.append(img_array)
 
