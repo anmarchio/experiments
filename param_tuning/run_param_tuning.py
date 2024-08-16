@@ -78,15 +78,20 @@ def raw_source_directory(dataset_source_directory):
     return dataset_source_directory
 
 
-def get_graph_dict_from_pipeline(pipeline: str):
-    graph = {
-        'training_path': pipeline['source_directory'],
-        'result_path': RESULTS_PATH,  # <= has to be the date and time?
-        'datetime': pipeline['datetime'],
-        'pipeline': parse_dot(pipeline.digraph)
-    }
+def dataset_to_graphs(dataset: {}) -> {}:
+    graphs = {}
 
-    return graph
+    for i in range(len(dataset['best_pipelines'])):
+        print("Test")
+        graphs[str(i)] = {
+            'training_path': dataset['source'],
+            'results_path': RESULTS_PATH,  # <= has to be the date and time?
+            'datetime': dataset['runs_created_at'][i],
+            'pipeline': parse_dot(dataset['best_pipelines'][i][0].digraph)
+        }
+
+    return graphs
+
 
 def run_param_tuning() -> int:
     db = Database()
@@ -104,23 +109,24 @@ def run_param_tuning() -> int:
     """
     experiment_datasets = Dataset.get_pipeline_by_each_dataset(db.get_session())
 
-    for dataset in experiment_datasets:
+    for ds_id in experiment_datasets.keys():
         print("Really each pipeline?!?")
         # raise ValueError("Really each pipeline?!?")
+        dataset = experiment_datasets[ds_id]
 
-        for pipeline in dataset['best_pipelines']:
-            """
-            Convert pipeline to dict:
+        """
+        Convert pipeline to dict:
 
-                graph = {
-                    'training_path': None,
-                    'result_path': None
-                    'datetime': None,
-                    'pipeline': pipeline.digraph
-                }
-            """
-            graph = get_graph_dict_from_pipeline(pipeline)
+            graph = {
+                'training_path': None,
+                'result_path': None
+                'datetime': None,
+                'pipeline': pipeline.digraph
+            }
+        """
+        graphs = dataset_to_graphs(dataset)
 
+        for key in graphs.keys():
             algorithms = [
                 "sa",
                 "ls"
@@ -132,13 +138,14 @@ def run_param_tuning() -> int:
             for algorithm in algorithms:
                 if algorithm == "sa":
                     # Simulated Annealing
-                    best_params, best_score = run_simulated_annealing(graph, objective)
+                    best_params, best_score = run_simulated_annealing(graphs[key], objective)
                 elif algorithm == "ls":
                     # Local Search
-                    best_params, best_score = run_local_search(graph, objective)
+                    best_params, best_score = run_local_search(graphs[key], objective)
 
-                write_to_file(PARAM_TUNING_RESULTS_PATH, algorithm, graph['training_path'], graph['datetime'],
-                              graph['path'],
+                write_to_file(PARAM_TUNING_RESULTS_PATH, algorithm, graphs[key]['training_path'],
+                              graphs[key]['datetime'],
+                              graphs[key]['path'],
                               best_params,
                               best_score)
 
@@ -146,7 +153,8 @@ def run_param_tuning() -> int:
         Write to Latex Table:
             file_path (source) | Algorithm | sa_best_params0 | sa_best_params1 | sa_best_score
         """
-        write_csv_and_tex(PARAM_TUNING_RESULTS_PATH)
+        if len(dataset['best_pipelines']) > 0:
+            write_csv_and_tex(PARAM_TUNING_RESULTS_PATH)
 
     return 0
 

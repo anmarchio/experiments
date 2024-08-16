@@ -16,11 +16,7 @@ def parse_dot(dot_content):
     segments = [segment.strip() for segment in dot_content.split(';') if segment.strip()]
     segments.reverse()
 
-    result_dict = {
-        'path': '',
-        'datetime': '',
-        'pipeline': {}
-    }
+    result_dict = {}
 
     for segment in segments:
         match = re.match(r'(\S+)\s+\[label="(.+?)"\]', segment)
@@ -34,8 +30,10 @@ def parse_dot(dot_content):
                 key = parts[0]
                 values = {}
                 for part in parts[1:]:
+                    if part == '':
+                        continue
                     param, value = part.split('=')
                     values[param.strip()] = value.strip()
-                result_dict['pipeline'][key] = values
+                result_dict[key] = values
 
     return result_dict

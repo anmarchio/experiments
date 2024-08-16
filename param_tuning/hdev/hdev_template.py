@@ -8,6 +8,11 @@ HDEV_FUNCTIONS = {
                 'name': 'fast_threshold',
                 'in': 'Image',
                 'out': 'Region'
+        },
+        'AreaSizeThreshold': {
+                'name': 'fast_threshold',
+                'in': 'Image',
+                'out': 'Region'
         }
 }
 

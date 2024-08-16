@@ -177,7 +177,6 @@ class Dataset(Base):
 
         return exp_runs
 
-
     @staticmethod
     def _get_best_ind_fit(session, exp_runs):
         best_ind_fit = []
@@ -199,8 +198,8 @@ class Dataset(Base):
                     best_pipelines.append(
                         session.query(Pipeline).filter_by(grid_id=grid.grid_id).all())
 
-
         return best_pipelines
+
     @staticmethod
     def get_runs_fitness_by_each_dataset(session: Session):
         # Experiments by dataset
@@ -238,18 +237,22 @@ class Dataset(Base):
             # Get pipelines of best individual by fitness
             best_pipelines = Dataset._get_best_pipelines(session, experiment_runs)
 
+            runs_created_at = []
+            if len(experiment_runs) > 0:
+                runs_created_at = [r.started_at for r in experiment_runs[0]]
+
             datasets_pipeline_lists[ds.dataset_id] = {
                 "id": ds.dataset_id,
                 "name": ds.name,
                 "source": ds.source_directory,
-                "run_created_at": [e.created_at for e in experiment_runs],
+                "runs_created_at": runs_created_at,
                 "best_pipelines": best_pipelines
             }
 
         return datasets_pipeline_lists
 
     @staticmethod
-    def get_runs_fitness_by_grouped_dataset(session: Session, min_generations:int = None, max_generations:int = None):
+    def get_runs_fitness_by_grouped_dataset(session: Session, min_generations: int = None, max_generations: int = None):
         # Experiments by dataset
         datasets = session.query(Dataset).group_by(Dataset.source_directory).all()
         datasets_fitness_lists = {}
@@ -273,10 +276,10 @@ class Dataset(Base):
                         * or is within min_generations & max_generations
                         """
                         if min_generations is None or \
-                            max_generations is None or \
-                            min_generations < \
-                            session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).count()\
-                            < max_generations:
+                                max_generations is None or \
+                                min_generations < \
+                                session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).count() \
+                                < max_generations:
                             best_ind_fit.append(
                                 session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
             number_of_images = 0

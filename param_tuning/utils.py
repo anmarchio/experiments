@@ -63,6 +63,9 @@ def write_to_file(result_file_path, algorithm, source, experiment_datetime, expe
 
 
 def write_csv_and_tex(read_from_path: str):
+    if not os.path.exists(read_from_path):
+        return 0
+
     f = open(read_from_path + ".csv", "r")
     lines = f.readlines()
 
@@ -111,7 +114,7 @@ def translate_to_hdev(graph, params):
     hdev_output += "<l>source_path := '" + graph['training_path'].replace("\\", "/") + "/images'</l>\n"
 
     hdev_output += "<l>output_path := '"
-    hdev_output += get_pipeline_folder_name_by_datetime(graph['path']).replace("\\", "/") + "'</l>\n"
+    hdev_output += graph['datetime'].strftime("%Y%m%d%H%M").replace("\\", "/") + "'</l>\n"
 
     hdev_output += HDEV_TEMPLATE_CODE
 
