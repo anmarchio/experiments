@@ -5,8 +5,9 @@ from api.database import Database
 from api.models import Dataset
 from local_search import run_local_search
 from param_tuning.data_handling import load_data, get_scores
+from param_tuning.hdev.hdev_helpers import translate_to_hdev
 from param_tuning.simulated_annealing import run_simulated_annealing
-from param_tuning.utils import translate_to_hdev, write_hdev_code_to_file, write_to_file, \
+from param_tuning.utils import write_hdev_code_to_file, write_to_file, \
     get_pipeline_folder_name_by_datetime, write_csv_and_tex
 from read_dot import parse_dot
 from settings import RESULTS_PATH, HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
@@ -15,7 +16,7 @@ from settings import RESULTS_PATH, HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 def run_pipeline(graph, params):
     hdev_code = translate_to_hdev(graph, params)
 
-    raise NotImplementedError
+    raise NotImplementedError("Function not implemented correctly!")
     """
     TO DO
     -----
@@ -25,7 +26,7 @@ def run_pipeline(graph, params):
     """
     hdev_path = write_hdev_code_to_file(graph['datetime'], hdev_code)
 
-    prediction_path = os.path.join(HDEV_RESULT, get_pipeline_folder_name_by_datetime(graph['result_path']))
+    prediction_path = os.path.join(HDEV_RESULTS_PATH, get_pipeline_folder_name_by_datetime(graph['datetime']))
     if not os.path.exists(prediction_path):
         os.mkdir(prediction_path)
 

@@ -1,6 +1,6 @@
 import numpy as np
 
-from param_tuning.utils import extract_bounds_from_graph
+from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 
 
 def simulated_annealing(graph, objective, bounds, n_iterations, step_size, temp):
@@ -39,7 +39,7 @@ def run_simulated_annealing(graph, objective):
     step_size = 0.1
     temp = 10.0
 
-    bounds = extract_bounds_from_graph(graph)
+    bounds, _ = extract_bounds_from_graph(graph)
 
     best_params, best_score = simulated_annealing(graph, objective, bounds, n_iterations, step_size, temp)
 
