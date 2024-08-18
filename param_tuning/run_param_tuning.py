@@ -85,7 +85,7 @@ def dataset_to_graphs(dataset: {}) -> {}:
     for i in range(len(dataset['best_pipelines'])):
         print("Test")
         graphs[str(i)] = {
-            'training_path': dataset['source'],
+            'training_path': raw_source_directory(dataset['source']),
             'results_path': RESULTS_PATH,  # <= has to be the date and time?
             'datetime': dataset['runs_created_at'][i],
             'pipeline': parse_dot(dataset['best_pipelines'][i][0].digraph)
