@@ -10,7 +10,7 @@ HDEV_DATASETS = [
     'mvtec_tile',
     'mvtec_bottle',
     'mvtec_cable'
-    #more ...
+    # more ...
 ]
 
 
@@ -21,8 +21,8 @@ def get_mvtec_tile() -> str:
     bounds = [
         [],
         []
-        #...
-        ]
+        # ...
+    ]
     hdev = ""
 
     return hdev
@@ -47,24 +47,28 @@ manual_hdev_pipelines = {
     'pul-202307235925'
 }
 
+
 def get_hdev_pipeline(dataset_date: str, params: []):
     if dataset_date == "cable_20235kdf":
         return get_cable_203585(params)
-    elif:
+    elif dataset_date == "cable_202375263ddd":
         pass
 
 
 def get_hdev_pipeline_bounds(dataset_date: str) -> []:
     if dataset_date == "cable-2038324":
         return cable_2038324_bounds
-    elif:
+    elif dataset_date == "cable_2023954kjfg":
         pass
+
 
 """
 ============================
 get_cable_203585.py
 ============================
 """
+
+
 def get_cable_203585(params):
     hdev_code = "minGray := ...\n" + \
                 "maxGray := ...\n"
@@ -72,8 +76,9 @@ def get_cable_203585(params):
 
     return hdev_code
 
+
 cable_2038324_bounds = [
-    [0,255],
-    [1,128]
-    #more...
+    [0, 255],
+    [1, 128]
+    # more...
 ]

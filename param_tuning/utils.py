@@ -1,7 +1,54 @@
 import os
 from datetime import datetime
 
-from settings import HDEV_RESULTS_PATH
+from param_tuning.read_dot import parse_dot
+from settings import HDEV_RESULTS_PATH, RESULTS_PATH
+
+
+def raw_source_directory(dataset_source_directory):
+    replace_strings = ["\"",
+                       "D:\\evias_expmts\\",
+                       "/mnt/sdc1/",
+                       "C:\\Users\\Public\\evias_expmts\\\\",
+                       "C:\\Users\\Public\\evias_expmts\\"]
+
+    for item in replace_strings:
+        dataset_source_directory = dataset_source_directory.replace(item, "")
+
+    dataset_source_directory = dataset_source_directory.replace("\\", os.sep)
+    dataset_source_directory = dataset_source_directory.replace("/", os.sep)
+
+    if dataset_source_directory == "unknown":
+        return None
+
+    return dataset_source_directory
+
+
+def dataset_to_graphs(dataset: {}) -> {}:
+    graphs = {}
+
+    for i in range(len(dataset['best_pipelines'])):
+        graphs[str(i)] = {
+            'training_path': raw_source_directory(dataset['source']),
+            'results_path': RESULTS_PATH,  # <= has to be the date and time?
+            'datetime': dataset['runs_created_at'][i],
+            'pipeline': parse_dot(dataset['best_pipelines'][i][0].digraph)
+        }
+
+    return graphs
+
+
+def write_digraph_to_files(dataset: {}, path: str) -> int:
+    # Only get the last pipeline's digraph from the list
+    digraph = dataset['best_pipelines'][-1][0].digraph
+
+    filename = dataset['runs_created_at'][-1] + ".txt"
+
+    f = open(os.path.join(path, filename), "a")
+    f.write(digraph)
+    f.close()
+
+    return 0
 
 
 def write_to_file(result_file_path, algorithm, source, experiment_datetime, experiment_path, best_params, best_score):

@@ -7,22 +7,25 @@ from dashboard.create_analysis_plots import read_database_and_plot_fitness_per_d
     generate_plots_from_json, compute_complexity_and_fitness_correlation
 from dashboard.dashboard import matplot_dashboard, hvplot_test
 from dashboard.plotting import computations_per_computing_unit, plot_sample, plot_fitness_evolution, \
-    fancy_mean_plot, entropy_fitness_plot, fitness_boxplots, create_complexity_plot
-
+    fancy_mean_plot, entropy_fitness_plot, fitness_boxplots
+from param_tuning.run_param_tuning import run_param_tuning
 from settings import SAMPLE_IMAGES_DIR_PATH, SPECIFIC_SOURCE_PATH
 
 
 def show_program_menu():
-    print('1 - Create plots of complexity and fitness for every evias datasets')
-    print('2 - Read DB and create 1 plot with all fitness values')
-    print('3 - Read DB and create one plot for each dataset')
-    print('4 - Generate HTML reports')
-    print('5 - Print Dashboard Plots')
-    print('6 - Print Sample Plots')
-    print('7 - Create ACSOS Plot')
-    print('0 - EXIT')
+    print('1 -- Create plots of complexity and fitness for every evias datasets')
+    print('2 -- Read DB and create 1 plot with all fitness values')
+    print('3 -- Read DB and create one plot for each dataset')
+    print('4 -- Generate HTML reports')
+    print('5 -- Print Dashboard Plots')
+    print('6 -- Print Sample Plots')
+    print('7 -- Create ACSOS Plot')
+    print('8 -- Follow Up Optimization')
+    print('0 -- EXIT')
+
+    print("\n")
     selection = input('Selection: ')
-    if 0 < int(selection) < 8:
+    if 0 < int(selection) < 9:
         return int(selection)
     return 0
 
@@ -38,6 +41,7 @@ def main() -> int:
         os.makedirs(report_path, mode=777, exist_ok=True)
 
     selection = show_program_menu()
+
     if selection == 0:
         return 0
 
@@ -98,6 +102,9 @@ def main() -> int:
     if selection == 7:
         create_fitness_plot()
         create_acsos_complexity_plot()
+
+    if selection == 8:
+        run_param_tuning()
 
 
 if __name__ == '__main__':

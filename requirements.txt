@@ -14,3 +14,4 @@ keras>=2.6
 opencv-python~=4.9
 matplotlib>=3.7
 matplotlib-dashboard
+keyboard
