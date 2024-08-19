@@ -22,9 +22,9 @@ WDIR = os.path.join("C:\\", "dev", "experiments")
 """
 Output Path for Subsequent Pipeline Optimization (SA, LS)
 """
-RESULTS_PATH = p_join(os.path.curdir, os.path.join(os.pardir, "scripts", "results"))
 HDEV_RESULTS_PATH = os.path.join(WDIR, "test")
 PARAM_TUNING_RESULTS_PATH = os.path.join(HDEV_RESULTS_PATH, "param_tuning")
+RESULTS_PATH = p_join(os.path.curdir, os.path.join(os.pardir, "scripts", "results"))
 
 """
 Test Parameter Variables

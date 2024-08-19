@@ -38,11 +38,27 @@ def dataset_to_graphs(dataset: {}) -> {}:
     return graphs
 
 
+def check_dir_exists(dir):
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+
+
 def write_digraph_to_files(dataset: {}, path: str) -> int:
+    if len(dataset['best_pipelines']) == 0:
+        return 1
+
     # Only get the last pipeline's digraph from the list
     digraph = dataset['best_pipelines'][-1][0].digraph
 
-    filename = dataset['runs_created_at'][-1] + ".txt"
+    ds_name = dataset['name']
+    ds_name = ds_name.replace("\\", "")
+    ds_name = ds_name.replace("C/:", "")
+    ds_name = ds_name.replace("/", "")
+    ds_name = ds_name.replace("\r", "-r")
+    ds_name = ds_name.replace("\t", "-t")
+    ds_name = ds_name.replace("\"", "")
+
+    filename = ds_name + "-" + dataset['runs_created_at'][-1].strftime("%Y%m%d%H%M") + ".txt"
 
     f = open(os.path.join(path, filename), "a")
     f.write(digraph)
@@ -98,12 +114,15 @@ def write_csv_and_tex(read_from_path: str):
 
     tex_table = "\\begin{table}[h]\n" + \
                 "   \\centering" + \
-                "   \\caption{\\textcolor{magenta}{Segmentation results of optimization heuristics applied for parameter tuning on CGP outputs; the optimizers comprise \\textit{local search (LS)} and \\textit{simmulated annealing (SA)}}}" + \
+                "\\caption{\\textcolor{magenta}{Segmentation results of optimization heuristics applied for parameter " \
+                "tuning on CGP outputs; the optimizers comprise \\textit{local search (LS)} and \\textit{simmulated " \
+                "annealing (SA)}}}" + \
                 "   \\label{tab:further_optimization}" + \
                 "   \\resizebox{0.4\columnwidth}{!}{%" + \
                 "       \\begin{tabular}{c l l l c c c c}" + \
                 "           \\toprule" + \
-                "           \\textbf{Date} & \\textbf{Dataset} & \\textbf{Expmt Date} & $\overline{Path}$ & \\textbf{Best Params} & \\textbf{Best Scores} \\\\" + \
+                "\\textbf{Date} & \\textbf{Dataset} & \\textbf{Expmt Date} & $\overline{Path}$ & \\textbf{Best " \
+                "Params} & \\textbf{Best Scores} \\\\" + \
                 "           \\midrule\n"
 
     for i in range(len(lines)):

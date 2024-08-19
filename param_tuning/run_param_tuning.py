@@ -8,7 +8,7 @@ from param_tuning.hdev.hdev_helpers import translate_to_hdev
 from param_tuning.local_search import run_local_search
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import write_hdev_code_to_file, write_to_file, \
-    get_pipeline_folder_name_by_datetime, write_csv_and_tex, dataset_to_graphs, write_digraph_to_files
+    get_pipeline_folder_name_by_datetime, write_csv_and_tex, dataset_to_graphs, write_digraph_to_files, check_dir_exists
 from settings import HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 
 
@@ -71,8 +71,11 @@ def show_param_tuning_menu():
 
     print("\n")
     selection = input("Selection: ")
-    if 0 < int(selection) < 4:
-        return int(selection)
+    try:
+        if 0 < int(selection) < 4:
+            return int(selection)
+    except:
+        selection = 0
     return 0
 
 
@@ -101,14 +104,16 @@ def run_param_tuning() -> int:
     experiment_datasets = {}
     if 0 < selection < 4:
         print("Really each pipeline?!?")
-        raise ValueError("REALLY: EACH Pipeline?")
+        # raise ValueError("REALLY: EACH Pipeline?")
         experiment_datasets = Dataset.get_pipeline_by_each_dataset(db.get_session())
 
     if selection == 1:
-        # 2 -- MANUAL 1: Export digraphs to txt
+        # 1 -- MANUAL 1: Export digraphs to txt
 
-        # the output folder for digraphs
-        digraph_path = test / manual_hdev_files
+        # output folder for digraphs
+        digraph_path = os.path.join(PARAM_TUNING_RESULTS_PATH, "digraphs")
+        check_dir_exists(PARAM_TUNING_RESULTS_PATH)
+        check_dir_exists(digraph_path)
 
         for ds_id in experiment_datasets.keys():
             dataset = experiment_datasets[ds_id]
@@ -117,9 +122,12 @@ def run_param_tuning() -> int:
             write_digraph_to_files(dataset, digraph_path)
 
     if selection == 2:
-        # 3 -- MANUAL 2: Read manual HDEV files and perform SA/LS
+        # 2 -- MANUAL 2: Read manual HDEV files and perform SA/LS
+        manual_hdev_path = os.path.join(PARAM_TUNING_RESULTS_PATH, "manual_hdev")
+        check_dir_exists(PARAM_TUNING_RESULTS_PATH)
+        check_dir_exists(manual_hdev_path)
 
-        manual_hdev_path = test / manual_hdev
+        raise NotImplementedError("NOT IMPLEMENTED!")
 
         for hdev in os.listdir(manual_hdev_path):
             run_simulated_annealing()
