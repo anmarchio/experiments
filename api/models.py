@@ -4,6 +4,7 @@ import os
 import re
 from datetime import datetime
 
+import numpy as np
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
@@ -189,6 +190,45 @@ class Dataset(Base):
         return best_ind_fit
 
     @staticmethod
+    def _get_mean_pipelines(session, exp_runs, min_generations: int = None, max_generations: int = None):
+        best_ind_fit = []
+        for expr in exp_runs:
+            for r in expr:
+                if r is not None:
+                    analyzer = session.query(Analyzer).filter_by(run_id=r.run_id).first()
+
+                    if min_generations is None or \
+                            max_generations is None or \
+                            min_generations < \
+                            session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).count() \
+                            < max_generations:
+                        best_ind_fit.append(
+                            session.query(BestIndividualFit).filter_by(analyzer_id=analyzer.analyzer_id).all())
+
+        best_pipelines = []
+        if len(best_ind_fit) > 0:
+            # Find pipeline closes to mean MCC fitness
+            mcc_mean = np.mean(best_ind_fit)
+
+            dist = abs(best_ind_fit[0] - mcc_mean)
+            dist_index = 0
+            for i in range(1, len(best_ind_fit)):
+                if abs(best_ind_fit[i] - mcc_mean) < dist:
+                    dist_index = i
+
+            i = 0
+            for expr in exp_runs:
+                for r in expr:
+                    if r is not None:
+                        if i == dist_index:
+                            grid = session.query(Grid).filter_by(run_id=r.run_id).first()
+                            best_pipelines.append(
+                                session.query(Pipeline).filter_by(grid_id=grid.grid_id).all())
+                        i += 1
+
+        return best_pipelines
+
+    @staticmethod
     def _get_best_pipelines(session, exp_runs):
         best_pipelines = []
         for expr in exp_runs:
@@ -199,6 +239,33 @@ class Dataset(Base):
                         session.query(Pipeline).filter_by(grid_id=grid.grid_id).all())
 
         return best_pipelines
+
+    @staticmethod
+    def _get_datasets_pipelines_lists(session: Session, datasets: [], min_generations: int = None, max_generations: int = None):
+        datasets_pipeline_lists = {}
+        for ds in datasets:
+            experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
+
+            exp_runs = Dataset._get_experiment_runs(session, experiments)
+
+            runs_created_at = []
+            if len(exp_runs) > 0:
+                runs_created_at = [r.started_at for r in exp_runs[0]]
+
+            # Get pipelines of mean fitness individuals
+            best_pipelines = []
+            if min_generations is not None and max_generations is not None:
+                best_pipelines = Dataset._get_mean_pipelines(session, exp_runs, min_generations, max_generations)
+
+            datasets_pipeline_lists[ds.dataset_id] = {
+                "id": ds.dataset_id,
+                "name": ds.name,
+                "source": ds.source_directory,
+                "runs_created_at": runs_created_at,
+                "best_pipelines": best_pipelines
+            }
+
+        return datasets_pipeline_lists
 
     @staticmethod
     def get_runs_fitness_by_each_dataset(session: Session):
@@ -227,32 +294,11 @@ class Dataset(Base):
     def get_pipeline_by_each_dataset(session: Session):
         # Experiments by dataset
         datasets = session.query(Dataset).all()
-        datasets_pipeline_lists = {}
 
-        for ds in datasets:
-            experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
-
-            experiment_runs = Dataset._get_experiment_runs(session, experiments)
-
-            # Get pipelines of best individual by fitness
-            best_pipelines = Dataset._get_best_pipelines(session, experiment_runs)
-
-            runs_created_at = []
-            if len(experiment_runs) > 0:
-                runs_created_at = [r.started_at for r in experiment_runs[0]]
-
-            datasets_pipeline_lists[ds.dataset_id] = {
-                "id": ds.dataset_id,
-                "name": ds.name,
-                "source": ds.source_directory,
-                "runs_created_at": runs_created_at,
-                "best_pipelines": best_pipelines
-            }
-
-        return datasets_pipeline_lists
+        return Dataset._get_datasets_pipelines_lists(session, datasets)
 
     @staticmethod
-    def get_runs_fitness_by_grouped_dataset(session: Session, min_generations: int = None, max_generations: int = None):
+    def get_fitness_pipeline_by_grouped_dataset(session: Session, min_generations: int = None, max_generations: int = None):
         # Experiments by dataset
         datasets = session.query(Dataset).group_by(Dataset.source_directory).all()
         datasets_fitness_lists = {}
@@ -297,6 +343,22 @@ class Dataset(Base):
             }
         return datasets_fitness_lists
 
+    @staticmethod
+    def get_pipeline_fitness_by_grouped_dataset(
+            session: Session,
+            min_generations: int = None,
+            max_generations: int = None):
+        # Experiments by dataset
+        datasets = session.query(Dataset).group_by(Dataset.source_directory).all()
+        datasets_pipelines_lists = {}
+
+        datasets_pipelines_lists = Dataset._get_datasets_pipelines_lists(
+            session,
+            datasets,
+            min_generations,
+            max_generations)
+
+        return datasets_pipelines_lists
 
 class Analyzer(Base):
     __tablename__ = "analyzer"

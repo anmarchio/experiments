@@ -20,7 +20,7 @@ def show_program_menu():
     print('5 -- Print Dashboard Plots')
     print('6 -- Print Sample Plots')
     print('7 -- Create ACSOS Plot')
-    print('8 -- Follow Up Optimization')
+    print('8 -- Follow Up Optimization using SA / LS')
     print('0 -- EXIT')
 
     print("\n")
@@ -100,10 +100,23 @@ def main() -> int:
         computations_per_computing_unit()
 
     if selection == 7:
+        """
+        Creates Fitness plot from ACSOS publication
+        with mean / std dev MCC per datatset (over all related runs/experiments).
+        
+        Secondly, function creates a complexity plot showing complexity vs. fitness per dataset.
+        """
         create_fitness_plot()
         create_acsos_complexity_plot()
 
     if selection == 8:
+        """
+        Get pipelines (digraphs) closest to mean MCC per dataset, 
+        extract the pipeline, convert it to HDEV code.
+        Then apply Simulated Annealing / Local Search to tune the real valued parameters. 
+        """
+
+        read_database_and_plot_fitness_per_dataset(140, 500, show_names=True, create_plot=False)
         run_param_tuning()
 
 

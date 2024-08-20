@@ -103,9 +103,9 @@ def run_param_tuning() -> int:
     # Get the datasets per experiment in a dict
     experiment_datasets = {}
     if 0 < selection < 4:
-        print("Really each pipeline?!?")
+        print("Pipeline by grouped Dataset closest to mean fitness")
         # raise ValueError("REALLY: EACH Pipeline?")
-        experiment_datasets = Dataset.get_pipeline_by_each_dataset(db.get_session())
+        list_of_runs_fitness_pipelines = Dataset.get_pipeline_fitness_by_grouped_dataset(db.get_session(), 140, 500)
 
     if selection == 1:
         # 1 -- MANUAL 1: Export digraphs to txt

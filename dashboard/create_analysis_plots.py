@@ -223,22 +223,29 @@ def read_database_and_show_plots(min_generations, max_generations, grouped_datas
     """
 
 
-def read_database_and_plot_fitness_per_dataset(min_generations: int = 0, max_generations: int = None, show_names=False):
+def read_database_and_plot_fitness_per_dataset(
+        min_generations: int = 0,
+        max_generations: int = None,
+        show_names=False,
+        create_plot=True):
+
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
 
     list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session(), min_generations,
                                                                        max_generations)
-    dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
+    dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs = \
+        mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
 
-    plot_fitness_per_dataset(
-        "Fitness per Dataset",
-        "Fitness",
-        dataset_names,
-        mean_std_dev_fit_per_dataset,
-        orientation='v',
-        path=os.path.join("scripts", "report", "fitness_per_dataset.png"),
-        show_names=show_names
-    )
+    if create_plot:
+        plot_fitness_per_dataset(
+            "Fitness per Dataset",
+            "Fitness",
+            dataset_names,
+            mean_std_dev_fit_per_dataset,
+            orientation='v',
+            path=os.path.join("scripts", "report", "fitness_per_dataset.png"),
+            show_names=show_names
+        )
 
     print_fitness_values_in_table(dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs)
