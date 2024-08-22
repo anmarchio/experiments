@@ -461,12 +461,12 @@ class Pipeline(Base):
     @staticmethod
     def get_pipeline_by_analyzer(session, analyzer_id):
         analyzer = session.query(Analyzer).filter_by(analyzer_id=analyzer_id).first()
-        experiment = session.query(Experiment).filter_by(experiment_id=analyzer.run_id).first()
+        run = session.query(Run).filter_by(run_id=analyzer.run_id).first()
         grid = session.query(Grid).filter_by(run_id=analyzer.run_id).first()
         pipeline = session.query(Pipeline).filter_by(grid_id=grid.grid_id).first()
 
-        experiment_id = experiment.experiment_id
-        run_id = analyzer.run_id
+        experiment_id = run.experiment_id
+        run_id = run.experiment_id
         pipeline_id = pipeline.pipeline_id
         digraph = pipeline.digraph
         return experiment_id, run_id, pipeline_id, digraph
