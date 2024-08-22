@@ -1,14 +1,19 @@
 import os
 import sys
 
+import numpy as np
+
+from api import env_var
 from api.database import Database
 from api.models import Dataset
+from dashboard.utils import data_linking, compute_mean_and_std_dev
 from param_tuning.data_handling import load_data, get_scores
 from param_tuning.hdev.hdev_helpers import translate_to_hdev
 from param_tuning.local_search import run_local_search
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import write_hdev_code_to_file, write_to_file, \
-    get_pipeline_folder_name_by_datetime, write_csv_and_tex, dataset_to_graphs, write_digraph_to_files, check_dir_exists
+    get_pipeline_folder_name_by_datetime, write_csv_and_tex, dataset_to_graphs, write_digraph_to_files, \
+    check_dir_exists, index_closest_to_mean
 from settings import HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 
 
@@ -104,8 +109,64 @@ def run_param_tuning() -> int:
     experiment_datasets = {}
     if 0 < selection < 4:
         print("Pipeline by grouped Dataset closest to mean fitness")
-        # raise ValueError("REALLY: EACH Pipeline?")
-        list_of_runs_fitness_pipelines = Dataset.get_pipeline_fitness_by_grouped_dataset(db.get_session(), 140, 500)
+        print("-- from DB path: " + env_var.SQLITE_PATH)
+        list_of_runs_fitness = {}
+
+        # Grouped_dataset
+        list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session(), 140, 500)
+
+        linked_list_of_runs_fitness = data_linking(list_of_runs_fitness)
+
+        # !!!this has to be removed!!!
+        # list_of_runs_fitness_pipelines = Dataset.get_pipeline_fitness_by_grouped_dataset(db.get_session(), 140, 500)
+
+        linked_list_of_fitness_and_digraph = {}
+        cnt = 0
+        for k in linked_list_of_runs_fitness.keys():
+            run_ids = [d['id'] for d in linked_list_of_runs_fitness[k]]
+            if len(linked_list_of_runs_fitness[k]) > 0:
+                print("ID: ", str(run_ids), ", reading ...")
+            else:
+                print("ID: ", str(run_ids), ", [EMPTY ENTRY]")
+                continue
+            cnt += 1
+            fit_values = []
+            for d in linked_list_of_runs_fitness[k]:
+                for r in d["values"]:
+                    fit_values.append([f.best_individual_fitness for f in r][-1])
+            mean_fit = np.mean(fit_values)
+            print("Find pipeline")
+            if np.isnan(mean_fit):
+                continue
+            mean_idx = index_closest_to_mean(fit_values, mean_fit)
+            analyzer_id = d["values"][mean_idx][-1].analyzer_id
+            print("analyzer_id: " + str(analyzer_id))
+            """
+            NOTE:
+            MVTEC_XYZ 
+                > 0, 1, 2 (experiment reptitions)
+                    > values 1,2,3 (runs)
+            => walk through all experiments, 
+                THEN through the runs
+            => get pipeline
+            """
+            experiment_id, run_id, pipeline_id, digraph = Pipeline.get_pipeline_by_analyzer(analyzer_id)
+            linked_list_of_fitness_and_digraph[k] = {
+                'experiment_id': experiment_id,
+                'run_id': run_id,
+                'best_individual_fitness': fit_values[mean_idx],
+                'pipeline_id': pipeline_id,
+                'digraph': digraph
+            }
+
+        for ds_key in linked_list_of_fitness_and_digraph.keys():
+            dataset_digraph = linked_list_of_fitness_and_digraph[ds_key]
+            """
+            CHANGE:
+            use digraph, fitness and ID to write to file
+            """
+            # Write digraphs to folder
+            write_digraph_to_files_NEW(ds_key, dataset_digraph)
 
     if selection == 1:
         # 1 -- MANUAL 1: Export digraphs to txt

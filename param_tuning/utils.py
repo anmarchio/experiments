@@ -43,6 +43,25 @@ def check_dir_exists(dir):
         os.mkdir(dir)
 
 
+def index_closest_to_mean(list_of_values, mean):
+    if len(list_of_values) < 1:
+        raise ValueError
+
+    if len(list_of_values) == 1:
+        return 0
+
+    dist = list_of_values[0] - mean
+    min_dist_idx = 0
+
+    for idx in range(len(list_of_values)):
+        new_dist = list_of_values[idx] - mean
+        if new_dist < dist:
+            dist = new_dist
+            min_dist_idx = idx
+
+    return min_dist_idx
+
+
 def write_digraph_to_files(dataset: {}, path: str) -> int:
     if len(dataset['best_pipelines']) == 0:
         return 1

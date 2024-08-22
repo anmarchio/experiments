@@ -208,13 +208,14 @@ class Dataset(Base):
         best_pipelines = []
         if len(best_ind_fit) > 0:
             # Find pipeline closes to mean MCC fitness
-            mcc_mean = np.mean(best_ind_fit)
+            mcc_mean = np.mean([fit.best_individual_fitness for fit in best_ind_fit[0]])
 
-            dist = abs(best_ind_fit[0] - mcc_mean)
+            dist = abs(best_ind_fit[0][0].best_individual_fitness - mcc_mean)
             dist_index = 0
-            for i in range(1, len(best_ind_fit)):
-                if abs(best_ind_fit[i] - mcc_mean) < dist:
+            for i in range(1, len(best_ind_fit[0])):
+                if abs(best_ind_fit[0][i].best_individual_fitness - mcc_mean) < dist:
                     dist_index = i
+                    dist = abs(best_ind_fit[0][i].best_individual_fitness - mcc_mean)
 
             i = 0
             for expr in exp_runs:
@@ -241,7 +242,8 @@ class Dataset(Base):
         return best_pipelines
 
     @staticmethod
-    def _get_datasets_pipelines_lists(session: Session, datasets: [], min_generations: int = None, max_generations: int = None):
+    def _get_datasets_pipelines_lists(session: Session, datasets: [], min_generations: int = None,
+                                      max_generations: int = None):
         datasets_pipeline_lists = {}
         for ds in datasets:
             experiments = session.query(Experiment).filter_by(dataset_id=ds.dataset_id).all()
@@ -298,7 +300,8 @@ class Dataset(Base):
         return Dataset._get_datasets_pipelines_lists(session, datasets)
 
     @staticmethod
-    def get_fitness_pipeline_by_grouped_dataset(session: Session, min_generations: int = None, max_generations: int = None):
+    def get_runs_fitness_by_grouped_dataset(session: Session, min_generations: int = None,
+                                            max_generations: int = None):
         # Experiments by dataset
         datasets = session.query(Dataset).group_by(Dataset.source_directory).all()
         datasets_fitness_lists = {}
@@ -343,12 +346,18 @@ class Dataset(Base):
             }
         return datasets_fitness_lists
 
+    """
     @staticmethod
     def get_pipeline_fitness_by_grouped_dataset(
             session: Session,
             min_generations: int = None,
             max_generations: int = None):
         # Experiments by dataset
+
+        =>
+        => Here we want to get pipelines by runs ...
+        =>
+
         datasets = session.query(Dataset).group_by(Dataset.source_directory).all()
         datasets_pipelines_lists = {}
 
@@ -359,6 +368,8 @@ class Dataset(Base):
             max_generations)
 
         return datasets_pipelines_lists
+    """
+
 
 class Analyzer(Base):
     __tablename__ = "analyzer"
