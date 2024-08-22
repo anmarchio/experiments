@@ -5,7 +5,7 @@ import numpy as np
 
 from api import env_var
 from api.database import Database
-from api.models import Dataset
+from api.models import Dataset, Pipeline
 from dashboard.utils import data_linking, compute_mean_and_std_dev
 from param_tuning.data_handling import load_data, get_scores
 from param_tuning.hdev.hdev_helpers import translate_to_hdev
@@ -150,7 +150,7 @@ def run_param_tuning() -> int:
                 THEN through the runs
             => get pipeline
             """
-            experiment_id, run_id, pipeline_id, digraph = Pipeline.get_pipeline_by_analyzer(analyzer_id)
+            experiment_id, run_id, pipeline_id, digraph = Pipeline.get_pipeline_by_analyzer(db.get_session(), analyzer_id)
             linked_list_of_fitness_and_digraph[k] = {
                 'experiment_id': experiment_id,
                 'run_id': run_id,
