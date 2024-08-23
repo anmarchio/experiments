@@ -1,8 +1,6 @@
 import os
 from datetime import datetime
 
-from param_tuning.dataset_pipeline_analysis import get_pipeline_folder_name_by_datetime
-
 
 def raw_source_directory(dataset_source_directory):
     replace_strings = ["\"",
@@ -52,11 +50,11 @@ def write_digraph_to_files(dataset_name: str, dataset_digraph: {}, path: str) ->
         return 1
 
     content = "dataset: " + dataset_name + "\n\n"
-    content = "experiment_id: " + str(dataset_digraph['experiment_id']) + "\n"
+    content += "experiment_id: " + str(dataset_digraph['experiment_id']) + "\n"
     content += "run_id: " + str(dataset_digraph['experiment_id']) + "\n"
-    content += "fit_values: [" + str([str(f) + ", " for f in dataset_digraph['best_individual_fitness']]) + "]\n"
+    content += "fit_values: [" + str(dataset_digraph['best_individual_fitness']) + "]\n"
     content += "pipeline_id: " + str(dataset_digraph['pipeline_id']) + "\n\n"
-    content += "digraph: " + str(dataset_digraph['digraph']) + "\n"
+    content += "digraph:\n" + str(dataset_digraph['digraph']) + "\n"
 
     filename = dataset_name + "_mean_pipeline.txt"
 
@@ -150,13 +148,3 @@ def write_csv_and_tex(read_from_path: str):
     fw = open(read_from_path + ".txt", "w")
     fw.write(tex_table)
     fw.close()
-
-
-def write_hdev_code_to_file(date_object, hdev_code) -> str:
-    hdev_path = get_pipeline_folder_name_by_datetime(date_object) + ".hdev"
-
-    f = open(hdev_path, "w")
-    f.write(hdev_code)
-    f.close()
-
-    return hdev_path

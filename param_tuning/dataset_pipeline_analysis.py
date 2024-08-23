@@ -83,6 +83,16 @@ def get_analyzer_id_by_index_in_dataset_dict(dataset_dict: {}, mean_idx: int):
             idx += 1
 
 
+def write_hdev_code_to_file(date_object, hdev_code) -> str:
+    hdev_path = get_pipeline_folder_name_by_datetime(date_object) + ".hdev"
+
+    f = open(hdev_path, "w")
+    f.write(hdev_code)
+    f.close()
+
+    return hdev_path
+
+
 def get_pipeline_folder_name_by_datetime(date_object):
     # testtime = "2022-11-19 13:19:50.000000"
     # date_object = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
@@ -156,7 +166,7 @@ def get_grouped_datasets_with_digraph_by_mean_fitness(session: Database):
             'digraph': digraph
         }
 
-        return linked_list_of_mean_fitness_and_digraph
+    return linked_list_of_mean_fitness_and_digraph
 
 
 def read_db_and_apply_algorithms_to_hdev(experiment_datasets):
