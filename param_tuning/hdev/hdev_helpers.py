@@ -47,7 +47,7 @@ def convert_params_to_hdev(graph: dict, params: np.array):
     return hdev_output
 
 
-def translate_to_hdev(graph: dict, params: np.array = None):
+def translate_graph_to_hdev(graph: dict, params: np.array = None):
     # HDEV xml style header
     hdev_output = HDEV_HEADER
 

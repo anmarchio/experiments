@@ -5,7 +5,9 @@ import numpy as np
 from api.database import Database
 from api.models import Dataset, Pipeline
 from dashboard.utils import data_linking
-from param_tuning.hdev.hdev_helpers import translate_to_hdev
+from param_tuning.data_handling import get_scores
+from param_tuning.hdev.hdev_helpers import translate_graph_to_hdev
+from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline
 from param_tuning.local_search import run_local_search
 from param_tuning.read_dot import parse_dot
 from param_tuning.simulated_annealing import run_simulated_annealing
@@ -13,10 +15,19 @@ from param_tuning.utils import raw_source_directory, index_closest_to_mean, writ
 from settings import RESULTS_PATH, HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 
 
-def run_pipeline(graph, params):
-    hdev_code = translate_to_hdev(graph, params)
+def run_pipeline(pipeline_name: str, graph: {} = None, param: np.array, manual: bool = True):
+    hdev_code = ""
+    hdev_path = ""
 
-    raise NotImplementedError("Function not implemented correctly!")
+    if manual:
+        hdev_code = get_manual_hdev_pipeline(pipeline_name, params)
+        hdev_path = get_manual_hdev_pipeline_path(pipeline_name)
+    else:
+        hdev_code = translate_graph_to_hdev(graph, params)
+        hdev_path = write_hdev_code_to_file(graph['datetime'], hdev_code)
+
+
+    #raise NotImplementedError("Function not implemented correctly!")
     """
     TO DO
     -----
@@ -24,7 +35,6 @@ def run_pipeline(graph, params):
     - include correct bounds
     - make sure to include `all` MVTec nodes/algorithms
     """
-    hdev_path = write_hdev_code_to_file(graph['datetime'], hdev_code)
 
     prediction_path = os.path.join(HDEV_RESULTS_PATH, get_pipeline_folder_name_by_datetime(graph['datetime']))
     if not os.path.exists(prediction_path):
@@ -34,7 +44,10 @@ def run_pipeline(graph, params):
     os.system("hdevelop -run " + hdev_path)
 
     # Evaluate Results
-    labels_arr, predictions_arr = load_data(graph['training_path'] + "labels", prediction_path)
+    if manual:
+        labels_arr, predictions_arr = load_data(graph['training_path'] + "labels", prediction_path)
+    else:
+        labels_arr, predictions_arr = load_data(training_path + "labels", prediction_path)
     scores = get_scores(labels_arr, predictions_arr)
     """
     scores = {
@@ -52,10 +65,10 @@ def run_pipeline(graph, params):
     return scores['jaccard']
 
 
-def objective(graph, params):
+def objective(pipeline_name, graph, params, manual = True):
     # Run the pipeline with given parameters and evaluate performance
     # Performance is returned as intersection over union (IoU) / Jaccard Score
-    performance = run_pipeline(graph, params)
+    performance = run_pipeline(pipeline_name, graph, params, manual)
 
     return -performance  # Minimize negative performance to maximize performance
 

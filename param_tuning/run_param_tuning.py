@@ -6,6 +6,7 @@ from api.database import Database
 from api.models import Dataset
 from param_tuning.dataset_pipeline_analysis import get_grouped_datasets_with_digraph_by_mean_fitness, \
     read_db_and_apply_algorithms_to_hdev
+from param_tuning.hdev_manual.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN
 from param_tuning.local_search import run_local_search
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import write_digraph_to_files, \
@@ -38,6 +39,7 @@ def run_param_tuning() -> int:
 
     # Exit program
     if selection == 0:
+        print("Exiting ...")
         return 0
 
     # Get database object from api.database
@@ -71,11 +73,14 @@ def run_param_tuning() -> int:
         check_dir_exists(PARAM_TUNING_RESULTS_PATH)
         check_dir_exists(manual_hdev_path)
 
-        raise NotImplementedError("NOT IMPLEMENTED!")
+        #raise NotImplementedError("NOT IMPLEMENTED!")
 
-        for hdev in os.listdir(manual_hdev_path):
-            run_simulated_annealing()
-            run_local_search()
+        for pipeline_name in MANUAL_HDEV_PIPELINES_MEAN:
+            # Run simulated annealing on dataset
+            run_simulated_annealing(pipeline_name, None, True)
+
+            # Then run local search
+            run_local_search(pipeline_name, None, True)
 
     # 3 -- AUTOMATIC: Read DB and apply HDEV optimization
     if selection == 3:

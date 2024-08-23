@@ -3,11 +3,11 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'FabricDefectsAITEX'</l>
+<l>dataset_name := 'FabricDefectsAITEX_mean_pipeline'</l>
 <l>source_path := 'C:/evias_expmts/FabricDefectsAITEX/train/images'</l>
 <l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'</l>
 <c></c>
-<l>list_image_files('imgs', 'default', [], ImageFiles)</l>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <c></c>
 <l>for Index := 1 to |ImageFiles| - 1 by 1</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
@@ -43,7 +43,7 @@
 <l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
 <c>        </c>
 <c>        * Apply StructElement Ellipse to Closing</c>
-<l>        closing(Region, StructElement, RegionClosing)</l>
+<l>        closing(Regions, StructElement, RegionClosing)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -51,11 +51,15 @@
 <c>    * END Code Block</c>
 <c>    * --------------</c>
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
-<l>    paint_region(Region, ImageResult, ImageResult, 255, 'margin')</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    file_exists(out_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(out_path)</l>
+<l>    endif</l>
 <l>    out_img_path := out_path + Index</l>
-<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
 <l>endfor</l>
-<l>exit()</l>
+<l>*exit()</l>
 </body>
 <docu id="main">
 <parameters/>
