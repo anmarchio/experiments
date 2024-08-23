@@ -1,8 +1,7 @@
 import os
 from datetime import datetime
 
-from param_tuning.read_dot import parse_dot
-from settings import HDEV_RESULTS_PATH, RESULTS_PATH
+from param_tuning.dataset_pipeline_analysis import get_pipeline_folder_name_by_datetime
 
 
 def raw_source_directory(dataset_source_directory):
@@ -22,20 +21,6 @@ def raw_source_directory(dataset_source_directory):
         return None
 
     return dataset_source_directory
-
-
-def dataset_to_graphs(dataset: {}) -> {}:
-    graphs = {}
-
-    for i in range(len(dataset['best_pipelines'])):
-        graphs[str(i)] = {
-            'training_path': raw_source_directory(dataset['source']),
-            'results_path': RESULTS_PATH,  # <= has to be the date and time?
-            'datetime': dataset['runs_created_at'][i],
-            'pipeline': parse_dot(dataset['best_pipelines'][i][0].digraph)
-        }
-
-    return graphs
 
 
 def check_dir_exists(dir):
@@ -62,25 +47,21 @@ def index_closest_to_mean(list_of_values, mean):
     return min_dist_idx
 
 
-def write_digraph_to_files(dataset: {}, path: str) -> int:
-    if len(dataset['best_pipelines']) == 0:
+def write_digraph_to_files(dataset_name: str, dataset_digraph: {}, path: str) -> int:
+    if len(dataset_digraph.keys()) == 0:
         return 1
 
-    # Only get the last pipeline's digraph from the list
-    digraph = dataset['best_pipelines'][-1][0].digraph
+    content = "dataset: " + dataset_name + "\n\n"
+    content = "experiment_id: " + str(dataset_digraph['experiment_id']) + "\n"
+    content += "run_id: " + str(dataset_digraph['experiment_id']) + "\n"
+    content += "fit_values: [" + str([str(f) + ", " for f in dataset_digraph['best_individual_fitness']]) + "]\n"
+    content += "pipeline_id: " + str(dataset_digraph['pipeline_id']) + "\n\n"
+    content += "digraph: " + str(dataset_digraph['digraph']) + "\n"
 
-    ds_name = dataset['name']
-    ds_name = ds_name.replace("\\", "")
-    ds_name = ds_name.replace("C/:", "")
-    ds_name = ds_name.replace("/", "")
-    ds_name = ds_name.replace("\r", "-r")
-    ds_name = ds_name.replace("\t", "-t")
-    ds_name = ds_name.replace("\"", "")
+    filename = dataset_name + "_mean_pipeline.txt"
 
-    filename = ds_name + "-" + dataset['runs_created_at'][-1].strftime("%Y%m%d%H%M") + ".txt"
-
-    f = open(os.path.join(path, filename), "a")
-    f.write(digraph)
+    f = open(os.path.join(path, filename), "w")
+    f.write(content)
     f.close()
 
     return 0
@@ -169,12 +150,6 @@ def write_csv_and_tex(read_from_path: str):
     fw = open(read_from_path + ".txt", "w")
     fw.write(tex_table)
     fw.close()
-
-
-def get_pipeline_folder_name_by_datetime(date_object):
-    # testtime = "2022-11-19 13:19:50.000000"
-    # date_object = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
-    return HDEV_RESULTS_PATH + os.path.sep + date_object.strftime("%Y%m%d%H%M")
 
 
 def write_hdev_code_to_file(date_object, hdev_code) -> str:
