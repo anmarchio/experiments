@@ -1,0 +1,22 @@
+dataset: MAIPreform2_Spule0-0315_Upside
+
+experiment_id: 178
+run_id: 178
+fit_values: [0.6345267731992684]
+pipeline_id: 361
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";32 [label="Union2\n"];
+21 [label="ZeroCrossing\n"];
+22 [label="ThresholdAccessChannel\nChannel=1\n Threshold=23\n Sign=-1"];
+12 [label="SobelAmp\nFilterType=y\n MaskSize=3"];
+7 [label="AnisotropicDiffusion\nDiffusionCoefficient=parabolic\n Contrast=10\n Theta=3\n Iterations=1"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+32 -> 21 [];
+32 -> 22 [];
+21 -> 12 [];
+22 -> 7 [];
+12 -> _1 [];
+7 -> _1 [];
+}

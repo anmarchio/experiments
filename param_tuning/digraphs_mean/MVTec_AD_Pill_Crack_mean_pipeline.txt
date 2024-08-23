@@ -1,0 +1,17 @@
+dataset: MVTec_AD_Pill_Crack
+
+experiment_id: 106
+run_id: 106
+fit_values: [0.5456942982527363]
+pipeline_id: 286
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";92 [label="Closing\nA=9\n B=20\n C=-1,178097\n StructElementType=Circle"];
+88 [label="CropRectangle\nMinRatio=0,109999999403954\n MaskHeight=29\n MaskWidth=29"];
+3 [label="GrayOpening\nStructElement=Circle\n A=17\n B=10\n GrayValueMax=10"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+92 -> 88 [];
+88 -> 3 [];
+3 -> _1 [];
+}

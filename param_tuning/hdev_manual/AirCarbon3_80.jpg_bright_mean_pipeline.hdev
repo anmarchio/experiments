@@ -3,8 +3,8 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := ''</l>
-<l>source_path := ''</l>
+<l>dataset_name := 'AirCarbon3_80.jpg_bright'</l>
+<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>
 <l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -15,12 +15,26 @@
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
-<l>    try</l>
-<l>        binomial_filter(Image, Image, 35, 29)</l>
-<l>        fast_threshold(Image, Region, 155, 196, 22)</l>
+<l>    try        </l>
+<l>        FilterType := 'lines'</l>
+<l>        bandpass_image(Image, Image, FilterType)</l>
+<c>        </c>
+<l>        FilterType := 'y'</l>
+<l>        MaskSize := 5</l>
+<l>        sobel_amp(Image, ImageAmp, FilterType, MaskSize)</l>
+<c>        </c>
+<l>        access_channel(ImageAmp, ImageAmp, 1)</l>
+<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
+<l>        Method := 'adapted_std_deviation'</l>
+<l>        LightDark := 'dark'</l>
+<l>        MaskSize := 15</l>
+<l>        Scale := 0.3</l>
+<l>        local_threshold(ImageAmp, Region, 'adapted_std_deviation', 'dark', ['mask_size', 'scale'], [MaskSize, Scale])</l>
+<c>        </c>
+<l>        connection(Region, Region)        </l>
 <l>    catch (Exception)</l>
-<l>        gen_empty_region(Region)        </l>
-<l>    endtry        </l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
 <c>    * --------------</c>
 <c>    * END Code Block</c>
 <c>    * --------------</c>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>* Struct Element Types</c>
+<l>StructElementType := 'Circle'</l>
+<l>shape_param0 := 0</l>
+<l>shape_param1 := 0</l>
+<l>shape_param2 := 0</l>
+<l>gen_empty_obj(StructElement)</l>
+<c></c>
+<l>if(StructElementType == 'Circle')</l>
+<l>    tuple_ceil(shape_param0 + 1, shape_param0_ceil)</l>
+<c>    </c>
+<l>    gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, shape_param0)</l>
+<l>endif</l>
+<c></c>
+<l>if(StructElementType == 'Ellipse')</l>
+<l>    tuple_max2(shape_param0, shape_param2, max_rad)</l>
+<l>    longer := shape_param0</l>
+<l>    shorter := shape_param1</l>
+<c>    </c>
+<l>    if (shorter &gt; longer)</l>
+<l>        tmp := shorter</l>
+<l>        shorter := longer</l>
+<l>        longer := tmp</l>
+<l>    endif</l>
+<c>        </c>
+<l>    phi := shape_param2</l>
+<c>    </c>
+<l>    tuple_ceil(max_rad + 1, max_rad_ceil)</l>
+<c>    </c>
+<l>    gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
+<l>endif</l>
+<c></c>
+<c></c>
+<l>if(StructElementType == 'Rectangle')</l>
+<l>    gen_rectangle1(StructElement, 0, 0, shape_param0, shape_param1)</l>
+<l>endif</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

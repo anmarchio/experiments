@@ -1,0 +1,15 @@
+dataset: MAIPreform2_Spule0-0315_Upside Thread 256
+
+experiment_id: 183
+run_id: 183
+fit_values: [0.13186337894060934]
+pipeline_id: 375
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";89 [label="ThresholdAccessChannel\nChannel=1\n Threshold=9\n Sign=-1"];
+2 [label="AnisotropicDiffusion\nDiffusionCoefficient=perona_malik\n Contrast=2\n Theta=1\n Iterations=100"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+89 -> 2 [];
+2 -> _1 [];
+}

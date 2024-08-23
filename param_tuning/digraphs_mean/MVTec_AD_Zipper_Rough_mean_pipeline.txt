@@ -1,0 +1,17 @@
+dataset: MVTec_AD_Zipper_Rough
+
+experiment_id: 135
+run_id: 135
+fit_values: [0.3210074858333546]
+pipeline_id: 318
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";38 [label="Closing\nA=22\n B=20\n C=-0.785398\n StructElementType=Rectangle"];
+27 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=21\n Scale=0.2"];
+7 [label="GaussFilter\nMaskSize=11"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+38 -> 27 [];
+27 -> 7 [];
+7 -> _1 [];
+}

@@ -1,0 +1,29 @@
+dataset: MVTec_AD_Metal_Nut
+
+experiment_id: 80
+run_id: 80
+fit_values: [0.12124497586992385]
+pipeline_id: 219
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";77 [label="Opening\nStructElement=Ellipse\n A=27\n B=15"];
+61 [label="Union2\n"];
+24 [label="ZeroCrossing\n"];
+33 [label="Connection\nNeighborhood=4"];
+14 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+26 [label="CropRectangle\nMinRatio=0,0949999988079071\n MaskHeight=29\n MaskWidth=7"];
+7 [label="DualRank\nMaskType=circle\n Radius=61\n ModePercent=66\n Margin=OneEighty"];
+0 [label="GaussFilter\nMaskSize=3"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+77 -> 61 [];
+77 -> 24 [];
+61 -> 24 [];
+61 -> 33 [];
+24 -> 14 [];
+33 -> 26 [];
+14 -> 7 [];
+26 -> 0 [];
+7 -> _1 [];
+0 -> _1 [];
+}

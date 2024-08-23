@@ -1,0 +1,17 @@
+dataset: Pultrusion_Resin
+
+experiment_id: 72
+run_id: 72
+fit_values: [0.6332613268575414]
+pipeline_id: 199
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";83 [label="AreaSizeThreshold\nMinGray=18\n MaxGray=243\n MinSize=10000\n MaxSize=21000\n WindowWidth=200\n WindowHeight=220"];
+13 [label="SobelAmp\nFilterType=y\n MaskSize=7"];
+0 [label="MedianImage\nMaskType=circle\n Radius=47\n Margin=TwoTen"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+83 -> 13 [];
+13 -> 0 [];
+0 -> _1 [];
+}

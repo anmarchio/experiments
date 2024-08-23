@@ -1,0 +1,13 @@
+dataset: MAIPreform2_Spule2-0816_Upside
+
+experiment_id: 181
+run_id: 181
+fit_values: [0.21876457677125874]
+pipeline_id: 369
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";27 [label="CropRectangle\nMinRatio=0.0899999961256981\n MaskHeight=3\n MaskWidth=15"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+27 -> _1 [];
+}

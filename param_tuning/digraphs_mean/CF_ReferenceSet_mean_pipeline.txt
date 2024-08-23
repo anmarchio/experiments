@@ -1,0 +1,15 @@
+dataset: CF_ReferenceSet
+
+experiment_id: 85
+run_id: 85
+fit_values: [0.0794319310057269]
+pipeline_id: 233
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";34 [label="Connection\nNeighborhood=4"];
+20 [label="VarThreshold\nMaskWidth=23\n MaskHeight=15\n StdDevScale=0,7000001\n AbsThreshold=85\n LightDark=not_equal"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+34 -> 20 [];
+20 -> _1 [];
+}

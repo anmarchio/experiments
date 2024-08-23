@@ -1,0 +1,15 @@
+dataset: MVTec_AD_Toothbrush_Sm
+
+experiment_id: 146
+run_id: 146
+fit_values: [0.20635339038951303]
+pipeline_id: 328
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";24 [label="Threshold\nMin=30\n Max=250"];
+4 [label="GrayClosing\nStructElement=Circle\n A=16\n B=13\n GrayValueMax=0"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 -> 4 [];
+4 -> _1 [];
+}

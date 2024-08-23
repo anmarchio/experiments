@@ -1,0 +1,15 @@
+dataset: AirCarbon2_t_8.jpg
+
+experiment_id: 100
+run_id: 100
+fit_values: [0.03363918122168622]
+pipeline_id: 271
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";82 [label="VarThreshold\nMaskWidth=29\n MaskHeight=9\n StdDevScale=0,9000002\n AbsThreshold=11\n LightDark=light"];
+2 [label="AnisotropicDiffusion\nDiffusionCoefficient=parabolic\n Contrast=100\n Theta=3\n Iterations=3"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+82 -> 2 [];
+2 -> _1 [];
+}

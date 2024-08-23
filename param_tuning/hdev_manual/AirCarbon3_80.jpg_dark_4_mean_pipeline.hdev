@@ -3,11 +3,11 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := ''</l>
-<l>source_path := ''</l>
+<l>dataset_name := 'AirCarbon3_80.jpg_dark_4'</l>
+<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/images'</l>
 <l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'</l>
 <c></c>
-<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<l>list_image_files('imgs', 'default', [], ImageFiles)</l>
 <c></c>
 <l>for Index := 1 to |ImageFiles| - 1 by 1</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
@@ -16,11 +16,19 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<l>        binomial_filter(Image, Image, 35, 29)</l>
-<l>        fast_threshold(Image, Region, 155, 196, 22)</l>
+<l>        MaskWidth := 19</l>
+<l>        MaskHeight := 9</l>
+<l>        Gap := 12</l>
+<l>        Mode := 1</l>
+<l>        eliminate_min_max(Image, Image, MaskWidth, MaskHeight, Gap, Mode)</l>
+<c>        </c>
+<l>        MinGray := 121</l>
+<l>        MaxGrayOffset := 185</l>
+<l>        MinSize := 161</l>
+<l>        fast_threshold(Image, Region, MinGray, MaxGrayOffset, MinSize)</l>
 <l>    catch (Exception)</l>
-<l>        gen_empty_region(Region)        </l>
-<l>    endtry        </l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
 <c>    * --------------</c>
 <c>    * END Code Block</c>
 <c>    * --------------</c>

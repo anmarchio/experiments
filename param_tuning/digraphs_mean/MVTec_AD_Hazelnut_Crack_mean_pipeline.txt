@@ -1,0 +1,17 @@
+dataset: MVTec_AD_Hazelnut_Crack
+
+experiment_id: 83
+run_id: 83
+fit_values: [0.46072749407282665]
+pipeline_id: 228
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";34 [label="AreaToRectangle\n"];
+27 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=21\n Scale=0,5"];
+3 [label="GrayClosing\nStructElement=Circle\n A=4\n B=28\n GrayValueMax=30"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+34 -> 27 [];
+27 -> 3 [];
+3 -> _1 [];
+}

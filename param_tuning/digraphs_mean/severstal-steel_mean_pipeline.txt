@@ -1,0 +1,17 @@
+dataset: severstal-steel
+
+experiment_id: 161
+run_id: 161
+fit_values: [0.21033807388804102]
+pipeline_id: 338
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";31 [label="Union1\n"];
+26 [label="VarThreshold\nMaskWidth=29\n MaskHeight=23\n StdDevScale=0.2000001\n AbsThreshold=13\n LightDark=not_equal"];
+5 [label="BinomialFilter\nMaskHeight=17\n MaskWidth=5"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+31 -> 26 [];
+26 -> 5 [];
+5 -> _1 [];
+}

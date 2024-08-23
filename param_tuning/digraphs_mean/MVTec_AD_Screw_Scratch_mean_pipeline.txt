@@ -1,0 +1,20 @@
+dataset: MVTec_AD_Screw_Scratch
+
+experiment_id: 84
+run_id: 84
+fit_values: [0.19365330216192247]
+pipeline_id: 231
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";37 [label="Opening\nStructElement=Ellipse\n A=19\n B=18"];
+22 [label="CropRectangle\nMinRatio=0,0249999985098839\n MaskHeight=13\n MaskWidth=19"];
+20 [label="AreaSizeThreshold\nMinGray=20\n MaxGray=254\n MinSize=9000\n MaxSize=18000\n WindowWidth=320\n WindowHeight=260"];
+4 [label="DualRank\nMaskType=circle\n Radius=47\n ModePercent=17\n Margin=TwoFifityFive"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+37 -> 22 [];
+37 -> 20 [];
+22 -> 4 [];
+20 -> _1 [];
+4 -> _1 [];
+}
