@@ -73,8 +73,6 @@ def run_param_tuning() -> int:
         check_dir_exists(PARAM_TUNING_RESULTS_PATH)
         check_dir_exists(manual_hdev_path)
 
-        #raise NotImplementedError("NOT IMPLEMENTED!")
-
         for pipeline_name in MANUAL_HDEV_PIPELINES_MEAN:
             # Run simulated annealing on dataset
             run_simulated_annealing(pipeline_name, None, True)

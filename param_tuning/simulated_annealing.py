@@ -35,19 +35,25 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, s
     return best, best_eval
 
 
-def run_simulated_annealing(pipeline_name: str, graph: {} = None, manual: bool = True):
+def run_simulated_annealing(pipeline_name, graph, objective, manual: bool = True):
     n_iterations = 1000
     step_size = 0.1
     temp = 10.0
 
-    bound = np.array
+    bounds = np.array
 
     if manual:
         bounds = get_manual_hdev_pipeline_bounds(pipeline_name)
     else:
         bounds, _ = extract_bounds_from_graph(graph)
 
-    best_params, best_score = simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, step_size, temp)
+    best_params, best_score = simulated_annealing(pipeline_name,
+                                                  graph,
+                                                  objective,
+                                                  bounds,
+                                                  n_iterations,
+                                                  step_size,
+                                                  temp)
 
     print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
     print(f"Best performance: {-best_score}")

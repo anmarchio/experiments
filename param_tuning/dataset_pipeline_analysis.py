@@ -7,7 +7,7 @@ from api.models import Dataset, Pipeline
 from dashboard.utils import data_linking
 from param_tuning.data_handling import get_scores
 from param_tuning.hdev.hdev_helpers import translate_graph_to_hdev
-from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline
+from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline, get_manual_hdev_pipeline_path
 from param_tuning.local_search import run_local_search
 from param_tuning.read_dot import parse_dot
 from param_tuning.simulated_annealing import run_simulated_annealing
@@ -15,7 +15,7 @@ from param_tuning.utils import raw_source_directory, index_closest_to_mean, writ
 from settings import RESULTS_PATH, HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 
 
-def run_pipeline(pipeline_name: str, graph: {} = None, param: np.array, manual: bool = True):
+def run_pipeline(pipeline_name, graph, params, manual: bool = True):
     hdev_code = ""
     hdev_path = ""
 
@@ -27,7 +27,7 @@ def run_pipeline(pipeline_name: str, graph: {} = None, param: np.array, manual: 
         hdev_path = write_hdev_code_to_file(graph['datetime'], hdev_code)
 
 
-    #raise NotImplementedError("Function not implemented correctly!")
+    raise NotImplementedError("Function not implemented correctly!")
     """
     TO DO
     -----
