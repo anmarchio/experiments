@@ -25,7 +25,7 @@ def get_manual_hdev_pipeline(pipeline_name: str, params: np.array):
     # ...
 
 
-def get_manual_hdev_pipeline_bounds(pipeline_name: str) -> np.array:
+def get_manual_hdev_pipeline_bounds(pipeline_name: str) -> []:
     if pipeline_name == "AirCarbon3_80.jpg_bright_mean_pipeline":
         return AirCarbon3_80_jpg_bright_mean_pipeline_bounds
     elif pipeline_name == "FabricDefectsAITEX_mean_pipeline":
@@ -33,10 +33,17 @@ def get_manual_hdev_pipeline_bounds(pipeline_name: str) -> np.array:
     # ...
 
 
+def get_initial_state_by_pipeline_name(pipeline_name: str) -> []:
+    if pipeline_name == "AirCarbon3_80.jpg_bright_mean_pipeline":
+        return AirCarbon3_80_jpg_bright_mean_pipeline_initial_params
+    elif pipeline_name == "FabricDefectsAITEX_mean_pipeline":
+        return FabricDefectsAITEX_mean_pipeline_initial_params
+
 def get_manual_hdev_pipeline_path(pipeline_name: str):
     for name in MANUAL_HDEV_PIPELINES_MEAN:
         if name == pipeline_name:
             return os.path.join(PARAM_TUNING_HDEV_MANUAL, name)
+
 
 """
 ============================
@@ -44,52 +51,65 @@ AirCarbon3_80_jpg_bright_mean.py
 ============================
 """
 
+
 def get_AirCarbon3_80_jpg_bright_mean_pipeline(params):
     hdev_code = HDEV_HEADER
 
     # Dataset name and path
     hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'<l/>\n" + \
-        "<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'<l/>\n" + \
-        "<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'<l/>\n\n"
+                 "<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'<l/>\n" + \
+                 "<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'<l/>\n\n"
 
     hdev_code += HDEV_TEMPLATE_CODE
 
     # Parameters
-    hdev_code = "<l>        FilterTypeBP := 'lines'</l>\n" + \
-                "<l>        FilterTypeSA := 'y'</l>\n" + \
-                "<l>        MaskSizeSA := 5</l>\n" + \
-                "<l>        Method := 'adapted_std_deviation'</l>\n" + \
-                "<l>        LightDark := 'dark'</l>\n" + \
-                "<l>        MaskSizeLT := 15</l>\n" + \
-                "<l>        Scale := 0.3</l>\n\n"
+    # 'lines', 'y', 5, 'adapted_std_deviation', 'dark', 15, 0.3
+    hdev_code += "<l>        FilterTypeBP := " + str(params[0]) + "</l>\n" + \
+                 "<l>        FilterTypeSA := " + str(params[1]) + "</l>\n" + \
+                 "<l>        MaskSizeSA := " + str(params[2]) + "</l>\n" + \
+                 "<l>        Method := " + str(params[3]) + "</l>\n" + \
+                 "<l>        LightDark := " + str(params[4]) + "</l>\n" + \
+                 "<l>        MaskSizeLT := " + str(params[5]) + "</l>\n" + \
+                 "<l>        Scale := " + str(params[6]) + "</l>\n\n"
 
     # Core Pipeline Code
     hdev_code += "<l>        bandpass_image(Image, Image, FilterTypeBP)</l>\n\n" + \
-        "<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n\n" + \
-        "<l>        access_channel(ImageAmp, ImageAmp, 1)</l>\n" + \
-        "<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>\n" + \
-        "<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeLT, Scale])</l>\n\n" + \
-        "<l>        connection(Region, Region)</l>\n"
+                 "<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n\n" + \
+                 "<l>        access_channel(ImageAmp, ImageAmp, 1)</l>\n" + \
+                 "<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>\n" + \
+                 "<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeLT, Scale])</l>\n\n" + \
+                 "<l>        connection(Region, Region)</l>\n"
 
     hdev_code += HDEV_FOOTER
 
     return hdev_code
 
-AirCarbon3_80_jpg_bright_mean_pipeline_bounds = np.array([
+AirCarbon3_80_jpg_bright_mean_pipeline_initial_params = [
+    'lines',
+    'y',
+    5,
+    'adapted_std_deviation',
+    'dark',
+    15,
+    0.2
+]
+AirCarbon3_80_jpg_bright_mean_pipeline_bounds = [
     ['lines'],
-    ['y_binomial', 'x', 'x_binomial'],
+    ['y_binomial', 'x', 'x_binomial', 'y'],
     [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
     ['adapted_std_deviation'],
     ['light', 'dark'],
     [15, 21, 31],
     [0.2, 0.3, 0.5]
-])
+]
 
 """
 ============================
 FabricDefectsAITEX_mean.py
 ============================
 """
+
+
 def get_FabricDefectsAITEX_mean_pipeline(params):
     hdev_code = HDEV_HEADER
 
@@ -102,13 +122,13 @@ def get_FabricDefectsAITEX_mean_pipeline(params):
 
     # Parameters
     hdev_code = "<l>        Method := 'smooth_histo'</l>\n" + \
-        "<l>        LightDark := 'light'</l>\n" + \
-        "<l>        Min := 33</l>\n" + \
-        "<l>        Max := 99999</l>\n" + \
-        "<l>        Features := 'bulkiness'</l>\n" + \
-        "<l>        A := 26</l>\n" + \
-        "<l>        B := 29</l>\n" + \
-        "<l>        C := 1.178097</l>\n\n"
+                "<l>        LightDark := 'light'</l>\n" + \
+                "<l>        Min := 33</l>\n" + \
+                "<l>        Max := 99999</l>\n" + \
+                "<l>        Features := 'bulkiness'</l>\n" + \
+                "<l>        A := 26</l>\n" + \
+                "<l>        B := 29</l>\n" + \
+                "<l>        C := 1.178097</l>\n\n"
 
     hdev_code += "<l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>\n" + \
                  "<l>        select_shape(Region, Regions, Features, 'and', Min, Max)</l>\n" + \
@@ -132,16 +152,25 @@ def get_FabricDefectsAITEX_mean_pipeline(params):
 
     return hdev_code
 
+FabricDefectsAITEX_mean_pipeline_initial_params = [
+    'smooth_histo',
+    'light',
+    'bulkiness',
+    3,
+    99999,
+    26,  # A
+    29,  # B
+    1.178097
+]
 
-FabricDefectsAITEX_mean_pipeline_bounds = np.array([
+FabricDefectsAITEX_mean_pipeline_bounds = [
     ['max_separability', 'smooth_histo'],
     ['dark', 'light'],
     ['area', 'width', 'height', 'compactness', 'contlength', 'convexity', 'rectangularity', 'ra', 'rb', 'anisometry',
      'bulkiness', 'outer_radius', 'inner_radius', 'inner_width', 'inner_height', 'dist_mean'],
     [1, 99999],
     [99999, 99999],
-    [1, 30], # A
-    [1, 30], # B
-    [-1.178097, -0.785398, -0.392699, 0.0, 0.392699, 0.785398, 1.178097] # C
-])
-
+    [1, 30],  # A
+    [1, 30],  # B
+    [-1.178097, -0.785398, -0.392699, 0.0, 0.392699, 0.785398, 1.178097]  # C
+]

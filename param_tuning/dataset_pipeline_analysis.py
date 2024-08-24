@@ -27,7 +27,7 @@ def run_pipeline(pipeline_name, graph, params, manual: bool = True):
         hdev_path = write_hdev_code_to_file(graph['datetime'], hdev_code)
 
 
-    raise NotImplementedError("Function not implemented correctly!")
+    raise NotImplementedError("Function not implemented completely!")
     """
     TO DO
     -----

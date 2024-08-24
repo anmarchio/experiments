@@ -1,21 +1,67 @@
+import random
+
 import numpy as np
 
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
-from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds
+from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
+
+
+def perturb(value, bound, temperature):
+    if isinstance(value, str):
+        # For strings, randomly choose a different string from the list
+        options = [opt for opt in bound if opt != value]
+        return random.choice(options)
+    elif isinstance(value, (int, float)):
+        if len(bound) == 2:
+            # For a range, slightly adjust the value within the bounds
+            delta = (bound[1] - bound[0]) * temperature * (random.random() - 0.5)
+            new_value = value + delta
+            return max(min(new_value, bound[1]), bound[0])  # Ensure within bounds
+        else:
+            # For discrete numeric values, select a neighboring value
+            idx = bound.index(value)
+            if random.random() > 0.5 and idx < len(bound) - 1:
+                return bound[idx + 1]
+            elif idx > 0:
+                return bound[idx - 1]
+            return value
+
+
+# Example Simulated Annealing step
+def simulated_annealing_step(current_state, bounds, temperature):
+    new_state = []
+    for i, value in enumerate(current_state):
+        new_value = perturb(value, bounds[i], temperature)
+        new_state.append(new_value)
+    return np.array(new_state)
+
+
+def params_to_str(values):
+    params_str = ""
+    for v in values:
+        params_str += str(v) + ", "
+    return params_str
 
 
 def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, step_size, temp):
     # Initialize the best solution with a random point within the bounds
-    best = bounds[:, 0] + np.random.rand(len(bounds)) * (bounds[:, 1] - bounds[:, 0])
+    best = np.array
+
+    if graph is None:
+        best = get_initial_state_by_pipeline_name(pipeline_name)
+    else:
+        best = bounds[:, 0] + np.random.rand(len(bounds)) * (bounds[:, 1] - bounds[:, 0])
 
     best_eval = objective(pipeline_name, graph, best)
+
     curr, curr_eval = best, best_eval
     scores = [best_eval]
 
     for i in range(n_iterations):
         # Take a step
-        candidate = curr + np.random.randn(len(bounds)) * step_size
-        candidate = np.clip(candidate, bounds[:, 0], bounds[:, 1])
+        # candidate = curr + np.random.randn(len(bounds)) * step_size
+        # candidate = np.clip(candidate, bounds[:, 0], bounds[:, 1])
+        candidate = simulated_annealing_step(curr, bounds, temp)
         candidate_eval = objective(pipeline_name, graph, candidate)
 
         # Check if we should keep the new point
@@ -32,6 +78,9 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, s
         if diff < 0 or np.random.rand() < metropolis:
             curr, curr_eval = candidate, candidate_eval
 
+        print(f"Iteration: {i}, Temp: {temp}, Performance: {-best_eval}")
+        print(f"\tParameters: {params_to_str(candidate)}")
+
     return best, best_eval
 
 
@@ -40,7 +89,7 @@ def run_simulated_annealing(pipeline_name, graph, objective, manual: bool = True
     step_size = 0.1
     temp = 10.0
 
-    bounds = np.array
+    bounds = []
 
     if manual:
         bounds = get_manual_hdev_pipeline_bounds(pipeline_name)

@@ -5,7 +5,7 @@ from api import env_var
 from api.database import Database
 from api.models import Dataset
 from param_tuning.dataset_pipeline_analysis import get_grouped_datasets_with_digraph_by_mean_fitness, \
-    read_db_and_apply_algorithms_to_hdev
+    read_db_and_apply_algorithms_to_hdev, objective
 from param_tuning.hdev_manual.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN
 from param_tuning.local_search import run_local_search
 from param_tuning.simulated_annealing import run_simulated_annealing
@@ -75,10 +75,10 @@ def run_param_tuning() -> int:
 
         for pipeline_name in MANUAL_HDEV_PIPELINES_MEAN:
             # Run simulated annealing on dataset
-            run_simulated_annealing(pipeline_name, None, True)
+            run_simulated_annealing(pipeline_name, None, objective, True)
 
             # Then run local search
-            run_local_search(pipeline_name, None, True)
+            run_local_search(pipeline_name, None, objective, True)
 
     # 3 -- AUTOMATIC: Read DB and apply HDEV optimization
     if selection == 3:

@@ -11,7 +11,7 @@ Helper Functions for HDEV Code
 
 
 def extract_bounds_from_graph(graph):
-    bounds = np.array
+    bounds = []
     bounds_identifiers = []
     """
     Only use the bounds that are represented by 
@@ -26,10 +26,10 @@ def extract_bounds_from_graph(graph):
             tmp_bounds = HDEV_FUNCTION_LOOKUP[k]['bounds']
             for b in tmp_bounds.keys():
                 if tmp_bounds[b] is not None:
-                    if np.size(bounds) > 1:
-                        bounds = np.append(bounds, np.array([list(tmp_bounds[b])]), axis=0)
+                    if len(bounds) > 1:
+                        bounds.append(list(tmp_bounds[b]))
                     else:
-                        bounds = np.array([list(tmp_bounds[b])])
+                        bounds = [list(tmp_bounds[b])]
                     bounds_identifiers.append(b)
 
     return bounds, bounds_identifiers
