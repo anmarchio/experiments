@@ -17,18 +17,22 @@
 <c>    * --------------</c>
 <l>    try        </l>
 <l>        FilterTypeBP := 'lines'</l>
-<l>        bandpass_image(Image, Image, FilterTypeBP)</l>
 <c>        </c>
 <l>        FilterTypeSA := 'y'</l>
 <l>        MaskSizeSA := 5</l>
-<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>
 <c>        </c>
-<l>        access_channel(ImageAmp, ImageAmp, 1)</l>
-<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
 <l>        Method := 'adapted_std_deviation'</l>
 <l>        LightDark := 'dark'</l>
 <l>        MaskSizeLT := 15</l>
 <l>        Scale := 0.3</l>
+<c>        </c>
+<l>        bandpass_image(Image, Image, FilterTypeBP)</l>
+<c>        </c>
+<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>
+<c>        </c>
+<l>        access_channel(ImageAmp, ImageAmp, 1)</l>
+<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
+<c>        </c>
 <l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeLT, Scale])</l>
 <c>        </c>
 <l>        connection(Region, Region)        </l>

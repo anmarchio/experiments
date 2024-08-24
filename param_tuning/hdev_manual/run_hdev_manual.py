@@ -8,6 +8,7 @@ import os
 
 import numpy as np
 
+from param_tuning.hdev.hdev_templates import HDEV_HEADER, HDEV_FOOTER, HDEV_TEMPLATE_CODE
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_MEAN = [
@@ -44,23 +45,45 @@ AirCarbon3_80_jpg_bright_mean.py
 """
 
 def get_AirCarbon3_80_jpg_bright_mean_pipeline(params):
-    hdev_code = "FilterTypeBP := 'lines'\n" + \
-                "FilterTypeSA := 'y''\n" + \
-                "MaskSizeSA := 5\n" + \
-                "Method := 'adapted_std_deviation'\n" + \
-                "LightDark := 'dark'\n" + \
-                "MaskSizeLT := 15\n" + \
-                "Scale := 0.3\n\n"
+    hdev_code = HDEV_HEADER
 
-    more code
+    # Dataset name and path
+    hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'<l/>\n" + \
+        "<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'<l/>\n" + \
+        "<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'<l/>\n\n"
+
+    hdev_code += HDEV_TEMPLATE_CODE
+
+    # Parameters
+    hdev_code = "<l>        FilterTypeBP := 'lines'</l>\n" + \
+                "<l>        FilterTypeSA := 'y'</l>\n" + \
+                "<l>        MaskSizeSA := 5</l>\n" + \
+                "<l>        Method := 'adapted_std_deviation'</l>\n" + \
+                "<l>        LightDark := 'dark'</l>\n" + \
+                "<l>        MaskSizeLT := 15</l>\n" + \
+                "<l>        Scale := 0.3</l>\n\n"
+
+    # Core Pipeline Code
+    hdev_code += "<l>        bandpass_image(Image, Image, FilterTypeBP)</l>\n\n" + \
+        "<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n\n" + \
+        "<l>        access_channel(ImageAmp, ImageAmp, 1)</l>\n" + \
+        "<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>\n" + \
+        "<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeLT, Scale])</l>\n\n" + \
+        "<l>        connection(Region, Region)</l>\n"
+
+    hdev_code += HDEV_FOOTER
 
     return hdev_code
 
-AirCarbon3_80_jpg_bright_mean_pipeline_bounds = [
-    [0, 255],
-    [1, 128],
-    more...
-]
+AirCarbon3_80_jpg_bright_mean_pipeline_bounds = np.array([
+    ['lines'],
+    ['y_binomial', 'x', 'x_binomial'],
+    [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
+    ['adapted_std_deviation'],
+    ['light', 'dark'],
+    [15, 21, 31],
+    [0.2, 0.3, 0.5]
+])
 
 """
 ============================
@@ -68,23 +91,57 @@ FabricDefectsAITEX_mean.py
 ============================
 """
 def get_FabricDefectsAITEX_mean_pipeline(params):
+    hdev_code = HDEV_HEADER
 
-    hdev_code = "Method := 'smooth_histo'\n" + \
-        "LightDark := 'light'\n" + \
-        "Min := 33\n" + \
-        "Max := 99999\n" + \
-        "Features := 'bulkiness'\n" + \
-        "A := 26\n" + \
-        "B := 29\n" + \
-        "C := 1.178097\n\n"
+    # Dataset name and path
+    hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'<l/>\n" + \
+                 "<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'<l/>\n" + \
+                 "<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'<l/>\n\n"
 
-    more code
+    hdev_code += HDEV_TEMPLATE_CODE
+
+    # Parameters
+    hdev_code = "<l>        Method := 'smooth_histo'</l>\n" + \
+        "<l>        LightDark := 'light'</l>\n" + \
+        "<l>        Min := 33</l>\n" + \
+        "<l>        Max := 99999</l>\n" + \
+        "<l>        Features := 'bulkiness'</l>\n" + \
+        "<l>        A := 26</l>\n" + \
+        "<l>        B := 29</l>\n" + \
+        "<l>        C := 1.178097</l>\n\n"
+
+    hdev_code += "<l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>\n" + \
+                 "<l>        select_shape(Region, Regions, Features, 'and', Min, Max)</l>\n" + \
+                 "<c>         StructElementType Ellipse</c>\n" + \
+                 "<c>         using A, B and C as shape_params</l>\n" + \
+                 "<l>        tuple_max2(A, B, max_rad)</l>\n" + \
+                 "<l>        longer := A</l>\n" + \
+                 "<l>        shorter := B</l>\n" + \
+                 "<l>        if (shorter > longer)</l>\n" + \
+                 "<l>            tmp := shorter</l>\n" + \
+                 "<l>            shorter := longer</l>\n" + \
+                 "<l>            longer := tmp</l>\n" + \
+                 "<l>        endif                </l>\n" + \
+                 "<l>        phi := C            </l>\n" + \
+                 "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n" + \
+                 "<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n" + \
+                 "<c>         Apply StructElement Ellipse to Closing</c>\n" + \
+                 "<l>        closing(Regions, StructElement, RegionClosing)</l>\n"
+
+    hdev_code += HDEV_FOOTER
 
     return hdev_code
 
-FabricDefectsAITEX_mean_pipeline_bounds = [
-    [0, 255],
-    [1, 128],
-    more...
-]
+
+FabricDefectsAITEX_mean_pipeline_bounds = np.array([
+    ['max_separability', 'smooth_histo'],
+    ['dark', 'light'],
+    ['area', 'width', 'height', 'compactness', 'contlength', 'convexity', 'rectangularity', 'ra', 'rb', 'anisometry',
+     'bulkiness', 'outer_radius', 'inner_radius', 'inner_width', 'inner_height', 'dist_mean'],
+    [1, 99999],
+    [99999, 99999],
+    [1, 30], # A
+    [1, 30], # B
+    [-1.178097, -0.785398, -0.392699, 0.0, 0.392699, 0.785398, 1.178097] # C
+])
 

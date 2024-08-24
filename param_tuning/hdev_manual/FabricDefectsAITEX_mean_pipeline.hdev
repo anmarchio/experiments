@@ -18,16 +18,19 @@
 <l>    try</l>
 <l>        Method := 'smooth_histo'</l>
 <l>        LightDark := 'light'</l>
-<l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>
 <c>        </c>
 <l>        Min := 33</l>
 <l>        Max := 99999</l>
 <l>        Features := 'bulkiness'</l>
-<l>        select_shape(Region, Regions, Features, 'and', Min, Max)</l>
 <c>        </c>
 <l>        A := 26</l>
 <l>        B := 29</l>
-<l>        C := 1.178097        </l>
+<l>        C := 1.178097  </l>
+<c>        </c>
+<l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>
+<c>        </c>
+<l>        select_shape(Region, Regions, Features, 'and', Min, Max)</l>
+<c>              </c>
 <c>        * StructElementType Ellipse</c>
 <c>        * using A, B and C as shape_params</c>
 <l>        tuple_max2(A, B, max_rad)</l>

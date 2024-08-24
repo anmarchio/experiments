@@ -48,7 +48,7 @@ def run_param_tuning() -> int:
     # Get linked list of grouped Datasets with according digraph closest to MEAN fitness
     linked_list_of_mean_fitness_and_digraph = {}
 
-    if 0 < selection < 4:
+    if selection == 1 or selection == 3:
         print("Get linked list of grouped Datasets with according digraph closest to MEAN fitness")
         print("-- from DB path: " + env_var.SQLITE_PATH)
         linked_list_of_mean_fitness_and_digraph = get_grouped_datasets_with_digraph_by_mean_fitness(db.get_session())
