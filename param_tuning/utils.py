@@ -1,6 +1,8 @@
 import os
 from datetime import datetime
 
+from settings import PARAM_TUNING_HDEV_MANUAL
+
 
 def raw_source_directory(dataset_source_directory):
     replace_strings = ["\"",
@@ -148,3 +150,10 @@ def write_csv_and_tex(read_from_path: str):
     fw = open(read_from_path + ".txt", "w")
     fw.write(tex_table)
     fw.close()
+
+
+def write_to_log(pipeline_name, output):
+    filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
+    f = open(filepath, "a")
+    f.write(output)
+    f.close()

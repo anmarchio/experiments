@@ -3,13 +3,14 @@ import os
 
 import cv2
 import numpy as np
-#from keras.src.utils import img_to_array
+from keras.src.utils import img_to_array
+# from keras.src.utils import img_to_array
 
-#from skimage.feature import graycomatrix, graycoprops
-#from keras.src.utils import img_to_array
+# from skimage.feature import graycomatrix, graycoprops
+# from keras.src.utils import img_to_array
 from skimage.feature.texture import graycomatrix, graycoprops
 from skimage.io import imread
-#from skimage.measure import shannon_entropy
+# from skimage.measure import shannon_entropy
 
 from decimal import Decimal
 
@@ -18,6 +19,7 @@ from sklearn.metrics import confusion_matrix
 
 # IMG_SIZE = 256
 IMG_SIZE = 128
+
 
 def extract_features(image):
     # Example: Using Grey Level Co-occurrence Matrix (GLCM) and Shannon Entropy
@@ -28,8 +30,22 @@ def extract_features(image):
     return [contrast, homogeneity, entropy]
 
 
-# Function to load binary images
 def load_binary_images(data_path):
+    images = []
+    for img_file in os.listdir(data_path):
+        if img_file.endswith('.jpg') or \
+                img_file.endswith('.png') or \
+                img_file.endswith('.jpeg') or \
+                img_file.endswith('.bmp'):
+            img = imread(os.path.join(data_path, img_file))
+            img = np.expand_dims(img, axis=-1)
+            images.append(img)
+
+    return np.array(images)
+
+
+# Function to load binary images
+def load_binary_images_and_labels(data_path):
     images = []
     labels = []
     for img_file in os.listdir(os.path.join(data_path, "images")):
@@ -38,10 +54,9 @@ def load_binary_images(data_path):
                 img_file.endswith('.jpeg') or \
                 img_file.endswith('.bmp'):
             # Load binary images and extract features
-            img = imread(os.path.join(data_path, img_file), as_gray=True)
+            img = imread(os.path.join(data_path, "images", img_file), as_gray=True)
             features = extract_features(img)
-            features = extract_features(img)
-            images.append(features)
+            images.append(img)
 
             # Load corresponding labeled masks
             mask = imread(
@@ -52,13 +67,14 @@ def load_binary_images(data_path):
     return np.array(images), np.array(labels)
 
 
-def load_data(train_images: [], train_labels: [], mask_as_gray=True):
+def load_data(train_images: [], train_labels: [], mask_as_gray=True, default_size=True):
     try:
         images = []
         labels = []
         for i in range(len(train_images)):
             img = cv2.imread(train_images[i])
-            img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
+            if default_size:
+                img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
 
             img_array = img_to_array(img) / 255.0
             images.append(img_array)
@@ -67,10 +83,13 @@ def load_data(train_images: [], train_labels: [], mask_as_gray=True):
             if mask_as_gray:
                 # mask_array = imread(train_labels[i], as_gray=True)
                 mask = cv2.imread(train_labels[i], cv2.IMREAD_GRAYSCALE)
-                mask_array = mask = cv2.resize(mask, (IMG_SIZE, IMG_SIZE))
+                if default_size:
+                    mask_array = mask = cv2.resize(mask, (IMG_SIZE, IMG_SIZE))
+                mask_array = mask
             else:
                 mask = cv2.imread(train_labels[i])
-                mask = cv2.resize(mask, (IMG_SIZE, IMG_SIZE))
+                if default_size:
+                    mask = cv2.resize(mask, (IMG_SIZE, IMG_SIZE))
                 mask_array = img_to_array(mask) / 255.0
             labels.append(mask_array)
     except Exception as e:
@@ -90,6 +109,8 @@ def get_scores(test_labels, predictions) -> dict:
     fp = 'nan'
     fn = 'nan'
     tp = 'nan'
+    precision = 'nan'
+    recall = 'nan'
     accuracy = 'nan'
     mcc = 'nan'
     f1 = 'nan'
@@ -104,16 +125,10 @@ def get_scores(test_labels, predictions) -> dict:
         cm = confusion_matrix(test_labels_flat, predictions_flat)
 
         # Calculate TP, TN, FP, FN for each class
-        tp_arr = np.diag(cm)
-        fp_arr = cm.sum(axis=0) - tp_arr
-        fn_arr = cm.sum(axis=1) - tp_arr
-        tn_arr = cm.sum() - (fp_arr + fn_arr + tp_arr)
-
-        # Sum up the contents of the numpy arrays to get integer values
-        tp = tp_arr.sum()
-        fp = fp_arr.sum()
-        fn = fn_arr.sum()
-        tn = tn_arr.sum()
+        tp = cm[0][0]
+        fn = cm[0][1]
+        fp = cm[1][0]
+        tn = cm[1][1]
 
         # Compute metrics based on TP, TN, FP, FN
         accuracy = (tp + tn) / (tp + tn + fp + fn)
@@ -149,6 +164,8 @@ def get_scores(test_labels, predictions) -> dict:
         "tn": tn,
         "fp": fp,
         "fn": fn,
+        "precision": precision,
+        "recall": recall,
         "mcc": mcc,
         "f1": f1,
         "jaccard": iou,

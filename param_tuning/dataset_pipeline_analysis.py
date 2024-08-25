@@ -5,7 +5,7 @@ import numpy as np
 from api.database import Database
 from api.models import Dataset, Pipeline
 from dashboard.utils import data_linking
-from param_tuning.data_handling import get_scores, load_data
+from param_tuning.data_handling import get_scores, load_binary_images, load_binary_images, load_data
 from param_tuning.hdev.hdev_helpers import translate_graph_to_hdev
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline, get_manual_hdev_pipeline_path, \
     get_manual_hdev_pipeline_training_source_path
@@ -38,12 +38,17 @@ def run_pipeline(pipeline_name, graph, params, manual: bool = True):
     # Execute Pipeline
     os.system("hdevelop -run " + hdev_path)
 
+    predictions_arr = load_binary_images(prediction_path)
+
     # Evaluate Results
     if manual:
         training_path = get_manual_hdev_pipeline_training_source_path(pipeline_name)
-        labels_arr, predictions_arr = load_data(os.path.join(training_path, "labels"), prediction_path)
     else:
-        labels_arr, predictions_arr = load_data(graph['training_path'] + "labels", prediction_path)
+        training_path = graph['training_path']
+
+    train_images = [os.path.join(training_path, "images", f) for f in os.listdir(os.path.join(training_path, "images"))]
+    train_labels = [os.path.join(training_path, "labels", f) for f in os.listdir(os.path.join(training_path, "labels"))]
+    _, labels_arr = load_data(train_images=train_images, train_labels=train_labels, default_size=False)
     scores = get_scores(labels_arr, predictions_arr)
     """
     scores = {
@@ -51,6 +56,8 @@ def run_pipeline(pipeline_name, graph, params, manual: bool = True):
         "tn": tn,
         "fp": fp,
         "fn": fn,
+        "precision": precision,
+        "recall": recall,
         "mcc": mcc,
         "f1": f1,
         "jaccard": iou,
@@ -58,7 +65,7 @@ def run_pipeline(pipeline_name, graph, params, manual: bool = True):
     }
     """
 
-    return scores['jaccard']
+    return scores['mcc']
 
 
 def objective(pipeline_name, graph, params, manual = True):

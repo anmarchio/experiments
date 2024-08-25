@@ -6,7 +6,7 @@ HDEV_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" \
 
 HDEV_TEMPLATE_CODE = "<l>list_image_files(source_path, 'default', [], ImageFiles)</l>\n" \
                      "<c></c>\n" \
-                     "<l>for Index := 1 to |ImageFiles| - 1 by 1</l>\n" \
+                     "<l>for Index := 0 to |ImageFiles| - 1 by 1</l>\n" \
                      "<l>    read_image(Image, ImageFiles[Index])</l>\n" \
                      "<l>    get_image_size(Image, Width, Height)</l>\n" \
                      "<c>    * --------------</c>\n" \

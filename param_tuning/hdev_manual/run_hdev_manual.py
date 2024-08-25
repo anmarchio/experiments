@@ -50,6 +50,7 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
     # None
     return None
 
+
 """
 ============================
 AirCarbon3_80_jpg_bright_mean.py
@@ -63,20 +64,20 @@ def get_AirCarbon3_80_jpg_bright_mean_pipeline(params):
     # Dataset name and path
     hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'</l>\n" + \
                  "<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>\n" + \
-                 "<l>output_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'</l>\n" +  \
+                 "<l>output_path := dataset_name + '/'</l>\n" + \
                  "<c></c>\n"
 
     hdev_code += HDEV_TEMPLATE_CODE
 
     # Parameters
     # 'lines', 'y', 5, 'adapted_std_deviation', 'dark', 15, 0.3
-    hdev_code += "<l>        FilterTypeBP := " + str(params[0]) + "</l>\n" + \
-                 "<l>        FilterTypeSA := " + str(params[1]) + "</l>\n" + \
-                 "<l>        MaskSizeSA := " + str(params[2]) + "</l>\n" + \
-                 "<l>        Method := " + str(params[3]) + "</l>\n" + \
-                 "<l>        LightDark := " + str(params[4]) + "</l>\n" + \
-                 "<l>        MaskSizeLT := " + str(params[5]) + "</l>\n" + \
-                 "<l>        Scale := " + str(params[6]) + "</l>\n\n"
+    hdev_code += "<l>        FilterTypeBP := '" + str(params[0]) + "'</l>\n" + \
+                 "<l>        FilterTypeSA := '" + str(params[1]) + "'</l>\n" + \
+                 "<l>        MaskSizeSA := '" + str(params[2]) + "'</l>\n" + \
+                 "<l>        Method := '" + str(params[3]) + "'</l>\n" + \
+                 "<l>        LightDark := '" + str(params[4]) + "'</l>\n" + \
+                 "<l>        MaskSizeLT := '" + str(params[5]) + "'</l>\n" + \
+                 "<l>        Scale := '" + str(params[6]) + "'</l>\n\n"
 
     # Core Pipeline Code
     hdev_code += "<l>        bandpass_image(Image, Image, FilterTypeBP)</l>\n" \
@@ -104,6 +105,7 @@ AirCarbon3_80_jpg_bright_mean_pipeline_initial_params = [
     15,
     0.2
 ]
+
 AirCarbon3_80_jpg_bright_mean_pipeline_bounds = [
     ['lines'],
     ['y_binomial', 'x', 'x_binomial', 'y'],
@@ -128,27 +130,29 @@ def get_FabricDefectsAITEX_mean_pipeline(params):
     hdev_code = HDEV_HEADER
 
     # Dataset name and path
-    hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'<l/>\n" + \
-                 "<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'<l/>\n" + \
-                 "<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'<l/>\n\n"
+    hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'</l>\n" + \
+                 "<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>\n" + \
+                 "<l>output_path := dataset_name + '/'</l>\n" \
+                 "<c></c>\n"
 
     hdev_code += HDEV_TEMPLATE_CODE
 
     # Parameters
     # 'smooth_histo', 'light', 33, 99999, 'bulkiness', 26, 29, 1.178097
-    hdev_code = "<l>        Method := " + str(params[0]) + "</l>\n" + \
-                "<l>        LightDark := " + str(params[1]) + "</l>\n" + \
-                "<l>        Min := " + str(params[2]) + "</l>\n" + \
-                "<l>        Max := " + str(params[3]) + "</l>\n" + \
-                "<l>        Features := " + str(params[4]) + "</l>\n" + \
-                "<l>        A := " + str(params[5]) + "</l>\n" + \
-                "<l>        B := " + str(params[6]) + "</l>\n" + \
-                "<l>        C := " + str(params[7]) + "</l>\n\n"
+    hdev_code += "<l>        Method := '" + str(params[0]) + "'</l>\n" + \
+                 "<l>        LightDark := '" + str(params[1]) + "'</l>\n" + \
+                 "<l>        Min := '" + str(params[2]) + "'</l>\n" + \
+                 "<l>        Max := '" + str(params[3]) + "'</l>\n" + \
+                 "<l>        Features := '" + str(params[4]) + "'</l>\n" + \
+                 "<l>        A := '" + str(params[5]) + "'</l>\n" + \
+                 "<l>        B := '" + str(params[6]) + "'</l>\n" + \
+                 "<l>        C := '" + str(params[7]) + "'</l>\n" + \
+                 "<c></c>\n"
 
     hdev_code += "<l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>\n" + \
                  "<l>        select_shape(Region, Regions, Features, 'and', Min, Max)</l>\n" + \
-                 "<c>         StructElementType Ellipse</c>\n" + \
-                 "<c>         using A, B and C as shape_params</l>\n" + \
+                 "<c>        * StructElementType Ellipse</c>\n" + \
+                 "<c>        * using A, B and C as shape_params</c>\n" + \
                  "<l>        tuple_max2(A, B, max_rad)</l>\n" + \
                  "<l>        longer := A</l>\n" + \
                  "<l>        shorter := B</l>\n" + \
@@ -160,7 +164,7 @@ def get_FabricDefectsAITEX_mean_pipeline(params):
                  "<l>        phi := C            </l>\n" + \
                  "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n" + \
                  "<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n" + \
-                 "<c>         Apply StructElement Ellipse to Closing</c>\n" + \
+                 "<c>        * Apply StructElement Ellipse to Closing</c>\n" + \
                  "<l>        closing(Regions, StructElement, RegionClosing)</l>\n"
 
     hdev_code += HDEV_FOOTER
@@ -201,7 +205,7 @@ DICTS for pipelines, bounds, source_paths
 """
 
 pipelines = {
-    "AirCarbon3_80.jpg_bright_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline,
+    "AirCarbon3_80.jpg_bright_mean_pipeline": get_AirCarbon3_80_jpg_bright_mean_pipeline,
     "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline
     # Add other pipelines here
 }
@@ -213,7 +217,7 @@ bounds = {
 }
 
 initial_params = {
-    "AirCarbon3_80.jpg_bright_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params,
+    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_initial_params,
     "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params
 }
 # Add
