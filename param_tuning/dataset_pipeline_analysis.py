@@ -5,9 +5,10 @@ import numpy as np
 from api.database import Database
 from api.models import Dataset, Pipeline
 from dashboard.utils import data_linking
-from param_tuning.data_handling import get_scores
+from param_tuning.data_handling import get_scores, load_data
 from param_tuning.hdev.hdev_helpers import translate_graph_to_hdev
-from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline, get_manual_hdev_pipeline_path
+from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline, get_manual_hdev_pipeline_path, \
+    get_manual_hdev_pipeline_training_source_path
 from param_tuning.local_search import run_local_search
 from param_tuning.read_dot import parse_dot
 from param_tuning.simulated_annealing import run_simulated_annealing
@@ -18,36 +19,31 @@ from settings import RESULTS_PATH, HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 def run_pipeline(pipeline_name, graph, params, manual: bool = True):
     hdev_code = ""
     hdev_path = ""
+    prediction_path = ""
 
     if manual:
         hdev_code = get_manual_hdev_pipeline(pipeline_name, params)
-        hdev_path = get_manual_hdev_pipeline_path(pipeline_name)
+        prediction_path = get_manual_hdev_pipeline_path(pipeline_name)
+        hdev_path = prediction_path + ".hdev"
     else:
         hdev_code = translate_graph_to_hdev(graph, params)
         hdev_path = write_hdev_code_to_file(graph['datetime'], hdev_code)
+        prediction_path = os.path.join(HDEV_RESULTS_PATH, get_pipeline_folder_name_by_datetime(graph['datetime']))
 
-
-    raise NotImplementedError("Function not implemented completely!")
-    """
-    TO DO
-    -----
-    - decode the path correctly!
-    - include correct bounds
-    - make sure to include `all` MVTec nodes/algorithms
-    """
-
-    prediction_path = os.path.join(HDEV_RESULTS_PATH, get_pipeline_folder_name_by_datetime(graph['datetime']))
     if not os.path.exists(prediction_path):
         os.mkdir(prediction_path)
+
+    write_hdev_code_to_file(hdev_path, hdev_code)
 
     # Execute Pipeline
     os.system("hdevelop -run " + hdev_path)
 
     # Evaluate Results
     if manual:
-        labels_arr, predictions_arr = load_data(graph['training_path'] + "labels", prediction_path)
+        training_path = get_manual_hdev_pipeline_training_source_path(pipeline_name)
+        labels_arr, predictions_arr = load_data(os.path.join(training_path, "labels"), prediction_path)
     else:
-        labels_arr, predictions_arr = load_data(training_path + "labels", prediction_path)
+        labels_arr, predictions_arr = load_data(graph['training_path'] + "labels", prediction_path)
     scores = get_scores(labels_arr, predictions_arr)
     """
     scores = {
@@ -96,9 +92,7 @@ def get_analyzer_id_by_index_in_dataset_dict(dataset_dict: {}, mean_idx: int):
             idx += 1
 
 
-def write_hdev_code_to_file(date_object, hdev_code) -> str:
-    hdev_path = get_pipeline_folder_name_by_datetime(date_object) + ".hdev"
-
+def write_hdev_code_to_file(hdev_path: str, hdev_code: str) -> str:
     f = open(hdev_path, "w")
     f.write(hdev_code)
     f.close()

@@ -18,32 +18,37 @@ MANUAL_HDEV_PIPELINES_MEAN = [
 
 
 def get_manual_hdev_pipeline(pipeline_name: str, params: np.array):
-    if pipeline_name == "AirCarbon3_80.jpg_bright_mean_pipeline":
-        return get_AirCarbon3_80_jpg_bright_mean_pipeline(params)
-    elif pipeline_name == "FabricDefectsAITEX_mean_pipeline":
-        return get_FabricDefectsAITEX_mean_pipeline(params)
-    # ...
+    pipeline_function = pipelines.get(pipeline_name)
+
+    if pipeline_function:
+        # Call the specific function with the 'params' argument
+        return pipeline_function(params)
+    else:
+        return None
 
 
 def get_manual_hdev_pipeline_bounds(pipeline_name: str) -> []:
-    if pipeline_name == "AirCarbon3_80.jpg_bright_mean_pipeline":
-        return AirCarbon3_80_jpg_bright_mean_pipeline_bounds
-    elif pipeline_name == "FabricDefectsAITEX_mean_pipeline":
-        return FabricDefectsAITEX_mean_pipeline_bounds
-    # ...
+    return bounds.get(pipeline_name, None)
 
 
 def get_initial_state_by_pipeline_name(pipeline_name: str) -> []:
-    if pipeline_name == "AirCarbon3_80.jpg_bright_mean_pipeline":
-        return AirCarbon3_80_jpg_bright_mean_pipeline_initial_params
-    elif pipeline_name == "FabricDefectsAITEX_mean_pipeline":
-        return FabricDefectsAITEX_mean_pipeline_initial_params
+    return initial_params.get(pipeline_name, None)
+
 
 def get_manual_hdev_pipeline_path(pipeline_name: str):
     for name in MANUAL_HDEV_PIPELINES_MEAN:
         if name == pipeline_name:
             return os.path.join(PARAM_TUNING_HDEV_MANUAL, name)
+    return None
 
+
+def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
+    if pipeline_name == "AirCarbon3_80.jpg_bright_mean_pipeline":
+        return AirCarbon3_80_jpg_bright_training_source_path
+    elif pipeline_name == "FabricDefectsAITEX_mean_pipeline":
+        return FabricDefectsAITEX_training_source_path
+    # None
+    return None
 
 """
 ============================
@@ -56,9 +61,10 @@ def get_AirCarbon3_80_jpg_bright_mean_pipeline(params):
     hdev_code = HDEV_HEADER
 
     # Dataset name and path
-    hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'<l/>\n" + \
-                 "<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'<l/>\n" + \
-                 "<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'<l/>\n\n"
+    hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'</l>\n" + \
+                 "<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>\n" + \
+                 "<l>output_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'</l>\n" +  \
+                 "<c></c>\n"
 
     hdev_code += HDEV_TEMPLATE_CODE
 
@@ -73,16 +79,21 @@ def get_AirCarbon3_80_jpg_bright_mean_pipeline(params):
                  "<l>        Scale := " + str(params[6]) + "</l>\n\n"
 
     # Core Pipeline Code
-    hdev_code += "<l>        bandpass_image(Image, Image, FilterTypeBP)</l>\n\n" + \
-                 "<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n\n" + \
+    hdev_code += "<l>        bandpass_image(Image, Image, FilterTypeBP)</l>\n" \
+                 "<c></c>\n" \
+                 "<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n" + \
+                 "<c></c>\n" \
                  "<l>        access_channel(ImageAmp, ImageAmp, 1)</l>\n" + \
                  "<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>\n" + \
-                 "<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeLT, Scale])</l>\n\n" + \
+                 "<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], " \
+                 "[MaskSizeLT, Scale])</l>\n" + \
+                 "<c></c>\n" \
                  "<l>        connection(Region, Region)</l>\n"
 
     hdev_code += HDEV_FOOTER
 
     return hdev_code
+
 
 AirCarbon3_80_jpg_bright_mean_pipeline_initial_params = [
     'lines',
@@ -103,6 +114,9 @@ AirCarbon3_80_jpg_bright_mean_pipeline_bounds = [
     [0.2, 0.3, 0.5]
 ]
 
+AirCarbon3_80_jpg_bright_training_source_path = os.path.join("C:\\", "evias_expmts", "Aircarbon3", "20210325_13h25_rov",
+                                                             "training", "80.jpg_bright")
+
 """
 ============================
 FabricDefectsAITEX_mean.py
@@ -121,14 +135,15 @@ def get_FabricDefectsAITEX_mean_pipeline(params):
     hdev_code += HDEV_TEMPLATE_CODE
 
     # Parameters
-    hdev_code = "<l>        Method := 'smooth_histo'</l>\n" + \
-                "<l>        LightDark := 'light'</l>\n" + \
-                "<l>        Min := 33</l>\n" + \
-                "<l>        Max := 99999</l>\n" + \
-                "<l>        Features := 'bulkiness'</l>\n" + \
-                "<l>        A := 26</l>\n" + \
-                "<l>        B := 29</l>\n" + \
-                "<l>        C := 1.178097</l>\n\n"
+    # 'smooth_histo', 'light', 33, 99999, 'bulkiness', 26, 29, 1.178097
+    hdev_code = "<l>        Method := " + str(params[0]) + "</l>\n" + \
+                "<l>        LightDark := " + str(params[1]) + "</l>\n" + \
+                "<l>        Min := " + str(params[2]) + "</l>\n" + \
+                "<l>        Max := " + str(params[3]) + "</l>\n" + \
+                "<l>        Features := " + str(params[4]) + "</l>\n" + \
+                "<l>        A := " + str(params[5]) + "</l>\n" + \
+                "<l>        B := " + str(params[6]) + "</l>\n" + \
+                "<l>        C := " + str(params[7]) + "</l>\n\n"
 
     hdev_code += "<l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>\n" + \
                  "<l>        select_shape(Region, Regions, Features, 'and', Min, Max)</l>\n" + \
@@ -152,6 +167,7 @@ def get_FabricDefectsAITEX_mean_pipeline(params):
 
     return hdev_code
 
+
 FabricDefectsAITEX_mean_pipeline_initial_params = [
     'smooth_histo',
     'light',
@@ -174,3 +190,30 @@ FabricDefectsAITEX_mean_pipeline_bounds = [
     [1, 30],  # B
     [-1.178097, -0.785398, -0.392699, 0.0, 0.392699, 0.785398, 1.178097]  # C
 ]
+
+FabricDefectsAITEX_training_source_path = os.path.join("C:\\", "evias_expmts", "FabricDefectsAITEX",
+                                                       "train", "images")
+
+"""
+=============================
+DICTS for pipelines, bounds, source_paths
+=============================
+"""
+
+pipelines = {
+    "AirCarbon3_80.jpg_bright_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline,
+    "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline
+    # Add other pipelines here
+}
+
+bounds = {
+    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_bounds,
+    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_bounds
+    # Add other bounds here
+}
+
+initial_params = {
+    "AirCarbon3_80.jpg_bright_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params,
+    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params
+}
+# Add
