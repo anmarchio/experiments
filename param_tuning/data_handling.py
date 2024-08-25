@@ -135,8 +135,8 @@ def get_scores(test_labels, predictions) -> dict:
         # Compute MCC
         numerator = Decimal(float(tp * tn)) - Decimal(float(fp * fn))
         denominator = Decimal(float(tp + fp) * float(tp + fn) * float(tn + fp) * float(tn + fn))
-        mcc = 0
-        if denominator > 0:
+        mcc = 0.0
+        if denominator > 0.0:
             mcc = numerator / Decimal(np.sqrt(float(denominator)))
         # Compute F1-score
         precision = tp / (tp + fp) if (tp + fp) != 0 else 0
