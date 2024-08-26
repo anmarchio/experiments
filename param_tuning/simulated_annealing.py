@@ -117,5 +117,5 @@ def run_simulated_annealing(pipeline_name, graph, objective, manual: bool = True
         return best_params[0], best_params[1], best_score
     except Exception as e:
         print(e)
-        write_to_log(pipeline_name, e)
+        write_to_log(pipeline_name, str(e))
         return [], [], 0.0

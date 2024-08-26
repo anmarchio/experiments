@@ -196,7 +196,7 @@ FabricDefectsAITEX_mean_pipeline_bounds = [
 ]
 
 FabricDefectsAITEX_training_source_path = os.path.join("C:\\", "evias_expmts", "FabricDefectsAITEX",
-                                                       "train", "images")
+                                                       "train")
 
 """
 =============================
@@ -205,19 +205,19 @@ DICTS for pipelines, bounds, source_paths
 """
 
 pipelines = {
-    "AirCarbon3_80.jpg_bright_mean_pipeline": get_AirCarbon3_80_jpg_bright_mean_pipeline,
-    "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline
+    "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline,
+    "AirCarbon3_80.jpg_bright_mean_pipeline": get_AirCarbon3_80_jpg_bright_mean_pipeline
     # Add other pipelines here
 }
 
 bounds = {
-    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_bounds,
-    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_bounds
+    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_bounds,
+    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_bounds
     # Add other bounds here
 }
 
 initial_params = {
-    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_initial_params,
-    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params
+    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params,
+    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_initial_params
 }
 # Add

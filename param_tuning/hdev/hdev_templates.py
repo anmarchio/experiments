@@ -7,7 +7,7 @@ HDEV_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" \
 HDEV_TEMPLATE_CODE = "<l>list_image_files(source_path, 'default', [], ImageFiles)</l>\n" \
                      "<c></c>\n" \
                      "<l>for Index := 0 to |ImageFiles| - 1 by 1</l>\n" \
-                     "<l>    out_img_path := output_path + '/' + Index</l>\n" \
+                     "<l>    out_img_path := output_path + Index + '.png'</l>\n" \
                      "<l>    file_exists(out_img_path, exists)</l>\n" \
                      "<l>    if(exists)</l>\n" \
                      "<l>        delete_file(out_img_path)</l>\n" \
@@ -31,6 +31,7 @@ HDEV_FOOTER = "<l>    catch (Exception)</l>\n" \
               "<c>    * --------------</c>\n" \
               "<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>\n" \
               "<l>    paint_region(Region, ImageResult, ImageResult, 255, 'margin')</l>\n" \
+              "<l>    out_img_path := output_path + Index</l>\n" \
               "<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>\n" \
               "<l>endfor</l>\n" \
               "<l>exit()</l>\n" \
