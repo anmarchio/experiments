@@ -10,7 +10,7 @@ HDEV_TEMPLATE_CODE = "<l>list_image_files(source_path, 'default', [], ImageFiles
                      "<l>    out_img_path := output_path + '/' + Index</l>\n" \
                      "<l>    file_exists(out_img_path, exists)</l>\n" \
                      "<l>    if(exists)</l>\n" \
-                     "<l>        delete_file(out_img_path)</l>\n" \        
+                     "<l>        delete_file(out_img_path)</l>\n" \
                      "<l>    endif</l>\n" \
                      "<l>    read_image(Image, ImageFiles[Index])</l>\n" \
                      "<l>    get_image_size(Image, Width, Height)</l>\n" \
