@@ -25,10 +25,10 @@ def perturb(value, bound, temperature):
         return value
     if isinstance(value, str):
         # NO: For strings, randomly choose a different string from the list
-        # NO: options = [opt for opt in bound if opt != value]
-        # NO: return random.choice(options)
+        options = [opt for opt in bound if opt != value]
+        return random.choice(options)
         # just return string as is
-        return value
+        #return value
     elif isinstance(value, (int, float)):
         if len(bound) == 2:
             # For a range, slightly adjust the value within the bounds
