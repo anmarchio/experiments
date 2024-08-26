@@ -10,6 +10,17 @@ from param_tuning.utils import write_to_log
 
 
 def perturb(value, bound, temperature):
+    try:
+        value = int(value)
+    except ValueError:
+        print("Not int")
+
+        # If that fails, try to convert the string to a float
+    try:
+        value = float(value)
+    except ValueError:
+        print("Not float")
+        
     if len(bound) == 1:
         return value
     if isinstance(value, str):

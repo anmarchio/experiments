@@ -9,6 +9,17 @@ from param_tuning.utils import write_to_log
 
 
 def perturb(value, bound, step_size):
+    try:
+        value = int(value)
+    except ValueError:
+        print("Not int")
+
+        # If that fails, try to convert the string to a float
+    try:
+        value = float(value)
+    except ValueError:
+        print("Not float")
+
     if len(bound) == 1:
         return value
     if isinstance(value, str):
@@ -37,7 +48,7 @@ def perturb(value, bound, step_size):
 def local_search_step(current_state, bounds, step_size):
     new_state = []
     for i, value in enumerate(current_state):
-        new_value = perturb(value, bounds[i], temperature)
+        new_value = perturb(value, bounds[i], step_size)
         new_state.append(new_value)
     return np.array(new_state)
 
