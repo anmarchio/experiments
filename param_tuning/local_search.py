@@ -35,13 +35,16 @@ def perturb(value, bound, step_size):
             new_value = value + delta
             return max(min(new_value, bound[1]), bound[0])  # Ensure within bounds
         else:
-            # For discrete numeric values, select a neighboring value
-            idx = bound.index(value)
+            # For discrete numeric values, find the closest match
+            closest_value = min(bound, key=lambda x: abs(x - value))
+            idx = bound.index(closest_value)
+
+            # Select a neighboring value
             if random() > 0.5 and idx < len(bound) - 1:
                 return bound[idx + 1]
             elif idx > 0:
                 return bound[idx - 1]
-            return value
+            return bound[idx]
 
 
 # analogue to Example Simulated Annealing step
