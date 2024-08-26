@@ -78,7 +78,7 @@ def run_param_tuning() -> int:
             run_simulated_annealing(pipeline_name, None, objective, True)
 
             # Then run local search
-            # run_local_search(pipeline_name, None, objective, True)
+            run_local_search(pipeline_name, None, objective, True)
 
     # 3 -- AUTOMATIC: Read DB and apply HDEV optimization
     if selection == 3:

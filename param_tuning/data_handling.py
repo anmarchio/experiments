@@ -3,11 +3,9 @@ import os
 
 import cv2
 import numpy as np
-from keras.src.utils import img_to_array
-# from keras.src.utils import img_to_array
 
 # from skimage.feature import graycomatrix, graycoprops
-# from keras.src.utils import img_to_array
+from keras.src.utils import img_to_array
 from skimage.feature.texture import graycomatrix, graycoprops
 from skimage.io import imread
 # from skimage.measure import shannon_entropy
@@ -76,8 +74,9 @@ def load_data(train_images: [], train_labels: [], mask_as_gray=True, default_siz
             if default_size:
                 img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
 
-            img_array = img_to_array(img) / 255.0
-            images.append(img_array)
+            #img_array = img_to_array(img) / 255.0
+            #images.append(img_array)
+            images.append(img)
 
             mask_array = None
             if mask_as_gray:
@@ -90,7 +89,8 @@ def load_data(train_images: [], train_labels: [], mask_as_gray=True, default_siz
                 mask = cv2.imread(train_labels[i])
                 if default_size:
                     mask = cv2.resize(mask, (IMG_SIZE, IMG_SIZE))
-                mask_array = img_to_array(mask) / 255.0
+                #mask_array = img_to_array(mask) / 255.0
+                mask_array = mask
             labels.append(mask_array)
     except Exception as e:
         print(str(e))
@@ -99,7 +99,79 @@ def load_data(train_images: [], train_labels: [], mask_as_gray=True, default_siz
     return np.array(images), np.array(labels)
 
 
-def get_scores(test_labels, predictions) -> dict:
+from PIL import Image
+from sklearn.metrics import matthews_corrcoef, jaccard_score, f1_score, accuracy_score
+
+
+def load_images_from_folder(folder):
+    images = []
+    for filename in sorted(os.listdir(folder)):  # sorted to align images from both folders
+        if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg'):
+            img = Image.open(os.path.join(folder, filename)).convert('L')
+            img_array = np.array(img)
+            # Convert the image to a binary array (0 for black, 1 for white)
+            binary_array = np.where(img_array > 0, 1, 0)
+            images.append(binary_array.flatten())
+    return images
+
+
+def calculate_metrics(ground_truth_path, prediction_path):
+    # Load images from both folders
+    ground_truth_images = load_images_from_folder(ground_truth_path)
+    prediction_images = load_images_from_folder(prediction_path)
+
+    # Initialize accumulators for metrics
+    tp_total = fp_total = tn_total = fn_total = 0.0
+
+    # Iterate over the image pairs
+    for gt, pred in zip(ground_truth_images, prediction_images):
+        # Calculate TP, FP, TN, FN
+        tp = np.sum((gt == 1) & (pred == 1))
+        fp = np.sum((gt == 0) & (pred == 1))
+        tn = np.sum((gt == 0) & (pred == 0))
+        fn = np.sum((gt == 1) & (pred == 0))
+
+        # Accumulate totals
+        tp_total += float(tp)
+        fp_total += float(fp)
+        tn_total += float(tn)
+        fn_total += float(fn)
+
+    # Compute metrics based on TP, TN, FP, FN
+    accuracy = 0.0
+    acc_sum = float(tp_total + tn_total + fp_total + fn_total)
+    if acc_sum > 0:
+        accuracy = float(tp_total + tn_total) / acc_sum
+    # Compute MCC
+    numerator = Decimal(float(tp_total * tn_total)) - Decimal(float(fp_total * fn_total))
+    denominator = Decimal(float(tp_total + fp_total) * float(tp_total + fn_total) * float(tn_total + fp_total) * float(tn_total + fn_total))
+    mcc = 0.0
+    if denominator > 0.0:
+        mcc = numerator / Decimal(np.sqrt(float(denominator)))
+    # Compute F1-score
+    precision = tp_total / (tp_total + fp_total) if (tp_total + fp_total) != 0 else 0.0
+    recall = tp_total / (tp_total + fn_total) if (tp_total + fn_total) != 0 else 0.0
+    f1 = (2 * precision * recall) / (precision + recall) if (precision + recall) != 0 else 0.0
+    # Compute IoU
+    iou = tp_total / (tp_total + fp_total + fn_total) if (tp_total + fp_total + fn_total) != 0 else 0.0
+
+    scores = {
+        "tp": tp_total,
+        "tn": tn_total,
+        "fp": fp_total,
+        "fn": fn_total,
+        "precision": precision,
+        "recall": recall,
+        "mcc": mcc,
+        "f1": f1,
+        "jaccard": iou,
+        "accuracy": accuracy
+    }
+
+    return scores
+
+
+def get_scores_depr(test_labels, predictions) -> dict:
     # Flatten the arrays for computation
     test_labels_flat = test_labels.flatten()
     predictions_flat = predictions.flatten()

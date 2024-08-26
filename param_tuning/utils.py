@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from settings import PARAM_TUNING_HDEV_MANUAL
+from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC
 
 
 def raw_source_directory(dataset_source_directory):
@@ -21,6 +21,13 @@ def raw_source_directory(dataset_source_directory):
         return None
 
     return dataset_source_directory
+
+
+def get_evias_experimts_path_for_hdev():
+    source_path = ""
+    for elmnt in EVIAS_SRC:
+        source_path += elmnt + "/"
+    return source_path
 
 
 def check_dir_exists(dir):

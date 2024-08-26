@@ -4,7 +4,8 @@ HDEV_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" \
               "<interface/>\n" \
               "<body>\n"
 
-HDEV_TEMPLATE_CODE = "<l>list_image_files(source_path, 'default', [], ImageFiles)</l>\n" \
+HDEV_TEMPLATE_CODE = "<l>dev_update_off()</l>\n"\
+                     "<l>list_image_files(source_path, 'default', [], ImageFiles)</l>\n" \
                      "<c></c>\n" \
                      "<l>for Index := 0 to |ImageFiles| - 1 by 1</l>\n" \
                      "<l>    out_img_path := output_path + Index + '.png'</l>\n" \
