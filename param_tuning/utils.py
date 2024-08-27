@@ -165,7 +165,7 @@ def write_to_file(filepath, content):
     f.close()
 
 
-def write_log(iteration, performance, criterion="MCC", parameters, algorithm, pipeline_name):
+def write_log(iteration, performance, parameters, algorithm, pipeline_name, criterion="MCC"):
     filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
     line = f"{iteration};{performance};{criterion};{parameters};{algorithm};{pipeline_name};{datetime.now()};\n"
     write_to_file(filepath, line)

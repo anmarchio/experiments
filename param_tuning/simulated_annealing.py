@@ -1,5 +1,3 @@
-import datetime
-import random
 from decimal import Decimal
 
 import numpy as np
@@ -7,7 +5,7 @@ import numpy as np
 from param_tuning.algorithm_step import params_to_str, perturb
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
-from param_tuning.utils import write_to_log, write_header_to_log, write_log
+from param_tuning.utils import write_header_to_log, write_log
 
 
 # Example Simulated Annealing step
@@ -34,7 +32,7 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, c
     scores = [best_eval]
 
     write_header_to_log(pipeline_name)
-    write_log(-1, -best_eval, "mcc", params_to_str(curr), "sa", pipeline_name)
+    write_log(-1, -best_eval, params_to_str(curr), "sa", pipeline_name)
 
     for i in range(n_iterations):
         # Take a step
@@ -60,7 +58,7 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, c
         output = f"Iteration: {i}, Temp: {temp}\nPerformance: {-best_eval}\n"
         output += f"\tParameters: {params_to_str(candidate)}\n"
         print(output)
-        write_log(i, -best_eval, "mcc", params_to_str(candidate), "sa", pipeline_name)
+        write_log(i, -best_eval, params_to_str(candidate), "sa", pipeline_name)
 
         temp *= cooling_rate
 
