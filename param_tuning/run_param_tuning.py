@@ -74,11 +74,11 @@ def run_param_tuning() -> int:
         check_dir_exists(manual_hdev_path)
 
         for pipeline_name in MANUAL_HDEV_PIPELINES_MEAN:
-            # Then run local search
-            run_local_search(pipeline_name, None, objective, True)
-
             # Run simulated annealing on dataset
             run_simulated_annealing(pipeline_name, None, objective, True)
+
+            # Then run local search
+            run_local_search(pipeline_name, None, objective, True)
 
     # 3 -- AUTOMATIC: Read DB and apply HDEV optimization
     if selection == 3:
