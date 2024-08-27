@@ -159,8 +159,19 @@ def write_csv_and_tex(read_from_path: str):
     fw.close()
 
 
-def write_to_log(pipeline_name, output):
-    filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
+def write_to_file(filepath, content):
     f = open(filepath, "a")
-    f.write(output)
+    f.write(content)
     f.close()
+
+
+def write_log(iteration, performance, criterion="MCC", parameters, algorithm, pipeline_name):
+    filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
+    line = f"{iteration};{performance};{criterion};{parameters};{algorithm};{pipeline_name};{datetime.now()};\n"
+    write_to_file(filepath, line)
+
+
+def write_header_to_log(pipeline_name):
+    filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
+    header = "Iteration; Performance; Criterion; Parameters; Algorithm; Pipeline; Datetime;\n"
+    write_to_file(filepath, header)

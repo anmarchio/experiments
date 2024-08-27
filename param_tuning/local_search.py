@@ -7,7 +7,7 @@ from param_tuning.algorithm_step import perturb
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
 from param_tuning.simulated_annealing import params_to_str
-from param_tuning.utils import write_to_log
+from param_tuning.utils import write_to_log, write_header_to_log, write_log
 
 
 # analogue to Example Simulated Annealing step
@@ -33,8 +33,8 @@ def local_search(pipeline_name, graph, objective, bounds, n_iterations, step_siz
     curr, curr_eval = best, best_eval
     scores = [best_eval]
 
-    write_to_log(pipeline_name,
-                 f"\n{'-' * 20}\nDataset: {pipeline_name}, SimAnn MCC, {datetime.now()}\n{'-' * 20}\n")
+    write_header_to_log(pipeline_name)
+    write_log(-1, -best_eval, "mcc", params_to_str(curr), "ls", pipeline_name)
 
     for i in range(n_iterations):
         # Take a step
@@ -52,7 +52,7 @@ def local_search(pipeline_name, graph, objective, bounds, n_iterations, step_siz
         output = f"Iteration: {i}, Step Size: {step_size}\nPerformance: {-best_eval}\n"
         output += f"\tParameters: {params_to_str(candidate)}\n"
         print(output)
-        write_to_log(pipeline_name, output)
+        write_log(i, -best_eval, "mcc", params_to_str(candidate), "ls", pipeline_name)
 
     return best, best_eval
 

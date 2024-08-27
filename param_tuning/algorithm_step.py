@@ -3,15 +3,12 @@ import random
 
 def perturb(value, bound, temperature):
     try:
-        value = int(value)
+        if isinstance(value, int):
+            value = int(value)
+        if isinstance(value, float):
+            value = float(value)
     except ValueError:
-        print("Not int")
-
-        # If that fails, try to convert the string to a float
-    try:
-        value = float(value)
-    except ValueError:
-        print("Not float")
+        print("Conversion Error in Perturb.")
 
     if len(bound) == 1:
         return value
