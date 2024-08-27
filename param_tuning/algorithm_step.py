@@ -1,6 +1,22 @@
 import random
 
 
+"""
+Simulated Annealing Default Parameters
+"""
+SA_N_ITERATIONS = 100
+SA_COOLING_RATE = 0.9
+SA_TEMP = 10.0
+
+
+"""
+Local Search Default Parameters
+"""
+LS_N_ITERATIONS = 100
+LS_STEP_SIZE = 0.1
+
+
+
 def perturb(value, bound, temperature):
     try:
         if isinstance(value, int):

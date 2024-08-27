@@ -6,12 +6,6 @@ from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bo
 from param_tuning.simulated_annealing import params_to_str
 from param_tuning.utils import write_header_to_log, write_log, format_line
 
-"""
-Local Search Default Parameters
-"""
-N_ITERATIONS = 1000
-STEP_SIZE = 0.1
-
 
 # analogue to Example Simulated Annealing step
 def local_search_step(current_state, bounds, step_size):
@@ -67,7 +61,7 @@ def run_local_search(pipeline_name, graph, objective, manual=True):
     else:
         bounds, _ = extract_bounds_from_graph(graph)
 
-    best_params, best_score = local_search(pipeline_name, graph, objective, bounds, N_ITERATIONS, STEP_SIZE)
+    best_params, best_score = local_search(pipeline_name, graph, objective, bounds, LS_N_ITERATIONS, LS_STEP_SIZE)
 
     print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
     print(f"Best performance: {-best_score}")

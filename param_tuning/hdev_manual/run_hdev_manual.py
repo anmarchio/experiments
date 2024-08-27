@@ -12,6 +12,7 @@ from param_tuning.hdev.hdev_templates import HDEV_HEADER, HDEV_FOOTER, HDEV_TEMP
 from param_tuning.utils import get_evias_experimts_path_for_hdev
 from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC, EVIAS_SRC_PATH
 
+
 MANUAL_HDEV_PIPELINES_MEAN = [
     'AirCarbon3_80.jpg_bright_mean_pipeline',
     'FabricDefectsAITEX_mean_pipeline'
