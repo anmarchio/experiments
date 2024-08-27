@@ -4,48 +4,10 @@ from decimal import Decimal
 
 import numpy as np
 
+from param_tuning.algorithm_step import params_to_str, perturb
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
 from param_tuning.utils import write_to_log
-
-
-def perturb(value, bound, temperature):
-    try:
-        value = int(value)
-    except ValueError:
-        print("Not int")
-
-        # If that fails, try to convert the string to a float
-    try:
-        value = float(value)
-    except ValueError:
-        print("Not float")
-
-    if len(bound) == 1:
-        return value
-    if isinstance(value, str):
-        # NO: For strings, randomly choose a different string from the list
-        options = [opt for opt in bound if opt != value]
-        return random.choice(options)
-        # just return string as is
-        #return value
-    elif isinstance(value, (int, float)):
-        if len(bound) == 2:
-            # For a range, slightly adjust the value within the bounds
-            delta = (bound[1] - bound[0]) * temperature * (random.random() - 0.5)
-            new_value = value + delta
-            return max(min(new_value, bound[1]), bound[0])  # Ensure within bounds
-        else:
-            # For discrete numeric values, find the closest match
-            closest_value = min(bound, key=lambda x: abs(x - value))
-            idx = bound.index(closest_value)
-
-            # Select a neighboring value
-            if random.random() > 0.5 and idx < len(bound) - 1:
-                return bound[idx + 1]
-            elif idx > 0:
-                return bound[idx - 1]
-            return bound[idx]
 
 
 # Example Simulated Annealing step
@@ -55,13 +17,6 @@ def simulated_annealing_step(current_state, bounds, temperature):
         new_value = perturb(value, bounds[i], temperature)
         new_state.append(new_value)
     return np.array(new_state)
-
-
-def params_to_str(values):
-    params_str = ""
-    for v in values:
-        params_str += str(v) + ", "
-    return params_str
 
 
 def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, cooling_rate, temp):
@@ -101,7 +56,7 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, c
         if diff < 0 or np.random.rand() < metropolis:
             curr, curr_eval = candidate, candidate_eval
 
-        output = f"Iteration: {i}, Temp: {temp}, Performance: {-best_eval}\n"
+        output = f"Iteration: {i}, Temp: {temp}\nPerformance: {-best_eval}\n"
         output += f"\tParameters: {params_to_str(candidate)}\n"
         print(output)
         write_to_log(pipeline_name, output)

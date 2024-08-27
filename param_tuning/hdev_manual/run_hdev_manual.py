@@ -13,8 +13,8 @@ from param_tuning.utils import get_evias_experimts_path_for_hdev
 from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC, EVIAS_SRC_PATH
 
 MANUAL_HDEV_PIPELINES_MEAN = [
-    'AirCarbon3_80.jpg_bright_mean_pipeline',
-    'FabricDefectsAITEX_mean_pipeline'
+    'FabricDefectsAITEX_mean_pipeline',
+    'AirCarbon3_80.jpg_bright_mean_pipeline'
 ]
 
 
@@ -131,8 +131,8 @@ def get_FabricDefectsAITEX_mean_pipeline(params):
     hdev_code = HDEV_HEADER
 
     # Dataset name and path
-    hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'</l>\n" + \
-                 "<l>source_path := '" + get_evias_experimts_path_for_hdev() + "/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>\n" + \
+    hdev_code += "<l>dataset_name := 'FabricDefectsAITEX_mean_pipeline'</l>\n" + \
+                 "<l>source_path := '" + get_evias_experimts_path_for_hdev() + "FabricDefectsAITEX/train/images'</l>\n" + \
                  "<l>output_path := dataset_name + '/'</l>\n" \
                  "<c></c>\n"
 
@@ -176,9 +176,9 @@ def get_FabricDefectsAITEX_mean_pipeline(params):
 FabricDefectsAITEX_mean_pipeline_initial_params = [
     'smooth_histo',
     'light',
-    'bulkiness',
     3,
     99999,
+    'bulkiness',
     26,  # A
     29,  # B
     1.178097
@@ -187,10 +187,10 @@ FabricDefectsAITEX_mean_pipeline_initial_params = [
 FabricDefectsAITEX_mean_pipeline_bounds = [
     ['max_separability', 'smooth_histo'],
     ['dark', 'light'],
-    ['area', 'width', 'height', 'compactness', 'contlength', 'convexity', 'rectangularity', 'ra', 'rb', 'anisometry',
-     'bulkiness', 'outer_radius', 'inner_radius', 'inner_width', 'inner_height', 'dist_mean'],
     [1, 99999],
     [99999, 99999],
+    ['area', 'width', 'height', 'compactness', 'contlength', 'convexity', 'rectangularity', 'ra', 'rb', 'anisometry',
+     'bulkiness', 'outer_radius', 'inner_radius', 'inner_width', 'inner_height', 'dist_mean'],
     [1, 30],  # A
     [1, 30],  # B
     [-1.178097, -0.785398, -0.392699, 0.0, 0.392699, 0.785398, 1.178097]  # C

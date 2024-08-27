@@ -3,49 +3,11 @@ import numpy as np
 
 from datetime import datetime
 
+from param_tuning.algorithm_step import perturb
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
 from param_tuning.simulated_annealing import params_to_str
 from param_tuning.utils import write_to_log
-
-
-def perturb(value, bound, step_size):
-    try:
-        value = int(value)
-    except ValueError:
-        print("Not int")
-
-        # If that fails, try to convert the string to a float
-    try:
-        value = float(value)
-    except ValueError:
-        print("Not float")
-
-    if len(bound) == 1:
-        return value
-    if isinstance(value, str):
-        # NO: For strings, randomly choose a different string from the list
-        options = [opt for opt in bound if opt != value]
-        return random.choice(options)
-        # just return string as is
-        #return value
-    elif isinstance(value, (int, float)):
-        if len(bound) == 2:
-            # For a range, slightly adjust the value within the bounds
-            delta = (bound[1] - bound[0]) * step_size * (random.random() - 0.5)
-            new_value = value + delta
-            return max(min(new_value, bound[1]), bound[0])  # Ensure within bounds
-        else:
-            # For discrete numeric values, find the closest match
-            closest_value = min(bound, key=lambda x: abs(x - value))
-            idx = bound.index(closest_value)
-
-            # Select a neighboring value
-            if random.random() > 0.5 and idx < len(bound) - 1:
-                return bound[idx + 1]
-            elif idx > 0:
-                return bound[idx - 1]
-            return bound[idx]
 
 
 # analogue to Example Simulated Annealing step
@@ -57,7 +19,6 @@ def local_search_step(current_state, bounds, step_size):
     return np.array(new_state)
 
 
-#def local_search(objective, bounds, n_iterations, step_size):
 def local_search(pipeline_name, graph, objective, bounds, n_iterations, step_size):
     # Initialize the best solution with a random point within the bounds
     best = np.array
@@ -88,7 +49,7 @@ def local_search(pipeline_name, graph, objective, bounds, n_iterations, step_siz
             best, best_eval = candidate, candidate_eval
             scores.append(best_eval)
 
-        output = f"Iteration: {i}, Performance: {-best_eval}\n"
+        output = f"Iteration: {i}, Step Size: {step_size}\nPerformance: {-best_eval}\n"
         output += f"\tParameters: {params_to_str(candidate)}\n"
         print(output)
         write_to_log(pipeline_name, output)
