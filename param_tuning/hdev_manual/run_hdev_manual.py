@@ -8,13 +8,43 @@ import os
 
 import numpy as np
 
-from param_tuning.hdev.hdev_templates import HDEV_HEADER, HDEV_FOOTER, HDEV_TEMPLATE_CODE
-from param_tuning.utils import get_evias_experimts_path_for_hdev
-from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC, EVIAS_SRC_PATH
-
+from param_tuning.hdev_manual.AirCarbon2_t_8_jpg_mean import AirCarbon2_t_8_jpg_training_source_path, \
+    AirCarbon2_t_8_jpg_mean_pipeline, AirCarbon2_t_8_jpg_mean_pipeline_bounds, \
+    AirCarbon2_t_8_jpg_mean_pipeline_initial_params
+from param_tuning.hdev_manual.AirCarbon3_80_jpg_bright_mean import AirCarbon3_80_jpg_bright_training_source_path, \
+    get_AirCarbon3_80_jpg_bright_mean_pipeline, AirCarbon3_80_jpg_bright_mean_pipeline_bounds, \
+    AirCarbon3_80_jpg_bright_mean_pipeline_initial_params
+from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_1_mean import AirCarbon3_80_jpg_dark_1_training_source_path, \
+    get_AirCarbon3_80_jpg_dark_1_mean_pipeline, AirCarbon3_80_jpg_dark_1_mean_pipeline_bounds, \
+    AirCarbon3_80_jpg_dark_1_mean_pipeline_initial_params
+from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_2_mean import AirCarbon3_80_jpg_dark_2_training_source_path, \
+    AirCarbon3_80_jpg_dark_2_mean_pipeline_bounds, get_AirCarbon3_80_jpg_dark_2_mean_pipeline, \
+    AirCarbon3_80_jpg_dark_2_mean_pipeline_initial_params
+from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_3_mean import AirCarbon3_80_jpg_dark_3_training_source_path, \
+    AirCarbon3_80_jpg_dark_3_mean_pipeline_bounds, get_AirCarbon3_80_jpg_dark_3_mean_pipeline, \
+    AirCarbon3_80_jpg_dark_3_mean_pipeline_initial_params
+from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_4_mean import AirCarbon3_80_jpg_dark_4_training_source_path, \
+    get_AirCarbon3_80_jpg_dark_4_mean_pipeline, AirCarbon3_80_jpg_dark_4_mean_pipeline_bounds, \
+    AirCarbon3_80_jpg_dark_4_mean_pipeline_initial_params
+from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_5_mean import AirCarbon3_80_jpg_dark_5_training_source_path, \
+    get_AirCarbon3_80_jpg_dark_5_mean_pipeline, AirCarbon3_80_jpg_dark_5_mean_pipeline_bounds, \
+    AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params
+from param_tuning.hdev_manual.FabricDefectsAITEX_mean import get_FabricDefectsAITEX_mean_pipeline, \
+    FabricDefectsAITEX_mean_pipeline_bounds, FabricDefectsAITEX_training_source_path, \
+    FabricDefectsAITEX_mean_pipeline_initial_params
+from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_MEAN = [
+    "AirCarbon2_t_8.jpg_mean_pipeline",
     'AirCarbon3_80.jpg_bright_mean_pipeline',
+    "AirCarbon3_80.jpg_dark_1_mean_pipeline",
+    "AirCarbon3_80.jpg_dark_2_mean_pipeline",
+    "AirCarbon3_80.jpg_dark_3_mean_pipeline",
+    "AirCarbon3_80.jpg_dark_4_mean_pipeline",
+    "AirCarbon3_80.jpg_dark_5_mean_pipeline",
+    #"CF_ReferenceSet_mean_pipeline",
+    #"CF_ReferenceSet_Small_Dark_mean_pipeline",
+    #"CF_ReferenceSet_Small_Light_mean_pipeline",
     'FabricDefectsAITEX_mean_pipeline'
 ]
 
@@ -45,160 +75,33 @@ def get_manual_hdev_pipeline_path(pipeline_name: str):
 
 
 def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
-    if pipeline_name == "AirCarbon3_80.jpg_bright_mean_pipeline":
+    if pipeline_name == "AirCarbon2_t_8.jpg_mean_pipeline":
+        return AirCarbon2_t_8_jpg_training_source_path
+    elif pipeline_name == "AirCarbon3_80.jpg_bright_mean_pipeline":
         return AirCarbon3_80_jpg_bright_training_source_path
+    elif pipeline_name == "AirCarbon3_80.jpg_dark_1_mean_pipeline":
+        return AirCarbon3_80_jpg_dark_1_training_source_path
+    elif pipeline_name == "AirCarbon3_80.jpg_dark_2_mean_pipeline":
+        return AirCarbon3_80_jpg_dark_2_training_source_path
+    elif pipeline_name == "AirCarbon3_80.jpg_dark_2_mean_pipeline":
+        return AirCarbon3_80_jpg_dark_3_training_source_path
+    elif pipeline_name == "AirCarbon3_80.jpg_dark_3_mean_pipeline":
+        return AirCarbon3_80_jpg_dark_3_training_source_path
+    elif pipeline_name == "AirCarbon3_80.jpg_dark_4_mean_pipeline":
+        return AirCarbon3_80_jpg_dark_4_training_source_path
+    elif pipeline_name == "AirCarbon3_80.jpg_dark_5_mean_pipeline":
+        return AirCarbon3_80_jpg_dark_5_training_source_path
+    #elif pipeline_name == "CF_ReferenceSet_mean_pipeline":
+    #    return CF_ReferenceSet_training_source_path
+    #elif pipeline_name == "CF_ReferenceSet_Small_Dark_mean_pipeline":
+    #    return CF_ReferenceSet_Small_Dark_training_source_path
+    #elif pipeline_name == "CF_ReferenceSet_Small_Light_mean_pipeline":
+    #    return CF_ReferenceSet_Small_Light_training_source_path
     elif pipeline_name == "FabricDefectsAITEX_mean_pipeline":
         return FabricDefectsAITEX_training_source_path
     # None
     return None
 
-
-"""
-============================
-AirCarbon3_80_jpg_bright_mean.py
-============================
-"""
-
-
-def get_AirCarbon3_80_jpg_bright_mean_pipeline(params):
-    hdev_code = HDEV_HEADER
-
-    # Dataset name and path
-    hdev_code += "<l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'</l>\n" + \
-                 "<l>source_path := '" + get_evias_experimts_path_for_hdev() + "/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>\n" + \
-                 "<l>output_path := dataset_name + '/'</l>\n" + \
-                 "<c></c>\n"
-
-    hdev_code += HDEV_TEMPLATE_CODE
-
-    # Parameters
-    # 'lines', 'y', 5, 'adapted_std_deviation', 'dark', 15, 0.3
-    hdev_code += "<l>        FilterTypeBP := '" + str(params[0]) + "'</l>\n" + \
-                 "<l>        FilterTypeSA := '" + str(params[1]) + "'</l>\n" + \
-                 "<l>        MaskSizeSA := " + str(params[2]) + "</l>\n" + \
-                 "<l>        Method := '" + str(params[3]) + "'</l>\n" + \
-                 "<l>        LightDark := '" + str(params[4]) + "'</l>\n" + \
-                 "<l>        MaskSizeLT := " + str(params[5]) + "</l>\n" + \
-                 "<l>        Scale := " + str(params[6]) + "</l>\n\n"
-
-    # Core Pipeline Code
-    hdev_code += "<l>        bandpass_image(Image, Image, FilterTypeBP)</l>\n" \
-                 "<c></c>\n" \
-                 "<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n" + \
-                 "<c></c>\n" \
-                 "<l>        access_channel(ImageAmp, ImageAmp, 1)</l>\n" + \
-                 "<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>\n" + \
-                 "<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], " \
-                 "[MaskSizeLT, Scale])</l>\n" + \
-                 "<c></c>\n" \
-                 "<l>        connection(Region, Region)</l>\n"
-
-    hdev_code += HDEV_FOOTER
-
-    return hdev_code
-
-
-AirCarbon3_80_jpg_bright_mean_pipeline_initial_params = [
-    'lines',
-    'y',
-    5,
-    'adapted_std_deviation',
-    'dark',
-    15,
-    0.2
-]
-
-AirCarbon3_80_jpg_bright_mean_pipeline_bounds = [
-    ['lines'],
-    ['y_binomial', 'x', 'x_binomial', 'y'],
-    [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
-    ['adapted_std_deviation'],
-    ['light', 'dark'],
-    [15, 21, 31],
-    [0.2, 0.3, 0.5]
-]
-
-AirCarbon3_80_jpg_bright_training_source_path = os.path.join(EVIAS_SRC_PATH, "Aircarbon3", "20210325_13h25_rov",
-                                                             "training", "80.jpg_bright")
-
-"""
-============================
-FabricDefectsAITEX_mean.py
-============================
-"""
-
-
-def get_FabricDefectsAITEX_mean_pipeline(params):
-    hdev_code = HDEV_HEADER
-
-    # Dataset name and path
-    hdev_code += "<l>dataset_name := 'FabricDefectsAITEX_mean_pipeline'</l>\n" + \
-                 "<l>source_path := '" + get_evias_experimts_path_for_hdev() + "FabricDefectsAITEX/train/images'</l>\n" + \
-                 "<l>output_path := dataset_name + '/'</l>\n" \
-                 "<c></c>\n"
-
-    hdev_code += HDEV_TEMPLATE_CODE
-
-    # Parameters
-    # 'smooth_histo', 'light', 33, 99999, 'bulkiness', 26, 29, 1.178097
-    hdev_code += "<l>        Method := '" + str(params[0]) + "'</l>\n" + \
-                 "<l>        LightDark := '" + str(params[1]) + "'</l>\n" + \
-                 "<l>        Min := " + str(params[2]) + "</l>\n" + \
-                 "<l>        Max := " + str(params[3]) + "</l>\n" + \
-                 "<l>        Features := '" + str(params[4]) + "'</l>\n" + \
-                 "<l>        A := " + str(params[5]) + "</l>\n" + \
-                 "<l>        B := " + str(params[6]) + "</l>\n" + \
-                 "<l>        C := " + str(params[7]) + "</l>\n" + \
-                 "<c></c>\n"
-
-    hdev_code += "<l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>\n" + \
-                 "<l>        select_shape(Region, Regions, Features, 'and', Min, Max)</l>\n" + \
-                 "<c>        * StructElementType Ellipse</c>\n" + \
-                 "<c>        * using A, B and C as shape_params</c>\n" + \
-                 "<l>        tuple_max2(A, B, max_rad)</l>\n" + \
-                 "<l>        longer := A</l>\n" + \
-                 "<l>        shorter := B</l>\n" + \
-                 "<l>        if (shorter > longer)</l>\n" + \
-                 "<l>            tmp := shorter</l>\n" + \
-                 "<l>            shorter := longer</l>\n" + \
-                 "<l>            longer := tmp</l>\n" + \
-                 "<l>        endif                </l>\n" + \
-                 "<l>        phi := C            </l>\n" + \
-                 "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n" + \
-                 "<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n" + \
-                 "<c>        * Apply StructElement Ellipse to Closing</c>\n" + \
-                 "<l>        closing(Regions, StructElement, RegionClosing)</l>\n"
-
-    hdev_code += HDEV_FOOTER
-
-    return hdev_code
-
-
-FabricDefectsAITEX_mean_pipeline_initial_params = [
-    'smooth_histo',
-    'light',
-    3,
-    99999,
-    'bulkiness',
-    26,  # A
-    29,  # B
-    1.178097
-]
-
-FabricDefectsAITEX_mean_pipeline_bounds = [
-    ['max_separability', 'smooth_histo'],
-    ['dark', 'light'],
-    [1, 99999],
-    [99999, 99999],
-    ['area', 'width', 'height', 'compactness', 'contlength', 'convexity', 'rectangularity', 'ra', 'rb', 'anisometry',
-     'bulkiness', 'outer_radius', 'inner_radius', 'inner_width', 'inner_height', 'dist_mean'],
-    [1, 30],  # A
-    [1, 30],  # B
-    [-1.178097, -0.785398, -0.392699, 0.0, 0.392699, 0.785398, 1.178097]  # C
-]
-
-FabricDefectsAITEX_training_source_path = os.path.join(EVIAS_SRC_PATH, "FabricDefectsAITEX",
-                                                       "train")
 
 """
 =============================
@@ -207,19 +110,38 @@ DICTS for pipelines, bounds, source_paths
 """
 
 pipelines = {
-    "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline,
-    "AirCarbon3_80.jpg_bright_mean_pipeline": get_AirCarbon3_80_jpg_bright_mean_pipeline
+    "AirCarbon2_t_8.jpg_mean_pipeline": AirCarbon2_t_8_jpg_mean_pipeline,
+    "AirCarbon3_80.jpg_bright_mean_pipeline": get_AirCarbon3_80_jpg_bright_mean_pipeline,
+    "AirCarbon3_80.jpg_dark_1_mean_pipeline": get_AirCarbon3_80_jpg_dark_1_mean_pipeline,
+    "AirCarbon3_80.jpg_dark_2_mean_pipeline": get_AirCarbon3_80_jpg_dark_2_mean_pipeline,
+    "AirCarbon3_80.jpg_dark_3_mean_pipeline": get_AirCarbon3_80_jpg_dark_3_mean_pipeline,
+    "AirCarbon3_80.jpg_dark_4_mean_pipeline": get_AirCarbon3_80_jpg_dark_4_mean_pipeline,
+    "AirCarbon3_80.jpg_dark_5_mean_pipeline": get_AirCarbon3_80_jpg_dark_5_mean_pipeline,
+    "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline
     # Add other pipelines here
 }
 
+
 bounds = {
-    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_bounds,
-    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_bounds
+    "AirCarbon2_t_8.jpg_mean_pipeline": AirCarbon2_t_8_jpg_mean_pipeline_bounds,
+    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_bounds,
+    "AirCarbon3_80.jpg_dark_1_mean_pipeline": AirCarbon3_80_jpg_dark_1_mean_pipeline_bounds,
+    "AirCarbon3_80.jpg_dark_2_mean_pipeline": AirCarbon3_80_jpg_dark_2_mean_pipeline_bounds,
+    "AirCarbon3_80.jpg_dark_3_mean_pipeline": AirCarbon3_80_jpg_dark_3_mean_pipeline_bounds,
+    "AirCarbon3_80.jpg_dark_4_mean_pipeline": AirCarbon3_80_jpg_dark_4_mean_pipeline_bounds,
+    "AirCarbon3_80.jpg_dark_5_mean_pipeline": AirCarbon3_80_jpg_dark_5_mean_pipeline_bounds,
+    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_bounds
     # Add other bounds here
 }
 
 initial_params = {
-    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params,
-    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_initial_params
+    "AirCarbon2_t_8.jpg_mean_pipeline": AirCarbon2_t_8_jpg_mean_pipeline_initial_params,
+    "AirCarbon3_80.jpg_bright_mean_pipeline": AirCarbon3_80_jpg_bright_mean_pipeline_initial_params,
+    "AirCarbon3_80.jpg_dark_1_mean_pipeline": AirCarbon3_80_jpg_dark_1_mean_pipeline_initial_params,
+    "AirCarbon3_80.jpg_dark_2_mean_pipeline": AirCarbon3_80_jpg_dark_2_mean_pipeline_initial_params,
+    "AirCarbon3_80.jpg_dark_3_mean_pipeline": AirCarbon3_80_jpg_dark_3_mean_pipeline_initial_params,
+    "AirCarbon3_80.jpg_dark_4_mean_pipeline": AirCarbon3_80_jpg_dark_4_mean_pipeline_initial_params,
+    "AirCarbon3_80.jpg_dark_5_mean_pipeline": AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params,
+    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params
+    # Add initial params
 }
-# Add

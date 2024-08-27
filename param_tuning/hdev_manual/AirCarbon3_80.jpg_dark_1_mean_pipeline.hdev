@@ -4,12 +4,21 @@
 <interface/>
 <body>
 <l>dataset_name := 'AirCarbon3_80.jpg_dark_1'</l>
-<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_1/images'</l>
-<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'</l>
+<l>source_path := 'N:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_1/images'</l>
+<l>output_path := dataset_name + '/'</l>
 <c></c>
-<l>list_image_files('imgs', 'default', [], ImageFiles)</l>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <c></c>
-<l>for Index := 1 to |ImageFiles| - 1 by 1</l>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
 <l>    get_image_size(Image, Width, Height)</l>
 <c>    * --------------</c>
@@ -17,10 +26,10 @@
 <c>    * --------------</c>
 <l>    try        </l>
 <l>        Method := 'adapted_std_deviation'</l>
-<l>        LightDark := 'dark'</l>
+<l>        LightDark := 'light'</l>
 <l>        MaskSize := 15</l>
 <l>        Scale := 0.2</l>
-<l>        local_threshold(Image, Region, Method, LightDark, MaskSize, Scale)</l>
+<l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -28,11 +37,10 @@
 <c>    * END Code Block</c>
 <c>    * --------------</c>
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
-<l>    paint_region(Region, ImageResult, ImageResult, 255, 'margin')</l>
-<l>    out_img_path := out_path + Index</l>
-<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
 <l>endfor</l>
-<l>exit()</l>
+<l>*exit()</l>
 </body>
 <docu id="main">
 <parameters/>

@@ -8,6 +8,10 @@ HDEV_TEMPLATE_CODE = "<l>dev_update_off()</l>\n"\
                      "<l>list_image_files(source_path, 'default', [], ImageFiles)</l>\n" \
                      "<c></c>\n" \
                      "<l>for Index := 0 to |ImageFiles| - 1 by 1</l>\n" \
+                     "<l>    file_exists(output_path, dir_exists)</l>\n" \
+                     "<l>    if(dir_exists == 0)</l>\n" \
+                     "<l>        make_dir(output_path)</l>\n" \
+                     "<l>    endif</l>\n" \
                      "<l>    out_img_path := output_path + Index + '.png'</l>\n" \
                      "<l>    file_exists(out_img_path, exists)</l>\n" \
                      "<l>    if(exists)</l>\n" \

@@ -4,12 +4,21 @@
 <interface/>
 <body>
 <l>dataset_name := 'AirCarbon3_80.jpg_dark_3'</l>
-<l>source_path := 'C:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_3/images'</l>
-<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'</l>
+<l>source_path := 'N:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_3/images'</l>
+<l>output_path := dataset_name + '/'</l>
 <c></c>
-<l>list_image_files('imgs', 'default', [], ImageFiles)</l>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <c></c>
-<l>for Index := 1 to |ImageFiles| - 1 by 1</l>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
 <l>    get_image_size(Image, Width, Height)</l>
 <c>    * --------------</c>
@@ -21,13 +30,14 @@
 <l>        NonMaximumSuppression := 'nms'</l>
 <l>        Low := 25</l>
 <l>        High := 45</l>
-<l>        edges_image(Image, Image, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
 <c>                </c>
 <l>        MaskWidth := 13</l>
 <l>        MaskHeight := 7        </l>
 <l>        StdDevScale := 0.5000001</l>
 <l>        AbsThreshold := 5</l>
 <l>        LightDark := 'not_equal'</l>
+<c>        </c>
+<l>        edges_image(Image, Image, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
 <l>        var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
@@ -36,9 +46,8 @@
 <c>    * END Code Block</c>
 <c>    * --------------</c>
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
-<l>    paint_region(Region, ImageResult, ImageResult, 255, 'margin')</l>
-<l>    out_img_path := out_path + Index</l>
-<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
 <l>endfor</l>
 <l>exit()</l>
 </body>

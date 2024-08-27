@@ -3,8 +3,9 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'AirCarbon3_80.jpg_dark_2'</l>
-<l>source_path := 'N:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_2/images'</l>
+<l>*dev_update_off()</l>
+<l>dataset_name := 'AirCarbon2_t_8.jpg_mean_pipeline'</l>
+<l>source_path := 'N:/evias_expmts/Aircarbon2/Blende5_6_1800mA_rov/training/t_8.jpg/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -25,13 +26,19 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<l>        FilterType := 'gradient_sum'</l>
-<l>        Min := 70</l>
-<l>        Max := 240</l>
+<l>        DiffusionCoefficient := 'parabolic'</l>
+<l>        Contrast := 100</l>
+<l>        Theta := 3</l>
+<l>        Iterations := 3</l>
 <c>        </c>
-<l>        roberts(Image, ImageRoberts, FilterType)</l>
+<l>        MaskWidth :=29 </l>
+<l>        MaskHeight :=9 </l>
+<l>        StdDevScale :=0.9000002</l>
+<l>        AbsThreshold :=11</l>
+<l>        LightDark :='light'</l>
 <c>        </c>
-<l>        threshold(Image, Region, Min, Max)</l>
+<l>        anisotropic_diffusion(Image, Image, DiffusionCoefficient, Contrast, Theta, Iterations)        </l>
+<l>        var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

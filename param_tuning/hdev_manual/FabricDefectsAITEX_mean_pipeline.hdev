@@ -5,7 +5,7 @@
 <body>
 <l>dataset_name := 'FabricDefectsAITEX_mean_pipeline'</l>
 <l>source_path := 'C:/evias_expmts/FabricDefectsAITEX/train/images'</l>
-<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'</l>
+<l>out_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <c></c>
