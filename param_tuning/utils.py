@@ -165,13 +165,16 @@ def write_to_file(filepath, content):
     f.close()
 
 
-def write_log(iteration, performance, parameters, algorithm, pipeline_name, criterion="MCC"):
+def format_line(iteration, performance, parameters, algorithm, configuration, pipeline_name, criterion="mcc"):
+    return f"{iteration};{performance};{criterion};{parameters};{algorithm};{configuration};{pipeline_name};{datetime.now()};\n"
+
+
+def write_log(pipeline_name, log_content):
     filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
-    line = f"{iteration};{performance};{criterion};{parameters};{algorithm};{pipeline_name};{datetime.now()};\n"
-    write_to_file(filepath, line)
+    write_to_file(filepath, log_content)
 
 
 def write_header_to_log(pipeline_name):
     filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
-    header = "Iteration; Performance; Criterion; Parameters; Algorithm; Pipeline; Datetime;\n"
+    header = "Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;\n"
     write_to_file(filepath, header)

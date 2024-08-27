@@ -4,7 +4,13 @@ from param_tuning.algorithm_step import perturb
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
 from param_tuning.simulated_annealing import params_to_str
-from param_tuning.utils import write_header_to_log, write_log
+from param_tuning.utils import write_header_to_log, write_log, format_line
+
+"""
+Local Search Default Parameters
+"""
+N_ITERATIONS = 1000
+STEP_SIZE = 0.1
 
 
 # analogue to Example Simulated Annealing step
@@ -31,11 +37,11 @@ def local_search(pipeline_name, graph, objective, bounds, n_iterations, step_siz
     scores = [best_eval]
 
     write_header_to_log(pipeline_name)
-    write_log(-1, -best_eval, params_to_str(curr), "ls", pipeline_name)
+    write_log(pipeline_name, format_line(-1, -best_eval, params_to_str(curr), "ls", f"step:{step_size}", pipeline_name))
 
     for i in range(n_iterations):
         # Take a step
-        #candidate = best + np.random.randn(len(bounds)) * step_size
+        # candidate = best + np.random.randn(len(bounds)) * step_size
         # candidate = np.clip(candidate, bounds[:, 0], bounds[:, 1])
         # candidate_eval = objective(candidate)
         candidate = local_search_step(curr, bounds, step_size)
@@ -46,19 +52,14 @@ def local_search(pipeline_name, graph, objective, bounds, n_iterations, step_siz
             best, best_eval = candidate, candidate_eval
             scores.append(best_eval)
 
-        output = f"Iteration: {i}, Step Size: {step_size}\nPerformance: {-best_eval}\n"
-        output += f"\tParameters: {params_to_str(candidate)}\n"
+        output = format_line(i, -best_eval, params_to_str(candidate), "ls", f"step:{step_size}", pipeline_name)
         print(output)
-        write_log(i, -best_eval, params_to_str(candidate), "ls", pipeline_name)
+        write_log(pipeline_name, output)
 
     return best, best_eval
 
 
-def run_local_search(pipeline_name, graph, objective, manual = True):
-    # Run Local Search
-    n_iterations = 1000
-    step_size = 0.1
-
+def run_local_search(pipeline_name, graph, objective, manual=True):
     bounds = np.array
 
     if manual:
@@ -66,7 +67,7 @@ def run_local_search(pipeline_name, graph, objective, manual = True):
     else:
         bounds, _ = extract_bounds_from_graph(graph)
 
-    best_params, best_score = local_search(pipeline_name, graph, objective, bounds, n_iterations, step_size)
+    best_params, best_score = local_search(pipeline_name, graph, objective, bounds, N_ITERATIONS, STEP_SIZE)
 
     print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
     print(f"Best performance: {-best_score}")

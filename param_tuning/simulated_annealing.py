@@ -5,7 +5,14 @@ import numpy as np
 from param_tuning.algorithm_step import params_to_str, perturb
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
-from param_tuning.utils import write_header_to_log, write_log
+from param_tuning.utils import write_header_to_log, write_log, format_line
+
+"""
+Simulated Annealing Default Parameters
+"""
+N_ITERATIONS = 1000
+COOLING_RATE = 0.9
+TEMP = 10.0
 
 
 # Example Simulated Annealing step
@@ -32,7 +39,8 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, c
     scores = [best_eval]
 
     write_header_to_log(pipeline_name)
-    write_log(-1, -best_eval, params_to_str(curr), "sa", pipeline_name)
+    write_log(pipeline_name, format_line(-1, -best_eval, params_to_str(curr),
+                                         f"cooling:{cooling_rate},temp:{temp}", "sa", pipeline_name))
 
     for i in range(n_iterations):
         # Take a step
@@ -58,7 +66,8 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, c
         output = f"Iteration: {i}, Temp: {temp}\nPerformance: {-best_eval}\n"
         output += f"\tParameters: {params_to_str(candidate)}\n"
         print(output)
-        write_log(i, -best_eval, params_to_str(candidate), "sa", pipeline_name)
+        write_log(pipeline_name, format_line(i, -best_eval, params_to_str(candidate),
+                                             f"cooling:{cooling_rate},temp:{temp}", "sa", pipeline_name))
 
         temp *= cooling_rate
 
@@ -66,10 +75,6 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, c
 
 
 def run_simulated_annealing(pipeline_name, graph, objective, manual: bool = True):
-    n_iterations = 1000
-    cooling_rate = 0.9
-    temp = 10.0
-
     bounds = []
 
     if manual:
@@ -77,14 +82,14 @@ def run_simulated_annealing(pipeline_name, graph, objective, manual: bool = True
     else:
         bounds, _ = extract_bounds_from_graph(graph)
 
-    # try:
+    #try:
     best_params, best_score = simulated_annealing(pipeline_name,
                                                   graph,
                                                   objective,
                                                   bounds,
-                                                  n_iterations,
-                                                  cooling_rate,
-                                                  temp)
+                                                  N_ITERATIONS,
+                                                  COOLING_RATE,
+                                                  TEMP)
 
     print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
     print(f"Best performance: {-best_score}")

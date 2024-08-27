@@ -8,6 +8,7 @@ from param_tuning.dataset_pipeline_analysis import get_grouped_datasets_with_dig
     read_db_and_apply_algorithms_to_hdev, objective
 from param_tuning.hdev_manual.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN
 from param_tuning.local_search import run_local_search
+from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import write_digraph_to_files, \
     check_dir_exists
 from settings import PARAM_TUNING_RESULTS_PATH
@@ -73,17 +74,17 @@ def run_param_tuning() -> int:
         check_dir_exists(manual_hdev_path)
 
         for pipeline_name in MANUAL_HDEV_PIPELINES_MEAN:
-            # Run simulated annealing on dataset
-            # run_simulated_annealing(pipeline_name, None, objective, True)
-
             # Then run local search
             run_local_search(pipeline_name, None, objective, True)
+
+            # Run simulated annealing on dataset
+            run_simulated_annealing(pipeline_name, None, objective, True)
 
     # 3 -- AUTOMATIC: Read DB and apply HDEV optimization
     if selection == 3:
         print("!!! ATTENTION: This part has not been tested properly !!!")
-        print("Do you want to continue? y/n")
 
+        print("Do you want to continue? y/n")
         print("\n")
         yesno = input("Selection: ")
         if yesno == "y":
