@@ -1,34 +1,11 @@
-import datetime
-import random
+from decimal import Decimal
 
 import numpy as np
 
+from param_tuning.algorithm_step import params_to_str, perturb, SA_N_ITERATIONS, SA_COOLING_RATE, SA_TEMP
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
-from param_tuning.utils import write_to_log
-
-
-def perturb(value, bound, temperature):
-    if len(bound) == 1:
-        return value
-    if isinstance(value, str):
-        # For strings, randomly choose a different string from the list
-        options = [opt for opt in bound if opt != value]
-        return random.choice(options)
-    elif isinstance(value, (int, float)):
-        if len(bound) == 2:
-            # For a range, slightly adjust the value within the bounds
-            delta = (bound[1] - bound[0]) * temperature * (random.random() - 0.5)
-            new_value = value + delta
-            return max(min(new_value, bound[1]), bound[0])  # Ensure within bounds
-        else:
-            # For discrete numeric values, select a neighboring value
-            idx = bound.index(value)
-            if random.random() > 0.5 and idx < len(bound) - 1:
-                return bound[idx + 1]
-            elif idx > 0:
-                return bound[idx - 1]
-            return value
+from param_tuning.utils import write_header_to_log, write_log, format_line
 
 
 # Example Simulated Annealing step
@@ -40,14 +17,7 @@ def simulated_annealing_step(current_state, bounds, temperature):
     return np.array(new_state)
 
 
-def params_to_str(values):
-    params_str = ""
-    for v in values:
-        params_str += str(v) + ", "
-    return params_str
-
-
-def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, step_size, temp):
+def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, cooling_rate, temp):
     # Initialize the best solution with a random point within the bounds
     best = np.array
 
@@ -61,7 +31,10 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, s
     curr, curr_eval = best, best_eval
     scores = [best_eval]
 
-    write_to_log(pipeline_name, f"\n{'-'*20}\nDataset: {pipeline_name}, SimAnn MCC, {datetime.datetime.now()}\n{'-'*20}\n")
+    write_header_to_log(pipeline_name)
+    write_log(pipeline_name, format_line(-1, -best_eval, params_to_str(curr),
+                                         f"cooling:{cooling_rate},temp:{temp}", "sa", pipeline_name))
+
     for i in range(n_iterations):
         # Take a step
         # candidate = curr + np.random.randn(len(bounds)) * step_size
@@ -75,27 +48,25 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, s
             scores.append(best_eval)
 
         # Calculate the difference between evaluations
-        diff = candidate_eval - curr_eval
-        t = temp / float(i + 1)
+        diff = Decimal(candidate_eval) - Decimal(curr_eval)
+        t = Decimal(temp) / Decimal(i + 1)
 
         # Metropolis acceptance criterion
-        metropolis = np.exp(-diff / t)
+        metropolis = np.exp(Decimal(-diff) / Decimal(t))
         if diff < 0 or np.random.rand() < metropolis:
             curr, curr_eval = candidate, candidate_eval
 
-        output = f"Iteration: {i}, Temp: {temp}, Performance: {-best_eval}\n"
-        output += f"\tParameters: {params_to_str(candidate)}\n"
+        output = format_line(i, -best_eval, params_to_str(candidate), "ls",
+                             f"cooling:{cooling_rate},temp:{temp}", pipeline_name)
         print(output)
-        write_to_log(pipeline_name, output)
+        write_log(pipeline_name, output)
+
+        temp *= cooling_rate
 
     return best, best_eval
 
 
 def run_simulated_annealing(pipeline_name, graph, objective, manual: bool = True):
-    n_iterations = 1000
-    step_size = 0.1
-    temp = 10.0
-
     bounds = []
 
     if manual:
@@ -103,19 +74,19 @@ def run_simulated_annealing(pipeline_name, graph, objective, manual: bool = True
     else:
         bounds, _ = extract_bounds_from_graph(graph)
 
-    try:
-        best_params, best_score = simulated_annealing(pipeline_name,
-                                                      graph,
-                                                      objective,
-                                                      bounds,
-                                                      n_iterations,
-                                                      step_size,
-                                                      temp)
+    #try:
+    best_params, best_score = simulated_annealing(pipeline_name,
+                                                  graph,
+                                                  objective,
+                                                  bounds,
+                                                  SA_N_ITERATIONS,
+                                                  SA_COOLING_RATE,
+                                                  SA_TEMP)
 
-        print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
-        print(f"Best performance: {-best_score}")
-        return best_params[0], best_params[1], best_score
-    except Exception as e:
-        print(e)
-        write_to_log(pipeline_name, str(e))
-        return [], [], 0.0
+    print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
+    print(f"Best performance: {-best_score}")
+    return best_params[0], best_params[1], best_score
+    # except Exception as e:
+    #    print(e)
+    #    write_to_log(pipeline_name, str(e))
+    #    return [], [], 0.0

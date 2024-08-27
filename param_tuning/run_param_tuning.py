@@ -78,13 +78,13 @@ def run_param_tuning() -> int:
             run_simulated_annealing(pipeline_name, None, objective, True)
 
             # Then run local search
-            # run_local_search(pipeline_name, None, objective, True)
+            run_local_search(pipeline_name, None, objective, True)
 
     # 3 -- AUTOMATIC: Read DB and apply HDEV optimization
     if selection == 3:
         print("!!! ATTENTION: This part has not been tested properly !!!")
-        print("Do you want to continue? y/n")
 
+        print("Do you want to continue? y/n")
         print("\n")
         yesno = input("Selection: ")
         if yesno == "y":

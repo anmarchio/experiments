@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from settings import PARAM_TUNING_HDEV_MANUAL
+from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC
 
 
 def raw_source_directory(dataset_source_directory):
@@ -21,6 +21,13 @@ def raw_source_directory(dataset_source_directory):
         return None
 
     return dataset_source_directory
+
+
+def get_evias_experimts_path_for_hdev():
+    source_path = ""
+    for elmnt in EVIAS_SRC:
+        source_path += elmnt + "/"
+    return source_path
 
 
 def check_dir_exists(dir):
@@ -152,8 +159,22 @@ def write_csv_and_tex(read_from_path: str):
     fw.close()
 
 
-def write_to_log(pipeline_name, output):
-    filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
+def write_to_file(filepath, content):
     f = open(filepath, "a")
-    f.write(output)
+    f.write(content)
     f.close()
+
+
+def format_line(iteration, performance, parameters, algorithm, configuration, pipeline_name, criterion="mcc"):
+    return f"{iteration};{performance};{criterion};{parameters};{algorithm};{configuration};{pipeline_name};{datetime.now()};\n"
+
+
+def write_log(pipeline_name, log_content):
+    filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
+    write_to_file(filepath, log_content)
+
+
+def write_header_to_log(pipeline_name):
+    filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
+    header = "Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;\n"
+    write_to_file(filepath, header)
