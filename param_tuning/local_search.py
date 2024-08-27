@@ -1,6 +1,6 @@
 import numpy as np
 
-from param_tuning.algorithm_step import perturb
+from param_tuning.algorithm_step import perturb, LS_N_ITERATIONS, LS_STEP_SIZE
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
 from param_tuning.simulated_annealing import params_to_str
