@@ -35,17 +35,17 @@ from param_tuning.hdev_manual.FabricDefectsAITEX_mean import get_FabricDefectsAI
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_MEAN = [
-    "AirCarbon2_t_8.jpg_mean_pipeline",
-    'AirCarbon3_80.jpg_bright_mean_pipeline',
-    "AirCarbon3_80.jpg_dark_1_mean_pipeline",
+    #"AirCarbon2_t_8.jpg_mean_pipeline",
+    #'AirCarbon3_80.jpg_bright_mean_pipeline',
+    #"AirCarbon3_80.jpg_dark_1_mean_pipeline",
     "AirCarbon3_80.jpg_dark_2_mean_pipeline",
-    "AirCarbon3_80.jpg_dark_3_mean_pipeline",
-    "AirCarbon3_80.jpg_dark_4_mean_pipeline",
-    "AirCarbon3_80.jpg_dark_5_mean_pipeline",
+    #"AirCarbon3_80.jpg_dark_3_mean_pipeline",
+    #"AirCarbon3_80.jpg_dark_4_mean_pipeline",
+    #"AirCarbon3_80.jpg_dark_5_mean_pipeline",
     #"CF_ReferenceSet_mean_pipeline",
     #"CF_ReferenceSet_Small_Dark_mean_pipeline",
     #"CF_ReferenceSet_Small_Light_mean_pipeline",
-    'FabricDefectsAITEX_mean_pipeline'
+    #'FabricDefectsAITEX_mean_pipeline'
 ]
 
 

@@ -3,8 +3,8 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'CF_ReferenceSet_Small_Light_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/Aircarbon2/CF_ReferenceSet_Small_Light/images'</l>
+<l>dataset_name := 'MVTec_AD_Cable_Missing_mean_pipeline'</l>
+<l>source_path := 'C:/evias_expmts/MVTecAnomalyDetection/cable_missing_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -24,13 +24,21 @@
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
-<l>    try        </l>
-<l>        MaskWidth := 3</l>
-<l>        MaskHeight := 29      </l>
-<l>        StdDevScale := 0.4000001</l>
-<l>        AbsThreshold := 56</l>
-<l>        LightDark := 'light'</l>
-<l>        var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>
+<l>    try</l>
+<c>        * AnisotropicDiffusion</c>
+<l>        DiffusionCoefficient := 'perona-malik'</l>
+<l>        Contrast := 10</l>
+<l>        Theta := 3</l>
+<l>        Iterations := 100</l>
+<l>        anisotropic_diffusion(Image, Image, DiffusionCoefficient, Contrast, Theta, Iterations)</l>
+<c>        </c>
+<c>        * BinaryThreshold</c>
+<l>        Method := 'smooth_histo'</l>
+<l>        LightDark := 'dark'</l>
+<l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>
+<c>        </c>
+<c>        * Connection        </c>
+<l>        connection(Region, Region)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -39,7 +47,6 @@
 <c>    * --------------</c>
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
 <l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
-<l>    out_img_path := output_path + Index</l>
 <l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
 <l>endfor</l>
 <l>*exit()</l>

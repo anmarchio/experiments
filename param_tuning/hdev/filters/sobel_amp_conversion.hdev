@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c></c>
+<c>        * SobelAmp        </c>
+<l>        FilterType := 'y_binomial'</l>
+<l>        MaskSize := 7</l>
+<c>        </c>
+<l>        get_image_type(Image, Type)</l>
+<l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')            </l>
+<l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>
+<l>                convert_image_type(Image, Image, 'byte')</l>
+<l>            endif</l>
+<l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>
+<l>            convert_image_type(Image, Image, 'byte')</l>
+<l>        endif</l>
+<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>* VarThreshold</c>
+<l>MaskWidth := 0</l>
+<l>MaskHeight := 0</l>
+<l>StdDevScale := 0</l>
+<l>AbsThreshold := 0</l>
+<l>LightDark := 'not_equal'</l>
+<c></c>
+<l>get_image_type(Image, Type)</l>
+<c></c>
+<l>if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and Type != 'real')</l>
+<l>    min_max_gray(Image, Image, 0, Min, Max, Range)</l>
+<l>    if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
+<l>        if ((Max - Min) &gt; 0)</l>
+<l>            Mult := 255.0 / (Max - Min)</l>
+<l>        else</l>
+<l>            Mult := 255.0</l>
+<l>        endif</l>
+<l>        Add := -Mult * Min</l>
+<l>        scale_image(Image, Image, Mult, Add)</l>
+<l>    else</l>
+<l>        scale_image(Image, Image, 1, 0)</l>
+<l>    endif</l>
+<c>    </c>
+<l>    StandardType := 'byte'</l>
+<l>    convert_image_type(Image, Image, 'byte')</l>
+<l>    var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)    </l>
+<l>else </l>
+<l>    var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)    </l>
+<l>endif</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

@@ -16,7 +16,7 @@ def get_AirCarbon3_80_jpg_dark_2_mean_pipeline(params):
     # Parameters
     # 'lines', 'y', 5, 'adapted_std_deviation', 'dark', 15, 0.3
     param_lines = "<l>        FilterType := '" + str(params[0]) + "'</l>\n" + \
-                  "<l>        Min := '" + str(params[1]) + "'</l>\n" + \
+                  "<l>        Min := " + str(params[1]) + "</l>\n" + \
                   "<l>        Max := " + str(params[2]) + "</l>\n" + \
                                                              "<c></c>\n"
 

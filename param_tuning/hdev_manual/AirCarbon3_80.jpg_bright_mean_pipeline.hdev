@@ -35,7 +35,9 @@
 <c>        </c>
 <l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeLT, Scale])</l>
 <c>        </c>
-<l>        connection(Region, Region)        </l>
+<l>        connection(Region, Region)</l>
+<c>        </c>
+<l>        union1(Region, Region)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

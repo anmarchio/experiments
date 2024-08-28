@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>* GrayErosion</c>
+<l>A := 2</l>
+<l>B := 4</l>
+<l>GrayValueMax := 10  </l>
+<c>* with struct element circle</c>
+<c>* StructElementType Ellipse</c>
+<c>* using A, B and C as shape_params</c>
+<l>get_image_type(Image, Type)</l>
+<l>gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>
+<l>gray_erosion(Image, StructElement, Image)</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

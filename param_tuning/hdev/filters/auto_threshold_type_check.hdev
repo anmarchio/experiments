@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>* AutoThreshold</c>
+<l>        Sigma := 0.5</l>
+<c>        </c>
+<l>        abs_image(Image, Image)</l>
+<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>
+<l>            convert_image_type(Image, Image, 'byte')</l>
+<l>        endif</l>
+<l>        auto_threshold(Image, Region, Sigma)</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

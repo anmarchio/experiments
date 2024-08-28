@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>* Dilation1</c>
+<c>        * 33 [label="Dilation1\nIterations=30\n StructElement=Circle\n A=1\n B=18"];</c>
+<l>        StructElement := 'Circle'</l>
+<l>        A := 1</l>
+<l>        B := 18</l>
+<l>        Iterations := 30</l>
+<l>        tuple_ceil(A + 1, param1)</l>
+<l>        tuple_ceil(A + 1, param2)</l>
+<l>        gen_circle(StructElement1, param1, param2, A)</l>
+<l>        dilation1(Region, Region, StructElement1, Iterations)</l>
+<c>        </c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

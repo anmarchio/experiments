@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'MAIPreform2_Spule0-0816_Upside_mean_pipeline'</l>
+<l>source_path := 'C:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule2-0816_Upside/undone/durchlauf1/training/images'</l>
+<l>output_path := dataset_name + '/'</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try</l>
+<c>        * CropRectangle</c>
+<l>        MinRatio := 0.0899999961256981</l>
+<l>        MaskHeight := 3</l>
+<l>        MaskWidth := 15</l>
+<c>        </c>
+<l>        tuple_real(MinRatio, MinRatio)</l>
+<l>        gen_empty_region(Region)</l>
+<c>        </c>
+<l>        count_channels(Image, NumChannels)</l>
+<l>        if(NumChannels &gt; 1)</l>
+<l>            access_channel(Image, Image, 1)          </l>
+<l>        endif</l>
+<c>        </c>
+<l>        get_image_type(Image, Type)</l>
+<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and Type != 'real')</l>
+<l>            convert_image_type(Image, Image, 'byte')</l>
+<l>        endif</l>
+<l>        fast_threshold(Image, Region, 45, 255, 80)</l>
+<l>        fill_up(Region, Rectangle)</l>
+<c>        </c>
+<l>        gen_empty_obj(FaultyRegion)</l>
+<l>        gen_empty_obj(NewImgReduced)</l>
+<l>        gen_empty_obj(ImgPart)</l>
+<l>        gen_empty_obj(RelativeRegion)</l>
+<c>        </c>
+<l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>
+<l>        reduce_domain(Image, Rectangle, NewImageReduced)</l>
+<l>        region_features(Rectangle, 'width', RegWidth)</l>
+<l>        region_features(Rectangle, 'height', RegHeight)</l>
+<c>        </c>
+<l>        WStep := RegWidth / MaskWidth</l>
+<l>        HStep := RegHeight / MaskHeight</l>
+<c>        </c>
+<l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>
+<l>        StepW := WStep / 2</l>
+<c>        </c>
+<l>        for ImgWidth := Col1 + 20 to EndW by StepW</l>
+<l>            EndH := Row2 - (HStep / 1.5)            </l>
+<l>            StepH := HStep / 2</l>
+<c>            </c>
+<l>            for ImgHeight := Row1 + 3 to EndH by StepH</l>
+<l>                gen_empty_obj(ImagePart)</l>
+<l>                crop_rectangle1(NewImageReduced, ImgPart, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>
+<c>                </c>
+<l>                gray_histo_range(ImgPart, ImgPart, 0, 255, 2, Histo, BinSize)</l>
+<c>                </c>
+<l>                PixelCount := Histo[0] + Histo[1]</l>
+<c>                </c>
+<l>                tuple_real(PixelCount, PixelCount)</l>
+<c>                </c>
+<l>                if(PixelCount &lt;= 0.6 * WStep * HStep)</l>
+<l>                    continue</l>
+<l>                endif</l>
+<l>                Ratio := (Histo[1] * 1.0) / (PixelCount * 1.0)</l>
+<c>                </c>
+<l>                if(Ratio &lt; MinRatio)</l>
+<l>                    gen_rectangle1(FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>
+<l>                    concat_obj(FaultyRegion, RelativeRegion, FaultyRegion)</l>
+<l>                    union1(FaultyRegion, RelativeRegion)</l>
+<l>                endif</l>
+<l>            endfor</l>
+<l>        endfor</l>
+<c></c>
+<l>        count_obj(RelativeRegion, Number)</l>
+<l>        if(Number == 0)</l>
+<l>            gen_empty_region(Region)</l>
+<l>        else</l>
+<l>            Region := RelativeRegion</l>
+<l>        endif</l>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    out_img_path := output_path + Index</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

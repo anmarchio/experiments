@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>* Erosion1</c>
+<c>        * 60 [label="Erosion1\nIterations=49\n StructElement=Ellipse\n A=6\n B=5"];     </c>
+<l>        A := 6</l>
+<l>        B := 5</l>
+<l>        Iterations := 49</l>
+<c>        </c>
+<c>        * StructElementType Ellipse</c>
+<c>        * using A, B and C as shape_params</c>
+<l>        tuple_max2(A, B, max_rad)</l>
+<l>        longer := A</l>
+<l>        shorter := B            </l>
+<l>        if (shorter &gt; longer)</l>
+<l>            tmp := shorter</l>
+<l>            shorter := longer</l>
+<l>                    longer := tmp</l>
+<l>        endif                </l>
+<l>        phi := 0.0         </l>
+<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>
+<l>        gen_ellipse(StructElement2, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
+<c>        </c>
+<l>        erosion1(Region, Region, StructElement2, Iterations)</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
