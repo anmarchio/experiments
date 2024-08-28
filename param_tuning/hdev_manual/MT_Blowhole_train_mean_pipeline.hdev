@@ -4,7 +4,7 @@
 <interface/>
 <body>
 <l>dataset_name := 'MT_Blowhole_train_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/Magnetic-Tile-Defect/MT_Blowhole_train/images'</l>
+<l>source_path := 'N:/evias_expmts/Magnetic-Tile-Defect/MT_Blowhole_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -25,10 +25,16 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * GrayErosion</c>
 <l>        A := 2</l>
 <l>        B := 4</l>
 <l>        GrayValueMax := 10  </l>
+<c>        </c>
+<l>        Method := 'adapted_std_deviation'</l>
+<l>        LightDark := 'dark'</l>
+<l>        MaskSize := 31</l>
+<l>        Scale := 0.5</l>
+<c>        </c>
+<c>        * GrayErosion</c>
 <c>        * with struct element circle</c>
 <c>        * StructElementType Ellipse</c>
 <c>        * using A, B and C as shape_params</c>
@@ -36,10 +42,6 @@
 <l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>
 <l>        gray_erosion(Image, StructElement, Image)</l>
 <c>        </c>
-<l>        Method := 'adapted_std_deviation'</l>
-<l>        LightDark := 'dark'</l>
-<l>        MaskSize := 31</l>
-<l>        Scale := 0.5</l>
 <l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>

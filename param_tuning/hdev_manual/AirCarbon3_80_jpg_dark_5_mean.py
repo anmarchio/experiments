@@ -24,7 +24,8 @@ def get_AirCarbon3_80_jpg_dark_5_mean_pipeline(params):
                                                              "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<l>        var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>\n" \
+    core_code = "<l>        var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, " \
+                "LightDark)</l>\n" \ 
                 "<l>        union1(Region, Region)</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

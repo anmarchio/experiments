@@ -4,7 +4,7 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Bottle_Broken_Lg_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/MVTecAnomalyDetection/bottle_broken_large_train/images'</l>
+<l>source_path := 'N:/evias_expmts/MVTecAnomalyDetection/bottle_broken_large_train/images'</l>
 <l>*source_path := 'C:/evias_expmts/MVTecAnomalyDetection/bottle_broken_small_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
@@ -26,16 +26,17 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * SmoothImage</c>
 <l>        Filter := 'gauss'</l>
 <l>        Alpha := 47.1181</l>
-<l>        smooth_image(Image, ImageSmooth, 'deriche2', 0.5)</l>
 <c>        </c>
-<c>        * CropRectangle</c>
 <l>        MinRatio := 0.0199999995529652</l>
 <l>        MaskHeight := 7</l>
 <l>        MaskWidth := 7</l>
 <c>        </c>
+<c>        * SmoothImage</c>
+<l>        smooth_image(Image, ImageSmooth, Filter, Alpha)</l>
+<c>        </c>
+<c>        * CropRectangle        </c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region)</l>
 <c>        </c>

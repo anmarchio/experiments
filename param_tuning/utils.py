@@ -1,5 +1,10 @@
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 from datetime import datetime
+
 
 from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC
 
@@ -178,3 +183,45 @@ def write_header_to_log(pipeline_name):
     filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
     header = "Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;\n"
     write_to_file(filepath, header)
+
+
+def plot_bar_chart(datasets, cgp_results, ls_results, sa_results):
+    # Data simulation according to the structure provided
+    datasets = [
+        'capsule_crack', 'durchlauf1', 'zipper_rough', 'tile_crack',
+        'screw_scratch_neck', 'bottle_broken_lg', 'carpet', 'leather',
+        'fabric_defects_aitex', 'spule0-0315_upside'
+    ]
+    CGP_results = [0.23, 0.45, 0.35, 0.4, 0.3, 0.35, 0.32, 0.25, 0.38, 0.34]
+    LS_results = [cgp + np.random.uniform(0.01, 0.2) for cgp in CGP_results]
+    SA_results = [ls + np.random.uniform(0.01, 0.2) for ls in LS_results]
+
+    # Number of datasets
+    num_datasets = len(datasets)
+
+    # Create a figure and axis
+    fig, ax = plt.subplots(figsize=(10, 8))
+
+    # Bar width
+    bar_width = 0.25
+
+    # The y positions for each dataset
+    y_pos = np.arange(num_datasets)
+
+    # Plotting the bars
+    ax.barh(y_pos, CGP_results, color='blue', height=bar_width, label='CGP Result')
+    ax.barh(y_pos + bar_width, LS_results, color='lightcoral', height=bar_width, label='LS Result')
+    ax.barh(y_pos + 2 * bar_width, SA_results, color='lightgray', height=bar_width, label='SA Result')
+
+    # Setting the y ticks with dataset names
+    ax.set_yticks(y_pos + bar_width)
+    ax.set_yticklabels(datasets)
+
+    # Adding labels and title
+    ax.set_xlabel('Result')
+    ax.set_title('Results Comparison by Dataset')
+    ax.legend()
+
+    # Display the plot
+    plt.tight_layout()
+    plt.show()

@@ -29,6 +29,9 @@ from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_4_mean import AirCarbon3_80
 from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_5_mean import AirCarbon3_80_jpg_dark_5_training_source_path, \
     get_AirCarbon3_80_jpg_dark_5_mean_pipeline, AirCarbon3_80_jpg_dark_5_mean_pipeline_bounds, \
     AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MT_Blowhole_train_mean import MT_Blowhole_train_training_source_path, \
+    get_MT_Blowhole_train_mean_pipeline, MT_Blowhole_train_mean_pipeline_bounds, \
+    MT_Blowhole_train_mean_pipeline_initial_params
 from param_tuning.hdev_manual.CF_ReferenceSet_Small_Dark_mean_pipeline import \
     CF_ReferenceSet_Small_Dark_training_source_path, get_CF_ReferenceSet_Small_Dark_mean_pipeline, \
     CF_ReferenceSet_Small_Dark_mean_pipeline_bounds, CF_ReferenceSet_Small_Dark_mean_pipeline_initial_params
@@ -41,6 +44,9 @@ from param_tuning.hdev_manual.CF_ReferenceSet_mean_pipeline import CF_ReferenceS
 from param_tuning.hdev_manual.FabricDefectsAITEX_mean import get_FabricDefectsAITEX_mean_pipeline, \
     FabricDefectsAITEX_mean_pipeline_bounds, FabricDefectsAITEX_training_source_path, \
     FabricDefectsAITEX_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MVTec_AD_Bottle_Broken_Lg_mean import MVTec_AD_Bottle_Broken_Lg_training_source_path, \
+    MVTec_AD_Bottle_Broken_Lg_mean_pipeline_initial_params, MVTec_AD_Bottle_Broken_Lg_mean_pipeline_bounds, \
+    get_MVTec_AD_Bottle_Broken_Lg_mean_pipeline
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_MEAN = [
@@ -55,7 +61,8 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     "CF_ReferenceSet_Small_Dark_mean_pipeline",
     "CF_ReferenceSet_Small_Light_mean_pipeline",
     #'FabricDefectsAITEX_mean_pipeline',
-    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
+    "MT_Blowhole_train_mean_pipeline",
+    "MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
     #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
     #"MVTec_AD_Cable_Missing_mean_pipeline",
     #"MVTec_AD_Capsule_mean_pipeline",
@@ -114,8 +121,10 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
         return CF_ReferenceSet_Small_Light_training_source_path
     elif pipeline_name == "FabricDefectsAITEX_mean_pipeline":
         return FabricDefectsAITEX_training_source_path
-    #elif pipeline_name == "MVTec_AD_Bottle_Broken_Lg_mean_pipeline":
-    #    return MVTec_AD_Bottle_Broken_Lg_training_source_path
+    elif pipeline_name == "MT_Blowhole_train_mean_pipeline":
+        return MT_Blowhole_train_training_source_path
+    elif pipeline_name == "MVTec_AD_Bottle_Broken_Lg_mean_pipeline":
+        return MVTec_AD_Bottle_Broken_Lg_training_source_path
     #elif pipeline_name == "MVTec_AD_Bottle_Broken_Sm_mean_pipeline":
     #    return MVTec_AD_Bottle_Broken_Sm_training_source_path
     #elif pipeline_name == "MVTec_AD_Cable_Missing_mean_pipeline":
@@ -148,7 +157,8 @@ pipelines = {
     "CF_ReferenceSet_Small_Dark_mean_pipeline": get_CF_ReferenceSet_Small_Dark_mean_pipeline,
     "CF_ReferenceSet_Small_Light_mean_pipeline": get_CF_ReferenceSet_Small_Light_mean_pipeline,
     "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline,
-    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline": get_MVTec_AD_Bottle_Broken_Lg_mean_pipeline,
+    "MT_Blowhole_train_mean_pipeline": get_MT_Blowhole_train_mean_pipeline,
+    "MVTec_AD_Bottle_Broken_Lg_mean_pipeline": get_MVTec_AD_Bottle_Broken_Lg_mean_pipeline,
     #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": get_MVTec_AD_Bottle_Broken_Sm_mean_pipeline,
     #"MVTec_AD_Cable_Missing_mean_pipeline": get_MVTec_AD_Cable_Missing_mean_pipeline,
     #"MVTec_AD_Capsule_mean_pipeline": get_MVTec_AD_Capsule_mean_pipeline,
@@ -170,7 +180,8 @@ bounds = {
     "CF_ReferenceSet_Small_Dark_mean_pipeline": CF_ReferenceSet_Small_Dark_mean_pipeline_bounds,
     "CF_ReferenceSet_Small_Light_mean_pipeline": CF_ReferenceSet_Small_Light_mean_pipeline_bounds,
     "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_bounds,
-    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline": MVTec_AD_Bottle_Broken_Lg_mean_pipeline_bounds,
+    "MT_Blowhole_train_mean_pipeline": MT_Blowhole_train_mean_pipeline_bounds,
+    "MVTec_AD_Bottle_Broken_Lg_mean_pipeline": MVTec_AD_Bottle_Broken_Lg_mean_pipeline_bounds,
     #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": MVTec_AD_Bottle_Broken_Sm_mean_pipeline_bounds,
     #"MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_bounds,
     #"MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_bounds,
@@ -192,7 +203,8 @@ initial_params = {
     "CF_ReferenceSet_Small_Dark_mean_pipeline": CF_ReferenceSet_Small_Dark_mean_pipeline_initial_params,
     "CF_ReferenceSet_Small_Light_mean_pipeline": CF_ReferenceSet_Small_Light_mean_pipeline_initial_params,
     "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params,
-    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline": MVTec_AD_Bottle_Broken_Lg_mean_pipeline_initial_params,
+    "MT_Blowhole_train_mean_pipeline": MT_Blowhole_train_mean_pipeline_initial_params,
+    "MVTec_AD_Bottle_Broken_Lg_mean_pipeline": MVTec_AD_Bottle_Broken_Lg_mean_pipeline_initial_params,
     #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": MVTec_AD_Bottle_Broken_Sm_mean_pipeline_initial_params,
     #"MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_initial_params,
     #"MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_initial_params,
