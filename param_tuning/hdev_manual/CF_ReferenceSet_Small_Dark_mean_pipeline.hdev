@@ -25,12 +25,14 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try </l>
-<l>        FilterType := 'lines'</l>
-<l>        bandpass_image(Image, Image, FilterType)</l>
+<l>        FilterType1 := 'lines'</l>
 <c>        </c>
-<l>        FilterType := 'y'</l>
+<l>        FilterType2 := 'y'</l>
 <l>        MaskSize := 5</l>
-<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>
+<c>        </c>
+<l>        bandpass_image(Image, Image, FilterType1)</l>
+<c>        </c>
+<l>        sobel_amp(Image, Image, FilterType2, MaskSize)</l>
 <c>    </c>
 <l>        zero_crossing(Image, Region)</l>
 <l>    catch (Exception)</l>

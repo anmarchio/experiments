@@ -29,6 +29,15 @@ from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_4_mean import AirCarbon3_80
 from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_5_mean import AirCarbon3_80_jpg_dark_5_training_source_path, \
     get_AirCarbon3_80_jpg_dark_5_mean_pipeline, AirCarbon3_80_jpg_dark_5_mean_pipeline_bounds, \
     AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params
+from param_tuning.hdev_manual.CF_ReferenceSet_Small_Dark_mean_pipeline import \
+    CF_ReferenceSet_Small_Dark_training_source_path, get_CF_ReferenceSet_Small_Dark_mean_pipeline, \
+    CF_ReferenceSet_Small_Dark_mean_pipeline_bounds
+from param_tuning.hdev_manual.CF_ReferenceSet_Small_Light_mean_pipeline import \
+    CF_ReferenceSet_Small_Light_training_source_path, get_CF_ReferenceSet_Small_Light_mean_pipeline, \
+    CF_ReferenceSet_Small_Light_mean_pipeline_bounds, CF_ReferenceSet_Small_Light_mean_initial_params
+from param_tuning.hdev_manual.CF_ReferenceSet_mean_pipeline import CF_ReferenceSet_training_source_path, \
+    get_CF_ReferenceSet_mean_pipeline, CF_ReferenceSet_mean_pipeline_bounds, \
+    CF_ReferenceSet_mean_pipeline_initial_params
 from param_tuning.hdev_manual.FabricDefectsAITEX_mean import get_FabricDefectsAITEX_mean_pipeline, \
     FabricDefectsAITEX_mean_pipeline_bounds, FabricDefectsAITEX_training_source_path, \
     FabricDefectsAITEX_mean_pipeline_initial_params
@@ -38,14 +47,20 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     #"AirCarbon2_t_8.jpg_mean_pipeline",
     #'AirCarbon3_80.jpg_bright_mean_pipeline',
     #"AirCarbon3_80.jpg_dark_1_mean_pipeline",
-    "AirCarbon3_80.jpg_dark_2_mean_pipeline",
+    #AirCarbon3_80.jpg_dark_2_mean_pipeline",
     #"AirCarbon3_80.jpg_dark_3_mean_pipeline",
     #"AirCarbon3_80.jpg_dark_4_mean_pipeline",
     #"AirCarbon3_80.jpg_dark_5_mean_pipeline",
-    #"CF_ReferenceSet_mean_pipeline",
-    #"CF_ReferenceSet_Small_Dark_mean_pipeline",
-    #"CF_ReferenceSet_Small_Light_mean_pipeline",
-    #'FabricDefectsAITEX_mean_pipeline'
+    "CF_ReferenceSet_mean_pipeline",
+    "CF_ReferenceSet_Small_Dark_mean_pipeline",
+    "CF_ReferenceSet_Small_Light_mean_pipeline",
+    #'FabricDefectsAITEX_mean_pipeline',
+    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
+    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
+    #"MVTec_AD_Cable_Missing_mean_pipeline",
+    #"MVTec_AD_Capsule_mean_pipeline",
+    #"MVTec_AD_Carpet_mean_pipeline",
+    #"MVTec_AD_Grid_Thread_mean_pipeline",
 ]
 
 
@@ -91,14 +106,26 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
         return AirCarbon3_80_jpg_dark_4_training_source_path
     elif pipeline_name == "AirCarbon3_80.jpg_dark_5_mean_pipeline":
         return AirCarbon3_80_jpg_dark_5_training_source_path
-    #elif pipeline_name == "CF_ReferenceSet_mean_pipeline":
-    #    return CF_ReferenceSet_training_source_path
-    #elif pipeline_name == "CF_ReferenceSet_Small_Dark_mean_pipeline":
-    #    return CF_ReferenceSet_Small_Dark_training_source_path
-    #elif pipeline_name == "CF_ReferenceSet_Small_Light_mean_pipeline":
-    #    return CF_ReferenceSet_Small_Light_training_source_path
+    elif pipeline_name == "CF_ReferenceSet_mean_pipeline":
+        return CF_ReferenceSet_training_source_path
+    elif pipeline_name == "CF_ReferenceSet_Small_Dark_mean_pipeline":
+        return CF_ReferenceSet_Small_Dark_training_source_path
+    elif pipeline_name == "CF_ReferenceSet_Small_Light_mean_pipeline":
+        return CF_ReferenceSet_Small_Light_training_source_path
     elif pipeline_name == "FabricDefectsAITEX_mean_pipeline":
         return FabricDefectsAITEX_training_source_path
+    #elif pipeline_name == "MVTec_AD_Bottle_Broken_Lg_mean_pipeline":
+    #    return MVTec_AD_Bottle_Broken_Lg_training_source_path
+    #elif pipeline_name == "MVTec_AD_Bottle_Broken_Sm_mean_pipeline":
+    #    return MVTec_AD_Bottle_Broken_Sm_training_source_path
+    #elif pipeline_name == "MVTec_AD_Cable_Missing_mean_pipeline":
+    #    return MVTec_AD_Cable_Missing_training_source_path
+    #elif pipeline_name == "MVTec_AD_Capsule_mean_pipeline":
+    #    return MVTec_AD_Capsule_training_source_path
+    #elif pipeline_name == "MVTec_AD_Carpet_mean_pipeline":
+    #    return MVTec_AD_Carpet_training_source_path
+    #elif pipeline_name == "MVTec_AD_Grid_Thread_mean_pipeline":
+    #    return MVTec_AD_Grid_Thread_training_source_path
     # None
     return None
 
@@ -117,7 +144,16 @@ pipelines = {
     "AirCarbon3_80.jpg_dark_3_mean_pipeline": get_AirCarbon3_80_jpg_dark_3_mean_pipeline,
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": get_AirCarbon3_80_jpg_dark_4_mean_pipeline,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": get_AirCarbon3_80_jpg_dark_5_mean_pipeline,
-    "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline
+    "CF_ReferenceSet_mean_pipeline": get_CF_ReferenceSet_mean_pipeline,
+    "CF_ReferenceSet_Small_Dark_mean_pipeline": get_CF_ReferenceSet_Small_Dark_mean_pipeline,
+    "CF_ReferenceSet_Small_Light_mean_pipeline": get_CF_ReferenceSet_Small_Light_mean_pipeline,
+    "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline,
+    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline": get_MVTec_AD_Bottle_Broken_Lg_mean_pipeline,
+    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": get_MVTec_AD_Bottle_Broken_Sm_mean_pipeline,
+    #"MVTec_AD_Cable_Missing_mean_pipeline": get_MVTec_AD_Cable_Missing_mean_pipeline,
+    #"MVTec_AD_Capsule_mean_pipeline": get_MVTec_AD_Capsule_mean_pipeline,
+    #"MVTec_AD_Carpet_mean_pipeline": get_MVTec_AD_Carpet_mean_pipeline,
+    #"MVTec_AD_Grid_Thread_mean_pipeline": get_MVTec_AD_Grid_Thread_mean_pipeline
     # Add other pipelines here
 }
 
@@ -130,9 +166,19 @@ bounds = {
     "AirCarbon3_80.jpg_dark_3_mean_pipeline": AirCarbon3_80_jpg_dark_3_mean_pipeline_bounds,
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": AirCarbon3_80_jpg_dark_4_mean_pipeline_bounds,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": AirCarbon3_80_jpg_dark_5_mean_pipeline_bounds,
-    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_bounds
+    "CF_ReferenceSet_mean_pipeline": CF_ReferenceSet_mean_pipeline_bounds,
+    "CF_ReferenceSet_Small_Dark_mean_pipeline": CF_ReferenceSet_Small_Dark_mean_pipeline_bounds,
+    "CF_ReferenceSet_Small_Light_mean_pipeline": CF_ReferenceSet_Small_Light_mean_pipeline_bounds,
+    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_bounds,
+    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline": MVTec_AD_Bottle_Broken_Lg_mean_pipeline_bounds,
+    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": MVTec_AD_Bottle_Broken_Sm_mean_pipeline_bounds,
+    #"MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_bounds,
+    #"MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_bounds,
+    #"MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_bounds,
+    #"MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_bounds
     # Add other bounds here
 }
+
 
 initial_params = {
     "AirCarbon2_t_8.jpg_mean_pipeline": AirCarbon2_t_8_jpg_mean_pipeline_initial_params,
@@ -142,6 +188,15 @@ initial_params = {
     "AirCarbon3_80.jpg_dark_3_mean_pipeline": AirCarbon3_80_jpg_dark_3_mean_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": AirCarbon3_80_jpg_dark_4_mean_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params,
-    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params
+    "CF_ReferenceSet_mean_pipeline": CF_ReferenceSet_mean_pipeline_initial_params,
+    "CF_ReferenceSet_Small_Dark_mean_pipeline": CF_ReferenceSet_Small_Dark_mean_initial_params,
+    "CF_ReferenceSet_Small_Light_mean_pipeline": CF_ReferenceSet_Small_Light_mean_initial_params,
+    "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params,
+    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline": MVTec_AD_Bottle_Broken_Lg_mean_pipeline_initial_params,
+    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": MVTec_AD_Bottle_Broken_Sm_mean_pipeline_initial_params,
+    #"MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_initial_params,
+    #"MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_initial_params,
+    #"MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_initial_params,
+    #"MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_initial_params
     # Add initial params
 }
