@@ -27,7 +27,7 @@ def get_CF_ReferenceSet_Small_Light_mean_pipeline(params):
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
-CF_ReferenceSet_Small_Light_mean_initial_params = [
+CF_ReferenceSet_Small_Light_mean_pipeline_initial_params = [
     3,
     29,
     0.4000001,

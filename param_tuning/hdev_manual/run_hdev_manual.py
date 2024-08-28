@@ -31,10 +31,10 @@ from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_5_mean import AirCarbon3_80
     AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params
 from param_tuning.hdev_manual.CF_ReferenceSet_Small_Dark_mean_pipeline import \
     CF_ReferenceSet_Small_Dark_training_source_path, get_CF_ReferenceSet_Small_Dark_mean_pipeline, \
-    CF_ReferenceSet_Small_Dark_mean_pipeline_bounds
+    CF_ReferenceSet_Small_Dark_mean_pipeline_bounds, CF_ReferenceSet_Small_Dark_mean_pipeline_initial_params
 from param_tuning.hdev_manual.CF_ReferenceSet_Small_Light_mean_pipeline import \
     CF_ReferenceSet_Small_Light_training_source_path, get_CF_ReferenceSet_Small_Light_mean_pipeline, \
-    CF_ReferenceSet_Small_Light_mean_pipeline_bounds, CF_ReferenceSet_Small_Light_mean_initial_params
+    CF_ReferenceSet_Small_Light_mean_pipeline_bounds, CF_ReferenceSet_Small_Light_mean_pipeline_initial_params
 from param_tuning.hdev_manual.CF_ReferenceSet_mean_pipeline import CF_ReferenceSet_training_source_path, \
     get_CF_ReferenceSet_mean_pipeline, CF_ReferenceSet_mean_pipeline_bounds, \
     CF_ReferenceSet_mean_pipeline_initial_params
@@ -189,8 +189,8 @@ initial_params = {
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": AirCarbon3_80_jpg_dark_4_mean_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params,
     "CF_ReferenceSet_mean_pipeline": CF_ReferenceSet_mean_pipeline_initial_params,
-    "CF_ReferenceSet_Small_Dark_mean_pipeline": CF_ReferenceSet_Small_Dark_mean_initial_params,
-    "CF_ReferenceSet_Small_Light_mean_pipeline": CF_ReferenceSet_Small_Light_mean_initial_params,
+    "CF_ReferenceSet_Small_Dark_mean_pipeline": CF_ReferenceSet_Small_Dark_mean_pipeline_initial_params,
+    "CF_ReferenceSet_Small_Light_mean_pipeline": CF_ReferenceSet_Small_Light_mean_pipeline_initial_params,
     "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params,
     #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline": MVTec_AD_Bottle_Broken_Lg_mean_pipeline_initial_params,
     #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": MVTec_AD_Bottle_Broken_Sm_mean_pipeline_initial_params,
