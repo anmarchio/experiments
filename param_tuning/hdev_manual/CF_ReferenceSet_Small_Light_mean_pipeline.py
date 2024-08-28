@@ -18,7 +18,7 @@ def get_CF_ReferenceSet_Small_Light_mean_pipeline(params):
                   "<l>        MaskHeight := " + str(params[1]) + "</l>\n" + \
                   "<l>        StdDevScale := " + str(params[2]) + "</l>\n" + \
                   "<l>        AbsThreshold := " + str(params[3]) + "</l>\n" + \
-                  "<l>        LightDark := '" + str(params[6]) + "'</l>\n" + \
+                  "<l>        LightDark := '" + str(params[4]) + "'</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
