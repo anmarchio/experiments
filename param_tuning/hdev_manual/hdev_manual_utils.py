@@ -106,7 +106,7 @@ def get_crop_rectangle_code():
                           "<c></c>\n" \
                           "<l>                tuple_real(PixelCount, PixelCount)</l>\n" \
                           "<c></c>\n" \
-                          "<l>                if(PixelCount &lt;== 0.6 * WStep * HStep)</l>\n" \
+                          "<l>                if(PixelCount &lt;= 0.6 * WStep * HStep)</l>\n" \
                           "<l>                    continue</l>\n" \
                           "<l>                endif</l>\n" \
                           "<l>                Ratio := (Histo[1] * 1.0) / (PixelCount * 1.0)</l>\n" \
@@ -114,7 +114,7 @@ def get_crop_rectangle_code():
                           "<l>                if(Ratio &lt;= MinRatio)</l>\n" \
                           "<l>                    gen_rectangle1(FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, " \
                           "ImgWidth + WStep)</l>\n" \
-                          "<l>                    concat_obj(FaultyRegion, RelativeRegion, FaultyRegion)endif</l>\n" \
+                          "<l>                    concat_obj(FaultyRegion, RelativeRegion, FaultyRegion)</l>\n" \
                           "<l>                    union1(FaultyRegion, RelativeRegion)</l>\n" \
                           "<l>                endif</l>\n" \
                           "<l>            endfor</l>\n" \
