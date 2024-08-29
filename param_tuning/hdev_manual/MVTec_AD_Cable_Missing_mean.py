@@ -39,7 +39,7 @@ def get_MVTec_AD_Cable_Missing_mean_pipeline(params):
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
-MVTec_AD_Bottle_Cable_Missing_mean_pipeline_initial_params = [
+MVTec_AD_Cable_Missing_mean_pipeline_initial_params = [
     'perona-malik',
     10,
     3,
@@ -48,7 +48,7 @@ MVTec_AD_Bottle_Cable_Missing_mean_pipeline_initial_params = [
     'dark'
 ]
 
-MVTec_AD_Bottle_Cable_Missing_mean_pipeline_bounds = [
+MVTec_AD_Cable_Missing_mean_pipeline_bounds = [
     ['perona-malik', 'weickert', 'parabolic'],
     [2, 5, 10, 20, 50, 100],
     [0.5, 1.0, 3.0],
@@ -57,5 +57,5 @@ MVTec_AD_Bottle_Cable_Missing_mean_pipeline_bounds = [
     ['light', 'dark']
 ]
 
-MVTec_AD_Bottle_Cable_Missing_training_source_path = os.path.join(EVIAS_SRC_PATH,
+MVTec_AD_Cable_Missing_training_source_path = os.path.join(EVIAS_SRC_PATH,
                                                               "MVTecAnomalyDetection", "cable_missing_train")

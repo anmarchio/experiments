@@ -76,7 +76,7 @@ def get_MVTec_AD_Grid_mean_pipeline(params):
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
-MMVTec_AD_Grid_mean_pipeline_initial_params = [
+MVTec_AD_Grid_mean_pipeline_initial_params = [
     19,
     255,
     0.0399999991059303,

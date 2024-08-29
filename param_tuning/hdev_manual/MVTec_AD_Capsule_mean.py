@@ -40,7 +40,7 @@ def get_MVTec_AD_Capsule_mean_pipeline(params):
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
-MMVTec_AD_Capsule_mean_pipeline_initial_params = [
+MVTec_AD_Capsule_mean_pipeline_initial_params = [
     'canny',
     1.1,
     5,
