@@ -56,7 +56,7 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, c
         if diff < 0 or np.random.rand() < metropolis:
             curr, curr_eval = candidate, candidate_eval
 
-        output = format_line(i, -best_eval, params_to_str(candidate), "ls",
+        output = format_line(i, -best_eval, params_to_str(candidate), "sa",
                              f"cooling:{cooling_rate},temp:{temp}", pipeline_name)
         print(output)
         write_log(pipeline_name, output)

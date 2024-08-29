@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>gen_image_const(Image, 'byte', 512, 512)</l>
+<c></c>
+<c>* AreaSizeThreshold</c>
+<c>* 83 [label="AreaSizeThreshold\nMinGray=18\n MaxGray=243\n MinSize=10000\n MaxSize=21000\n WindowWidth=200\n WindowHeight=220"];</c>
+<c></c>
+<l>*MinGray := 18</l>
+<l>*MaxGray := 243</l>
+<l>MinSize := 10000</l>
+<l>MaxSize := 21000</l>
+<l>WindowWidth := 200</l>
+<l>WindowHeight := 220</l>
+<c></c>
+<c>        </c>
+<l>abs_image(Image, Image)</l>
+<c>        </c>
+<l>*MinGray := 20</l>
+<l>*MaxGray := 255</l>
+<l>gen_empty_region(FaultyRegion)</l>
+<l>gen_empty_region(TempRegion)</l>
+<c></c>
+<l>get_image_size(Image, Width, Height)</l>
+<c></c>
+<l>I_W := Width / WindowWidth</l>
+<l>I_H := Height / WindowHeight</l>
+<c></c>
+<l>for i := 0 to I_W by 1</l>
+<c>    </c>
+<l>    for j := 0 to I_H by 1</l>
+<l>        Row1 := j * WindowHeight</l>
+<l>        Col1 := i * WindowHeight</l>
+<l>        Row2 := j * WindowHeight + WindowHeight</l>
+<l>        Col2 := i * WindowHeight + WindowHeight</l>
+<c>        </c>
+<l>        if(Row2 &gt; Height)</l>
+<l>            Row2 := Height</l>
+<l>        endif</l>
+<c>        </c>
+<l>        if(Col2 &gt; Width)</l>
+<l>            Col2 := Width</l>
+<l>        endif</l>
+<c>        </c>
+<l>        if(Row1 &gt; Height)</l>
+<l>            Row1 := Height - 1</l>
+<l>        endif</l>
+<c>        </c>
+<l>        if(Col1 &gt; Width)</l>
+<l>            Col1 := Width - 1</l>
+<l>        endif</l>
+<c>        </c>
+<l>        crop_rectangle1(Image, ImagePart, Row1, Col1, Row2, Col2)</l>
+<l>        threshold(ImagePart, Threads, 40, 255)</l>
+<l>        area_center(Threads, AreaSize, Row, Col)</l>
+<c>        </c>
+<l>        if(AreaSize &lt; MaxSize and AreaSize &gt; MinSize)</l>
+<l>            gen_rectangle1(TempRegion, Row, Col, Row, Col)</l>
+<l>            union2(TempRegion, FaultyRegion, FaultyRegion)</l>
+<l>        endif</l>
+<c>        </c>
+<l>        smallest_rectangle1(FaultyRegion, Row1, Col1, Row2, Col2)</l>
+<l>        region_features(FaultyRegion, 'area', Value)        </l>
+<l>    endfor</l>
+<l>endfor</l>
+<c></c>
+<l>count_obj(FaultyRegion, Number)</l>
+<l>if(Number &gt; 0)</l>
+<l>    Region := FaultyRegion</l>
+<l>else</l>
+<l>    gen_empty_region(Region)</l>
+<l>endif</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

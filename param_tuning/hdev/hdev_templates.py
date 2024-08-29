@@ -4,7 +4,7 @@ HDEV_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" \
               "<interface/>\n" \
               "<body>\n"
 
-HDEV_TEMPLATE_CODE = "<l>dev_update_off()</l>\n"\
+HDEV_TEMPLATE_CODE = "<l>dev_update_off()</l>\n" \
                      "<l>list_image_files(source_path, 'default', [], ImageFiles)</l>\n" \
                      "<c></c>\n" \
                      "<l>for Index := 0 to |ImageFiles| - 1 by 1</l>\n" \
@@ -12,7 +12,13 @@ HDEV_TEMPLATE_CODE = "<l>dev_update_off()</l>\n"\
                      "<l>    if(dir_exists == 0)</l>\n" \
                      "<l>        make_dir(output_path)</l>\n" \
                      "<l>    endif</l>\n" \
-                     "<l>    out_img_path := output_path + Index + '.png'</l>\n" \
+                     "<c></c>\n" \
+                     "<c>    * Remove the extension using regex</c>\n" \
+                     "<l>    tuple_split (ImageFiles[Index], '/', filepath)</l>\n" \
+                     "<l>    filename_with_extension := filepath[|filepath| - 1]</l>\n" \
+                     "<l>    tuple_regexp_replace (filename_with_extension, '\\\\.[a-zA-Z0-9]+$', '', filename)</l>\n" \
+                     "<c></c>\n" \
+                     "<l>    out_img_path := output_path + filename + '.png'</l>\n" \
                      "<l>    file_exists(out_img_path, exists)</l>\n" \
                      "<l>    if(exists)</l>\n" \
                      "<l>        delete_file(out_img_path)</l>\n" \
@@ -36,7 +42,6 @@ HDEV_FOOTER = "<l>    catch (Exception)</l>\n" \
               "<c>    * --------------</c>\n" \
               "<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>\n" \
               "<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>\n" \
-              "<l>    out_img_path := output_path + Index</l>\n" \
               "<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>\n" \
               "<l>endfor</l>\n" \
               "<l>exit()</l>\n" \

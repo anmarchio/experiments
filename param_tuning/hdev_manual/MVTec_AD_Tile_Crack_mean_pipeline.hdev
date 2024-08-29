@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'MVTec_AD_Tile_Crack_mean_pipeline'</l>
+<l>source_path := 'C:/evias_expmts/MVTecAnomalyDetection/tile_crack_train/images'</l>
+<l>output_path := dataset_name + '/'</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try</l>
+<c>        * BinomialFilter</c>
+<c>        * 6 [label="BinomialFilter\nMaskHeight=19\n MaskWidth=17"];</c>
+<l>        MaskHeight := 19</l>
+<l>        MaskWidth := 17</l>
+<l>        binomial_filter(Image, Image, MaskHeight, MaskWidth)</l>
+<c>        </c>
+<c>        * LocalThreshold</c>
+<c>        * 22 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=21\n Scale=0.3"];</c>
+<l>        Method := 'adapted_std_deviation'</l>
+<l>        LightDark := 'light'</l>
+<l>        MaskSize := 21</l>
+<l>        Scale := 0.3</l>
+<l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
+<c>        </c>
+<c>        </c>
+<c>        * Dilation1</c>
+<c>        * 31 [label="Dilation1\nIterations=4\n StructElement=Rectangle\n A=20\n B=9"]; </c>
+<l>        A := 20</l>
+<l>        B := 9</l>
+<l>        Iterations1 := 4</l>
+<c>        </c>
+<l>        gen_rectangle1(RectangleStructElement, 0, 00, A, B)</l>
+<l>        dilation1(Region, RectangleStructElement, Region, Iterations1) </l>
+<c>        </c>
+<c>        * Erosion1</c>
+<c>        * 63 [label="Erosion1\nIterations=3\n StructElement=Rectangle\n A=23\n B=14"];</c>
+<l>        A := 23</l>
+<l>        B := 14</l>
+<l>        Iterations2 := 3</l>
+<c>        </c>
+<l>        gen_rectangle1(RectangleStructElement, 0, 00, A, B)</l>
+<l>        erosion1(Region, RectangleStructElement, Region, Iterations2) </l>
+<c>        </c>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

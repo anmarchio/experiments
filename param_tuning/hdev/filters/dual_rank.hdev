@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>* DualRank</c>
+<l>        MaskType := 'circle'</l>
+<l>        Radius := 61</l>
+<l>        ModePercent := 66</l>
+<l>        Margin := 'OneEighty'</l>
+<c>        </c>
+<c>        *mirrored = 1,</c>
+<c>        *cyclic = 2,</c>
+<c>        *continued = 3, </c>
+<c>        *//0, 30, 60, 90, 120, 150, 180, 210, 240, 255</c>
+<l>        if(Margin == 'Zero')</l>
+<l>            Margin := 0</l>
+<l>        elseif(Margin == 'Thirty')</l>
+<l>            Margin := 30</l>
+<l>        elseif(Margin == 'Sixty')</l>
+<l>            Margin := 60</l>
+<l>        elseif(Margin == 'Ninety')</l>
+<l>            Margin := 90</l>
+<l>        elseif(Margin == 'OneTwenty')</l>
+<l>            Margin := 120</l>
+<l>        elseif(Margin == 'OneFifty')</l>
+<l>            Margin := 150</l>
+<l>        elseif(Margin == 'OneEighty')</l>
+<l>            Margin := 180</l>
+<l>        elseif(Margin == 'TwoTen')</l>
+<l>            Margin := 210</l>
+<l>        elseif(Margin == 'TwoForty')</l>
+<l>            Margin := 240</l>
+<l>        elseif(Margin == 'TwoFifityFive')</l>
+<l>            Margin := 255</l>
+<l>        endif</l>
+<c>        </c>
+<l>        dual_rank(Image, Image, MaskType, Radius, ModePercent, Margin)</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

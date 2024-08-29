@@ -105,7 +105,7 @@ from sklearn.metrics import matthews_corrcoef, jaccard_score, f1_score, accuracy
 
 def load_images_from_folder(folder):
     images = []
-    for filename in sorted(os.listdir(folder)):  # sorted to align images from both folders
+    for filename in os.listdir(folder):
         if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg'):
             img = Image.open(os.path.join(folder, filename)).convert('L')
             img_array = np.array(img)

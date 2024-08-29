@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c></c>
+<c>        * AreaToRectangle</c>
+<c>        * 34 [label="AreaToRectangle\n"]; </c>
+<l>        area_center(Region, Area, Row, Column)</l>
+<l>        Num:= | Area |</l>
+<l>        gen_empty_region(Rectangles)</l>
+<l>        for Index1 := 1 to Num by 1</l>
+<l>            select_obj(Region, obj, Index1)</l>
+<l>            smallest_rectangle1(obj, Row11, Column11, Row21, Column21)</l>
+<l>            gen_rectangle1(Rectangle, Row11, Column11, Row21, Column21)</l>
+<l>            union2(Rectangles, Rectangle, Rectangles)</l>
+<l>        endfor        </l>
+<l>        Region := Rectangles</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

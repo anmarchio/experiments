@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'Pultrusion_Resin_mean_pipeline'</l>
+<l>source_path := 'C:/evias_expmts/Pultrusion/resin_cgp/train/images'</l>
+<l>output_path := dataset_name + '/'</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try</l>
+<c>        * MedianImage</c>
+<c>        * 0 [label="MedianImage\nMaskType=circle\n Radius=47\n Margin=TwoTen"];</c>
+<l>        MaskType := 'circle'</l>
+<l>        Radius := 47</l>
+<l>        Margin := 'TwoTen'</l>
+<c>        </c>
+<c>        *mirrored = 1,</c>
+<c>        *cyclic = 2,</c>
+<c>        *continued = 3, </c>
+<c>        *//0, 30, 60, 90, 120, 150, 180, 210, 240, 255</c>
+<l>        if(Margin == 'Zero')</l>
+<l>            Margin := 0</l>
+<l>        elseif(Margin == 'Thirty')</l>
+<l>            Margin := 30</l>
+<l>        elseif(Margin == 'Sixty')</l>
+<l>            Margin := 60</l>
+<l>        elseif(Margin == 'Ninety')</l>
+<l>            Margin := 90</l>
+<l>        elseif(Margin == 'OneTwenty')</l>
+<l>            Margin := 120</l>
+<l>        elseif(Margin == 'OneFifty')</l>
+<l>            Margin := 150</l>
+<l>        elseif(Margin == 'OneEighty')</l>
+<l>            Margin := 180</l>
+<l>        elseif(Margin == 'TwoTen')</l>
+<l>            Margin := 210</l>
+<l>        elseif(Margin == 'TwoForty')</l>
+<l>            Margin := 240</l>
+<l>        elseif(Margin == 'TwoFifityFive')</l>
+<l>            Margin := 255</l>
+<l>        endif</l>
+<c>        </c>
+<l>        get_image_size(Image, Width, Height)</l>
+<l>        Width := Width / 2</l>
+<l>        Height := Height / 2</l>
+<c>        </c>
+<l>        if(Width &gt;= Radius)</l>
+<l>            radius := Radius</l>
+<l>        else</l>
+<l>            radius := Height - 1</l>
+<l>        endif</l>
+<c>        </c>
+<l>        median_image(Image, Image, MaskType, radius, Margin)</l>
+<c>        </c>
+<c>        * SobelAmp</c>
+<c>        * 13 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
+<l>        FilterType := 'y'</l>
+<l>        MaskSize := 7</l>
+<c>        </c>
+<l>        get_image_type(Image, Type)</l>
+<l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')            </l>
+<l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>
+<l>                convert_image_type(Image, Image, 'byte')</l>
+<l>            endif</l>
+<l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>
+<l>            convert_image_type(Image, Image, 'byte')</l>
+<l>        endif</l>
+<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>
+<c>        </c>
+<c>        * AreaSizeThreshold</c>
+<c>        * 83 [label="AreaSizeThreshold\nMinGray=18\n MaxGray=243\n MinSize=10000\n MaxSize=21000\n WindowWidth=200\n WindowHeight=220"];</c>
+<l>        MinGray := 18</l>
+<l>        MaxGray := 243</l>
+<l>        MinSize := 10000</l>
+<l>        MaxSize := 21000</l>
+<l>        WindowWidth := 200</l>
+<l>        WindowHeight := 220        </l>
+<c>        </c>
+<l>        abs_image(Image, Image)</l>
+<c>        </c>
+<l>        MinGray := 20</l>
+<l>        MaxGray := 255</l>
+<l>        gen_empty_region(FaultyRegion)</l>
+<l>        gen_empty_region(TempRegion)</l>
+<c>        </c>
+<l>        get_image_size(Image, Width, Height)</l>
+<c>        </c>
+<l>        I_W := Width / WindowWidth</l>
+<l>        I_H := Height / WindowHeight</l>
+<c>        </c>
+<l>        for i := 0 to I_W by 1</l>
+<c>            </c>
+<l>            for j := 0 to I_H by 1</l>
+<l>                Row1 := j * WindowHeight</l>
+<l>                Col1 := i * WindowHeight</l>
+<l>                Row2 := j * WindowHeight + WindowHeight</l>
+<l>                Col2 := i * WindowHeight + WindowHeight</l>
+<c>                </c>
+<l>                if(Row2 &gt; Height)</l>
+<l>                    Row2 := Height</l>
+<l>                endif</l>
+<c>                </c>
+<l>                if(Col2 &gt; Width)</l>
+<l>                    Col2 := Width</l>
+<l>                endif</l>
+<c>                </c>
+<l>                if(Row1 &gt; Height)</l>
+<l>                    Row1 := Height - 1</l>
+<l>                endif</l>
+<c>                </c>
+<l>                if(Col1 &gt; Width)</l>
+<l>                    Col1 := Width - 1</l>
+<l>                endif</l>
+<c>                </c>
+<l>                crop_rectangle1(Image, ImagePart, Row1, Col1, Row2, Col2)</l>
+<l>                threshold(ImagePart, Threads, 40, 255)</l>
+<l>                area_center(Threads, AreaSize, Row, Col)</l>
+<c>                </c>
+<l>                if(AreaSize &lt; MaxSize and AreaSize &gt; MinSize)</l>
+<l>                    gen_rectangle1(TempRegion, Row1, Col1, Row2, Col2)</l>
+<l>                    union2(TempRegion, FaultyRegion, FaultyRegion)</l>
+<l>                endif</l>
+<c>                </c>
+<l>                smallest_rectangle1(FaultyRegion, Row1, Col1, Row2, Col2)</l>
+<l>                region_features(FaultyRegion, 'area', Value)                </l>
+<l>            endfor</l>
+<l>        endfor</l>
+<c>        </c>
+<l>        count_obj(FaultyRegion, Number)</l>
+<l>        if(Number &gt; 0)</l>
+<l>            Region := FaultyRegion</l>
+<l>        else</l>
+<l>            gen_empty_region(Region)</l>
+<l>        endif</l>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
