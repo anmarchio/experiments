@@ -25,10 +25,27 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * CropSmallesRectangle</c>
-<c>        * 1 [label="CropSmallestRectangle\nMinGray=19\n MaxGray=255"];</c>
 <l>        MinGray := 19</l>
 <l>        MaxGray := 255</l>
+<c>        </c>
+<l>        MinRatio := 0.0399999991059303</l>
+<l>        MaskHeight := 13</l>
+<l>        MaskWidth := 19</l>
+<c>        </c>
+<l>        FilterType := 'y'</l>
+<l>        MaskSize := 7      </l>
+<c>             </c>
+<l>        Sigma := 0.5</l>
+<c>        </c>
+<l>        A_1 := 21</l>
+<l>        B_1 := 20</l>
+<c>        </c>
+<l>        A_2 := 27</l>
+<l>        B_2 := 7</l>
+<l>        C_2 := 0.392699</l>
+<c>        </c>
+<c>        * CropSmallesRectangle</c>
+<c>        * 1 [label="CropSmallestRectangle\nMinGray=19\n MaxGray=255"];</c>
 <c></c>
 <l>        threshold(Image, Region, MinGray, MaxGray)</l>
 <l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
@@ -41,10 +58,7 @@
 <c>        * -------</c>
 <c>        * CropRectangle</c>
 <c>        * 20 [label="CropRectangle\nMinRatio=0,0399999991059303\n MaskHeight=13\n MaskWidth=19"];</c>
-<l>        MinRatio := 0.0399999991059303</l>
-<l>        MaskHeight := 13</l>
-<l>        MaskWidth := 19</l>
-<c>        </c>
+<c>                </c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region1)</l>
 <c>        </c>
@@ -80,7 +94,14 @@
 <l>            EndH := Row2 - (HStep / 1.5)            </l>
 <l>            StepH := HStep / 2</l>
 <c>            </c>
+<l>            if(StepW == 0.0)</l>
+<l>                break</l>
+<l>            endif</l>
+<c>            </c>
 <l>            for ImgHeight := Row1 + 3 to EndH by StepH</l>
+<l>                if(StepH == 0.0)</l>
+<l>                    break</l>
+<l>                endif</l>
 <l>                gen_empty_obj(ImagePart)</l>
 <l>                crop_rectangle1(NewImageReduced, ImgPart, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>
 <c>                </c>
@@ -112,16 +133,12 @@
 <c>        </c>
 <c>        * Path 2</c>
 <c>        * ------</c>
-<c>        * SobelAmp</c>
-<l>        FilterType := 'y'</l>
-<l>        MaskSize := 7        </l>
+<c>        * SobelAmp  </c>
 <c>        * 19 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
 <l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>
 <c>        </c>
 <c>        * AutoThreshold</c>
-<c>        * 22 [label="AutoThreshold\nSigma=0,5"];        </c>
-<l>        Sigma := 0.5</l>
-<c>        </c>
+<c>        * 22 [label="AutoThreshold\nSigma=0,5"];           </c>
 <l>        abs_image(Image2, Image2)</l>
 <l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>
 <l>            convert_image_type(Image2, Image2, 'byte')</l>
@@ -137,14 +154,12 @@
 <c>        </c>
 <c>        * Opening        </c>
 <c>        * 69 [label="Opening\nStructElement=Ellipse\n A=21\n B=20"];</c>
-<l>        A := 21</l>
-<l>        B := 20</l>
-<c>        </c>
+<c>  </c>
 <c>        * StructElementType Ellipse</c>
 <c>        * using A, B and C as shape_params</c>
-<l>        tuple_max2(A, B, max_rad)</l>
-<l>        longer := A</l>
-<l>        shorter := B            </l>
+<l>        tuple_max2(A_1, B_1, max_rad)</l>
+<l>        longer := A_1</l>
+<l>        shorter := B_1            </l>
 <l>        if (shorter &gt; longer)</l>
 <l>            tmp := shorter</l>
 <l>            shorter := longer</l>
@@ -161,11 +176,8 @@
 <c>        </c>
 <c>        *Closing</c>
 <c>        * 91 [label="Closing\nA=27\n B=7\n C=0,392699\n StructElementType=Rectangle"];</c>
-<l>        A := 27</l>
-<l>        B := 7</l>
-<l>        C := 0.392699</l>
 <c>        </c>
-<l>        gen_rectangle1(RectangleStructElement, 0, 00, A, B)</l>
+<l>        gen_rectangle1(RectangleStructElement, 0, 0, A_2, B_2)</l>
 <l>        closing(Region, RectangleStructElement, Region) </l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>

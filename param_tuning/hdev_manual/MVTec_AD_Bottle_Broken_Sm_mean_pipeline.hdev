@@ -25,21 +25,24 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * Roberts</c>
 <l>        FilterType := 'gradient_max'</l>
-<l>        roberts(Image, Image, FilterType)</l>
 <c>        </c>
-<c>        * FastThreshold</c>
 <l>        MinGray := 68</l>
 <l>        MaxGrayOffset := 90</l>
 <l>        MinSize := 180</l>
+<c>        </c>
+<l>        A := 12</l>
+<l>        B := 27</l>
+<l>        C := 0.0</l>
+<c>        </c>
+<c>        * Roberts</c>
+<l>        roberts(Image, Image, FilterType)</l>
+<c>        </c>
+<c>        * FastThreshold</c>
 <l>        fast_threshold(Image, Region, MinGray, MaxGrayOffset, MinSize)</l>
 <c>        </c>
 <c>        * Closing</c>
 <c>        * 39 [label="Closing\nA=12\n B=27\n C=0\n StructElementType=Ellipse"];</c>
-<l>        A := 12</l>
-<l>        B := 27</l>
-<l>        C := 0.0</l>
 <c>        * StructElementType Ellipse</c>
 <c>        * using A, B and C as shape_params</c>
 <l>        tuple_max2(A, B, max_rad)</l>
@@ -51,12 +54,12 @@
 <l>            longer := tmp</l>
 <l>        endif                </l>
 <l>        phi := C            </l>
-<l>        tuple_ceil(max_rad + 1, max_rad_ceil)            </l>
-<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)       </l>
+<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>
+<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
 <c>        * Apply StructElement Ellipse to Closing</c>
 <l>        closing(Region, StructElement, RegionClosing)</l>
 <c>        </c>
-<c>        * Connection        </c>
+<c>        * Connection</c>
 <l>        connection(Region, Region)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>

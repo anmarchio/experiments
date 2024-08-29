@@ -25,19 +25,22 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try        </l>
-<c>        * BinomialFilter</c>
-<c>        * 5 [label="BinomialFilter\nMaskHeight=17\n MaskWidth=5"];</c>
-<l>        MaskHeight := 17</l>
-<l>        MaskWidth := 5</l>
-<l>        binomial_filter(Image, ImageBinomial, MaskWidth, MaskHeight)</l>
+<l>        MaskHeightBF := 17</l>
+<l>        MaskWidthBF := 5</l>
 <c>        </c>
-<c>        * VarThreshold</c>
-<c>        * 26 [label="VarThreshold\nMaskWidth=29\n MaskHeight=23\n StdDevScale=0.2000001\n AbsThreshold=13\n LightDark=not_equal"];</c>
 <l>        MaskWidth := 29</l>
 <l>        MaskHeight := 23</l>
 <l>        StdDevScale := 0.2000001</l>
 <l>        AbsThreshold := 13</l>
 <l>        LightDark := 'not_equal'</l>
+<c>        </c>
+<c>        * BinomialFilter</c>
+<c>        * 5 [label="BinomialFilter\nMaskHeight=17\n MaskWidth=5"];</c>
+<l>        binomial_filter(Image, Image, MaskWidthBF, MaskHeightBF)</l>
+<c>        </c>
+<c>        * VarThreshold</c>
+<c>        * 26 [label="VarThreshold\nMaskWidth=29\n MaskHeight=23\n StdDevScale=0.2000001\n AbsThreshold=13\n LightDark=not_equal"];</c>
+<c>        </c>
 <c>        </c>
 <l>        get_image_type(Image, Type)</l>
 <l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and Type != 'real')</l>

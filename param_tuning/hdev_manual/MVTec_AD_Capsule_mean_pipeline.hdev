@@ -25,28 +25,30 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * EdgesImage</c>
-<c>        *7 [label="EdgesImage\n</c>
 <l>        Filter := 'canny'</l>
 <l>        Alpha:=1.1</l>
 <l>        Low :=5 </l>
 <l>        High := 25</l>
 <l>        NonMaximumSuppression := 'nms'</l>
-<l>        edges_image(Image, Image, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
 <c>        </c>
-<c>        * SobelAmp</c>
-<c>        *14 [label="SobelAmp\n</c>
 <l>        FilterType := 'y'</l>
 <l>        MaskSize := 7</l>
-<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>
 <c>        </c>
-<c>        * VarThreshold</c>
 <l>        MaskWidth := 23</l>
 <l>        MaskHeight := 25</l>
 <l>        StdDevScale := -0.09999993</l>
 <l>        AbsThreshold := 19 </l>
-<l>        LightDark := 'not_equal'       </l>
+<l>        LightDark := 'not_equal'</l>
 <c>        </c>
+<c>        * EdgesImage</c>
+<c>        *7 [label="EdgesImage\n</c>
+<l>        edges_image(Image, Image, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
+<c>        </c>
+<c>        * SobelAmp</c>
+<c>        *14 [label="SobelAmp\n</c>
+<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>
+<c>        </c>
+<c>        * VarThreshold        </c>
 <l>        get_image_type(Image, Type)        </l>
 <l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and Type != 'real')</l>
 <l>            min_max_gray(Image, Image, 0, Min, Max, Range)</l>

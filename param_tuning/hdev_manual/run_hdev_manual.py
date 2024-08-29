@@ -63,11 +63,24 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     #'FabricDefectsAITEX_mean_pipeline',
     #"MT_Blowhole_train_mean_pipeline",
     "MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
-    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
-    #"MVTec_AD_Cable_Missing_mean_pipeline",
-    #"MVTec_AD_Capsule_mean_pipeline",
-    #"MVTec_AD_Carpet_mean_pipeline",
-    #"MVTec_AD_Grid_Thread_mean_pipeline",
+    "MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
+    "MVTec_AD_Cable_Missing_mean_pipeline",
+    "MVTec_AD_Capsule_mean_pipeline",
+    "MVTec_AD_Carpet_mean_pipeline",
+    "MVTec_AD_Grid_Thread_mean_pipeline",
+    #"MVTec_AD_Hazelnut_Crack_mean_pipeline",
+    #"MVTec_AD_Leather_mean_pipeline",
+    #"MVTec_AD_Metal_Nut_mean_pipeline",
+    #"MVTec_AD_Pill_Crack_mean_pipeline",
+    #"MVTec_AD_Screw_Scratch_mean_pipeline",
+    #"MVTec_AD_Tile_Crack_mean_pipeline",
+    #"MVTec_AD_Toothbrush_Sm_mean_pipeline",
+    #"MVTec_AD_Wood_Scratch_mean_pipeline",
+    #"MVTec_AD_Zipper_Rough_mean_pipeline",
+    #"Pultrusion_Resin_Augmtd_mean_pipeline",
+    #"Pultrusion_Resin_mean_pipeline",
+    #"Pultrusion_Window_mean_pipeline",
+    "severstal-steel_mean_pipeline"
 ]
 
 
@@ -125,16 +138,42 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
         return MT_Blowhole_train_training_source_path
     elif pipeline_name == "MVTec_AD_Bottle_Broken_Lg_mean_pipeline":
         return MVTec_AD_Bottle_Broken_Lg_training_source_path
-    #elif pipeline_name == "MVTec_AD_Bottle_Broken_Sm_mean_pipeline":
-    #    return MVTec_AD_Bottle_Broken_Sm_training_source_path
-    #elif pipeline_name == "MVTec_AD_Cable_Missing_mean_pipeline":
-    #    return MVTec_AD_Cable_Missing_training_source_path
-    #elif pipeline_name == "MVTec_AD_Capsule_mean_pipeline":
-    #    return MVTec_AD_Capsule_training_source_path
-    #elif pipeline_name == "MVTec_AD_Carpet_mean_pipeline":
-    #    return MVTec_AD_Carpet_training_source_path
-    #elif pipeline_name == "MVTec_AD_Grid_Thread_mean_pipeline":
-    #    return MVTec_AD_Grid_Thread_training_source_path
+    elif pipeline_name == "MVTec_AD_Bottle_Broken_Sm_mean_pipeline":
+        return MVTec_AD_Bottle_Broken_Sm_training_source_path
+    elif pipeline_name == "MVTec_AD_Cable_Missing_mean_pipeline":
+        return MVTec_AD_Cable_Missing_training_source_path
+    elif pipeline_name == "MVTec_AD_Capsule_mean_pipeline":
+        return MVTec_AD_Capsule_training_source_path
+    elif pipeline_name == "MVTec_AD_Carpet_mean_pipeline":
+        return MVTec_AD_Carpet_training_source_path
+    elif pipeline_name == "MVTec_AD_Grid_Thread_mean_pipeline":
+        return MVTec_AD_Grid_Thread_training_source_path
+    elif pipeline_name == "MVTec_AD_Hazelnut_Crack_mean_pipeline":
+        return MVTec_AD_Hazelnut_Crack_training_source_path
+    elif pipeline_name == "MVTec_AD_Leather_mean_pipeline":
+        return MVTec_AD_Leather_training_source_path
+    elif pipeline_name == "MVTec_AD_Metal_Nut_mean_pipeline":
+        return MVTec_AD_Metal_Nut_training_source_path
+    elif pipeline_name == "MVTec_AD_Pill_Crack_mean_pipeline":
+        return MVTec_AD_Pill_Crack_training_source_path
+    elif pipeline_name == "MVTec_AD_Screw_Scratch_mean_pipeline":
+        return MVTec_AD_Screw_Scratch_training_source_path
+    elif pipeline_name == "MVTec_AD_Tile_Crack_mean_pipeline":
+        return MVTec_AD_Tile_Crack_training_source_path
+    elif pipeline_name == "MVTec_AD_Toothbrush_Sm_mean_pipeline":
+        return MVTec_AD_Toothbrush_Sm_training_source_path
+    elif pipeline_name == "MVTec_AD_Wood_Scratch_mean_pipeline":
+        return MVTec_AD_Wood_Scratch_training_source_path
+    elif pipeline_name == "MVTec_AD_Zipper_Rough_mean_pipeline":
+        return MVTec_AD_Zipper_Rough_training_source_path
+    elif pipeline_name == "Pultrusion_Resin_Augmtd_mean_pipeline":
+        return Pultrusion_Resin_Augmtd_training_source_path
+    elif pipeline_name == "Pultrusion_Resin_mean_pipeline":
+        return Pultrusion_Resin_training_source_path
+    elif pipeline_name == "Pultrusion_Window_mean_pipeline":
+        return Pultrusion_Window_training_source_path
+    elif pipeline_name == "severstal-steel_mean_pipeline":
+        return severstal-steel_training_source_path
     # None
     return None
 
@@ -159,11 +198,24 @@ pipelines = {
     "FabricDefectsAITEX_mean_pipeline": get_FabricDefectsAITEX_mean_pipeline,
     "MT_Blowhole_train_mean_pipeline": get_MT_Blowhole_train_mean_pipeline,
     "MVTec_AD_Bottle_Broken_Lg_mean_pipeline": get_MVTec_AD_Bottle_Broken_Lg_mean_pipeline,
-    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": get_MVTec_AD_Bottle_Broken_Sm_mean_pipeline,
-    #"MVTec_AD_Cable_Missing_mean_pipeline": get_MVTec_AD_Cable_Missing_mean_pipeline,
-    #"MVTec_AD_Capsule_mean_pipeline": get_MVTec_AD_Capsule_mean_pipeline,
-    #"MVTec_AD_Carpet_mean_pipeline": get_MVTec_AD_Carpet_mean_pipeline,
-    #"MVTec_AD_Grid_Thread_mean_pipeline": get_MVTec_AD_Grid_Thread_mean_pipeline
+    "MVTec_AD_Bottle_Broken_Sm_mean_pipeline": get_MVTec_AD_Bottle_Broken_Sm_mean_pipeline,
+    "MVTec_AD_Cable_Missing_mean_pipeline": get_MVTec_AD_Cable_Missing_mean_pipeline,
+    "MVTec_AD_Capsule_mean_pipeline": get_MVTec_AD_Capsule_mean_pipeline,
+    "MVTec_AD_Carpet_mean_pipeline": get_MVTec_AD_Carpet_mean_pipeline,
+    "MVTec_AD_Grid_Thread_mean_pipeline": get_MVTec_AD_Grid_Thread_mean_pipeline,
+    "MVTec_AD_Hazelnut_Crack_mean_pipeline": get_MVTec_AD_Hazelnut_Crack_mean_pipeline,
+    "MVTec_AD_Leather_mean_pipeline": get_MVTec_AD_Leather_mean_pipeline,
+    "MVTec_AD_Metal_Nut_mean_pipeline": get_MVTec_AD_Metal_Nut_mean_pipeline,
+    "MVTec_AD_Pill_Crack_mean_pipeline": get_MVTec_AD_Pill_Crack_mean_pipeline,
+    "MVTec_AD_Screw_Scratch_mean_pipeline": get_MVTec_AD_Screw_Scratch_mean_pipeline,
+    "MVTec_AD_Tile_Crack_mean_pipeline": get_MVTec_AD_Tile_Crack_mean_pipeline,
+    "MVTec_AD_Toothbrush_Sm_mean_pipeline": get_MVTec_AD_Toothbrush_Sm_mean_pipeline,
+    "MVTec_AD_Wood_Scratch_mean_pipeline": get_MVTec_AD_Wood_Scratch_mean_pipeline,
+    "MVTec_AD_Zipper_Rough_mean_pipeline": get_MVTec_AD_Zipper_Rough_mean_pipeline,
+    "Pultrusion_Resin_Augmtd_mean_pipeline": get_Pultrusion_Resin_Augmtd_mean_pipeline,
+    "Pultrusion_Resin_mean_pipeline": get_Pultrusion_Resin_mean_pipeline,
+    "Pultrusion_Window_mean_pipeline": get_Pultrusion_Window_mean_pipeline,
+    "severstal-steel_mean_pipeline": get_severstal-steel_mean_pipeline
     # Add other pipelines here
 }
 
@@ -182,11 +234,24 @@ bounds = {
     "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_bounds,
     "MT_Blowhole_train_mean_pipeline": MT_Blowhole_train_mean_pipeline_bounds,
     "MVTec_AD_Bottle_Broken_Lg_mean_pipeline": MVTec_AD_Bottle_Broken_Lg_mean_pipeline_bounds,
-    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": MVTec_AD_Bottle_Broken_Sm_mean_pipeline_bounds,
-    #"MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_bounds,
-    #"MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_bounds,
-    #"MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_bounds,
-    #"MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_bounds
+    "MVTec_AD_Bottle_Broken_Sm_mean_pipeline": MVTec_AD_Bottle_Broken_Sm_mean_pipeline_bounds,
+    "MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_bounds,
+    "MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_bounds,
+    "MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_bounds,
+    "MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_bounds,
+    "MVTec_AD_Hazelnut_Crack_mean_pipeline": gMVTec_AD_Hazelnut_Crack_bounds,
+    "MVTec_AD_Leather_mean_pipeline": MVTec_AD_Leather_bounds,
+    "MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_bounds,
+    "MVTec_AD_Pill_Crack_mean_pipeline": MVTec_AD_Pill_Crack_bounds,
+    "MVTec_AD_Screw_Scratch_mean_pipeline": MVTec_AD_Screw_Scratch_bounds,
+    "MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_bounds,
+    "MVTec_AD_Toothbrush_Sm_mean_pipeline": MVTec_AD_Toothbrush_Sm_bounds,
+    "MVTec_AD_Wood_Scratch_mean_pipeline": MVTec_AD_Wood_Scratch_bounds,
+    "MVTec_AD_Zipper_Rough_mean_pipeline": gMVTec_AD_Zipper_Rough_bounds,
+    "Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_bounds,
+    "Pultrusion_Resin_mean_pipeline": Pultrusion_Resin_bounds,
+    "Pultrusion_Window_mean_pipeline": Pultrusion_Window_bounds,
+    "severstal-steel_mean_pipeline": severstal-steel_bounds
     # Add other bounds here
 }
 
@@ -205,10 +270,23 @@ initial_params = {
     "FabricDefectsAITEX_mean_pipeline": FabricDefectsAITEX_mean_pipeline_initial_params,
     "MT_Blowhole_train_mean_pipeline": MT_Blowhole_train_mean_pipeline_initial_params,
     "MVTec_AD_Bottle_Broken_Lg_mean_pipeline": MVTec_AD_Bottle_Broken_Lg_mean_pipeline_initial_params,
-    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline": MVTec_AD_Bottle_Broken_Sm_mean_pipeline_initial_params,
-    #"MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_initial_params,
-    #"MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_initial_params,
-    #"MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_initial_params,
-    #"MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_initial_params
+    "MVTec_AD_Bottle_Broken_Sm_mean_pipeline": MVTec_AD_Bottle_Broken_Sm_mean_pipeline_initial_params,
+    "MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_initial_params,
+    "MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_initial_params,
+    "MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_initial_params,
+    "MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_initial_params,
+    "MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_mean_pipeline_initial_params,
+    "MVTec_AD_Leather_mean_pipeline": MVTec_AD_Leather_mean_pipeline_initial_params,
+    "MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_mean_pipeline_initial_params,
+    "MVTec_AD_Pill_Crack_mean_pipeline": MVTec_AD_Pill_Crack_mean_pipeline_initial_params,
+    "MVTec_AD_Screw_Scratch_mean_pipeline": MVTec_AD_Screw_Scratch_mean_pipeline_initial_params,
+    "MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_mean_pipeline_initial_params,
+    "MVTec_AD_Toothbrush_Sm_mean_pipeline": MVTec_AD_Toothbrush_Sm_mean_pipeline_initial_params,
+    "MVTec_AD_Wood_Scratch_mean_pipeline": MVTec_AD_Wood_Scratch_mean_pipeline_initial_params,
+    "MVTec_AD_Zipper_Rough_mean_pipeline": MVTec_AD_Zipper_Rough_mean_pipeline_initial_params,
+    "Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_mean_pipeline_initial_params,
+    "Pultrusion_Resin_mean_pipeline": Pultrusion_Resin_mean_pipeline_initial_params,
+    "Pultrusion_Window_mean_pipeline": Pultrusion_Window_mean_pipeline_initial_params,
+    "severstal-steel_mean_pipeline": severstal-steel_mean_pipeline_initial_params
     # Add initial params
 }

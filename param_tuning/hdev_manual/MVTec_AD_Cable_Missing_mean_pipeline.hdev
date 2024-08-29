@@ -24,17 +24,19 @@
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
-<l>    try</l>
-<c>        * AnisotropicDiffusion</c>
+<l>    try        </l>
 <l>        DiffusionCoefficient := 'perona-malik'</l>
 <l>        Contrast := 10</l>
 <l>        Theta := 3</l>
 <l>        Iterations := 100</l>
+<c>        </c>
+<l>        Method := 'smooth_histo'</l>
+<l>        LightDark := 'dark'</l>
+<c>        </c>
+<c>        * AnisotropicDiffusion</c>
 <l>        anisotropic_diffusion(Image, Image, DiffusionCoefficient, Contrast, Theta, Iterations)</l>
 <c>        </c>
 <c>        * BinaryThreshold</c>
-<l>        Method := 'smooth_histo'</l>
-<l>        LightDark := 'dark'</l>
 <l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>
 <c>        </c>
 <c>        * Connection        </c>

@@ -2,6 +2,52 @@ from param_tuning.hdev.hdev_templates import HDEV_HEADER, HDEV_TEMPLATE_CODE, HD
 from param_tuning.utils import get_evias_experimts_path_for_hdev
 
 
+def get_var_threshold_code():
+    var_threshold_code = "<c>        * VarThreshold</c>\n" + \
+                         "<l>        get_image_type(Image, Type)  </l>\n" + \
+                         "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and Type != 'real')</l>\n" + \
+                         "<l>            min_max_gray(Image, Image, 0, Min, Max, Range)</l>\n" + \
+                         "<l>            if (not( (255 >= Max) and (Min >= 0) ) )</l>\n" + \
+                         "<l>                if ((Max - Min) > 0)</l>\n" + \
+                         "<l>                    Mult := 255.0 / (Max - Min)</l>\n" + \
+                         "<l>                else</l>\n" + \
+                         "<l>                    Mult := 255.0</l>\n" + \
+                         "<l>                endif</l>\n" + \
+                         "<l>                Add := -Mult * Min</l>\n" + \
+                         "<l>                scale_image(Image, Image, Mult, Add)</l>\n" + \
+                         "<l>            else</l>\n" + \
+                         "<l>            scale_image(Image, Image, 1, 0)</l>\n" + \
+                         "<l>            endif</l>\n" + \
+                         "<l>            StandardType := 'byte'</l>\n" + \
+                         "<l>            convert_image_type(Image, Image, 'byte')</l>\n" + \
+                         "<l>            var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>\n" + \
+                         "<l>        else</l>\n" + \
+                         "<l>            var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>\n" + \
+                         "<l>        endif</l>\n" + \
+                         "<c></c>\n"
+    return var_threshold_code
+
+
+def get_ellipse_struct_code(A, B, phi):
+    if phi is None:
+        phi = 0.0
+    ellipse_struct_code = f"<l>        * StructElementType Ellipse</l>\n" + \
+                          f"<l>        * using A, B and C as shape_params</l>\n" + \
+                          f"<l>        tuple_max2({A}, {B}, max_rad)</l>\n" + \
+                          f"<l>        longer := {A}</l>\n" + \
+                          f"<l>        shorter := {B}</l>\n" + \
+                          f"<l>        if (shorter > longer)</l>\n" + \
+                          f"<l>            tmp := shorter</l>\n" + \
+                          f"<l>            shorter := longer</l>\n" + \
+                          f"<l>            longer := tmp</l>\n" + \
+                          f"<l>        phi := {phi}</l>\n" + \
+                          f"<l>        tuple_ceil({A} + 1, max_rad_ceil)</l>\n" + \
+                          f"<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, " \
+                          f"shorter)</l>\n" + \
+                          f"<l>        * Apply StructElement Ellipse</l>\n"
+    return ellipse_struct_code
+
+
 def get_crop_rectangle_code():
     crop_rectangle_code = "<c></c>\n" \
                           "<c>        * CropRectangle  </c>\n" \
@@ -41,7 +87,16 @@ def get_crop_rectangle_code():
                           "<l>        for ImgWidth := Col1 + 20 to EndW by StepW</l>\n" \
                           "<l>            EndH := Row2 - (HStep / 1.5)    </l>\n" \
                           "<l>            StepH := HStep / 2</l>\n" \
+                          "<c></c>\n" \
+                          "<l>            if(StepW == 0.0)</l>\n" \
+                          "<l>                break</l>\n" \
+                          "<l>            endif</l>\n" \
+                          "<c></c>\n" \
                           "<l>            for ImgHeight := Row1 + 3 to EndH by StepH</l>\n" \
+                          "<l>                if(StepH == 0.0)</l>\n" \
+                          "<l>                    break</l>\n" \
+                          "<l>                endif</l>\n" \
+                          "<c></c>\n" \
                           "<l>                gen_empty_obj(ImagePart)</l>\n" \
                           "<l>                crop_rectangle1(NewImageReduced, ImgPart, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>\n" \
                           "<c></c>\n" \

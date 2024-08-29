@@ -25,18 +25,30 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * EdgesImage</c>
-<c>        * 1 [label="EdgesImage\nFilter=canny\n Alpha=0,5\n Low=30\n High=45\n NonMaximumSuppression=nms"];</c>
 <l>        Filter := 'canny'</l>
 <l>        Alpha := 0.5</l>
 <l>        Low := 30</l>
 <l>        High := 45</l>
 <l>        NonMaximumSuppression := 'nms'</l>
+<c>        </c>
+<l>        FilterType := 'y_binomial'</l>
+<l>        MaskSize := 7</l>
+<c>        </c>
+<l>        Sigma := 0.5</l>
+<c>        </c>
+<l>        A_1 := 1</l>
+<l>        B_1 := 18</l>
+<l>        Iterations1 := 30</l>
+<c>        </c>
+<l>        A_2 := 6</l>
+<l>        B_2 := 5</l>
+<l>        Iterations2 := 49</l>
+<c>        </c>
+<c>        * EdgesImage</c>
+<c>        * 1 [label="EdgesImage\nFilter=canny\n Alpha=0,5\n Low=30\n High=45\n NonMaximumSuppression=nms"];</c>
 <l>        edges_image(Image, Image, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
 <c>        </c>
 <c>        * SobelAmp        </c>
-<l>        FilterType := 'y_binomial'</l>
-<l>        MaskSize := 7</l>
 <c>        </c>
 <l>        get_image_type(Image, Type)</l>
 <l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')            </l>
@@ -48,9 +60,7 @@
 <l>        endif</l>
 <l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>
 <c>        </c>
-<c>        * AutoThreshold</c>
-<l>        Sigma := 0.5</l>
-<c>        </c>
+<c>        * AutoThreshold        </c>
 <l>        abs_image(Image, Image)</l>
 <l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>
 <l>            convert_image_type(Image, Image, 'byte')</l>
@@ -59,26 +69,20 @@
 <c>        </c>
 <c>        * Dilation1</c>
 <c>        * 33 [label="Dilation1\nIterations=30\n StructElement=Circle\n A=1\n B=18"];</c>
-<l>        StructElement := 'Circle'</l>
-<l>        A := 1</l>
-<l>        B := 18</l>
-<l>        Iterations := 30</l>
-<l>        tuple_ceil(A + 1, param1)</l>
-<l>        tuple_ceil(A + 1, param2)</l>
-<l>        gen_circle(StructElement1, param1, param2, A)</l>
-<l>        dilation1(Region, Region, StructElement1, Iterations)</l>
+<c></c>
+<l>        tuple_ceil(A_1 + 1, param1)</l>
+<l>        tuple_ceil(B_1 + 1, param2)</l>
+<l>        gen_circle(StructElement1, param1, param2, A_1)</l>
+<l>        dilation1(Region, Region, StructElement1, Iterations1)</l>
 <c>        </c>
 <c>        * Erosion1</c>
 <c>        * 60 [label="Erosion1\nIterations=49\n StructElement=Ellipse\n A=6\n B=5"];     </c>
-<l>        A := 6</l>
-<l>        B := 5</l>
-<l>        Iterations := 49</l>
 <c>        </c>
 <c>        * StructElementType Ellipse</c>
 <c>        * using A, B and C as shape_params</c>
-<l>        tuple_max2(A, B, max_rad)</l>
-<l>        longer := A</l>
-<l>        shorter := B            </l>
+<l>        tuple_max2(A_2, B_2, max_rad)</l>
+<l>        longer := A_2</l>
+<l>        shorter := B_2            </l>
 <l>        if (shorter &gt; longer)</l>
 <l>            tmp := shorter</l>
 <l>            shorter := longer</l>
@@ -88,7 +92,7 @@
 <l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>
 <l>        gen_ellipse(StructElement2, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
 <c>        </c>
-<l>        erosion1(Region, Region, StructElement2, Iterations)</l>
+<l>        erosion1(Region, Region, StructElement2, Iterations2)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
