@@ -36,7 +36,7 @@ def get_ellipse_struct_code(A, B, phi):
                           f"<l>        tuple_max2({A}, {B}, max_rad)</l>\n" + \
                           f"<l>        longer := {A}</l>\n" + \
                           f"<l>        shorter := {B}</l>\n" + \
-                          f"<l>        if (shorter > longer)</l>\n" + \
+                          f"<l>        if (shorter &gt; longer)</l>\n" + \
                           f"<l>            tmp := shorter</l>\n" + \
                           f"<l>            shorter := longer</l>\n" + \
                           f"<l>            longer := tmp</l>\n" + \
@@ -106,12 +106,12 @@ def get_crop_rectangle_code():
                           "<c></c>\n" \
                           "<l>                tuple_real(PixelCount, PixelCount)</l>\n" \
                           "<c></c>\n" \
-                          "<l>                if(PixelCount <= 0.6 * WStep * HStep)</l>\n" \
+                          "<l>                if(PixelCount &lt;== 0.6 * WStep * HStep)</l>\n" \
                           "<l>                    continue</l>\n" \
                           "<l>                endif</l>\n" \
                           "<l>                Ratio := (Histo[1] * 1.0) / (PixelCount * 1.0)</l>\n" \
                           "<c></c>\n" \
-                          "<l>                if(Ratio < MinRatio)</l>\n" \
+                          "<l>                if(Ratio &lt;= MinRatio)</l>\n" \
                           "<l>                    gen_rectangle1(FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, " \
                           "ImgWidth + WStep)</l>\n" \
                           "<l>                    concat_obj(FaultyRegion, RelativeRegion, FaultyRegion)endif</l>\n" \
