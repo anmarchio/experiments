@@ -45,6 +45,7 @@ MVTec_AD_Bottle_Broken_Sm_mean_pipeline_initial_params = [
     'gradient_max',
     68,
     90,
+    180,
     12,
     27,
     0.0
