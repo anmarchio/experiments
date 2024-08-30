@@ -42,6 +42,7 @@ def get_MVTec_AD_Carpet_mean_pipeline(params):
                 "<l>        abs_image(Image, Image)</l>\n" + \
                 "<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>\n" + \
                 "<l>            convert_image_type(Image, Image, 'byte')</l>\n" + \
+                "<l>        endif</l>\n" + \
                 "<l>        auto_threshold(Image, Region, Sigma)</l>\n" + \
                 "<c></c>\n" + \
                 "<c>        * Dilation1</c>\n" + \
