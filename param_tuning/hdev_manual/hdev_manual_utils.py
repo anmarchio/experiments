@@ -40,6 +40,7 @@ def get_ellipse_struct_code(A, B, phi):
                           f"<l>            tmp := shorter</l>\n" + \
                           f"<l>            shorter := longer</l>\n" + \
                           f"<l>            longer := tmp</l>\n" + \
+                          f"<l>        endif</l>\n" + \
                           f"<l>        phi := {phi}</l>\n" + \
                           f"<l>        tuple_ceil({A} + 1, max_rad_ceil)</l>\n" + \
                           f"<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, " \
