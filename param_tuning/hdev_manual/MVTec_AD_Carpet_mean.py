@@ -40,6 +40,7 @@ def get_MVTec_AD_Carpet_mean_pipeline(params):
                 "<c></c>\n" + \
                 "<c>        * AutoThreshold  </c>\n" + \
                 "<l>        abs_image(Image, Image)</l>\n" + \
+                "<l>        get_image_type(Image, Type)  </l>\n" + \
                 "<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>\n" + \
                 "<l>            convert_image_type(Image, Image, 'byte')</l>\n" + \
                 "<l>        endif</l>\n" + \

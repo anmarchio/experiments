@@ -81,7 +81,7 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     #"MT_Blowhole_train_mean_pipeline",
     #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
     #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
-    "MVTec_AD_Cable_Missing_mean_pipeline",
+    #"MVTec_AD_Cable_Missing_mean_pipeline",
     "MVTec_AD_Capsule_mean_pipeline",
     "MVTec_AD_Carpet_mean_pipeline",
     "MVTec_AD_Grid_Thread_mean_pipeline",
@@ -165,8 +165,8 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
         return MVTec_AD_Carpet_training_source_path
     elif pipeline_name == "MVTec_AD_Grid_Thread_mean_pipeline":
         return MVTec_AD_Grid_training_source_path
-    #elif pipeline_name == "MVTec_AD_Hazelnut_Crack_mean_pipeline":
-    #    return MVTec_AD_Hazelnut_Crack_training_source_path
+    elif pipeline_name == "MVTec_AD_Hazelnut_Crack_mean_pipeline":
+        return MVTec_AD_Hazelnut_Crack_training_source_path
     #elif pipeline_name == "MVTec_AD_Leather_mean_pipeline":
     #    return MVTec_AD_Leather_training_source_path
     #elif pipeline_name == "MVTec_AD_Metal_Nut_mean_pipeline":
@@ -220,7 +220,7 @@ pipelines = {
     "MVTec_AD_Capsule_mean_pipeline": get_MVTec_AD_Capsule_mean_pipeline,
     "MVTec_AD_Carpet_mean_pipeline": get_MVTec_AD_Carpet_mean_pipeline,
     "MVTec_AD_Grid_mean_pipeline": get_MVTec_AD_Grid_mean_pipeline,
-    #"MVTec_AD_Hazelnut_Crack_mean_pipeline": get_MVTec_AD_Hazelnut_Crack_mean_pipeline,
+    "MVTec_AD_Hazelnut_Crack_mean_pipeline": get_MVTec_AD_Hazelnut_Crack_mean_pipeline,
     #"MVTec_AD_Leather_mean_pipeline": get_MVTec_AD_Leather_mean_pipeline,
     #"MVTec_AD_Metal_Nut_mean_pipeline": get_MVTec_AD_Metal_Nut_mean_pipeline,
     #"MVTec_AD_Pill_Crack_mean_pipeline": get_MVTec_AD_Pill_Crack_mean_pipeline,
@@ -256,7 +256,7 @@ bounds = {
     "MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_bounds,
     "MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_bounds,
     "MVTec_AD_Grid_mean_pipeline": MVTec_AD_Grid_mean_pipeline_bounds,
-    #"MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_bounds,
+    "MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_bounds,
     #"MVTec_AD_Leather_mean_pipeline": MVTec_AD_Leather_bounds,
     #"MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_bounds,
     #"MVTec_AD_Pill_Crack_mean_pipeline": MVTec_AD_Pill_Crack_bounds,
@@ -292,7 +292,7 @@ initial_params = {
     "MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_initial_params,
     "MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_initial_params,
     "MVTec_AD_Grid_mean_pipeline": MVTec_AD_Grid_mean_pipeline_initial_params,
-    #"MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_mean_pipeline_initial_params,
+    "MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_mean_pipeline_initial_params,
     #"MVTec_AD_Leather_mean_pipeline": MVTec_AD_Leather_mean_pipeline_initial_params,
     #"MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_mean_pipeline_initial_params,
     #"MVTec_AD_Pill_Crack_mean_pipeline": MVTec_AD_Pill_Crack_mean_pipeline_initial_params,
