@@ -10,7 +10,7 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_MVTec_AD_Grid_mean_pipeline(params):
+def get_MVTec_AD_Grid_Thread_mean_pipeline(params):
     pipeline_name = "MVTec_AD_Grid_mean_pipeline"
     dataset_path = "/MVTecAnomalyDetection/grid_thread_train/images"
 
@@ -41,42 +41,45 @@ def get_MVTec_AD_Grid_mean_pipeline(params):
                 "<c></c>\n" + \
                 "<c>        * Path 1</c>\n" + \
                 "<c>        * -------</c>\n" + \
-                + get_crop_rectangle_code() + \
-                "<c></c>\n" + \
-                "<c>        * Path 2</c>\n" + \
-                "<c>        * -------</c>\n" + \
-                "<c></c>\n" + \
-                "<c>        * SobelAmp</c>\n" + \
-                "<l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>\n" + \
-                "<c></c>\n" + \
-                "<c>        * AutoThreshold</c>\n" + \
-                "<l>        abs_image(Image2, Image2)</l>\n" + \
-                "<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>\n" + \
-                "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n" + \
-                "<l>        endif</l>\n" + \
-                "<l>        auto_threshold(Image2, Region2, Sigma)</l>\n" + \
-                "<c></c>\n" + \
-                "<c>        * Union2 (Path 1 > Path 2)</c>\n" + \
-                "<l>        union2(Region1, Region2, Region)</l>\n" + \
-                "<c></c>\n" + \
-                "<c>        * MERGE 1>2</c>\n" + \
-                "<c>        * -------</c>\n" + \
-                "<c></c>\n" + \
-                + get_ellipse_struct_code(params[8], params[9], None) + \
-                "<l>        opening(Region, StructElement, Region)</l>\n" + \
-                "<c></c>\n" + \
-                "<c>        * Union1</c>\n" + \
-                "<l>        union1(Region, Region)</l>\n" + \
-                "<c></c>\n" + \
-                "<c>        * Closing</c>\n" + \
-                "<l>        gen_rectangle1(RectangleStructElement, 0, 0, A_2, B_2)</l>\n" + \
-                "<l>        closing(Region, RectangleStructElement, Region)</l>\n" + \
-                "<c></c>\n"
+                get_crop_rectangle_code() + \
+                "<l>        Region1 := Region</l>\n"
+
+
+    core_code += "<c></c>\n" + \
+                 "<c>        * Path 2</c>\n" + \
+                 "<c>        * -------</c>\n" + \
+                 "<c></c>\n" + \
+                 "<c>        * SobelAmp</c>\n" + \
+                 "<l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>\n" + \
+                 "<c></c>\n" + \
+                 "<c>        * AutoThreshold</c>\n" + \
+                 "<l>        abs_image(Image2, Image2)</l>\n" + \
+                 "<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>\n" + \
+                 "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n" + \
+                 "<l>        endif</l>\n" + \
+                 "<l>        auto_threshold(Image2, Region2, Sigma)</l>\n" + \
+                 "<c></c>\n" + \
+                 "<c>        * Union2 (Path 1 > Path 2)</c>\n" + \
+                 "<l>        union2(Region1, Region2, Region)</l>\n" + \
+                 "<c></c>\n" + \
+                 "<c>        * MERGE 1>2</c>\n" + \
+                 "<c>        * -------</c>\n" + \
+                 "<c></c>\n" + \
+                 get_ellipse_struct_code(params[8], params[9], None) + \
+                 "<l>        opening(Region, StructElement, Region)</l>\n" + \
+                 "<c></c>\n" + \
+                 "<c>        * Union1</c>\n" + \
+                 "<l>        union1(Region, Region)</l>\n" + \
+                 "<c></c>\n" + \
+                 "<c>        * Closing</c>\n" + \
+                 "<l>        gen_rectangle1(RectangleStructElement, 0, 0, A_2, B_2)</l>\n" + \
+                 "<l>        closing(Region, RectangleStructElement, Region)</l>\n" + \
+                 "<c></c>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
-MVTec_AD_Grid_mean_pipeline_initial_params = [
+MVTec_AD_Grid_Thread_mean_pipeline_initial_params = [
     19,
     255,
     0.0399999991059303,
@@ -92,7 +95,7 @@ MVTec_AD_Grid_mean_pipeline_initial_params = [
     0.392699
 ]
 
-MVTec_AD_Grid_mean_pipeline_bounds = [
+MVTec_AD_Grid_Thread_mean_pipeline_bounds = [
     [18, 22],
     [255],
     [float(v) * 0.005 for v in range(2, 22, 1)],
@@ -108,5 +111,5 @@ MVTec_AD_Grid_mean_pipeline_bounds = [
     [-1.178097, -0.785398, -0.392699, 0.0, 0.392699, 0.785398, 1.178097]
 ]
 
-MVTec_AD_Grid_training_source_path = os.path.join(EVIAS_SRC_PATH,
-                                                  "MVTecAnomalyDetection", "grid_thread_train")
+MVTec_AD_Grid_Thread_training_source_path = os.path.join(EVIAS_SRC_PATH,
+                                                         "MVTecAnomalyDetection", "grid_thread_train")

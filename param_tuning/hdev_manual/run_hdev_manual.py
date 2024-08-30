@@ -59,8 +59,9 @@ from param_tuning.hdev_manual.MVTec_AD_Capsule_mean import MVTec_AD_Capsule_trai
 from param_tuning.hdev_manual.MVTec_AD_Carpet_mean import MVTec_AD_Carpet_training_source_path, \
     get_MVTec_AD_Carpet_mean_pipeline, MVTec_AD_Carpet_mean_pipeline_bounds, \
     MVTec_AD_Carpet_mean_pipeline_initial_params
-from param_tuning.hdev_manual.MVTec_AD_Grid_mean import MVTec_AD_Grid_training_source_path, \
-    get_MVTec_AD_Grid_mean_pipeline, MVTec_AD_Grid_mean_pipeline_bounds, MVTec_AD_Grid_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MVTec_AD_Grid_Thread_mean import MVTec_AD_Grid_Thread_training_source_path, \
+    get_MVTec_AD_Grid_Thread_mean_pipeline, MVTec_AD_Grid_Thread_mean_pipeline_bounds, \
+    MVTec_AD_Grid_Thread_mean_pipeline_initial_params
 from param_tuning.hdev_manual.MVTec_AD_Hazelnut_Crack_mean import MVTec_AD_Hazelnut_Crack_training_source_path, \
     get_MVTec_AD_Hazelnut_Crack_mean_pipeline, MVTec_AD_Hazelnut_Crack_mean_pipeline_bounds, \
     MVTec_AD_Hazelnut_Crack_mean_pipeline_initial_params
@@ -86,7 +87,7 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
     #"MVTec_AD_Cable_Missing_mean_pipeline",
     #"MVTec_AD_Capsule_mean_pipeline",
-    "MVTec_AD_Carpet_mean_pipeline",
+    #"MVTec_AD_Carpet_mean_pipeline",
     "MVTec_AD_Grid_Thread_mean_pipeline",
     "MVTec_AD_Hazelnut_Crack_mean_pipeline",
     #"MVTec_AD_Leather_mean_pipeline",
@@ -167,7 +168,7 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
     elif pipeline_name == "MVTec_AD_Carpet_mean_pipeline":
         return MVTec_AD_Carpet_training_source_path
     elif pipeline_name == "MVTec_AD_Grid_Thread_mean_pipeline":
-        return MVTec_AD_Grid_training_source_path
+        return MVTec_AD_Grid_Thread_training_source_path
     elif pipeline_name == "MVTec_AD_Hazelnut_Crack_mean_pipeline":
         return MVTec_AD_Hazelnut_Crack_training_source_path
     #elif pipeline_name == "MVTec_AD_Leather_mean_pipeline":
@@ -222,7 +223,7 @@ pipelines = {
     "MVTec_AD_Cable_Missing_mean_pipeline": get_MVTec_AD_Cable_Missing_mean_pipeline,
     "MVTec_AD_Capsule_mean_pipeline": get_MVTec_AD_Capsule_mean_pipeline,
     "MVTec_AD_Carpet_mean_pipeline": get_MVTec_AD_Carpet_mean_pipeline,
-    "MVTec_AD_Grid_mean_pipeline": get_MVTec_AD_Grid_mean_pipeline,
+    "MVTec_AD_Grid_Thread_mean_pipeline": get_MVTec_AD_Grid_Thread_mean_pipeline,
     "MVTec_AD_Hazelnut_Crack_mean_pipeline": get_MVTec_AD_Hazelnut_Crack_mean_pipeline,
     #"MVTec_AD_Leather_mean_pipeline": get_MVTec_AD_Leather_mean_pipeline,
     #"MVTec_AD_Metal_Nut_mean_pipeline": get_MVTec_AD_Metal_Nut_mean_pipeline,
@@ -258,7 +259,7 @@ bounds = {
     "MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_bounds,
     "MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_bounds,
     "MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_bounds,
-    "MVTec_AD_Grid_mean_pipeline": MVTec_AD_Grid_mean_pipeline_bounds,
+    "MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_bounds,
     "MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_mean_pipeline_bounds,
     #"MVTec_AD_Leather_mean_pipeline": MVTec_AD_Leather_bounds,
     #"MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_bounds,
@@ -294,7 +295,7 @@ initial_params = {
     "MVTec_AD_Cable_Missing_mean_pipeline": MVTec_AD_Cable_Missing_mean_pipeline_initial_params,
     "MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_initial_params,
     "MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_initial_params,
-    "MVTec_AD_Grid_mean_pipeline": MVTec_AD_Grid_mean_pipeline_initial_params,
+    "MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_initial_params,
     "MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_mean_pipeline_initial_params,
     #"MVTec_AD_Leather_mean_pipeline": MVTec_AD_Leather_mean_pipeline_initial_params,
     #"MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_mean_pipeline_initial_params,
