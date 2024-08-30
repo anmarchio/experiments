@@ -19,7 +19,8 @@ def get_MVTec_AD_Hazelnut_Crack_mean_pipeline(params):
                   "<l>        GrayValueMax := " + str(params[2]) + "</l>\n" + \
                   "<l>        Method := '" + str(params[3]) + "'</l>\n" + \
                   "<l>        LightDark := '" + str(params[4]) + "'</l>\n" + \
-                  "<l>        Scale := " + str(params[5]) + "</l>\n" + \
+                  "<l>        MaskSize := " + str(params[5]) + "</l>\n" + \
+                  "<l>        Scale := " + str(params[6]) + "</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
@@ -32,7 +33,7 @@ def get_MVTec_AD_Hazelnut_Crack_mean_pipeline(params):
                 "<l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, " \
                 "Scale])</l>\n" + \
                 "<c></c>\n" + \
-                + get_area_to_rectangle() + \
+                get_area_to_rectangle() + \
                 "<c></c>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

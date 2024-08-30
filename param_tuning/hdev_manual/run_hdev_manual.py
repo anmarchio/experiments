@@ -84,11 +84,11 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     #'FabricDefectsAITEX_mean_pipeline',
     #"MT_Blowhole_train_mean_pipeline",
     #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
-    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
-    #"MVTec_AD_Cable_Missing_mean_pipeline",
-    #"MVTec_AD_Capsule_mean_pipeline",
-    #"MVTec_AD_Carpet_mean_pipeline",
-    "MVTec_AD_Grid_Thread_mean_pipeline",
+    # [x] "MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
+    # [x] "MVTec_AD_Cable_Missing_mean_pipeline",
+    # [x] "MVTec_AD_Capsule_mean_pipeline",
+    # [x] "MVTec_AD_Carpet_mean_pipeline",
+    # [x] "MVTec_AD_Grid_Thread_mean_pipeline",
     "MVTec_AD_Hazelnut_Crack_mean_pipeline",
     #"MVTec_AD_Leather_mean_pipeline",
     #"MVTec_AD_Metal_Nut_mean_pipeline",
@@ -101,7 +101,7 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     #"Pultrusion_Resin_Augmtd_mean_pipeline",
     #"Pultrusion_Resin_mean_pipeline",
     #"Pultrusion_Window_mean_pipeline",
-    "severstal-steel_mean_pipeline"
+    # [x] "severstal-steel_mean_pipeline"
 ]
 
 

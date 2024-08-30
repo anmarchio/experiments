@@ -15,13 +15,13 @@ def get_severstal_steel_mean_pipeline(params):
     dataset_path = "/severstal-steel/train_cgp/images"
 
     # Parameters
-    param_lines = "<l>        MaskHeightBF := " + str(params[1]) + "</l>\n" + \
-                  "<l>        MaskWidthBF := " + str(params[2]) + "</l>\n" + \
-                  "<l>        MaskHeight := " + str(params[3]) + "</l>\n" + \
-                  "<l>        MaskWidth := " + str(params[4]) + "</l>\n" + \
-                  "<l>        StdDevScale := " + str(params[5]) + "</l>\n" + \
-                  "<l>        AbsThreshold := " + str(params[6]) + "</l>\n" + \
-                  "<l>        LightDark := '" + str(params[7]) + "'</l>\n" + \
+    param_lines = "<l>        MaskHeightBF := " + str(params[0]) + "</l>\n" + \
+                  "<l>        MaskWidthBF := " + str(params[1]) + "</l>\n" + \
+                  "<l>        MaskHeight := " + str(params[2]) + "</l>\n" + \
+                  "<l>        MaskWidth := " + str(params[3]) + "</l>\n" + \
+                  "<l>        StdDevScale := " + str(params[4]) + "</l>\n" + \
+                  "<l>        AbsThreshold := " + str(params[5]) + "</l>\n" + \
+                  "<l>        LightDark := '" + str(params[6]) + "'</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
@@ -29,7 +29,7 @@ def get_severstal_steel_mean_pipeline(params):
                 "<l>        binomial_filter(Image, Image, MaskWidthBF, MaskHeightBF)</l>\n" + \
                 "<c></c>\n" + \
                 "<c>        * VarThreshold</c>\n" + \
-                + get_var_threshold_code() + \
+                get_var_threshold_code() + \
                 "<c></c>\n" + \
                 "<c>        * Union1</c>\n" + \
                 "<l>        union1(Region, Region)</l>\n" + \
