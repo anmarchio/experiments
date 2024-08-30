@@ -61,6 +61,9 @@ from param_tuning.hdev_manual.MVTec_AD_Carpet_mean import MVTec_AD_Carpet_traini
     MVTec_AD_Carpet_mean_pipeline_initial_params
 from param_tuning.hdev_manual.MVTec_AD_Grid_mean import MVTec_AD_Grid_training_source_path, \
     get_MVTec_AD_Grid_mean_pipeline, MVTec_AD_Grid_mean_pipeline_bounds, MVTec_AD_Grid_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MVTec_AD_Hazelnut_Crack_mean import MVTec_AD_Hazelnut_Crack_training_source_path, \
+    get_MVTec_AD_Hazelnut_Crack_mean_pipeline, MVTec_AD_Hazelnut_Crack_mean_pipeline_bounds, \
+    MVTec_AD_Hazelnut_Crack_mean_pipeline_initial_params
 from param_tuning.hdev_manual.severstal_steel_mean import severstal_steel_mean_pipeline_initial_params, \
     severstal_steel_training_source_path, get_severstal_steel_mean_pipeline, \
     severstal_steel_bounds
@@ -82,10 +85,10 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
     #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
     #"MVTec_AD_Cable_Missing_mean_pipeline",
-    "MVTec_AD_Capsule_mean_pipeline",
+    #"MVTec_AD_Capsule_mean_pipeline",
     "MVTec_AD_Carpet_mean_pipeline",
     "MVTec_AD_Grid_Thread_mean_pipeline",
-    #"MVTec_AD_Hazelnut_Crack_mean_pipeline",
+    "MVTec_AD_Hazelnut_Crack_mean_pipeline",
     #"MVTec_AD_Leather_mean_pipeline",
     #"MVTec_AD_Metal_Nut_mean_pipeline",
     #"MVTec_AD_Pill_Crack_mean_pipeline",
@@ -256,7 +259,7 @@ bounds = {
     "MVTec_AD_Capsule_mean_pipeline": MVTec_AD_Capsule_mean_pipeline_bounds,
     "MVTec_AD_Carpet_mean_pipeline": MVTec_AD_Carpet_mean_pipeline_bounds,
     "MVTec_AD_Grid_mean_pipeline": MVTec_AD_Grid_mean_pipeline_bounds,
-    "MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_bounds,
+    "MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_mean_pipeline_bounds,
     #"MVTec_AD_Leather_mean_pipeline": MVTec_AD_Leather_bounds,
     #"MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_bounds,
     #"MVTec_AD_Pill_Crack_mean_pipeline": MVTec_AD_Pill_Crack_bounds,

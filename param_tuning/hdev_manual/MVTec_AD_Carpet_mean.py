@@ -28,7 +28,7 @@ def get_MVTec_AD_Carpet_mean_pipeline(params):
                   "<l>        Iterations1 := " + str(params[10]) + "</l>\n" + \
                   "<l>        A_2 := " + str(params[11]) + "</l>\n" + \
                   "<l>        B_2 := " + str(params[12]) + "</l>\n" + \
-                  "<l>        Iterations2 := '" + str(params[13]) + "'</l>\n" + \
+                  "<l>        Iterations2 := " + str(params[13]) + "</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code

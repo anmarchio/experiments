@@ -25,11 +25,17 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * GrayClosing</c>
-<c>        * 3 [label="GrayClosing\nStructElement=Circle\n A=4\n B=28\n GrayValueMax=30"];</c>
 <l>        A := 4</l>
 <l>        B := 28</l>
 <l>        GrayValueMax := 30</l>
+<c>        </c>
+<l>        Method := 'adapted_std_deviation'</l>
+<l>        LightDark := 'light'</l>
+<l>        MaskSize := 21</l>
+<l>        Scale := 0.5</l>
+<c>        </c>
+<c>        * GrayClosing</c>
+<c>        * 3 [label="GrayClosing\nStructElement=Circle\n A=4\n B=28\n GrayValueMax=30"];</c>
 <c>        </c>
 <c>        * with struct element circle</c>
 <c>        * StructElementType Ellipse</c>
@@ -41,10 +47,7 @@
 <c>        * Apply StructElement Ellipse to Closing</c>
 <c>        * LocalThreshold</c>
 <c>        * 27 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=21\n Scale=0,5"];</c>
-<l>        Method := 'adapted_std_deviation'</l>
-<l>        LightDark := 'light'</l>
-<l>        MaskSize := 21</l>
-<l>        Scale := 0.5</l>
+<c>        </c>
 <l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
 <c></c>
 <c>        * AreaToRectangle</c>

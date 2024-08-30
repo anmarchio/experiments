@@ -150,3 +150,17 @@ def get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core
     hdev_code += HDEV_FOOTER
 
     return hdev_code
+
+
+def get_area_to_rectangle():
+    area_to_rectangle_code = "<c>        * AreaToRectangle</c>\n" + \
+                             "<l>        area_center(Region, Area, Row, Column)</l>\n" + \
+                             "<l>        Num:= | Area |</l>\n" + \
+                             "<l>        gen_empty_region(Rectangles)</l>\n" + \
+                             "<l>        for Index1 := 1 to Num by 1</l>\n" + \
+                             "<l>            select_obj(Region, obj, Index1)</l>\n" + \
+                             "<l>            smallest_rectangle1(obj, Row11, Column11, Row21, Column21)</l>\n" + \
+                             "<l>            gen_rectangle1(Rectangle, Row11, Column11, Row21, Column21)</l>\n" + \
+                             "<l>            union2(Rectangles, Rectangle, Rectangles)</l>\n" + \
+                             "<l>        endfor</l>\n"
+    return area_to_rectangle_code
