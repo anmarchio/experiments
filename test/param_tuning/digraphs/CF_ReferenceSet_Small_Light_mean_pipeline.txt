@@ -1,0 +1,13 @@
+dataset: CF_ReferenceSet_Small_Light
+
+experiment_id: 86
+run_id: 86
+fit_values: [0.15020555475541145]
+pipeline_id: 236
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";85 [label="VarThreshold\nMaskWidth=3\n MaskHeight=29\n StdDevScale=0,4000001\n AbsThreshold=56\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+85 -> _1 [];
+}

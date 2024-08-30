@@ -1,0 +1,17 @@
+dataset: FabricDefectsAITEX
+
+experiment_id: 91
+run_id: 91
+fit_values: [0.1540367827558861]
+pipeline_id: 250
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";63 [label="Closing\nA=26\n B=29\n C=1,178097\n StructElementType=Ellipse"];
+38 [label="SelectShape\nMin=33\n Max=99999\n Features=bulkiness"];
+23 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+63 -> 38 [];
+38 -> 23 [];
+23 -> _1 [];
+}

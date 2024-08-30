@@ -1,0 +1,19 @@
+dataset: MVTec_AD_Tile_Crack
+
+experiment_id: 115
+run_id: 115
+fit_values: [0.5717104997392755]
+pipeline_id: 311
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";63 [label="Erosion1\nIterations=3\n StructElement=Rectangle\n A=23\n B=14"];
+31 [label="Dilation1\nIterations=4\n StructElement=Rectangle\n A=20\n B=9"];
+22 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=21\n Scale=0.3"];
+6 [label="BinomialFilter\nMaskHeight=19\n MaskWidth=17"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+63 -> 31 [];
+31 -> 22 [];
+22 -> 6 [];
+6 -> _1 [];
+}

@@ -1,0 +1,15 @@
+dataset: AirCarbon3_80.jpg_dark_2
+
+experiment_id: 96
+run_id: 96
+fit_values: [0.12489508229305453]
+pipeline_id: 262
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";21 [label="Threshold\nMin=70\n Max=240"];
+0 [label="Roberts\nFilterType=gradient_sum"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+21 -> 0 [];
+0 -> _1 [];
+}

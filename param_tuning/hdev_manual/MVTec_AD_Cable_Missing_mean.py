@@ -21,7 +21,7 @@ def get_MVTec_AD_Cable_Missing_mean_pipeline(params):
                   "<l>        Contrast := " + str(params[1]) + "</l>\n" + \
                   "<l>        Theta := " + str(params[2]) + "</l>\n" + \
                   "<l>        Iterations := " + str(params[3]) + "</l>\n" + \
-                  "<l>        Method := " + str(params[4]) + "</l>\n" + \
+                  "<l>        Method := '" + str(params[4]) + "'</l>\n" + \
                   "<l>        LightDark := '" + str(params[5]) + "'</l>\n" + \
                   "<c></c>\n"
 

@@ -1,0 +1,17 @@
+dataset: Pultrusion_Window
+
+experiment_id: 73
+run_id: 73
+fit_values: [0.7283888997505558]
+pipeline_id: 200
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";86 [label="CropRectangle\nMinRatio=0,0399999991059303\n MaskHeight=27\n MaskWidth=29"];
+17 [label="SobelAmp\nFilterType=y\n MaskSize=3"];
+5 [label="CropSmallestRectangle\nMinGray=21\n MaxGray=255"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+86 -> 17 [];
+17 -> 5 [];
+5 -> _1 [];
+}

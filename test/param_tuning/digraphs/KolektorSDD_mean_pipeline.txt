@@ -1,0 +1,15 @@
+dataset: KolektorSDD
+
+experiment_id: 75
+run_id: 75
+fit_values: [0.07524651634030725]
+pipeline_id: 207
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";86 [label="ZeroCrossing\n"];
+9 [label="EquHistoImage\n"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+86 -> 9 [];
+9 -> _1 [];
+}

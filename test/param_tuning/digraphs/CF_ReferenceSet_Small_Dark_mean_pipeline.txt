@@ -1,0 +1,17 @@
+dataset: CF_ReferenceSet_Small_Dark
+
+experiment_id: 162
+run_id: 162
+fit_values: [0.13951582740723203]
+pipeline_id: 340
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";24 [label="ZeroCrossing\n"];
+19 [label="SobelAmp\nFilterType=y\n MaskSize=5"];
+4 [label="BandpassImage\nFilterType=lines"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+24 -> 19 [];
+19 -> 4 [];
+4 -> _1 [];
+}

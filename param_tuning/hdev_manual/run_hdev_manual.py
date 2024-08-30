@@ -80,7 +80,7 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     #'FabricDefectsAITEX_mean_pipeline',
     #"MT_Blowhole_train_mean_pipeline",
     #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
-    "MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
+    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
     "MVTec_AD_Cable_Missing_mean_pipeline",
     "MVTec_AD_Capsule_mean_pipeline",
     "MVTec_AD_Carpet_mean_pipeline",

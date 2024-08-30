@@ -1,0 +1,15 @@
+dataset: Pultrusion_Resin_Augmtd
+
+experiment_id: 74
+run_id: 74
+fit_values: [0.39682053813536666]
+pipeline_id: 205
+
+digraph:
+digraph Pipeline { 
+rankdir = "RL";88 [label="BinaryThreshold\nMethod=max_separability\n LightDark=light"];
+0 [label="GrayErosion\nStructElement=Circle\n A=30\n B=30\n GrayValueMax=0"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+88 -> 0 [];
+0 -> _1 [];
+}
