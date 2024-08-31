@@ -65,6 +65,9 @@ from param_tuning.hdev_manual.MVTec_AD_Grid_Thread_mean import MVTec_AD_Grid_Thr
 from param_tuning.hdev_manual.MVTec_AD_Hazelnut_Crack_mean import MVTec_AD_Hazelnut_Crack_training_source_path, \
     get_MVTec_AD_Hazelnut_Crack_mean_pipeline, MVTec_AD_Hazelnut_Crack_mean_pipeline_bounds, \
     MVTec_AD_Hazelnut_Crack_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MVTec_AD_Metal_Nut_mean import MVTec_AD_Metal_Nut_training_source_path, \
+    get_MVTec_AD_Metal_Nut_mean_pipeline, MVTec_AD_Metal_Nut_mean_pipeline_bounds, \
+    MVTec_AD_Metal_Nut_mean_pipeline_initial_params
 from param_tuning.hdev_manual.severstal_steel_mean import severstal_steel_mean_pipeline_initial_params, \
     severstal_steel_training_source_path, get_severstal_steel_mean_pipeline, \
     severstal_steel_bounds
@@ -89,9 +92,9 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     # [x] "MVTec_AD_Capsule_mean_pipeline",
     # [x] "MVTec_AD_Carpet_mean_pipeline",
     # [x] "MVTec_AD_Grid_Thread_mean_pipeline",
-    "MVTec_AD_Hazelnut_Crack_mean_pipeline",
-    #"MVTec_AD_Leather_mean_pipeline",
-    #"MVTec_AD_Metal_Nut_mean_pipeline",
+    # [x] "MVTec_AD_Hazelnut_Crack_mean_pipeline",
+    # ==> "MVTec_AD_Leather_mean_pipeline",
+    "MVTec_AD_Metal_Nut_mean_pipeline",
     #"MVTec_AD_Pill_Crack_mean_pipeline",
     #"MVTec_AD_Screw_Scratch_mean_pipeline",
     #"MVTec_AD_Tile_Crack_mean_pipeline",
@@ -173,8 +176,8 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
         return MVTec_AD_Hazelnut_Crack_training_source_path
     #elif pipeline_name == "MVTec_AD_Leather_mean_pipeline":
     #    return MVTec_AD_Leather_training_source_path
-    #elif pipeline_name == "MVTec_AD_Metal_Nut_mean_pipeline":
-    #    return MVTec_AD_Metal_Nut_training_source_path
+    elif pipeline_name == "MVTec_AD_Metal_Nut_mean_pipeline":
+        return MVTec_AD_Metal_Nut_training_source_path
     #elif pipeline_name == "MVTec_AD_Pill_Crack_mean_pipeline":
     #    return MVTec_AD_Pill_Crack_training_source_path
     #elif pipeline_name == "MVTec_AD_Screw_Scratch_mean_pipeline":
@@ -226,7 +229,7 @@ pipelines = {
     "MVTec_AD_Grid_Thread_mean_pipeline": get_MVTec_AD_Grid_Thread_mean_pipeline,
     "MVTec_AD_Hazelnut_Crack_mean_pipeline": get_MVTec_AD_Hazelnut_Crack_mean_pipeline,
     #"MVTec_AD_Leather_mean_pipeline": get_MVTec_AD_Leather_mean_pipeline,
-    #"MVTec_AD_Metal_Nut_mean_pipeline": get_MVTec_AD_Metal_Nut_mean_pipeline,
+    "MVTec_AD_Metal_Nut_mean_pipeline": get_MVTec_AD_Metal_Nut_mean_pipeline,
     #"MVTec_AD_Pill_Crack_mean_pipeline": get_MVTec_AD_Pill_Crack_mean_pipeline,
     #"MVTec_AD_Screw_Scratch_mean_pipeline": get_MVTec_AD_Screw_Scratch_mean_pipeline,
     #"MVTec_AD_Tile_Crack_mean_pipeline": get_MVTec_AD_Tile_Crack_mean_pipeline,
@@ -262,7 +265,7 @@ bounds = {
     "MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_bounds,
     "MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_mean_pipeline_bounds,
     #"MVTec_AD_Leather_mean_pipeline": MVTec_AD_Leather_bounds,
-    #"MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_bounds,
+    "MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_mean_pipeline_bounds,
     #"MVTec_AD_Pill_Crack_mean_pipeline": MVTec_AD_Pill_Crack_bounds,
     #"MVTec_AD_Screw_Scratch_mean_pipeline": MVTec_AD_Screw_Scratch_bounds,
     #"MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_bounds,
@@ -298,7 +301,7 @@ initial_params = {
     "MVTec_AD_Grid_Thread_mean_pipeline": MVTec_AD_Grid_Thread_mean_pipeline_initial_params,
     "MVTec_AD_Hazelnut_Crack_mean_pipeline": MVTec_AD_Hazelnut_Crack_mean_pipeline_initial_params,
     #"MVTec_AD_Leather_mean_pipeline": MVTec_AD_Leather_mean_pipeline_initial_params,
-    #"MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_mean_pipeline_initial_params,
+    "MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_mean_pipeline_initial_params,
     #"MVTec_AD_Pill_Crack_mean_pipeline": MVTec_AD_Pill_Crack_mean_pipeline_initial_params,
     #"MVTec_AD_Screw_Scratch_mean_pipeline": MVTec_AD_Screw_Scratch_mean_pipeline_initial_params,
     #"MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_mean_pipeline_initial_params,

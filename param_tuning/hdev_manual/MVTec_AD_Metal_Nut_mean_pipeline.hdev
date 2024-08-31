@@ -25,13 +25,26 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * PATH 1</c>
-<c>        * ------</c>
-<c>        * DualRank</c>
 <l>        MaskType := 'circle'</l>
 <l>        Radius := 61</l>
 <l>        ModePercent := 66</l>
 <l>        Margin := 'OneEighty'</l>
+<c>        </c>
+<l>        FilterType := 'x'</l>
+<l>        MaskSize := 3</l>
+<c>        </c>
+<l>        MaskSize2 := 3</l>
+<c>        </c>
+<l>        MinRatio := 0.0949999988079071</l>
+<l>        MaskHeight := 29</l>
+<l>        MaskWidth := 7</l>
+<c>        </c>
+<l>        A := 27</l>
+<l>        B := 15</l>
+<c>        </c>
+<c>        * PATH 1</c>
+<c>        * ------</c>
+<c>        * DualRank</c>
 <c>        </c>
 <c>        *mirrored = 1,</c>
 <c>        *cyclic = 2,</c>
@@ -62,9 +75,6 @@
 <l>        dual_rank(Image, Image1, MaskType, Radius, ModePercent, Margin)</l>
 <c>        </c>
 <c>        * SobelAmp</c>
-<l>        FilterType := 'x'</l>
-<l>        MaskSize := 3</l>
-<c>        </c>
 <l>        get_image_type(Image1, Type)</l>
 <l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')            </l>
 <l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>
@@ -82,16 +92,11 @@
 <c>        * PATH 2</c>
 <c>        * ------</c>
 <c>        * GaussFilter</c>
-<l>        MaskSize := 3</l>
-<l>        gauss_filter(Image, Image2, MaskSize)</l>
+<l>        gauss_filter(Image, Image2, MaskSize2)</l>
 <c>        </c>
 <c>        * CropRectangle</c>
-<l>        MinRatio := 0.0949999988079071</l>
-<l>        MaskHeight := 29</l>
-<l>        MaskWidth := 7</l>
-<c>        </c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
-<l>        gen_empty_region(Region)</l>
+<l>        gen_empty_region(Region2)</l>
 <c>        </c>
 <l>        count_channels(Image2, NumChannels)</l>
 <l>        if(NumChannels &gt; 1)</l>
@@ -165,8 +170,7 @@
 <c>        * PATH 3</c>
 <c>        * ------</c>
 <c>        * Opening</c>
-<l>        A := 27</l>
-<l>        B := 15</l>
+<c>        </c>
 <c>        * StructElementType Ellipse</c>
 <c>        * using A, B and C as shape_params</c>
 <l>        tuple_max2(A, B, max_rad)</l>
