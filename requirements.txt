@@ -8,7 +8,7 @@ hvplot
 keras~=3.4
 #pandas>=2.0
 tensorboard~=2.15
-#tensorflow~=2.7
+tensorflow~=2.7
 scikit-image~=0.19
 scikit-learn~=1.3
 numpy~=1.2

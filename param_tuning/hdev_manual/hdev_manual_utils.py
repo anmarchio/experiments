@@ -130,85 +130,86 @@ def get_crop_rectangle_code():
                           "<c></c>\n"
     return crop_rectangle_code
 
+
 def get_crop_rectangle_img2_code():
     crop_rectangle_img2_code = "<c></c>\n" \
-                          "<c>        * CropRectangle  </c>\n" \
-                          "<l>        tuple_real(MinRatio, MinRatio)</l>\n" \
-                          "<l>        gen_empty_region(Region2)</l>\n" \
-                          "<c></c>\n" \
-                          "<l>        count_channels(Image2, NumChannels)</l>\n" \
-                          "<l>        if(NumChannels > 1)</l>\n" \
-                          "<l>            access_channel(Image2, Image2, 1)</l>\n" \
-                          "<l>        endif</l>\n" \
-                          "<c></c>\n" \
-                          "<l>        get_Image_type(Image2, Type)</l>\n" \
-                          "<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and " \
-                          "Type != 'real')</l>\n" \
-                          "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n" \
-                          "<l>        endif</l>\n" \
-                          "<c></c>\n" \
-                          "<l>        fast_threshold(Image2, Region2, 45, 255, 80)</l>\n" \
-                          "<l>        fill_up(Region2, Rectangle)</l>\n" \
-                          "<c></c>\n" \
-                          "<l>        gen_empty_obj(FaultyRegion)</l>\n" \
-                          "<l>        gen_empty_obj(NewImgReduced)</l>\n" \
-                          "<l>        gen_empty_obj(ImgPart)</l>\n" \
-                          "<l>        gen_empty_obj(RelativeRegion)</l>\n" \
-                          "<c></c>\n" \
-                          "<l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>\n" \
-                          "<l>        reduce_domain(Image, Rectangle, NewImageReduced)</l>\n" \
-                          "<l>        region_features(Rectangle, 'width', RegWidth)</l>\n" \
-                          "<l>        region_features(Rectangle, 'height', RegHeight)</l>\n" \
-                          "<c></c>\n" \
-                          "<l>        WStep := RegWidth / MaskWidth</l>\n" \
-                          "<l>        HStep := RegHeight / MaskHeight</l>\n" \
-                          "<c></c>\n" \
-                          "<l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>\n" \
-                          "<l>        StepW := WStep / 2</l>\n" \
-                          "<c></c>\n" \
-                          "<l>        for ImgWidth := Col1 + 20 to EndW by StepW</l>\n" \
-                          "<l>            EndH := Row2 - (HStep / 1.5)    </l>\n" \
-                          "<l>            StepH := HStep / 2</l>\n" \
-                          "<c></c>\n" \
-                          "<l>            if(StepW == 0.0)</l>\n" \
-                          "<l>                break</l>\n" \
-                          "<l>            endif</l>\n" \
-                          "<c></c>\n" \
-                          "<l>            for ImgHeight := Row1 + 3 to EndH by StepH</l>\n" \
-                          "<l>                if(StepH == 0.0)</l>\n" \
-                          "<l>                    break</l>\n" \
-                          "<l>                endif</l>\n" \
-                          "<c></c>\n" \
-                          "<l>                gen_empty_obj(ImagePart)</l>\n" \
-                          "<l>                crop_rectangle1(NewImageReduced, ImgPart, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>\n" \
-                          "<c></c>\n" \
-                          "<l>                gray_histo_range(ImgPart, ImgPart, 0, 255, 2, Histo, BinSize)</l>\n" \
-                          "<c></c>\n" \
-                          "<l>                PixelCount := Histo[0] + Histo[1]</l>\n" \
-                          "<c></c>\n" \
-                          "<l>                tuple_real(PixelCount, PixelCount)</l>\n" \
-                          "<c></c>\n" \
-                          "<l>                if(PixelCount &lt;= 0.6 * WStep * HStep)</l>\n" \
-                          "<l>                    continue</l>\n" \
-                          "<l>                endif</l>\n" \
-                          "<l>                Ratio := (Histo[1] * 1.0) / (PixelCount * 1.0)</l>\n" \
-                          "<c></c>\n" \
-                          "<l>                if(Ratio &lt;= MinRatio)</l>\n" \
-                          "<l>                    gen_rectangle1(FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, " \
-                          "ImgWidth + WStep)</l>\n" \
-                          "<l>                    concat_obj(FaultyRegion, RelativeRegion, FaultyRegion)</l>\n" \
-                          "<l>                    union1(FaultyRegion, RelativeRegion)</l>\n" \
-                          "<l>                endif</l>\n" \
-                          "<l>            endfor</l>\n" \
-                          "<l>        endfor</l>\n" \
-                          "<c></c>\n" \
-                          "<l>        count_obj(RelativeRegion, Number)</l>\n" \
-                          "<l>        if(Number == 0)</l>\n" \
-                          "<l>            gen_empty_region(Region2)</l>\n" \
-                          "<l>        else</l>\n" \
-                          "<l>            Region2 := RelativeRegion</l>\n" \
-                          "<l>        endif</l>\n" \
-                          "<c></c>\n"
+                               "<c>        * CropRectangle  </c>\n" \
+                               "<l>        tuple_real(MinRatio, MinRatio)</l>\n" \
+                               "<l>        gen_empty_region(Region2)</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        count_channels(Image2, NumChannels)</l>\n" \
+                               "<l>        if(NumChannels > 1)</l>\n" \
+                               "<l>            access_channel(Image2, Image2, 1)</l>\n" \
+                               "<l>        endif</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        get_Image_type(Image2, Type)</l>\n" \
+                               "<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and " \
+                               "Type != 'real')</l>\n" \
+                               "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n" \
+                               "<l>        endif</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        fast_threshold(Image2, Region2, 45, 255, 80)</l>\n" \
+                               "<l>        fill_up(Region2, Rectangle)</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        gen_empty_obj(FaultyRegion)</l>\n" \
+                               "<l>        gen_empty_obj(NewImgReduced)</l>\n" \
+                               "<l>        gen_empty_obj(ImgPart)</l>\n" \
+                               "<l>        gen_empty_obj(RelativeRegion)</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>\n" \
+                               "<l>        reduce_domain(Image, Rectangle, NewImageReduced)</l>\n" \
+                               "<l>        region_features(Rectangle, 'width', RegWidth)</l>\n" \
+                               "<l>        region_features(Rectangle, 'height', RegHeight)</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        WStep := RegWidth / MaskWidth</l>\n" \
+                               "<l>        HStep := RegHeight / MaskHeight</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>\n" \
+                               "<l>        StepW := WStep / 2</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        for ImgWidth := Col1 + 20 to EndW by StepW</l>\n" \
+                               "<l>            EndH := Row2 - (HStep / 1.5)    </l>\n" \
+                               "<l>            StepH := HStep / 2</l>\n" \
+                               "<c></c>\n" \
+                               "<l>            if(StepW == 0.0)</l>\n" \
+                               "<l>                break</l>\n" \
+                               "<l>            endif</l>\n" \
+                               "<c></c>\n" \
+                               "<l>            for ImgHeight := Row1 + 3 to EndH by StepH</l>\n" \
+                               "<l>                if(StepH == 0.0)</l>\n" \
+                               "<l>                    break</l>\n" \
+                               "<l>                endif</l>\n" \
+                               "<c></c>\n" \
+                               "<l>                gen_empty_obj(ImagePart)</l>\n" \
+                               "<l>                crop_rectangle1(NewImageReduced, ImgPart, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>\n" \
+                               "<c></c>\n" \
+                               "<l>                gray_histo_range(ImgPart, ImgPart, 0, 255, 2, Histo, BinSize)</l>\n" \
+                               "<c></c>\n" \
+                               "<l>                PixelCount := Histo[0] + Histo[1]</l>\n" \
+                               "<c></c>\n" \
+                               "<l>                tuple_real(PixelCount, PixelCount)</l>\n" \
+                               "<c></c>\n" \
+                               "<l>                if(PixelCount &lt;= 0.6 * WStep * HStep)</l>\n" \
+                               "<l>                    continue</l>\n" \
+                               "<l>                endif</l>\n" \
+                               "<l>                Ratio := (Histo[1] * 1.0) / (PixelCount * 1.0)</l>\n" \
+                               "<c></c>\n" \
+                               "<l>                if(Ratio &lt;= MinRatio)</l>\n" \
+                               "<l>                    gen_rectangle1(FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, " \
+                               "ImgWidth + WStep)</l>\n" \
+                               "<l>                    concat_obj(FaultyRegion, RelativeRegion, FaultyRegion)</l>\n" \
+                               "<l>                    union1(FaultyRegion, RelativeRegion)</l>\n" \
+                               "<l>                endif</l>\n" \
+                               "<l>            endfor</l>\n" \
+                               "<l>        endfor</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        count_obj(RelativeRegion, Number)</l>\n" \
+                               "<l>        if(Number == 0)</l>\n" \
+                               "<l>            gen_empty_region(Region2)</l>\n" \
+                               "<l>        else</l>\n" \
+                               "<l>            Region2 := RelativeRegion</l>\n" \
+                               "<l>        endif</l>\n" \
+                               "<c></c>\n"
     return crop_rectangle_img2_code
 
 
@@ -249,25 +250,25 @@ def get_area_to_rectangle():
 
 def convert_margin_to_int():
     margin_to_int = "<l>        if(Margin == 'Zero')</l>\n" \
-                "<l>            Margin := 0</l>\n" \
-                "<l>        elseif(Margin == 'Thirty')</l>\n" \
-                "<l>            Margin := 30</l>\n" \
-                "<l>        elseif(Margin == 'Sixty')</l>\n" \
-                "<l>            Margin := 60</l>\n" \
-                "<l>        elseif(Margin == 'Ninety')</l>\n" \
-                "<l>            Margin := 90</l>\n" \
-                "<l>        elseif(Margin == 'OneTwenty')</l>\n" \
-                "<l>            Margin := 120</l>\n" \
-                "<l>        elseif(Margin == 'OneFifty')</l>\n" \
-                "<l>            Margin := 150</l>\n" \
-                "<l>        elseif(Margin == 'OneEighty')</l>\n" \
-                "<l>            Margin := 180</l>\n" \
-                "<l>        elseif(Margin == 'TwoTen')</l>\n" \
-                "<l>            Margin := 210</l>\n" \
-                "<l>        elseif(Margin == 'TwoForty')</l>\n" \
-                "<l>            Margin := 240</l>\n" \
-                "<l>        elseif(Margin == 'TwoFifityFive')</l>\n" \
-                "<l>            Margin := 255</l>\n" \
-                "<l>        endif</l>\n" \
-                "<c>        </c>\n"
+                    "<l>            Margin := 0</l>\n" \
+                    "<l>        elseif(Margin == 'Thirty')</l>\n" \
+                    "<l>            Margin := 30</l>\n" \
+                    "<l>        elseif(Margin == 'Sixty')</l>\n" \
+                    "<l>            Margin := 60</l>\n" \
+                    "<l>        elseif(Margin == 'Ninety')</l>\n" \
+                    "<l>            Margin := 90</l>\n" \
+                    "<l>        elseif(Margin == 'OneTwenty')</l>\n" \
+                    "<l>            Margin := 120</l>\n" \
+                    "<l>        elseif(Margin == 'OneFifty')</l>\n" \
+                    "<l>            Margin := 150</l>\n" \
+                    "<l>        elseif(Margin == 'OneEighty')</l>\n" \
+                    "<l>            Margin := 180</l>\n" \
+                    "<l>        elseif(Margin == 'TwoTen')</l>\n" \
+                    "<l>            Margin := 210</l>\n" \
+                    "<l>        elseif(Margin == 'TwoForty')</l>\n" \
+                    "<l>            Margin := 240</l>\n" \
+                    "<l>        elseif(Margin == 'TwoFifityFive')</l>\n" \
+                    "<l>            Margin := 255</l>\n" \
+                    "<l>        endif</l>\n" \
+                    "<c>        </c>\n"
     return margin_to_int

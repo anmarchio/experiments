@@ -24,14 +24,29 @@
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
-<l>    try</l>
+<l>    try        </l>
+<l>        FilterType := 'y_binomial'</l>
+<l>        MaskSize := 3</l>
+<c>        </c>
+<l>        MaskHeight := 17</l>
+<l>        MaskWidth := 3 </l>
+<l>        Sigma := 134</l>
+<c>        </c>
+<l>        Method := 'adapted_std_deviation'</l>
+<l>        LightDark := 'light'</l>
+<l>        MaskSize := 31</l>
+<l>        Scale := 0.2</l>
+<c>        </c>
+<l>        MinAmplitude := 79</l>
+<c>        </c>
+<l>        A := 5</l>
+<l>        B := 30</l>
+<l>        C := 0</l>
 <c>        * PATH 1</c>
 <c>        * ------</c>
 <c>        *</c>
 <c>        * SobalAmp</c>
 <c>        * 19 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=3"];</c>
-<l>        FilterType := 'y_binomial'</l>
-<l>        MaskSize := 3</l>
 <c>        </c>
 <l>        get_image_type(Image, Type)</l>
 <l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')            </l>
@@ -48,17 +63,11 @@
 <c>        * </c>
 <c>        * SigmaImage</c>
 <c>        * 6 [label="SigmaImage\nMaskHeight=17\n MaskWidth=3\n Sigma=134"];</c>
-<l>        MaskHeight := 17</l>
-<l>        MaskWidth := 3 </l>
-<l>        Sigma := 134</l>
 <l>        sigma_image(Image, Image2, MaskHeight, MaskWidth, Sigma)</l>
 <c></c>
 <c>        * Local Threshold</c>
 <c>        * 20 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=31\n Scale=0,2"];</c>
-<l>        Method := 'adapted_std_deviation'</l>
-<l>        LightDark := 'light'</l>
-<l>        MaskSize := 31</l>
-<l>        Scale := 0.2</l>
+<c>       </c>
 <l>        local_threshold(Image2, Region2, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
 <c>        </c>
 <c>        * MERGE 1/2</c>
@@ -66,14 +75,10 @@
 <c>        </c>
 <c>        * CloseEdges</c>
 <c>        * 54 [label="CloseEdges\nMinAmplitude=79"];</c>
-<l>        MinAmplitude := 79</l>
 <l>        close_edges(Region2, Image1, Region, MinAmplitude)</l>
 <c>        </c>
 <c>        * Closing</c>
 <c>        * 68 [label="Closing\nA=5\n B=30\n C=0\n StructElementType=Rectangle"];</c>
-<l>        A := 5</l>
-<l>        B := 30</l>
-<l>        C := 0</l>
 <c>        </c>
 <l>        gen_rectangle1(RectangleStructElement, 0, 0, A, B)</l>
 <l>        closing(Region, RectangleStructElement, Region) </l>

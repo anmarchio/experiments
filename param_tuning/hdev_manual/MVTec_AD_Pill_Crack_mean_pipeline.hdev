@@ -25,11 +25,20 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * GrayOpening</c>
-<c>        * 3 [label="GrayOpening\nStructElement=Circle\n A=17\n B=10\n GrayValueMax=10"];</c>
 <l>        A := 17</l>
 <l>        B := 10</l>
 <l>        GrayValueMax := 10</l>
+<c></c>
+<l>        MinRatio := 0.109999999403954</l>
+<l>        MaskHeight :=29</l>
+<l>        MaskWidth :=29</l>
+<c></c>
+<l>        A_2 := 9</l>
+<l>        B_2 := 20</l>
+<l>        C_2 := -1.178097</l>
+<c></c>
+<c>        * GrayOpening</c>
+<c>        * 3 [label="GrayOpening\nStructElement=Circle\n A=17\n B=10\n GrayValueMax=10"];</c>
 <c>        </c>
 <c>        * with struct element circle</c>
 <c>        * using A, B and C as shape_params</c>
@@ -39,9 +48,6 @@
 <c>        </c>
 <c>        * CropRectangle</c>
 <c>        * 88 [label="CropRectangle\nMinRatio=0,109999999403954\n MaskHeight=29\n MaskWidth=29"];</c>
-<l>        MinRatio := 0.109999999403954</l>
-<l>        MaskHeight :=29</l>
-<l>        MaskWidth :=29</l>
 <c>        </c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region)</l>
@@ -116,13 +122,10 @@
 <c>        </c>
 <c>        * Closing</c>
 <c>        * 92 [label="Closing\nA=9\n B=20\n C=-1,178097\n StructElementType=Circle"];</c>
-<l>        A := 9</l>
-<l>        B := 20</l>
-<l>        C := -1.178097</l>
 <c>        </c>
 <c>        * with struct element circle</c>
-<l>        tuple_ceil(A + 1, shape_param0_ceil)    </l>
-<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)</l>
+<l>        tuple_ceil(A_2 + 1, shape_param0_ceil)    </l>
+<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A_2)</l>
 <l>        closing(Image, StructElement, Region)</l>
 <c>        </c>
 <l>    catch (Exception)</l>

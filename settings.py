@@ -18,8 +18,8 @@ SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "202
 Default Path
 """
 WDIR = os.path.join("C:\\", "dev", "experiments")
-EVIAS_SRC = ["C:", "evias_expmts"]
-EVIAS_SRC_PATH = os.path.join("C:\\", "evias_expmts")
+EVIAS_SRC = ["N:", "evias_expmts"]
+EVIAS_SRC_PATH = os.path.join("D:\\", "evias_expmts")
 
 """
 Output Path for Subsequent Pipeline Optimization (SA, LS)

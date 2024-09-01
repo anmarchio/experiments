@@ -25,14 +25,29 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * PATH 1</c>
-<c>        * ------</c>
-<c>        * DualRank</c>
-<c>        *4 [label="DualRank\nMaskType=circle\n Radius=47\n ModePercent=17\n Margin=TwoFifityFive"];</c>
 <l>        MaskType := 'circle'</l>
 <l>        Radius := 47</l>
 <l>        ModePercent := 17</l>
 <l>        Margin := 'TwoFifityFive'</l>
+<c>        </c>
+<l>        MinRatio := 0.0249999985098839</l>
+<l>        MaskHeight := 13</l>
+<l>        MaskWidth := 19</l>
+<c>        </c>
+<l>        MinGray := 20</l>
+<l>        MaxGray := 254</l>
+<l>        MinSize := 900</l>
+<l>        MaxSize := 18000</l>
+<l>        WindowWidth := 320</l>
+<l>        WindowHeight := 260</l>
+<c>        </c>
+<l>        A := 19</l>
+<l>        B := 18</l>
+<c>        </c>
+<c>        * PATH 1</c>
+<c>        * ------</c>
+<c>        * DualRank</c>
+<c>        *4 [label="DualRank\nMaskType=circle\n Radius=47\n ModePercent=17\n Margin=TwoFifityFive"];</c>
 <c>        </c>
 <c>        *mirrored = 1,</c>
 <c>        *cyclic = 2,</c>
@@ -64,9 +79,6 @@
 <c>        </c>
 <c>        * CropRectangle</c>
 <c>        *22 [label="CropRectangle\nMinRatio=0,0249999985098839\n MaskHeight=13\n MaskWidth=19"];</c>
-<l>        MinRatio := 0.0249999985098839</l>
-<l>        MaskHeight := 13</l>
-<l>        MaskWidth := 19</l>
 <c>        </c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region1)</l>
@@ -146,12 +158,6 @@
 <c>        * ------</c>
 <c>        * AreaSizeThreshold</c>
 <c>        *20 [label="AreaSizeThreshold\nMinGray=20\n MaxGray=254\n MinSize=9000\n MaxSize=18000\n WindowWidth=320\n WindowHeight=260"];</c>
-<l>        MinGray := 20</l>
-<l>        MaxGray := 254</l>
-<l>        MinSize := 900</l>
-<l>        MaxSize := 18000</l>
-<l>        WindowWidth := 320</l>
-<l>        WindowHeight := 260</l>
 <c>        </c>
 <l>        abs_image(Image, Image2)</l>
 <c>        </c>
@@ -212,8 +218,6 @@
 <c>        </c>
 <c>        * Opening</c>
 <c>        *37 [label="Opening\nStructElement=Ellipse\n A=19\n B=18"];</c>
-<l>        A := 19</l>
-<l>        B := 18</l>
 <c>        </c>
 <c>        * StructElementType Ellipse</c>
 <c>        * using A, B and C as shape_params</c>
