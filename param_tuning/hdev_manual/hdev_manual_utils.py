@@ -142,7 +142,7 @@ def get_crop_rectangle_img2_code():
                                "<l>            access_channel(Image2, Image2, 1)</l>\n" \
                                "<l>        endif</l>\n" \
                                "<c></c>\n" \
-                               "<l>        get_Image_type(Image2, Type)</l>\n" \
+                               "<l>        get_image_type(Image2, Type)</l>\n" \
                                "<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and " \
                                "Type != 'real')</l>\n" \
                                "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n" \
@@ -157,7 +157,7 @@ def get_crop_rectangle_img2_code():
                                "<l>        gen_empty_obj(RelativeRegion)</l>\n" \
                                "<c></c>\n" \
                                "<l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>\n" \
-                               "<l>        reduce_domain(Image, Rectangle, NewImageReduced)</l>\n" \
+                               "<l>        reduce_domain(Image2, Rectangle, NewImageReduced)</l>\n" \
                                "<l>        region_features(Rectangle, 'width', RegWidth)</l>\n" \
                                "<l>        region_features(Rectangle, 'height', RegHeight)</l>\n" \
                                "<c></c>\n" \
