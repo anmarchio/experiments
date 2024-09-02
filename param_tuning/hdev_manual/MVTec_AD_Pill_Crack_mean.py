@@ -37,7 +37,7 @@ def get_MVTec_AD_Pill_Crack_mean_pipeline(params):
                 "<l>        get_image_type(Image, Type)</l>\n" \
                 "<l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>\n" \
                 "<l>        gray_opening(Image, StructElement, Image)</l>\n" \
-                "c>        </c>\n" \
+                "<c>        </c>\n" \
                 "<c>        * CropRectangle</c>\n" \
                 + get_crop_rectangle_code() + \
                 "<c>        </c>\n" \

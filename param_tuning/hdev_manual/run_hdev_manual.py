@@ -108,7 +108,7 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     # [x] "MVTec_AD_Carpet_mean_pipeline",
     # [x] "MVTec_AD_Grid_Thread_mean_pipeline",
     # [x] "MVTec_AD_Hazelnut_Crack_mean_pipeline",
-    "MVTec_AD_Leather_mean_pipeline",
+    #"MVTec_AD_Leather_mean_pipeline",
     "MVTec_AD_Metal_Nut_mean_pipeline",
     "MVTec_AD_Pill_Crack_mean_pipeline",
     "MVTec_AD_Screw_Scratch_mean_pipeline",
