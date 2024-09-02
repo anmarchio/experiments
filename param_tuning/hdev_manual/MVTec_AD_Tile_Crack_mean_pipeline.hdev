@@ -25,37 +25,41 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * BinomialFilter</c>
-<c>        * 6 [label="BinomialFilter\nMaskHeight=19\n MaskWidth=17"];</c>
 <l>        MaskHeight := 19</l>
 <l>        MaskWidth := 17</l>
-<l>        binomial_filter(Image, Image, MaskHeight, MaskWidth)</l>
 <c>        </c>
-<c>        * LocalThreshold</c>
-<c>        * 22 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=21\n Scale=0.3"];</c>
 <l>        Method := 'adapted_std_deviation'</l>
 <l>        LightDark := 'light'</l>
 <l>        MaskSize := 21</l>
 <l>        Scale := 0.3</l>
+<c>        </c>
+<l>        A := 20</l>
+<l>        B := 9</l>
+<l>        Iterations1 := 4</l>
+<c>        </c>
+<l>        A_2 := 23</l>
+<l>        B_2 := 14</l>
+<l>        Iterations2 := 3</l>
+<c>        </c>
+<c>        * BinomialFilter</c>
+<c>        * 6 [label="BinomialFilter\nMaskHeight=19\n MaskWidth=17"];</c>
+<l>        binomial_filter(Image, Image, MaskHeight, MaskWidth)</l>
+<c>        </c>
+<c>        * LocalThreshold</c>
+<c>        * 22 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=21\n Scale=0.3"];</c>
 <l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
 <c>        </c>
 <c>        </c>
 <c>        * Dilation1</c>
 <c>        * 31 [label="Dilation1\nIterations=4\n StructElement=Rectangle\n A=20\n B=9"]; </c>
-<l>        A := 20</l>
-<l>        B := 9</l>
-<l>        Iterations1 := 4</l>
 <c>        </c>
-<l>        gen_rectangle1(RectangleStructElement, 0, 00, A, B)</l>
+<l>        gen_rectangle1(RectangleStructElement, 0, 0, A, B)</l>
 <l>        dilation1(Region, RectangleStructElement, Region, Iterations1) </l>
 <c>        </c>
 <c>        * Erosion1</c>
 <c>        * 63 [label="Erosion1\nIterations=3\n StructElement=Rectangle\n A=23\n B=14"];</c>
-<l>        A := 23</l>
-<l>        B := 14</l>
-<l>        Iterations2 := 3</l>
 <c>        </c>
-<l>        gen_rectangle1(RectangleStructElement, 0, 00, A, B)</l>
+<l>        gen_rectangle1(RectangleStructElement, 0, 0, A_2, B_2)</l>
 <l>        erosion1(Region, RectangleStructElement, Region, Iterations2) </l>
 <c>        </c>
 <l>    catch (Exception)</l>

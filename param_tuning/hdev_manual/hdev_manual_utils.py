@@ -267,7 +267,7 @@ def convert_margin_to_int():
                     "<l>            Margin := 210</l>\n" \
                     "<l>        elseif(Margin == 'TwoForty')</l>\n" \
                     "<l>            Margin := 240</l>\n" \
-                    "<l>        elseif(Margin == 'TwoFifityFive')</l>\n" \
+                    "<l>        elseif(Margin == 'TwoFiftyFive')</l>\n" \
                     "<l>            Margin := 255</l>\n" \
                     "<l>        endif</l>\n" \
                     "<c>        </c>\n"

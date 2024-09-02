@@ -19,14 +19,14 @@ def get_MVTec_AD_Metal_Nut_mean_pipeline(params):
                    "<l>        Radius := " + str(params[1]) + "</l>\n" + \
                    "<l>        ModePercent := " + str(params[2]) + "</l>\n" + \
                    "<l>        Margin := '" + str(params[3]) + "'</l>\n" + \
-                   "<l>        FilterType := '" + str(params[3]) + "'</l>\n" + \
-                   "<l>        MaskSize := " + str(params[4]) + "</l>\n" + \
-                   "<l>        MaskSize2 := " + str(params[5]) + "</l>\n" + \
-                   "<l>        MinRatio := " + str(params[6]) + "</l>\n" + \
-                   "<l>        MaskHeight := " + str(params[7]) + "</l>\n" + \
-                   "<l>        MaskWidth := " + str(params[8]) + "</l>\n" + \
-                   "<l>        A := " + str(params[9]) + "</l>\n" + \
-                   "<l>        B := " + str(params[10]) + "</l>\n" + \
+                   "<l>        FilterType := '" + str(params[4]) + "'</l>\n" + \
+                   "<l>        MaskSize := " + str(params[5]) + "</l>\n" + \
+                   "<l>        MaskSize2 := " + str(params[6]) + "</l>\n" + \
+                   "<l>        MinRatio := " + str(params[7]) + "</l>\n" + \
+                   "<l>        MaskHeight := " + str(params[8]) + "</l>\n" + \
+                   "<l>        MaskWidth := " + str(params[9]) + "</l>\n" + \
+                   "<l>        A := " + str(params[10]) + "</l>\n" + \
+                   "<l>        B := " + str(params[11]) + "</l>\n" + \
                    "<c></c>\n"
 
     # Core Pipeline Code
@@ -89,7 +89,9 @@ MVTec_AD_Metal_Nut_mean_pipeline_initial_params = [
     3,
     0.0949999988079071,
     29,
-    7
+    7,
+    27,
+    15
 ]
 
 MVTec_AD_Metal_Nut_mean_pipeline_bounds = [

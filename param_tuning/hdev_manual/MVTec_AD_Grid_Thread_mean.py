@@ -44,7 +44,6 @@ def get_MVTec_AD_Grid_Thread_mean_pipeline(params):
                 get_crop_rectangle_code() + \
                 "<l>        Region1 := Region</l>\n"
 
-
     core_code += "<c></c>\n" + \
                  "<c>        * Path 2</c>\n" + \
                  "<c>        * -------</c>\n" + \

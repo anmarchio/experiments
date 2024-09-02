@@ -28,7 +28,7 @@
 <l>        MaskType := 'circle'</l>
 <l>        Radius := 47</l>
 <l>        ModePercent := 17</l>
-<l>        Margin := 'TwoFifityFive'</l>
+<l>        Margin := 'TwoFiftyFive'</l>
 <c>        </c>
 <l>        MinRatio := 0.0249999985098839</l>
 <l>        MaskHeight := 13</l>
@@ -71,7 +71,7 @@
 <l>            Margin := 210</l>
 <l>        elseif(Margin == 'TwoForty')</l>
 <l>            Margin := 240</l>
-<l>        elseif(Margin == 'TwoFifityFive')</l>
+<l>        elseif(Margin == 'TwoFiftyFive')</l>
 <l>            Margin := 255</l>
 <l>        endif</l>
 <c>        </c>
@@ -157,12 +157,12 @@
 <c>        * PATH 2</c>
 <c>        * ------</c>
 <c>        * AreaSizeThreshold</c>
-<c>        *20 [label="AreaSizeThreshold\nMinGray=20\n MaxGray=254\n MinSize=9000\n MaxSize=18000\n WindowWidth=320\n WindowHeight=260"];</c>
+<c>        * 20 [label="AreaSizeThreshold\nMinGray=20\n MaxGray=254\n MinSize=9000\n MaxSize=18000\n WindowWidth=320\n WindowHeight=260"];</c>
 <c>        </c>
 <l>        abs_image(Image, Image2)</l>
 <c>        </c>
-<l>*        MinGray := 20</l>
-<l>*        MaxGray := 255</l>
+<l>        * MinGray := 20</l>
+<l>        * MaxGray := 255</l>
 <l>        gen_empty_region(FaultyRegion)</l>
 <l>        gen_empty_region(TempRegion)</l>
 <c>        </c>

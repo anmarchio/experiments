@@ -74,6 +74,15 @@ from param_tuning.hdev_manual.MVTec_AD_Metal_Nut_mean import MVTec_AD_Metal_Nut_
 from param_tuning.hdev_manual.MVTec_AD_Pill_Crack_mean import MVTec_AD_Pill_Crack_mean_pipeline_initial_params, \
     MVTec_AD_Pill_Crack_mean_pipeline_bounds, get_MVTec_AD_Pill_Crack_mean_pipeline, \
     MVTec_AD_Pill_Crack_training_source_path
+from param_tuning.hdev_manual.MVTec_AD_Screw_Scratch_mean import MVTec_AD_Screw_Scratch_mean_pipeline_initial_params, \
+    MVTec_AD_Screw_Scratch_mean_pipeline_bounds, get_MVTec_AD_Screw_Scratch_mean_pipeline, \
+    MVTec_AD_Screw_Scratch_training_source_path
+from param_tuning.hdev_manual.MVTec_AD_Tile_Crack_mean import MVTec_AD_Tile_Crack_mean_pipeline_initial_params, \
+    MVTec_AD_Tile_Crack_mean_pipeline_bounds, get_MVTec_AD_Tile_Crack_mean_pipeline, \
+    MVTec_AD_Tile_Crack_training_source_path
+from param_tuning.hdev_manual.MVTec_AD_Toothbrush_Sm_mean import MVTec_AD_Toothbrush_Sm_mean_pipeline_bounds, \
+    MVTec_AD_Toothbrush_Sm_mean_pipeline_initial_params, get_MVTec_AD_Toothbrush_Sm_mean_pipeline, \
+    MVTec_AD_Toothbrush_Sm_training_source_path
 from param_tuning.hdev_manual.severstal_steel_mean import severstal_steel_mean_pipeline_initial_params, \
     severstal_steel_training_source_path, get_severstal_steel_mean_pipeline, \
     severstal_steel_bounds
@@ -103,7 +112,7 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     "MVTec_AD_Metal_Nut_mean_pipeline",
     "MVTec_AD_Pill_Crack_mean_pipeline",
     "MVTec_AD_Screw_Scratch_mean_pipeline",
-    #"MVTec_AD_Tile_Crack_mean_pipeline",
+    "MVTec_AD_Tile_Crack_mean_pipeline",
     #"MVTec_AD_Toothbrush_Sm_mean_pipeline",
     #"MVTec_AD_Wood_Scratch_mean_pipeline",
     #"MVTec_AD_Zipper_Rough_mean_pipeline",
@@ -188,10 +197,10 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
         return MVTec_AD_Pill_Crack_training_source_path
     elif pipeline_name == "MVTec_AD_Screw_Scratch_mean_pipeline":
         return MVTec_AD_Screw_Scratch_training_source_path
-    #elif pipeline_name == "MVTec_AD_Tile_Crack_mean_pipeline":
-    #    return MVTec_AD_Tile_Crack_training_source_path
-    #elif pipeline_name == "MVTec_AD_Toothbrush_Sm_mean_pipeline":
-    #    return MVTec_AD_Toothbrush_Sm_training_source_path
+    elif pipeline_name == "MVTec_AD_Tile_Crack_mean_pipeline":
+        return MVTec_AD_Tile_Crack_training_source_path
+    elif pipeline_name == "MVTec_AD_Toothbrush_Sm_mean_pipeline":
+        return MVTec_AD_Toothbrush_Sm_training_source_path
     #elif pipeline_name == "MVTec_AD_Wood_Scratch_mean_pipeline":
     #    return MVTec_AD_Wood_Scratch_training_source_path
     #elif pipeline_name == "MVTec_AD_Zipper_Rough_mean_pipeline":
@@ -238,8 +247,8 @@ pipelines = {
     "MVTec_AD_Metal_Nut_mean_pipeline": get_MVTec_AD_Metal_Nut_mean_pipeline,
     "MVTec_AD_Pill_Crack_mean_pipeline": get_MVTec_AD_Pill_Crack_mean_pipeline,
     "MVTec_AD_Screw_Scratch_mean_pipeline": get_MVTec_AD_Screw_Scratch_mean_pipeline,
-    #"MVTec_AD_Tile_Crack_mean_pipeline": get_MVTec_AD_Tile_Crack_mean_pipeline,
-    #"MVTec_AD_Toothbrush_Sm_mean_pipeline": get_MVTec_AD_Toothbrush_Sm_mean_pipeline,
+    "MVTec_AD_Tile_Crack_mean_pipeline": get_MVTec_AD_Tile_Crack_mean_pipeline,
+    "MVTec_AD_Toothbrush_Sm_mean_pipeline": get_MVTec_AD_Toothbrush_Sm_mean_pipeline,
     #"MVTec_AD_Wood_Scratch_mean_pipeline": get_MVTec_AD_Wood_Scratch_mean_pipeline,
     #"MVTec_AD_Zipper_Rough_mean_pipeline": get_MVTec_AD_Zipper_Rough_mean_pipeline,
     #"Pultrusion_Resin_Augmtd_mean_pipeline": get_Pultrusion_Resin_Augmtd_mean_pipeline,
@@ -273,8 +282,8 @@ bounds = {
     "MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_mean_pipeline_bounds,
     "MVTec_AD_Pill_Crack_mean_pipeline": MVTec_AD_Pill_Crack_mean_pipeline_bounds,
     "MVTec_AD_Screw_Scratch_mean_pipeline": MVTec_AD_Screw_Scratch_mean_pipeline_bounds,
-    #"MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_bounds,
-    #"MVTec_AD_Toothbrush_Sm_mean_pipeline": MVTec_AD_Toothbrush_Sm_bounds,
+    "MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_mean_pipeline_bounds,
+    "MVTec_AD_Toothbrush_Sm_mean_pipeline": MVTec_AD_Toothbrush_Sm_mean_pipeline_bounds,
     #"MVTec_AD_Wood_Scratch_mean_pipeline": MVTec_AD_Wood_Scratch_bounds,
     #"MVTec_AD_Zipper_Rough_mean_pipeline": gMVTec_AD_Zipper_Rough_bounds,
     #"Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_bounds,
@@ -308,8 +317,8 @@ initial_params = {
     "MVTec_AD_Metal_Nut_mean_pipeline": MVTec_AD_Metal_Nut_mean_pipeline_initial_params,
     "MVTec_AD_Pill_Crack_mean_pipeline": MVTec_AD_Pill_Crack_mean_pipeline_initial_params,
     "MVTec_AD_Screw_Scratch_mean_pipeline": MVTec_AD_Screw_Scratch_mean_pipeline_initial_params,
-    #"MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_mean_pipeline_initial_params,
-    #"MVTec_AD_Toothbrush_Sm_mean_pipeline": MVTec_AD_Toothbrush_Sm_mean_pipeline_initial_params,
+    "MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_mean_pipeline_initial_params,
+    "MVTec_AD_Toothbrush_Sm_mean_pipeline": MVTec_AD_Toothbrush_Sm_mean_pipeline_initial_params,
     #"MVTec_AD_Wood_Scratch_mean_pipeline": MVTec_AD_Wood_Scratch_mean_pipeline_initial_params,
     #"MVTec_AD_Zipper_Rough_mean_pipeline": MVTec_AD_Zipper_Rough_mean_pipeline_initial_params,
     #"Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_mean_pipeline_initial_params,

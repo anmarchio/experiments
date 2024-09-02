@@ -25,11 +25,15 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * GrayClosing</c>
-<c>        * 4 [label="GrayClosing\nStructElement=Circle\n A=16\n B=13\n GrayValueMax=0"];</c>
 <l>        A := 16</l>
 <l>        B := 13</l>
 <l>        GrayValueMax := 0</l>
+<c>        </c>
+<l>        Min := 30 </l>
+<l>        Max := 250</l>
+<c>        </c>
+<c>        * GrayClosing</c>
+<c>        * 4 [label="GrayClosing\nStructElement=Circle\n A=16\n B=13\n GrayValueMax=0"];</c>
 <c>        </c>
 <c>        * with struct element circle</c>
 <c>        * StructElementType Ellipse</c>
@@ -40,8 +44,6 @@
 <c>        </c>
 <c>        * Threshold</c>
 <c>        * 24 [label="Threshold\nMin=30\n Max=250"];</c>
-<l>        Min := 30 </l>
-<l>        Max := 250</l>
 <c>        </c>
 <l>        threshold(Image, Region, Min, Max)</l>
 <l>    catch (Exception)</l>
