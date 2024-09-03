@@ -62,15 +62,15 @@ def get_MVTec_AD_Screw_Scratch_mean_pipeline(params):
                 "<l>                Row2 := j * WindowHeight + WindowHeight</l>\n" \
                 "<l>                Col2 := i * WindowHeight + WindowHeight</l>\n" \
                 "<c>        </c>\n" \
-                "<l>                if(Row2 > Height)</l>\n" \
+                "<l>                if(Row2 &gt; Height)</l>\n" \
                 "<l>                    Row2 := Height</l>\n" \
                 "<l>                endif</l>\n" \
                 "<c>        </c>\n" \
-                "<l>                if(Col2 > Width)</l>\n" \
+                "<l>                if(Col2 &gt; Width)</l>\n" \
                 "<l>                    Col2 := Width</l>\n" \
                 "<l>                endif</l>\n" \
                 "<c>        </c>\n" \
-                "<l>                if(Row1 > Height)</l>\n" \
+                "<l>                if(Row1 &gt; Height)</l>\n" \
                 "<l>                    Row1 := Height - 1</l>\n" \
                 "<l>                endif</l>\n" \
                 "<c>        </c>\n" \
@@ -82,7 +82,7 @@ def get_MVTec_AD_Screw_Scratch_mean_pipeline(params):
                 "<l>                threshold(ImagePart, Threads, 40, 255)</l>\n" \
                 "<l>                area_center(Threads, AreaSize, Row, Col)</l>\n" \
                 "<c>        </c>\n" \
-                "<l>                if(AreaSize < MaxSize and AreaSize > MinSize)</l>\n" \
+                "<l>                if(AreaSize &lt; MaxSize and AreaSize &gt; MinSize)</l>\n" \
                 "<l>                    gen_rectangle1(TempRegion, Row, Col, Row, Col)</l>\n" \
                 "<l>                    union2(TempRegion, FaultyRegion, FaultyRegion)</l>\n" \
                 "<l>                endif</l>\n" \
@@ -92,7 +92,7 @@ def get_MVTec_AD_Screw_Scratch_mean_pipeline(params):
                 "<l>        endfor</l>\n" \
                 "<c>        </c>\n" \
                 "<l>        count_obj(FaultyRegion, Number)</l>\n" \
-                "<l>        if(Number > 0)</l>\n" \
+                "<l>        if(Number &gt; 0)</l>\n" \
                 "<l>            Region2 := FaultyRegion</l>\n" \
                 "<l>        else</l>\n" \
                 "<l>            gen_empty_region(Region2)</l>\n" \
@@ -105,7 +105,7 @@ def get_MVTec_AD_Screw_Scratch_mean_pipeline(params):
                 "<l>        tuple_max2(A, B, max_rad)</l>\n" \
                 "<l>        longer := A</l>\n" \
                 "<l>        shorter := B</l>\n" \
-                "<l>        if (shorter > longer)</l>\n" \
+                "<l>        if (shorter &gt; longer)</l>\n" \
                 "<l>            tmp := shorter</l>\n" \
                 "<l>            shorter := longer</l>\n" \
                 "<l>            longer := tmp</l>\n" \
