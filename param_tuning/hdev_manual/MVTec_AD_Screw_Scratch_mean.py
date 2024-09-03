@@ -134,7 +134,9 @@ MVTec_AD_Screw_Scratch_mean_pipeline_initial_params = [
     900,
     18000,
     320,
-    260
+    260,
+    19,
+    18
 ]
 
 MVTec_AD_Screw_Scratch_mean_pipeline_bounds = [
@@ -151,7 +153,9 @@ MVTec_AD_Screw_Scratch_mean_pipeline_bounds = [
     [v for v in range(9000, 10999, 1000)],
     [v for v in range(18000, 21999, 1000)],
     [v for v in range(160, 320, 10)],
-    [v for v in range(1160, 320, 10)]
+    [v for v in range(1160, 320, 10)],
+    [v for v in range(1, 30, 1)],
+    [v for v in range(1, 30, 1)]
 ]
 
 MVTec_AD_Screw_Scratch_training_source_path = os.path.join(EVIAS_SRC_PATH,
