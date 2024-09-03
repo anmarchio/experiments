@@ -2,3 +2,9 @@ Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipelin
 -1;0.0;mcc;perona-malik, 2, 1, 100, 1, 4, ;cooling:0.9,temp:10.0;sa;MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline;2024-09-03 14:09:21.454757;
 0;0.0;mcc;weickert, 5, 3.0, 10, 1, 0, ;sa;cooling:0.9,temp:10.0;MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline;2024-09-03 14:09:24.268403;
 1;0.0;mcc;parabolic, 5, 0.5, 500, 2, 255, ;sa;cooling:0.9,temp:9.0;MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline;2024-09-03 14:09:27.265378;
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.0;mcc;perona-malik, 2, 1, 100, 1, 4, ;cooling:0.9,temp:10.0;sa;MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline;2024-09-03 14:25:14.538953;
+0;0.0;mcc;parabolic, 2, 0.5, 500, 2, 0, ;sa;cooling:0.9,temp:10.0;MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline;2024-09-03 14:25:17.691878;
+1;0.0;mcc;weickert, 2, 0.5, 10, 2, 0, ;sa;cooling:0.9,temp:9.0;MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline;2024-09-03 14:25:20.577603;
+2;0.0;mcc;parabolic, 5, 0.5, 3, 1, 0, ;sa;cooling:0.9,temp:8.1;MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline;2024-09-03 14:25:23.465769;
+3;0.0;mcc;perona-malik, 5, 1.0, 1, 2, 0, ;sa;cooling:0.9,temp:7.29;MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline;2024-09-03 14:25:26.345981;
