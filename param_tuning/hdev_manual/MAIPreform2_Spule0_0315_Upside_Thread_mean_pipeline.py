@@ -59,7 +59,7 @@ MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline_bounds = [
     [v for v in range(1, 30, 1)],
     [0, 1, 2, 5, 10, 20, 30, 40],
     [1, 2, 3],
-    [0, 255]
+    [v for v in range(0, 255, 1)],
 ]
 
 MAIPreform2_Spule0_0315_Upside_Thread_training_source_path = os.path.join(EVIAS_SRC_PATH,

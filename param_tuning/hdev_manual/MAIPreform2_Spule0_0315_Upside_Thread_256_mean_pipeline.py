@@ -53,16 +53,16 @@ MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_initial_params = [
 
 MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_bounds = [
     ['perona-malik', 'weickert', 'parabolic'],
-    [2, 5, 10, 20, 50, 100],
+    [v for v in range(1, 100, 1)],
     [0.5, 1.0, 3.0],
     [1, 3, 10, 100, 500],
-    [1,2,3],
-    [0,255]
+    [1, 2, 3],
+    [v for v in range(0, 255, 1)],
 ]
 
 MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path = os.path.join(EVIAS_SRC_PATH,
-                                                                                  "MAIPreform2.0",
-                                                                                  "20170502_Compositence",
-                                                                                  "Spule0-0315_Upside",
-                                                                                  "undone_thread_hole_256",
-                                                                                  "training")
+                                                                              "MAIPreform2.0",
+                                                                              "20170502_Compositence",
+                                                                              "Spule0-0315_Upside",
+                                                                              "undone_thread_hole_256",
+                                                                              "training")

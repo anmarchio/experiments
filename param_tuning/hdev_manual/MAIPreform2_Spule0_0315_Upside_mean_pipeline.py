@@ -72,12 +72,12 @@ MAIPreform2_Spule0_0315_Upside_mean_pipeline_bounds = [
     ['perona-malik', 'weickert', 'parabolic'],
     [2, 5, 10, 20, 50, 100],
     [0.5, 1.0, 3.0],
-    [1, 3, 10, 100, 500]
+    [v for v in range(1, 500, 1)]
 ]
 
 MAIPreform2_Spule0_0315_Upside_training_source_path = os.path.join(EVIAS_SRC_PATH,
-                                                                                 "MAIPreform2.0",
-                                                                                 "20170502_Compositence",
-                                                                                 "Spule0-0315_Upside",
-                                                                                 "undone",
-                                                                                 "training")
+                                                                   "MAIPreform2.0",
+                                                                   "20170502_Compositence",
+                                                                   "Spule0-0315_Upside",
+                                                                   "undone",
+                                                                   "training")
