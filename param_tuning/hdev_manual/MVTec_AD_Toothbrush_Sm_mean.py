@@ -5,8 +5,7 @@ MVTec_AD_Toothbrush_Sm_mean_pipeline
 """
 import os
 
-from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_code, convert_margin_to_int, \
-    get_ellipse_struct_code, get_crop_rectangle_img2_code, get_crop_rectangle_code
+from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_code
 from settings import EVIAS_SRC_PATH
 
 
@@ -15,10 +14,10 @@ def get_MVTec_AD_Toothbrush_Sm_mean_pipeline(params):
     dataset_path = "/MVTecAnomalyDetection/toothbrush_small_train/images"
 
     # Parameters
-    param_lines = "<l>        A := '" + str(params[0]) + "'</l>\n" + \
+    param_lines = "<l>        A := " + str(params[0]) + "</l>\n" + \
                   "<l>        B := " + str(params[1]) + "</l>\n" + \
                   "<l>        GrayValueMax := " + str(params[2]) + "</l>\n" + \
-                  "<l>        Min := '" + str(params[3]) + "'</l>\n" + \
+                  "<l>        Min := " + str(params[3]) + "</l>\n" + \
                   "<l>        Max := " + str(params[4]) + "</l>\n" + \
                   "<c></c>\n"
 

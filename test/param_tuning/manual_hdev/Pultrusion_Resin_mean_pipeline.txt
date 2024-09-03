@@ -1,0 +1,7 @@
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.0;mcc;circle, 47, TwoTen, y, 7, 10000, 21000, 200, 220, ;cooling:0.9,temp:10.0;sa;Pultrusion_Resin_mean_pipeline;2024-09-03 11:51:42.131976;
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.0;mcc;circle, 47, TwoTen, y, 7, 10000, 21000, 200, 220, ;cooling:0.9,temp:10.0;sa;Pultrusion_Resin_mean_pipeline;2024-09-03 11:55:29.961864;
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.0;mcc;circle, 47, TwoTen, y, 7, 10000, 21000, 200, 220, ;cooling:0.9,temp:10.0;sa;Pultrusion_Resin_mean_pipeline;2024-09-03 11:59:09.440971;
+0;0.0;mcc;square, 101, OneTwenty, x, 5, 10000, 20000, 210, 210, ;sa;cooling:0.9,temp:10.0;Pultrusion_Resin_mean_pipeline;2024-09-03 11:59:11.793115;

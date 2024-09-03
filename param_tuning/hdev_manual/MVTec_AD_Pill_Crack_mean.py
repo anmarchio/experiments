@@ -5,8 +5,7 @@ MVTec_AD_Pill_Crack_mean_pipeline
 """
 import os
 
-from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_code, convert_margin_to_int, \
-    get_ellipse_struct_code, get_crop_rectangle_img2_code, get_crop_rectangle_code
+from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_code, get_crop_rectangle_code
 from settings import EVIAS_SRC_PATH
 
 
@@ -27,28 +26,21 @@ def get_MVTec_AD_Pill_Crack_mean_pipeline(params):
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<c>        * PATH 1</c>\n" \
-                "<c>        * ------</c>\n" \
-                "<c>        * DualRank</c>\n" \
-                "<c>        * GrayOpening</c>\n" \
+    core_code = "<c>        * GrayOpening</c>\n" \
                 "<c>        </c>\n" \
                 "<c>        * with struct element circle</c>\n" \
                 "<c>        * using A, B and C as shape_params</c>\n" \
                 "<l>        get_image_type(Image, Type)</l>\n" \
                 "<l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>\n" \
                 "<l>        gray_opening(Image, StructElement, Image)</l>\n" \
-                "<c>        </c>\n" \
-                "<c>        * CropRectangle</c>\n" \
                 + get_crop_rectangle_code() + \
-                "<c>        </c>\n" \
-                "<c>        </c>\n" \
                 "<c>        * Closing</c>\n" \
                 "<c>        </c>\n" \
                 "<c>        * with struct element circle</c>\n" \
                 "<l>        tuple_ceil(A_2 + 1, shape_param0_ceil)</l>\n" \
                 "<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A_2)</l>\n" \
                 "<c></c>\n" \
-                "<l>        closing(Image, StructElement, Region)</l>\n" \
+                "<l>        closing(Region, StructElement, Region)</l>\n" \
                 "<c>        </c>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

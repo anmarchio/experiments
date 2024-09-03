@@ -25,15 +25,26 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
+<l>        MaskSize1 := 9</l>
+<c>        </c>
+<l>        FilterType := 'y'</l>
+<l>        MaskSize2 := 7</l>
+<c>        </c>
+<l>        MaskWidth := 7</l>
+<l>        MaskHeight := 19</l>
+<l>        StdDevScale := 0.1000001</l>
+<l>        AbsThreshold := 26</l>
+<l>        LightDark := 'dark'</l>
+<c>        </c>
+<l>        A := 4</l>
+<l>        B := 3</l>
+<l>        Iterations := 14</l>
 <c>        * GaussFilter</c>
 <c>        * 4 [label="GaussFilter\nMaskSize=9"];</c>
-<l>        MaskSize1 := 9</l>
 <l>        gauss_filter(Image, Image, MaskSize1)</l>
 <c>        </c>
 <c>        * SobelAmp</c>
 <c>        * 13 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
-<l>        FilterType := 'y'</l>
-<l>        MaskSize2 := 7</l>
 <c>        </c>
 <l>        get_image_type(Image, Type)</l>
 <l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')            </l>
@@ -47,11 +58,6 @@
 <c>        </c>
 <c>        * VarThreshold</c>
 <c>        * 20 [label="VarThreshold\nMaskWidth=7\n MaskHeight=19\n StdDevScale=0.1000001\n AbsThreshold=26\n LightDark=dark"];</c>
-<l>        MaskWidth := 7</l>
-<l>        MaskHeight := 19</l>
-<l>        StdDevScale := 0.1000001</l>
-<l>        AbsThreshold := 26</l>
-<l>        LightDark := 'dark'</l>
 <c>        </c>
 <l>        get_image_type(Image, Type)</l>
 <c>        </c>
@@ -78,9 +84,6 @@
 <c></c>
 <c>        * Dilation1</c>
 <c>        * 37 [label="Dilation1\nIterations=14\n StructElement=Rectangle\n A=4\n B=3"];</c>
-<l>        A := 4</l>
-<l>        B := 3</l>
-<l>        Iterations := 14</l>
 <c>        </c>
 <l>        gen_rectangle1(RectangleStructElement, 0, 0, A, B)</l>
 <l>        dilation1(Region, RectangleStructElement, Region, Iterations) </l>

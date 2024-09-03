@@ -1,0 +1,3 @@
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.1244529522214467846238654893;mcc;11, adapted_std_deviation, dark, 21, 0.2, 22, 20, -0.785398, ;cooling:0.9,temp:10.0;sa;MVTec_AD_Zipper_Rough_mean_pipeline;2024-09-03 11:39:53.820607;
+0;0.1322068443077815811318643083;mcc;9, adapted_std_deviation, light, 31, 0.2, 19, 17, -0.7, ;sa;cooling:0.9,temp:10.0;MVTec_AD_Zipper_Rough_mean_pipeline;2024-09-03 11:39:55.760003;

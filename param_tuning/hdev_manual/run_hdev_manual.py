@@ -83,42 +83,55 @@ from param_tuning.hdev_manual.MVTec_AD_Tile_Crack_mean import MVTec_AD_Tile_Crac
 from param_tuning.hdev_manual.MVTec_AD_Toothbrush_Sm_mean import MVTec_AD_Toothbrush_Sm_mean_pipeline_bounds, \
     MVTec_AD_Toothbrush_Sm_mean_pipeline_initial_params, get_MVTec_AD_Toothbrush_Sm_mean_pipeline, \
     MVTec_AD_Toothbrush_Sm_training_source_path
+from param_tuning.hdev_manual.MVTec_AD_Wood_Scratch_mean_pipeline import MVTec_AD_Wood_Scratch_training_source_path, \
+    get_MVTec_AD_Wood_Scratch_mean_pipeline, MVTec_AD_Wood_Scratch_mean_pipeline_bounds, \
+    MVTec_AD_Wood_Scratch_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MVTec_AD_Zipper_Rough_mean_pipeline import MVTec_AD_Zipper_Rough_training_source_path, \
+    get_MVTec_AD_Zipper_Rough_mean_pipeline, MVTec_AD_Zipper_Rough_mean_pipeline_bounds, \
+    MVTec_AD_Zipper_Rough_mean_pipeline_initial_params
+from param_tuning.hdev_manual.Pultrusion_Resin_Augmtd_mean_pipeline import Pultrusion_Resin_Augmtd_training_source_path, \
+    get_Pultrusion_Resin_Augmtd_mean_pipeline, Pultrusion_Resin_Augmtd_mean_pipeline_bounds, \
+    Pultrusion_Resin_Augmtd_mean_pipeline_initial_params
+from param_tuning.hdev_manual.Pultrusion_Resin_mean_pipeline import Pultrusion_Resin_mean_pipeline_initial_params, \
+    Pultrusion_Resin_mean_pipeline_bounds, get_Pultrusion_Resin_mean_pipeline, Pultrusion_Resin_training_source_path
+from param_tuning.hdev_manual.Pultrusion_Window_mean_pipeline import Pultrusion_Window_mean_pipeline_initial_params, \
+    Pultrusion_Window_mean_pipeline_bounds, get_Pultrusion_Window_mean_pipeline, Pultrusion_Window_training_source_path
 from param_tuning.hdev_manual.severstal_steel_mean import severstal_steel_mean_pipeline_initial_params, \
     severstal_steel_training_source_path, get_severstal_steel_mean_pipeline, \
     severstal_steel_bounds
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_MEAN = [
-    #"AirCarbon2_t_8.jpg_mean_pipeline",
-    #'AirCarbon3_80.jpg_bright_mean_pipeline',
-    #"AirCarbon3_80.jpg_dark_1_mean_pipeline",
-    #AirCarbon3_80.jpg_dark_2_mean_pipeline",
-    #"AirCarbon3_80.jpg_dark_3_mean_pipeline",
-    #"AirCarbon3_80.jpg_dark_4_mean_pipeline",
-    #"AirCarbon3_80.jpg_dark_5_mean_pipeline",
-    #"CF_ReferenceSet_mean_pipeline",
-    #"CF_ReferenceSet_Small_Dark_mean_pipeline",
-    #"CF_ReferenceSet_Small_Light_mean_pipeline",
-    #'FabricDefectsAITEX_mean_pipeline',
-    #"MT_Blowhole_train_mean_pipeline",
-    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
-    # [x] "MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
-    # [x] "MVTec_AD_Cable_Missing_mean_pipeline",
-    # [x] "MVTec_AD_Capsule_mean_pipeline",
-    # [x] "MVTec_AD_Carpet_mean_pipeline",
-    # [x] "MVTec_AD_Grid_Thread_mean_pipeline",
-    # [x] "MVTec_AD_Hazelnut_Crack_mean_pipeline",
-    #"MVTec_AD_Leather_mean_pipeline",
-    #"MVTec_AD_Metal_Nut_mean_pipeline",
-    #"MVTec_AD_Pill_Crack_mean_pipeline",
-    "MVTec_AD_Screw_Scratch_mean_pipeline",
-    "MVTec_AD_Tile_Crack_mean_pipeline",
-    #"MVTec_AD_Toothbrush_Sm_mean_pipeline",
-    #"MVTec_AD_Wood_Scratch_mean_pipeline",
-    #"MVTec_AD_Zipper_Rough_mean_pipeline",
-    #"Pultrusion_Resin_Augmtd_mean_pipeline",
-    #"Pultrusion_Resin_mean_pipeline",
-    #"Pultrusion_Window_mean_pipeline",
+    # "AirCarbon2_t_8.jpg_mean_pipeline",
+    # "AirCarbon3_80.jpg_bright_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_1_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_2_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_3_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_4_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_5_mean_pipeline",
+    # "CF_ReferenceSet_mean_pipeline",
+    # "CF_ReferenceSet_Small_Dark_mean_pipeline",
+    # "CF_ReferenceSet_Small_Light_mean_pipeline",
+    # "FabricDefectsAITEX_mean_pipeline",
+    # "MT_Blowhole_train_mean_pipeline",
+    # "MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
+    # "MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
+    # "MVTec_AD_Cable_Missing_mean_pipeline",
+    # "MVTec_AD_Capsule_mean_pipeline",
+    # "MVTec_AD_Carpet_mean_pipeline",
+    # "MVTec_AD_Grid_Thread_mean_pipeline",
+    # "MVTec_AD_Hazelnut_Crack_mean_pipeline",
+    # "MVTec_AD_Leather_mean_pipeline",
+    # ==> "MVTec_AD_Metal_Nut_mean_pipeline",
+    # "MVTec_AD_Pill_Crack_mean_pipeline",
+    # "MVTec_AD_Screw_Scratch_mean_pipeline",
+    # "MVTec_AD_Tile_Crack_mean_pipeline",
+    # "MVTec_AD_Toothbrush_Sm_mean_pipeline",
+    "MVTec_AD_Wood_Scratch_mean_pipeline",
+    "MVTec_AD_Zipper_Rough_mean_pipeline",
+    "Pultrusion_Resin_Augmtd_mean_pipeline",
+    "Pultrusion_Resin_mean_pipeline",
+    "Pultrusion_Window_mean_pipeline",
     # [x] "severstal-steel_mean_pipeline"
 ]
 
@@ -201,16 +214,16 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
         return MVTec_AD_Tile_Crack_training_source_path
     elif pipeline_name == "MVTec_AD_Toothbrush_Sm_mean_pipeline":
         return MVTec_AD_Toothbrush_Sm_training_source_path
-    #elif pipeline_name == "MVTec_AD_Wood_Scratch_mean_pipeline":
-    #    return MVTec_AD_Wood_Scratch_training_source_path
-    #elif pipeline_name == "MVTec_AD_Zipper_Rough_mean_pipeline":
-    #    return MVTec_AD_Zipper_Rough_training_source_path
-    #elif pipeline_name == "Pultrusion_Resin_Augmtd_mean_pipeline":
-    #    return Pultrusion_Resin_Augmtd_training_source_path
-    #elif pipeline_name == "Pultrusion_Resin_mean_pipeline":
-    #    return Pultrusion_Resin_training_source_path
-    #elif pipeline_name == "Pultrusion_Window_mean_pipeline":
-    #    return Pultrusion_Window_training_source_path
+    elif pipeline_name == "MVTec_AD_Wood_Scratch_mean_pipeline":
+        return MVTec_AD_Wood_Scratch_training_source_path
+    elif pipeline_name == "MVTec_AD_Zipper_Rough_mean_pipeline":
+        return MVTec_AD_Zipper_Rough_training_source_path
+    elif pipeline_name == "Pultrusion_Resin_Augmtd_mean_pipeline":
+        return Pultrusion_Resin_Augmtd_training_source_path
+    elif pipeline_name == "Pultrusion_Resin_mean_pipeline":
+        return Pultrusion_Resin_training_source_path
+    elif pipeline_name == "Pultrusion_Window_mean_pipeline":
+        return Pultrusion_Window_training_source_path
     elif pipeline_name == "severstal-steel_mean_pipeline":
         return severstal_steel_training_source_path
 
@@ -249,14 +262,13 @@ pipelines = {
     "MVTec_AD_Screw_Scratch_mean_pipeline": get_MVTec_AD_Screw_Scratch_mean_pipeline,
     "MVTec_AD_Tile_Crack_mean_pipeline": get_MVTec_AD_Tile_Crack_mean_pipeline,
     "MVTec_AD_Toothbrush_Sm_mean_pipeline": get_MVTec_AD_Toothbrush_Sm_mean_pipeline,
-    #"MVTec_AD_Wood_Scratch_mean_pipeline": get_MVTec_AD_Wood_Scratch_mean_pipeline,
-    #"MVTec_AD_Zipper_Rough_mean_pipeline": get_MVTec_AD_Zipper_Rough_mean_pipeline,
-    #"Pultrusion_Resin_Augmtd_mean_pipeline": get_Pultrusion_Resin_Augmtd_mean_pipeline,
-    #"Pultrusion_Resin_mean_pipeline": get_Pultrusion_Resin_mean_pipeline,
-    #"Pultrusion_Window_mean_pipeline": get_Pultrusion_Window_mean_pipeline,
+    "MVTec_AD_Wood_Scratch_mean_pipeline": get_MVTec_AD_Wood_Scratch_mean_pipeline,
+    "MVTec_AD_Zipper_Rough_mean_pipeline": get_MVTec_AD_Zipper_Rough_mean_pipeline,
+    "Pultrusion_Resin_Augmtd_mean_pipeline": get_Pultrusion_Resin_Augmtd_mean_pipeline,
+    "Pultrusion_Resin_mean_pipeline": get_Pultrusion_Resin_mean_pipeline,
+    "Pultrusion_Window_mean_pipeline": get_Pultrusion_Window_mean_pipeline,
     "severstal-steel_mean_pipeline": get_severstal_steel_mean_pipeline
 }
-
 
 bounds = {
     "AirCarbon2_t_8.jpg_mean_pipeline": AirCarbon2_t_8_jpg_mean_pipeline_bounds,
@@ -284,14 +296,13 @@ bounds = {
     "MVTec_AD_Screw_Scratch_mean_pipeline": MVTec_AD_Screw_Scratch_mean_pipeline_bounds,
     "MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_mean_pipeline_bounds,
     "MVTec_AD_Toothbrush_Sm_mean_pipeline": MVTec_AD_Toothbrush_Sm_mean_pipeline_bounds,
-    #"MVTec_AD_Wood_Scratch_mean_pipeline": MVTec_AD_Wood_Scratch_bounds,
-    #"MVTec_AD_Zipper_Rough_mean_pipeline": gMVTec_AD_Zipper_Rough_bounds,
-    #"Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_bounds,
-    #"Pultrusion_Resin_mean_pipeline": Pultrusion_Resin_bounds,
-    #"Pultrusion_Window_mean_pipeline": Pultrusion_Window_bounds,
+    "MVTec_AD_Wood_Scratch_mean_pipeline": MVTec_AD_Wood_Scratch_mean_pipeline_bounds,
+    "MVTec_AD_Zipper_Rough_mean_pipeline": MVTec_AD_Zipper_Rough_mean_pipeline_bounds,
+    "Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_mean_pipeline_bounds,
+    "Pultrusion_Resin_mean_pipeline": Pultrusion_Resin_mean_pipeline_bounds,
+    "Pultrusion_Window_mean_pipeline": Pultrusion_Window_mean_pipeline_bounds,
     "severstal-steel_mean_pipeline": severstal_steel_bounds
 }
-
 
 initial_params = {
     "AirCarbon2_t_8.jpg_mean_pipeline": AirCarbon2_t_8_jpg_mean_pipeline_initial_params,
@@ -319,10 +330,10 @@ initial_params = {
     "MVTec_AD_Screw_Scratch_mean_pipeline": MVTec_AD_Screw_Scratch_mean_pipeline_initial_params,
     "MVTec_AD_Tile_Crack_mean_pipeline": MVTec_AD_Tile_Crack_mean_pipeline_initial_params,
     "MVTec_AD_Toothbrush_Sm_mean_pipeline": MVTec_AD_Toothbrush_Sm_mean_pipeline_initial_params,
-    #"MVTec_AD_Wood_Scratch_mean_pipeline": MVTec_AD_Wood_Scratch_mean_pipeline_initial_params,
-    #"MVTec_AD_Zipper_Rough_mean_pipeline": MVTec_AD_Zipper_Rough_mean_pipeline_initial_params,
-    #"Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_mean_pipeline_initial_params,
-    #"Pultrusion_Resin_mean_pipeline": Pultrusion_Resin_mean_pipeline_initial_params,
-    #"Pultrusion_Window_mean_pipeline": Pultrusion_Window_mean_pipeline_initial_params,
+    "MVTec_AD_Wood_Scratch_mean_pipeline": MVTec_AD_Wood_Scratch_mean_pipeline_initial_params,
+    "MVTec_AD_Zipper_Rough_mean_pipeline": MVTec_AD_Zipper_Rough_mean_pipeline_initial_params,
+    "Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_mean_pipeline_initial_params,
+    "Pultrusion_Resin_mean_pipeline": Pultrusion_Resin_mean_pipeline_initial_params,
+    "Pultrusion_Window_mean_pipeline": Pultrusion_Window_mean_pipeline_initial_params,
     "severstal-steel_mean_pipeline": severstal_steel_mean_pipeline_initial_params
 }

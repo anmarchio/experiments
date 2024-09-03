@@ -1,0 +1,4 @@
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.0;mcc;circle, 47, TwoTen, y, 7, 10000, 21000, 200, 220, ;cooling:0.9,temp:10.0;sa;Pultrusion_Window_mean_pipeline;2024-09-03 12:01:30.446147;
+0;0.0;mcc;square, 101, Zero, x, 9, 10000, 20000, 190, 210, ;sa;cooling:0.9,temp:10.0;Pultrusion_Window_mean_pipeline;2024-09-03 12:01:32.811461;
+1;0.0;mcc;circle, 1, Thirty, y_binomial, 29, 9000, 18000, 270, 170, ;sa;cooling:0.9,temp:9.0;Pultrusion_Window_mean_pipeline;2024-09-03 12:01:34.703739;

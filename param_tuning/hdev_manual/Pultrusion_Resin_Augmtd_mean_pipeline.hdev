@@ -25,10 +25,14 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try        </l>
-<c>        * GrayErosion</c>
 <l>        A := 30</l>
 <l>        B := 30</l>
 <l>        GrayValueMax := 0</l>
+<c>        </c>
+<l>        Method := 'max_separability'</l>
+<l>        LightDark := 'light'</l>
+<c>        </c>
+<c>        * GrayErosion</c>
 <c>        </c>
 <c>        * with struct element circle</c>
 <c>        * StructElementType Ellipse</c>
@@ -37,10 +41,7 @@
 <l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>
 <l>        gray_erosion(Image, StructElement, Image)</l>
 <c>        </c>
-<c>        * BinaryThreshold</c>
-<l>        Method := 'max_separability'</l>
-<l>        LightDark := 'light'</l>
-<c>        </c>
+<c>        * BinaryThreshold        </c>
 <l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>
 <c>        </c>
 <l>    catch (Exception)</l>

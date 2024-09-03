@@ -4,7 +4,7 @@
 <interface/>
 <body>
 <l>dataset_name := 'Pultrusion_Resin_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/Pultrusion/resin_cgp/train/images'</l>
+<l>source_path := 'D:/evias_expmts/Pultrusion/resin_cgp/train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -25,11 +25,22 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * MedianImage</c>
-<c>        * 0 [label="MedianImage\nMaskType=circle\n Radius=47\n Margin=TwoTen"];</c>
 <l>        MaskType := 'circle'</l>
 <l>        Radius := 47</l>
 <l>        Margin := 'TwoTen'</l>
+<c>        </c>
+<l>        FilterType := 'y'</l>
+<l>        MaskSize := 7</l>
+<c>        </c>
+<l>        *MinGray := 18</l>
+<l>        *MaxGray := 243</l>
+<l>        MinSize := 10000</l>
+<l>        MaxSize := 21000</l>
+<l>        WindowWidth := 200</l>
+<l>        WindowHeight := 220        </l>
+<c>        </c>
+<c>        * MedianImage</c>
+<c>        * 0 [label="MedianImage\nMaskType=circle\n Radius=47\n Margin=TwoTen"];</c>
 <c>        </c>
 <c>        *mirrored = 1,</c>
 <c>        *cyclic = 2,</c>
@@ -71,8 +82,6 @@
 <c>        </c>
 <c>        * SobelAmp</c>
 <c>        * 13 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
-<l>        FilterType := 'y'</l>
-<l>        MaskSize := 7</l>
 <c>        </c>
 <l>        get_image_type(Image, Type)</l>
 <l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')            </l>
@@ -86,13 +95,7 @@
 <c>        </c>
 <c>        * AreaSizeThreshold</c>
 <c>        * 83 [label="AreaSizeThreshold\nMinGray=18\n MaxGray=243\n MinSize=10000\n MaxSize=21000\n WindowWidth=200\n WindowHeight=220"];</c>
-<l>        MinGray := 18</l>
-<l>        MaxGray := 243</l>
-<l>        MinSize := 10000</l>
-<l>        MaxSize := 21000</l>
-<l>        WindowWidth := 200</l>
-<l>        WindowHeight := 220        </l>
-<c>        </c>
+<c></c>
 <l>        abs_image(Image, Image)</l>
 <c>        </c>
 <l>        MinGray := 20</l>

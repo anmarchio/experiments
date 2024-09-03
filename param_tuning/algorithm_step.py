@@ -1,5 +1,6 @@
 import random
 
+from numpy import int32
 
 """
 Simulated Annealing Default Parameters
@@ -34,7 +35,7 @@ def perturb(value, bound, temperature):
         return random.choice(options)
         # just return string as is
         #return value
-    elif isinstance(value, (int, float)):
+    elif isinstance(value, (int, int32, float)):
         if len(bound) == 2:
             # For a range, slightly adjust the value within the bounds
             delta = (bound[1] - bound[0]) * temperature * (random.random() - 0.5)

@@ -4,7 +4,7 @@
 <interface/>
 <body>
 <l>dataset_name := 'Pultrusion_Window_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/Pultrusion/window_cgp/train/images'</l>
+<l>source_path := 'D:/evias_expmts/Pultrusion/window_cgp/train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -25,10 +25,18 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * CropSmallestRectangle</c>
-<c>        * CropSmallestRectangle\nMinGray=21\n MaxGray=255"</c>
 <l>        MinGray := 21</l>
 <l>        MaxGray := 255</l>
+<c>        </c>
+<l>        FilterType := 'y'</l>
+<l>        MaskSize := 3</l>
+<c>        </c>
+<l>        MinRatio := 0.0399999991059303</l>
+<l>        MaskHeight := 27</l>
+<l>        MaskWidth := 29</l>
+<c>        </c>
+<c>        * CropSmallestRectangle</c>
+<c>        * CropSmallestRectangle\nMinGray=21\n MaxGray=255"</c>
 <c>                </c>
 <l>        threshold(Image, Region, MinGray, MaxGray)</l>
 <l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
@@ -36,25 +44,50 @@
 <c></c>
 <c>        * SobelAmp</c>
 <c>        * 13 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
-<l>        FilterType := 'y'</l>
-<l>        MaskSize := 3</l>
 <c>        </c>
 <l>        get_image_type(Image2, Type)</l>
-<l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')            </l>
+<l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>
 <l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>
-<l>                convert_image_type(Image2, Image2, 'byte')</l>
+<c>                * Scale To Gray</c>
+<l>                gen_empty_obj(ScaledImage)</l>
+<l>                min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>                if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
+<l>                    if(MaxGrayVal - MinGrayVal &gt; 0)</l>
+<l>                        Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
+<l>                    else</l>
+<l>                        Mult := 255.0</l>
+<l>                    endif</l>
+<l>                    Add := - Mult * MinGrayVal</l>
+<l>                    scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>                else</l>
+<l>                    scale_image(Image2, ImageScaled, Mult, Add)                </l>
+<l>                endif</l>
+<c>                </c>
+<c>                * Convert to StandardType (byte)</c>
+<l>                convert_image_type(ScaledImage, Image2, 'byte')</l>
 <l>            endif</l>
-<l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>
+<l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real') </l>
+<c>            * Scale To Gray</c>
+<l>            gen_empty_obj(ScaledImage)</l>
+<l>            min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>            if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
+<l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>
+<l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
+<l>                else</l>
+<l>                    Mult := 255.0                </l>
+<l>                endif</l>
+<l>                Add := - Mult * MinGrayVal</l>
+<l>                scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>            else</l>
+<l>                scale_image(Image2, ImageScaled, Mult, Add)                </l>
+<l>            endif                </l>
 <l>            convert_image_type(Image2, Image2, 'byte')</l>
 <l>        endif</l>
 <l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>
 <c>        </c>
 <c>        * CropRectangle</c>
 <c>        * 86 [label="CropRectangle\nMinRatio=0,0399999991059303\n MaskHeight=27\n MaskWidth=29"];</c>
-<l>        MinRatio := 0.0399999991059303</l>
-<l>        MaskHeight := 27</l>
-<l>        MaskWidth := 29</l>
-<c>     </c>
+<l>        abs_image(Image2, Image2)</l>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region)</l>
 <c>        </c>
@@ -65,7 +98,23 @@
 <c>        </c>
 <l>        get_image_type(Image2, Type)</l>
 <l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and Type != 'real')</l>
-<l>            convert_image_type(Image2, Image2, 'byte')</l>
+<c>            * Scale To Gray            </c>
+<l>            gen_empty_obj(ScaledImage)</l>
+<l>            min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>            if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
+<l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>
+<l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
+<l>                else</l>
+<l>                    Mult := 255.0</l>
+<l>                endif</l>
+<l>                Add := - Mult * MinGrayVal</l>
+<l>                scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>            else</l>
+<l>                scale_image(Image2, ImageScaled, Mult, Add)                </l>
+<l>            endif</l>
+<c>            </c>
+<c>            * Convert to StandardType (byte)</c>
+<l>            convert_image_type(ScaledImage, Image2, 'byte')</l>
 <l>        endif</l>
 <l>        fast_threshold(Image2, Region, 45, 255, 80)</l>
 <l>        fill_up(Region, Rectangle)</l>

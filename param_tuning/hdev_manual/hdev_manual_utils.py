@@ -2,27 +2,54 @@ from param_tuning.hdev.hdev_templates import HDEV_HEADER, HDEV_TEMPLATE_CODE, HD
 from param_tuning.utils import get_evias_experimts_path_for_hdev
 
 
+def scale_to_gray():
+    scale_to_gray = "<c>        * Scale To Gray</c>\n" + \
+                    "<l>        gen_empty_obj(ScaledImage)</l>\n" + \
+                    "<l>        min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>\n" + \
+                    "<l>        if(not(MinGrayVal <= 255 and MaxGrayVal >= 0))</l>\n" + \
+                    "<l>            if(MaxGrayVal - MinGrayVal > 0)</l>\n" + \
+                    "<l>                Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>\n" + \
+                    "<l>            else</l>\n" + \
+                    "<l>                Mult := 255.0</l>\n" + \
+                    "<l>            endif</l>\n" + \
+                    "<l>            Add := - Mult * MinGrayVal</l>\n" + \
+                    "<l>            scale_image(Image, ImageScaled, Mult, Add)</l>\n" + \
+                    "<l>        else</l>\n" + \
+                    "<l>            scale_image(Image, ImageScaled, Mult, Add)    </l>\n" + \
+                    "<l>       endif</l>\n"
+    return scale_to_gray
+
+
+def scale_to_gray_img2():
+    scale_to_gray_img2 = "<c>        * Scale To Gray</c>\n" + \
+                         "<l>        gen_empty_obj(ScaledImage)</l>\n" + \
+                         "<l>        min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>\n" + \
+                         "<l>        if(not(MinGrayVal <= 255 and MaxGrayVal >= 0))</l>\n" + \
+                         "<l>            if(MaxGrayVal - MinGrayVal > 0)</l>\n" + \
+                         "<l>                Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>\n" + \
+                         "<l>            else</l>\n" + \
+                         "<l>                Mult := 255.0</l>\n" + \
+                         "<l>            endif</l>\n" + \
+                         "<l>            Add := - Mult * MinGrayVal</l>\n" + \
+                         "<l>            scale_image(Image2, ImageScaled, Mult, Add)</l>\n" + \
+                         "<l>        else</l>\n" + \
+                         "<l>            scale_image(Image2, ImageScaled, Mult, Add)    </l>\n" + \
+                         "<l>       endif</l>\n"
+    return scale_to_gray_img2
+
+
 def get_var_threshold_code():
     var_threshold_code = "<c>        * VarThreshold</c>\n" + \
                          "<l>        get_image_type(Image, Type)  </l>\n" + \
-                         "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and Type != 'real')</l>\n" + \
-                         "<l>            min_max_gray(Image, Image, 0, Min, Max, Range)</l>\n" + \
-                         "<l>            if (not( (255 >= Max) and (Min >= 0) ) )</l>\n" + \
-                         "<l>                if ((Max - Min) > 0)</l>\n" + \
-                         "<l>                    Mult := 255.0 / (Max - Min)</l>\n" + \
-                         "<l>                else</l>\n" + \
-                         "<l>                    Mult := 255.0</l>\n" + \
-                         "<l>                endif</l>\n" + \
-                         "<l>                Add := -Mult * Min</l>\n" + \
-                         "<l>                scale_image(Image, Image, Mult, Add)</l>\n" + \
-                         "<l>            else</l>\n" + \
-                         "<l>            scale_image(Image, Image, 1, 0)</l>\n" + \
-                         "<l>            endif</l>\n" + \
-                         "<l>            StandardType := 'byte'</l>\n" + \
-                         "<l>            convert_image_type(Image, Image, 'byte')</l>\n" + \
-                         "<l>            var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>\n" + \
+                         "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and " \
+                         "Type != 'real')</l>\n" + \
+                         scale_to_gray() + \
+                         "<l>            convert_image_type(ScaledImage, Image, 'byte')</l>\n" + \
+                         "<l>            var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, " \
+                         "AbsThreshold, LightDark)</l>\n" + \
                          "<l>        else</l>\n" + \
-                         "<l>            var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>\n" + \
+                         "<l>            var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, " \
+                         "AbsThreshold, LightDark)</l>\n" + \
                          "<l>        endif</l>\n" + \
                          "<c></c>\n"
     return var_threshold_code
@@ -62,8 +89,9 @@ def get_crop_rectangle_code():
                           "<c></c>\n" \
                           "<l>        get_image_type(Image, Type)</l>\n" \
                           "<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and " \
-                          "Type != 'real')</l>\n" \
-                          "<l>            convert_image_type(Image, Image, 'byte')</l>\n" \
+                          "Type != 'real')</l>\n" + \
+                          scale_to_gray() + \
+                          "<l>            convert_image_type(ScaledImage, Image, 'byte')</l>\n" \
                           "<l>        endif</l>\n" \
                           "<c></c>\n" \
                           "<l>        fast_threshold(Image, Region, 45, 255, 80)</l>\n" \
@@ -144,8 +172,9 @@ def get_crop_rectangle_img2_code():
                                "<c></c>\n" \
                                "<l>        get_image_type(Image2, Type)</l>\n" \
                                "<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and " \
-                               "Type != 'real')</l>\n" \
-                               "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n" \
+                               "Type != 'real')</l>\n" + \
+                               scale_to_gray_img2() + \
+                               "<l>            convert_image_type(ScaledImage, Image2, 'byte')</l>\n" \
                                "<l>        endif</l>\n" \
                                "<c></c>\n" \
                                "<l>        fast_threshold(Image2, Region2, 45, 255, 80)</l>\n" \
@@ -272,3 +301,76 @@ def convert_margin_to_int():
                     "<l>        endif</l>\n" \
                     "<c>        </c>\n"
     return margin_to_int
+
+
+def sobel_check_filter_type():
+    check_filter_code = "<l>        get_image_type(Image, Type)</l>\n" \
+                        "<l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')    </l>\n" \
+                        "<l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>\n" + \
+                        scale_to_gray() + \
+                        "<l>                convert_image_type(Image, Image, 'byte')</l>\n" \
+                        "<l>            endif</l>\n" \
+                        "<l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" + \
+                        scale_to_gray() + \
+                        "<l>            convert_image_type(Image, Image, 'byte')</l>\n" \
+                        "<l>        endif</l>\n"
+    return check_filter_code
+
+
+def area_size_threshold():
+    ares_size_threshold_code = "<c>        * AreaSizeThreshold</c>\n" + \
+                               "<l>        abs_image(Image, Image)</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<c>        * MinGray := 20</c>\n" + \
+                               "<c>        * MaxGray := 255</c>\n" + \
+                               "<l>        gen_empty_region(FaultyRegion)</l>\n" + \
+                               "<l>        gen_empty_region(TempRegion)</l>\n" + \
+                               "<l>        get_image_size(Image, Width, Height)</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>        I_W := Width / WindowWidth</l>\n" + \
+                               "<l>        I_H := Height / WindowHeight</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>        for i := 0 to I_W by 1</l>\n" + \
+                               "<l>            for j := 0 to I_H by 1</l>\n" + \
+                               "<l>                Row1 := j * WindowHeight</l>\n" + \
+                               "<l>                Col1 := i * WindowHeight</l>\n" + \
+                               "<l>                Row2 := j * WindowHeight + WindowHeight</l>\n" + \
+                               "<l>                Col2 := i * WindowHeight + WindowHeight</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>                if(Row2 &gt; Height)</l>\n" + \
+                               "<l>                    Row2 := Height</l>\n" + \
+                               "<l>                endif</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>                if(Col2	&gt; Width)</l>\n" + \
+                               "<l>                    Col2 := Width</l>\n" + \
+                               "<l>                endif</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>                if(Row1 &gt; Height)</l>\n" + \
+                               "<l>                    Row1 := Height - 1</l>\n" + \
+                               "<l>                endif</l>\n" + \
+                               "<l>                if(Col1 &gt; Width)</l>\n" + \
+                               "<l>                    Col1 := Width - 1</l>\n" + \
+                               "<l>                endif</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>                crop_rectangle1(Image, ImagePart, Row1, Col1, Row2, Col2)</l>\n" + \
+                               "<l>                threshold(ImagePart, Threads, 40, 255)</l>\n" + \
+                               "<l>                area_center(Threads, AreaSize, Row, Col)</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>                if(AreaSize &lt; MaxSize and AreaSize &gt; MinSize)</l>\n" + \
+                               "<l>                    gen_rectangle1(TempRegion, Row1, Col1, Row2, Col2)</l>\n" + \
+                               "<l>                    union2(TempRegion, FaultyRegion, FaultyRegion)</l>\n" + \
+                               "<l>                endif</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>                smallest_rectangle1(FaultyRegion, Row1, Col1, Row2, Col2)</l>\n" + \
+                               "<l>                region_features(FaultyRegion, 'area', Value)</l>\n" + \
+                               "<l>            endfor</l>\n" + \
+                               "<l>        endfor</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>        count_obj(FaultyRegion, Number)</l>\n" + \
+                               "<l>        if(Number > 0)</l>\n" + \
+                               "<l>            Region := FaultyRegion</l>\n" + \
+                               "<l>        else</l>\n" + \
+                               "<l>            gen_empty_region(Region)</l>\n" + \
+                               "<l>        endif</l>\n" + \
+                               "<c>        </c>\n"
+    return ares_size_threshold_code

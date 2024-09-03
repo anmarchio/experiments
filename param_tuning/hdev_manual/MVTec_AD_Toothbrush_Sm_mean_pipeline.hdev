@@ -4,7 +4,7 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Toothbrush_Sm_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/MVTecAnomalyDetection/toothbrush_small_train/images'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/toothbrush_small_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>

@@ -5,8 +5,7 @@ severstal-steel_mean_pipeline
 """
 import os
 
-from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_code, get_var_threshold_code, \
-    get_ellipse_struct_code, get_crop_rectangle_code
+from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_code, get_var_threshold_code
 from settings import EVIAS_SRC_PATH
 
 

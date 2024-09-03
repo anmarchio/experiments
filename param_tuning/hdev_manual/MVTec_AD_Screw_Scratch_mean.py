@@ -6,7 +6,7 @@ MVTec_AD_Screw_Scratch_mean_pipeline
 import os
 
 from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_code, convert_margin_to_int, \
-    get_ellipse_struct_code, get_crop_rectangle_img2_code, get_crop_rectangle_code
+    get_crop_rectangle_code
 from settings import EVIAS_SRC_PATH
 
 
@@ -41,10 +41,12 @@ def get_MVTec_AD_Screw_Scratch_mean_pipeline(params):
                 "<l>        dual_rank(Image, Image1, MaskType, Radius, ModePercent, Margin)</l>\n" \
                 "<c>        </c>\n" + \
                 get_crop_rectangle_code() + \
+                "<l>        Region1 := Region</l>\n" \
                 "<c>        </c>\n" \
                 "<c>        * PATH 2</c>\n" \
                 "<c>        * ------</c>\n" \
                 "<c>        </c>\n" \
+                "<c>        * AreaSizeThreshold</c>\n" \
                 "<l>        abs_image(Image, Image2)</l>\n" \
                 "<c>        </c>\n" \
                 "<l>        gen_empty_region(FaultyRegion)</l>\n" \
@@ -74,7 +76,7 @@ def get_MVTec_AD_Screw_Scratch_mean_pipeline(params):
                 "<l>                    Row1 := Height - 1</l>\n" \
                 "<l>                endif</l>\n" \
                 "<c>        </c>\n" \
-                "<l>                if(Col1 > Width)</l>\n" \
+                "<l>                if(Col1 &gt; Width)</l>\n" \
                 "<l>                   Col1 := Width - 1</l>\n" \
                 "<l>                endif</l>\n" \
                 "<c>        </c>\n" \
@@ -114,7 +116,7 @@ def get_MVTec_AD_Screw_Scratch_mean_pipeline(params):
                 "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n" \
                 "<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n" \
                 "<c>        </c>\n" \
-                "<l>        union2(Region1, Region2, Region)</l>\n" \
+                "<l>        union2(Region, Region2, Region)</l>\n" \
                 "<l>        opening(Region, StructElement, Region)</l>\n" \
                 "<c>        </c>\n"
 
@@ -153,7 +155,7 @@ MVTec_AD_Screw_Scratch_mean_pipeline_bounds = [
     [v for v in range(9000, 10999, 1000)],
     [v for v in range(18000, 21999, 1000)],
     [v for v in range(160, 320, 10)],
-    [v for v in range(1160, 320, 10)],
+    [v for v in range(160, 320, 10)],
     [v for v in range(1, 30, 1)],
     [v for v in range(1, 30, 1)]
 ]

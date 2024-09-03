@@ -5,8 +5,7 @@ MVTec_AD_Tile_Crack_mean_pipeline
 """
 import os
 
-from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_code, convert_margin_to_int, \
-    get_ellipse_struct_code, get_crop_rectangle_img2_code, get_crop_rectangle_code
+from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_code
 from settings import EVIAS_SRC_PATH
 
 
@@ -15,9 +14,9 @@ def get_MVTec_AD_Tile_Crack_mean_pipeline(params):
     dataset_path = "/MVTecAnomalyDetection/tile_crack_train/images"
 
     # Parameters
-    param_lines = "<l>        MaskHeight := '" + str(params[0]) + "'</l>\n" + \
+    param_lines = "<l>        MaskHeight := " + str(params[0]) + "</l>\n" + \
                   "<l>        MaskWidth := " + str(params[1]) + "</l>\n" + \
-                  "<l>        Method := " + str(params[2]) + "</l>\n" + \
+                  "<l>        Method := '" + str(params[2]) + "'</l>\n" + \
                   "<l>        LightDark := '" + str(params[3]) + "'</l>\n" + \
                   "<l>        MaskSize := " + str(params[4]) + "</l>\n" + \
                   "<l>        Scale := " + str(params[5]) + "</l>\n" + \

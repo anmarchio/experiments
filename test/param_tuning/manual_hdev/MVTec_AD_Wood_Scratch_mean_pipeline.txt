@@ -1,0 +1,3 @@
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.4662371925562427640279531893;mcc;9, y, 7, 7, 19, 0.1000001, 26, dark, 4, 3, 14, ;cooling:0.9,temp:10.0;sa;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 11:37:59.106743;
+0;0.4662371925562427640279531893;mcc;11, x_binomial, 5, 5, 21, 0.2, 128, light, 3, 4, 13, ;sa;cooling:0.9,temp:10.0;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 11:38:01.327265;

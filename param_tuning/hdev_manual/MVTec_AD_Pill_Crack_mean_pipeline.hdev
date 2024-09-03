@@ -126,7 +126,7 @@
 <c>        * with struct element circle</c>
 <l>        tuple_ceil(A_2 + 1, shape_param0_ceil)    </l>
 <l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A_2)</l>
-<l>        closing(Image, StructElement, Region)</l>
+<l>        closing(Region, StructElement, Region)</l>
 <c>        </c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>

@@ -55,7 +55,6 @@ def get_MVTec_AD_Metal_Nut_mean_pipeline(params):
                 "<c>        * PATH 2</c>\n" \
                 "<c>        * ------</c>\n" \
                 "<c>        * GaussFilter</c>\n" \
-                "<l>        MaskSize := 3</l>\n" \
                 "<l>        gauss_filter(Image, Image2, MaskSize2)</l>\n" \
                 "<c>        </c>\n" \
                 "<c>        * CropRectangle</c>\n" \
@@ -98,7 +97,7 @@ MVTec_AD_Metal_Nut_mean_pipeline_bounds = [
     ['circle', 'square'],#MaskType
     [1,101],# Radius
     [1,100],# ModePercent
-    ['cyclic','continued','Zero','Thirty','Sixty','Ninety','OneTwenty','OneFifty','OneEighty','TwoTen','TwoForty','TwoFifityFive'],# Margin
+    ['cyclic','continued','Zero','Thirty','Sixty','Ninety','OneTwenty','OneFifty','OneEighty','TwoTen','TwoForty','TwoFiftyFive'],# Margin
     ['y', 'y_binomial', 'x', 'x_binomial'],
     [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
     [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
