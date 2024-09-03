@@ -1,0 +1,17 @@
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.0;mcc;28, 27, 40, 1, 4, ;cooling:0.9,temp:10.0;sa;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:10:11.760436;
+0;0.0;mcc;29.0, 26.0, 30.0, 2.0, 139.4296275668087, ;sa;cooling:0.9,temp:10.0;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:10:13.898636;
+1;0.0;mcc;28, 25, 20, 1, 0, ;sa;cooling:0.9,temp:9.0;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:10:15.991466;
+2;0.0;mcc;29, 24, 30, 2, 255, ;sa;cooling:0.9,temp:8.1;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:10:24.620361;
+3;0.0;mcc;28, 25, 20, 3, 255, ;sa;cooling:0.9,temp:7.29;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:10:26.722849;
+4;0.0;mcc;27, 24, 30, 2, 0, ;sa;cooling:0.9,temp:6.561;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:03.838090;
+5;0.0;mcc;28, 23, 20, 1, 0, ;sa;cooling:0.9,temp:5.9049000000000005;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:05.912690;
+6;0.0;mcc;29, 22, 10, 2, 255, ;sa;cooling:0.9,temp:5.3144100000000005;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:07.959663;
+7;0.0;mcc;28, 23, 20, 1, 255, ;sa;cooling:0.9,temp:4.7829690000000005;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:09.995974;
+8;0.0;mcc;29, 24, 30, 1, 255, ;sa;cooling:0.9,temp:4.3046721;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:12.038833;
+9;0.0;mcc;28.0, 23.0, 20.0, 2.0, 5.290397267225472, ;sa;cooling:0.9,temp:3.8742048900000006;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:14.199165;
+10;0.0;mcc;27.0, 24.0, 10.0, 1.0, 58.070832802325626, ;sa;cooling:0.9,temp:3.4867844010000004;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:16.237122;
+11;0.0;mcc;28, 23, 5, 2, 0, ;sa;cooling:0.9,temp:3.1381059609000004;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:18.295407;
+12;0.0;mcc;29, 22, 2, 1, 255, ;sa;cooling:0.9,temp:2.82429536481;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:20.353515;
+13;0.0;mcc;28, 23, 1, 2, 255, ;sa;cooling:0.9,temp:2.541865828329;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:22.378415;
+14;0.0;mcc;29, 22, 2, 3, 255, ;sa;cooling:0.9,temp:2.2876792454961;MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;2024-09-03 14:13:24.443152;

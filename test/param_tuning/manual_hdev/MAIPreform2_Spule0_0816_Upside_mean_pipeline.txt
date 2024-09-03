@@ -1,0 +1,3 @@
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.004759121424787959804073362452;mcc;0.0899999961256981, 3, 15, ;cooling:0.9,temp:10.0;sa;MAIPreform2_Spule0_0816_Upside_mean_pipeline;2024-09-03 14:23:00.340805;
+0;0.004759121424787959804073362452;mcc;0.095, 3.0, 17.0, ;sa;cooling:0.9,temp:10.0;MAIPreform2_Spule0_0816_Upside_mean_pipeline;2024-09-03 14:23:10.628440;

@@ -1,0 +1,3 @@
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.003056934712360860282605525256;mcc;y, 5, 1, 23, parabolic, 10, 3, 1, ;cooling:0.9,temp:10.0;sa;MAIPreform2_Spule0_0315_Upside_mean_pipeline;2024-09-03 14:21:28.648519;
+0;0.01687769426356962111455776499;mcc;x_binomial, 7, 1, 255, perona-malik, 5, 1.0, 3, ;sa;cooling:0.9,temp:10.0;MAIPreform2_Spule0_0315_Upside_mean_pipeline;2024-09-03 14:21:35.239704;

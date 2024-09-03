@@ -25,25 +25,29 @@ def get_MAIPreform2_Spule0_0315_Upside_mean_pipeline(params):
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<c>        * GrayClosing</c>\n" \
-                "<c>        * with struct element circle</c>\n" \
-                "<c>        * StructElementType Ellipse</c>\n" \
-                "<c>        * using A, B and C as shape_params</c>\n" \
-                "<l>        get_image_type(Image, Type)</l>\n" \
-                "<l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>\n" \
-                "<l>        gray_closing(Image, StructElement, Image)</l>\n" \
+    core_code = "<c>        * SobelAmp</c>\n" \
+                "<l>        sobel_amp(Image, ImageA, FilterTypeSA, MaskSizeSA)</l>\n" \
+                "<c>        </c>\n" \
+                "<c>        * ZeroCrossingB</c>\n" \
+                "<l>        zero_crossing(ImageA, RegionA)</l>\n" \
                 "<c>        </c>\n" \
                 "<c>        * ThresholdAccessChannel</c>\n" \
                 "<c>        </c>\n" \
-                "<l>        abs_image(Image, Image)</l>\n" \
+                "<l>        abs_image(Image, ImageB)</l>\n" \
                 "<c>        </c>\n" \
-                "<l>        count_channels(Image, NumChannels)</l>\n" \
+                "<l>        count_channels(ImageB, NumChannels)</l>\n" \
                 "<l>        if(NumChannels == 3)</l>\n" \
-                "<l>           access_channel(Image, Image, Channel)</l>\n" \
-                "<l>           threshold(Image, Region, Threshold, 255)</l>\n" \
+                "<l>           access_channel(ImageB, ImageB, Channel)</l>\n" \
+                "<l>           threshold(ImageB, RegionB, Threshold, 255)</l>\n" \
                 "<l>        else</l>\n" \
-                "<l>            threshold(Image, Region, Threshold, 255)</l>\n" \
+                "<l>            threshold(ImageB, RegionB, Threshold, 255)</l>\n" \
                 "<l>        endif</l>\n" \
+                "<c>        </c>\n" \
+                "<c>        * AnisotropicDiffusion</c>\n" \
+                "<l>        anisotropic_diffusion(ImageB, ImageB, DiffusionCoefficient, Contrast, Theta, Iterations)</l>\n" \
+                "<c>        </c>\n" \
+                "<c>        * Union2</c>\n" \
+                "<l>        union2(RegionA, RegionB, Region)</l>\n" \
                 "<c>        </c>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
@@ -63,12 +67,12 @@ MAIPreform2_Spule0_0315_Upside_mean_pipeline_initial_params = [
 MAIPreform2_Spule0_0315_Upside_mean_pipeline_bounds = [
     ['y', 'y_binomial', 'x', 'x_binomial'],
     [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
+    [1, 2, 3],
+    [0, 255],
     ['perona-malik', 'weickert', 'parabolic'],
     [2, 5, 10, 20, 50, 100],
     [0.5, 1.0, 3.0],
-    [1, 3, 10, 100, 500],
-    [1, 2, 3],
-    [0, 255]
+    [1, 3, 10, 100, 500]
 ]
 
 MAIPreform2_Spule0_0315_Upside_training_source_path = os.path.join(EVIAS_SRC_PATH,

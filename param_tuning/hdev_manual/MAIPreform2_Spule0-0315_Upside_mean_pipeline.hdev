@@ -4,7 +4,7 @@
 <interface/>
 <body>
 <l>dataset_name := 'MAIPreform2_Spule0-0315_Upside_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone/training/images'</l>
+<l>source_path := 'D:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone/training/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>

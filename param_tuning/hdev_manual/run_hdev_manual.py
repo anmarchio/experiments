@@ -183,7 +183,7 @@ def get_manual_hdev_pipeline_path(pipeline_name: str):
     return None
 
 
-def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
+def get_manual_hdev_pipeline_training_source_path(pipeline_name: str) -> str:
     if pipeline_name == "AirCarbon2_t_8.jpg_mean_pipeline":
         return AirCarbon2_t_8_jpg_training_source_path
     elif pipeline_name == "AirCarbon3_80.jpg_bright_mean_pipeline":
@@ -201,7 +201,7 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
     elif pipeline_name == "AirCarbon3_80.jpg_dark_5_mean_pipeline":
         return AirCarbon3_80_jpg_dark_5_training_source_path
     elif pipeline_name ==  "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline":
-        return MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path,
+        return MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path
     elif pipeline_name ==  "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline":
         return MAIPreform2_Spule0_0315_Upside_Thread_training_source_path
     elif pipeline_name ==  "MAIPreform2_Spule0_0315_Upside_mean_pipeline":

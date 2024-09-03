@@ -17,8 +17,8 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline(params):
     param_lines = "<l>        A := " + str(params[0]) + "</l>\n" + \
                   "<l>        B := " + str(params[1]) + "</l>\n" + \
                   "<l>        GrayValueMax := " + str(params[2]) + "</l>\n" + \
+                  "<l>        Channel := " + str(params[3]) + "</l>\n" + \
                   "<l>        Threshold := " + str(params[3]) + "</l>\n" + \
-                  "<l>        Sign := " + str(params[4]) + "</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code

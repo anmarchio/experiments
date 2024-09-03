@@ -14,13 +14,12 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline(params):
     dataset_path = "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images"
 
     # Parameters
-    param_lines = "<l>        DiffusionCoefficient := " + str(params[0]) + "</l>\n" + \
+    param_lines = "<l>        DiffusionCoefficient := '" + str(params[0]) + "'</l>\n" + \
                   "<l>        Contrast := " + str(params[1]) + "</l>\n" + \
                   "<l>        Theta := " + str(params[2]) + "</l>\n" + \
                   "<l>        Iterations := '" + str(params[3]) + "'</l>\n" + \
                   "<l>        Channel := '" + str(params[4]) + "'</l>\n" + \
                   "<l>        Threshold := " + str(params[5]) + "</l>\n" + \
-                  "<l>        Sign := " + str(params[6]) + "</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
@@ -62,8 +61,8 @@ MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_bounds = [
 ]
 
 MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path = os.path.join(EVIAS_SRC_PATH,
-                                                                              "MAIPreform2.0",
-                                                                              "20170502_Compositence",
-                                                                              "Spule0-0315_Upside",
-                                                                              "undone_thread_hole_256",
-                                                                              "training")
+                                                                                  "MAIPreform2.0",
+                                                                                  "20170502_Compositence",
+                                                                                  "Spule0-0315_Upside",
+                                                                                  "undone_thread_hole_256",
+                                                                                  "training")
