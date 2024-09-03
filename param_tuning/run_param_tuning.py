@@ -10,7 +10,7 @@ from param_tuning.hdev_manual.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN
 from param_tuning.local_search import run_local_search
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import write_digraph_to_files, \
-    check_dir_exists, plot_bar_chart
+    check_dir_exists, plot_bar_charts
 from settings import PARAM_TUNING_RESULTS_PATH
 
 
@@ -95,9 +95,12 @@ def run_param_tuning() -> int:
             print("Aborted.")
 
     if selection == 4:
+        # Example usage
+        file_paths = [os.path.join(WDIR, "test", "param_tuning", "manual_hdev", name + ".txt") for name in MANUAL_HDEV_PIPELINES_MEAN]
+        ls_results, sa_results = extract_fitness_values(file_paths)
         print("Plot results in bar chart.")
         # datasets, cgp_results, ls_results, sa_results
-        plot_bar_chart([], [], [], [])
+        plot_bar_charts(MANUAL_HDEV_PIPELINES_MEAN, [], ls_results, sa_results)
     return 0
 
 

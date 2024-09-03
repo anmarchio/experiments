@@ -12,7 +12,7 @@ from settings import EVIAS_SRC_PATH
 
 def get_Pultrusion_Window_mean_pipeline(params):
     pipeline_name = "Pultrusion_Window_mean_pipeline"
-    dataset_path = "/Pultrusion/resin_cgp/train/images"
+    dataset_path = "/Pultrusion/window_cgp/train/images"
 
     # Parameters
     param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
@@ -29,18 +29,18 @@ def get_Pultrusion_Window_mean_pipeline(params):
     # Core Pipeline Code
     core_code = "<c>        * MedianImage</c>\n" + \
                 convert_margin_to_int() + \
-                "<l>        get_image_size(Image, Width, Height)</l>\n" + \
-                "<l>        Width := Width / 2</l>\n" + \
-                "<l>        Height := Height / 2</l>\n" + \
-                "<l>        if(Width >= Radius)</l>\n" + \
+                "<l>        get_image_size(Image, Width2, Height2)</l>\n" + \
+                "<l>        Width2 := Width2 / 2</l>\n" + \
+                "<l>        Height2 := Height2 / 2</l>\n" + \
+                "<l>        if(Width2 >= Radius)</l>\n" + \
                 "<l>            radius := Radius</l>\n" + \
                 "<l>        else</l>\n" + \
-                "<l>            radius := Height - 1</l>\n" + \
+                "<l>            radius := Height2 - 1</l>\n" + \
                 "<l>        endif</l>\n" + \
                 "<c>        </c>\n" + \
                 "<l>        median_image(Image, Image, MaskType, radius, Margin)</l>\n" + \
                 "<c>        </c>\n" + \
-                "<c>        SobelAmp</c>\n" + \
+                "<c>        * SobelAmp</c>\n" + \
                 sobel_check_filter_type() + \
                 "<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
                 "<c>        </c>\n" + \
@@ -75,4 +75,4 @@ Pultrusion_Window_mean_pipeline_bounds = [
 ]
 
 Pultrusion_Window_training_source_path = os.path.join(EVIAS_SRC_PATH,
-                                                     "Pultrusion", "window_cgp", "train")
+                                                      "Pultrusion", "window_cgp", "train")

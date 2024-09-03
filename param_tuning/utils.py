@@ -185,17 +185,25 @@ def write_header_to_log(pipeline_name):
     write_to_file(filepath, header)
 
 
-def plot_bar_chart(datasets, cgp_results, ls_results, sa_results):
-    # Data simulation according to the structure provided
+def get_dummy_data_rows():
+    # Dummy data for testing
     datasets = [
         'capsule_crack', 'durchlauf1', 'zipper_rough', 'tile_crack',
         'screw_scratch_neck', 'bottle_broken_lg', 'carpet', 'leather',
         'fabric_defects_aitex', 'spule0-0315_upside'
     ]
-    CGP_results = [0.23, 0.45, 0.35, 0.4, 0.3, 0.35, 0.32, 0.25, 0.38, 0.34]
-    LS_results = [cgp + np.random.uniform(0.01, 0.2) for cgp in CGP_results]
-    SA_results = [ls + np.random.uniform(0.01, 0.2) for ls in LS_results]
-
+    cgp_results = [0.23, 0.45, 0.35, 0.4, 0.3, 0.35, 0.32, 0.25, 0.38, 0.34]
+    ls_results = [cgp + np.random.uniform(0.01, 0.2) for cgp in cgp_results]
+    sa_results = [ls + np.random.uniform(0.01, 0.2) for ls in ls_results]
+        
+    return datasets, cgp_results, ls_results, sa_results
+        
+    
+    
+def plot_fitness_bars(datasets, cgp_results, ls_results, sa_results):
+    # Plot Bar Chart of CGP vs. LS/SA results
+    # ---------------------------------------
+    
     # Number of datasets
     num_datasets = len(datasets)
 
@@ -209,9 +217,9 @@ def plot_bar_chart(datasets, cgp_results, ls_results, sa_results):
     y_pos = np.arange(num_datasets)
 
     # Plotting the bars
-    ax.barh(y_pos, CGP_results, color='blue', height=bar_width, label='CGP Result')
-    ax.barh(y_pos + bar_width, LS_results, color='lightcoral', height=bar_width, label='LS Result')
-    ax.barh(y_pos + 2 * bar_width, SA_results, color='lightgray', height=bar_width, label='SA Result')
+    ax.barh(y_pos, cgp_results, color='blue', height=bar_width, label='CGP Result')
+    ax.barh(y_pos + bar_width, ls_results, color='lightcoral', height=bar_width, label='LS Result')
+    ax.barh(y_pos + 2 * bar_width, sa_results, color='lightgray', height=bar_width, label='SA Result')
 
     # Setting the y ticks with dataset names
     ax.set_yticks(y_pos + bar_width)
@@ -225,3 +233,75 @@ def plot_bar_chart(datasets, cgp_results, ls_results, sa_results):
     # Display the plot
     plt.tight_layout()
     plt.show()
+
+
+def plot_changes_bars(datasets, changes):
+    # Plot Changes (+/-) for CGP vs. LS/SA results    
+    # ---------------------------------------
+    
+    # Create color array based on positive or negative changes
+    colors = ['lightblue' if change >= 0 else 'lightcoral' for change in changes]
+    
+    # Create a horizontal bar chart
+    plt.figure(figsize=(10, 6))
+    plt.barh(datasets, changes, color=colors)
+
+    # Add title and labels
+    plt.title('Fitness Net Increase')
+    plt.xlabel('Change in Fitness')
+    plt.ylabel('Dataset')
+
+    # Set x-axis limits for changes plot (-0.5 to +0.5)
+    plt.xlim(-0.5, 0.5)
+
+    # Display grid
+    plt.grid(True, axis='x', linestyle='--', alpha=0.7)
+
+    # Show the plot
+    plt.show()
+    
+ 
+ 
+def plot_bar_charts(datasets, cgp_results, ls_results, sa_results):
+    # TESTING
+    # overwrite variables with DUMMY data
+    datasets, cgp_results, ls_results, sa_results = get_dummy_data_rows()
+        
+    changes = [max(ls_results[i] - cgp_results[i], sa_results[i] - cgp_results[i]) for i in range(len(cgp_results))]
+    
+    plot_fitness_bars(datasets, cgp_results, ls_results, sa_results)
+    plot_changes_bars(datasets, changes)
+    
+def extract_fitness_values(file_paths):
+    sa_results = []
+    ls_results = []
+
+    for file_path in file_paths:
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+            
+            # Filter out the relevant lines for SA and LS
+            sa_best = None
+            ls_best = None
+            
+            for line in lines:
+                parts = line.strip().split(';')
+                if len(parts) >= 5:  # Ensure line has enough parts to be valid
+                    iteration = int(parts[0].strip())
+                    performance = float(parts[1].strip())
+                    algorithm = parts[4].strip().lower()
+                    
+                    # Assuming the last iteration (99) has the best performance
+                    if iteration == 99:
+                        if algorithm == 'sa':
+                            sa_best = performance
+                        elif algorithm == 'ls':
+                            ls_best = performance
+            
+            # Append the best results to the lists
+            if sa_best is not None:
+                sa_results.append(sa_best)
+            if ls_best is not None:
+                ls_results.append(ls_best)
+
+    return sa_results, ls_results

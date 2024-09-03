@@ -127,10 +127,10 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     # "AirCarbon3_80.jpg_dark_4_mean_pipeline",
     # "AirCarbon3_80.jpg_dark_5_mean_pipeline",
     # !!![NO PARAMETERS]!!! "KollektorSSD_mean_pipeline",
-    "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
-    "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
-    "MAIPreform2_Spule0_0315_Upside_mean_pipeline",
-    "MAIPreform2_Spule0_0816_Upside_mean_pipeline",
+    # "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
+    # "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
+    #"MAIPreform2_Spule0_0315_Upside_mean_pipeline",
+    #"MAIPreform2_Spule0_0816_Upside_mean_pipeline",
     # "CF_ReferenceSet_mean_pipeline",
     # "CF_ReferenceSet_Small_Dark_mean_pipeline",
     # "CF_ReferenceSet_Small_Light_mean_pipeline",
@@ -144,15 +144,15 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     # "MVTec_AD_Grid_Thread_mean_pipeline",
     # "MVTec_AD_Hazelnut_Crack_mean_pipeline",
     # "MVTec_AD_Leather_mean_pipeline",
-    "MVTec_AD_Metal_Nut_mean_pipeline",
+    #"MVTec_AD_Metal_Nut_mean_pipeline",
     # "MVTec_AD_Pill_Crack_mean_pipeline",
     # "MVTec_AD_Screw_Scratch_mean_pipeline",
     # "MVTec_AD_Tile_Crack_mean_pipeline",
     # "MVTec_AD_Toothbrush_Sm_mean_pipeline",
-    "MVTec_AD_Wood_Scratch_mean_pipeline",
-    "MVTec_AD_Zipper_Rough_mean_pipeline",
-    "Pultrusion_Resin_Augmtd_mean_pipeline",
-    "Pultrusion_Resin_mean_pipeline",
+    #"MVTec_AD_Wood_Scratch_mean_pipeline",
+    #"MVTec_AD_Zipper_Rough_mean_pipeline",
+    #"Pultrusion_Resin_Augmtd_mean_pipeline",
+    #"Pultrusion_Resin_mean_pipeline",
     "Pultrusion_Window_mean_pipeline",
     # [x] "severstal-steel_mean_pipeline"
 ]
@@ -200,13 +200,13 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str) -> str:
         return AirCarbon3_80_jpg_dark_4_training_source_path
     elif pipeline_name == "AirCarbon3_80.jpg_dark_5_mean_pipeline":
         return AirCarbon3_80_jpg_dark_5_training_source_path
-    elif pipeline_name ==  "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline":
+    elif pipeline_name == "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline":
         return MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path
-    elif pipeline_name ==  "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline":
+    elif pipeline_name == "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline":
         return MAIPreform2_Spule0_0315_Upside_Thread_training_source_path
-    elif pipeline_name ==  "MAIPreform2_Spule0_0315_Upside_mean_pipeline":
+    elif pipeline_name == "MAIPreform2_Spule0_0315_Upside_mean_pipeline":
         return MAIPreform2_Spule0_0315_Upside_training_source_path
-    elif pipeline_name ==  "MAIPreform2_Spule0_0816_Upside_mean_pipeline":
+    elif pipeline_name == "MAIPreform2_Spule0_0816_Upside_mean_pipeline":
         return MAIPreform2_Spule0_0816_Upside_training_source_path
     elif pipeline_name == "CF_ReferenceSet_mean_pipeline":
         return CF_ReferenceSet_training_source_path
