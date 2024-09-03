@@ -1,3 +1,11 @@
 Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
 -1;0.4662371925562427640279531893;mcc;9, y, 7, 7, 19, 0.1000001, 26, dark, 4, 3, 14, ;cooling:0.9,temp:10.0;sa;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 11:37:59.106743;
 0;0.4662371925562427640279531893;mcc;11, x_binomial, 5, 5, 21, 0.2, 128, light, 3, 4, 13, ;sa;cooling:0.9,temp:10.0;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 11:38:01.327265;
+Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;
+-1;0.0;mcc;9, y, 7, 7, 19, 0.1000001, 26, dark, 4, 3, 14, ;cooling:0.9,temp:10.0;sa;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 12:40:16.677661;
+0;0.0;mcc;7, x_binomial, 9, 5, 17, 0.0, 0, not_equal, 3, 2, 13, ;sa;cooling:0.9,temp:10.0;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 12:40:19.021301;
+1;0.0;mcc;39, y, 13, 15, 15, -0.6, 0, equal, 20, 20, 49, ;sa;cooling:0.9,temp:9.0;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 12:40:21.242657;
+2;0.0;mcc;21, x, 29, 9, 13, -0.8, 0, dark, 14, 21, 42, ;sa;cooling:0.9,temp:8.1;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 12:40:23.426148;
+3;0.0;mcc;23, y, 37, 21, 21, -0.7, 128, light, 25, 20, 46, ;sa;cooling:0.9,temp:7.29;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 12:40:25.546403;
+4;0.0;mcc;17, y_binomial, 29, 5, 23, 0.7, 128, dark, 18, 6, 39, ;sa;cooling:0.9,temp:6.561;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 12:40:27.696581;
+5;0.0;mcc;31, x_binomial, 39, 21, 7, -0.1, 0, equal, 25, 23, 13, ;sa;cooling:0.9,temp:5.9049000000000005;MVTec_AD_Wood_Scratch_mean_pipeline;2024-09-03 12:40:29.886142;

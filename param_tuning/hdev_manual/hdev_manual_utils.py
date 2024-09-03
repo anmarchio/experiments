@@ -6,8 +6,8 @@ def scale_to_gray():
     scale_to_gray = "<c>        * Scale To Gray</c>\n" + \
                     "<l>        gen_empty_obj(ScaledImage)</l>\n" + \
                     "<l>        min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>\n" + \
-                    "<l>        if(not(MinGrayVal <= 255 and MaxGrayVal >= 0))</l>\n" + \
-                    "<l>            if(MaxGrayVal - MinGrayVal > 0)</l>\n" + \
+                    "<l>        if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>\n" + \
+                    "<l>            if(MaxGrayVal - MinGrayVal &gt; 0)</l>\n" + \
                     "<l>                Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>\n" + \
                     "<l>            else</l>\n" + \
                     "<l>                Mult := 255.0</l>\n" + \
@@ -24,8 +24,8 @@ def scale_to_gray_img2():
     scale_to_gray_img2 = "<c>        * Scale To Gray</c>\n" + \
                          "<l>        gen_empty_obj(ScaledImage)</l>\n" + \
                          "<l>        min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>\n" + \
-                         "<l>        if(not(MinGrayVal &le; 255 and MaxGrayVal &ge; 0))</l>\n" + \
-                         "<l>            if(MaxGrayVal - MinGrayVal > 0)</l>\n" + \
+                         "<l>        if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>\n" + \
+                         "<l>            if(MaxGrayVal - MinGrayVal &gt; 0)</l>\n" + \
                          "<l>                Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>\n" + \
                          "<l>            else</l>\n" + \
                          "<l>                Mult := 255.0</l>\n" + \

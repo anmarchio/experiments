@@ -31,7 +31,7 @@ def get_MVTec_AD_Wood_Scratch_mean_pipeline(params):
     # Core Pipeline Code
     core_code = "<c>        * GaussFilter</c>\n" + \
                 "<c>        </c>\n" + \
-                "<c>       gauss_filter(Image, Image, MaskSize1)</c>\n" + \
+                "<l>        gauss_filter(Image, Image, MaskSize1)</l>\n" + \
                 "<c>        </c>\n" + \
                 get_var_threshold_code() + \
                 "<c>        </c>\n" + \

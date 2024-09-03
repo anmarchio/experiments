@@ -3,7 +3,7 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'MAIPreform2_Spule0-0315_Upside Thread 256_mean_pipeline'</l>
+<l>dataset_name := 'MAIPreform2_Spule0-0315_Upside_Thread_256_mean_pipeline'</l>
 <l>source_path := 'C:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
@@ -29,13 +29,14 @@
 <l>        Contrast := 2</l>
 <l>        Theta := 1</l>
 <l>        Iterations := 100</l>
-<l>        anisotropic_diffusion(Image, Image, 'weickert', 5, 1, 10)</l>
 <c>        </c>
-<c>        * ThresholdAccessChannel</c>
 <l>        Channel := 1</l>
 <l>        Threshold := 4</l>
-<l>        Sign := -1</l>
 <c>        </c>
+<c>        * Anisotrophic Diffusion</c>
+<l>        anisotropic_diffusion(Image, Image, 'weickert', 5, 1, 10)</l>
+<c>        </c>
+<c>        * ThresholdAccessChannel        </c>
 <l>        abs_image(Image, Image)</l>
 <c>        </c>
 <l>        count_channels(Image, NumChannels)</l>

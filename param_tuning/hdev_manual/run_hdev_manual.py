@@ -29,6 +29,21 @@ from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_4_mean import AirCarbon3_80
 from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_5_mean import AirCarbon3_80_jpg_dark_5_training_source_path, \
     get_AirCarbon3_80_jpg_dark_5_mean_pipeline, AirCarbon3_80_jpg_dark_5_mean_pipeline_bounds, \
     AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline import \
+    MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path, \
+    get_MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline, \
+    MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_bounds, \
+    MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline import \
+    MAIPreform2_Spule0_0315_Upside_Thread_training_source_path, \
+    MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline_bounds, \
+    MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MAIPreform2_Spule0_0315_Upside_mean_pipeline import \
+    MAIPreform2_Spule0_0315_Upside_mean_pipeline_bounds, MAIPreform2_Spule0_0315_Upside_mean_pipeline_initial_params
+from param_tuning.hdev_manual.MAIPreform2_Spule0_0816_Upside_mean_pipeline import \
+    MAIPreform2_Spule0_0816_Upside_training_source_path, \
+    get_MAIPreform2_Spule0_0816_Upside_mean_pipeline, \
+    MAIPreform2_Spule0_0816_Upside_mean_pipeline_bounds, MAIPreform2_Spule0_0816_Upside_mean_pipeline_initial_params
 from param_tuning.hdev_manual.MT_Blowhole_train_mean import MT_Blowhole_train_training_source_path, \
     get_MT_Blowhole_train_mean_pipeline, MT_Blowhole_train_mean_pipeline_bounds, \
     MT_Blowhole_train_mean_pipeline_initial_params
@@ -109,6 +124,11 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     # "AirCarbon3_80.jpg_dark_3_mean_pipeline",
     # "AirCarbon3_80.jpg_dark_4_mean_pipeline",
     # "AirCarbon3_80.jpg_dark_5_mean_pipeline",
+    # !!![NO PARAMETERS]!!! "KollektorSSD_mean_pipeline",
+    "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
+    "MAIPreform2_Spule0_0315_Upside_Thread",
+    "MAIPreform2_Spule0_0315_Upside_mean_pipeline",
+    "MAIPreform2_Spule0_0816_Upside_mean_pipeline",
     # "CF_ReferenceSet_mean_pipeline",
     # "CF_ReferenceSet_Small_Dark_mean_pipeline",
     # "CF_ReferenceSet_Small_Light_mean_pipeline",
@@ -122,7 +142,7 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     # "MVTec_AD_Grid_Thread_mean_pipeline",
     # "MVTec_AD_Hazelnut_Crack_mean_pipeline",
     # "MVTec_AD_Leather_mean_pipeline",
-    # ==> "MVTec_AD_Metal_Nut_mean_pipeline",
+    "MVTec_AD_Metal_Nut_mean_pipeline",
     # "MVTec_AD_Pill_Crack_mean_pipeline",
     # "MVTec_AD_Screw_Scratch_mean_pipeline",
     # "MVTec_AD_Tile_Crack_mean_pipeline",
@@ -178,6 +198,14 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str):
         return AirCarbon3_80_jpg_dark_4_training_source_path
     elif pipeline_name == "AirCarbon3_80.jpg_dark_5_mean_pipeline":
         return AirCarbon3_80_jpg_dark_5_training_source_path
+    elif pipeline_name ==  "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline":
+        return MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path,
+    elif pipeline_name ==  "MAIPreform2_Spule0_0315_Upside_Thread":
+        return MAIPreform2_Spule0_0315_Upside_Thread_training_source_path
+    elif pipeline_name ==  "MAIPreform2_Spule0_0315_Upside_mean_pipeline":
+        return MAIPreform2_Spule0_0315_Upside_training_source_path
+    elif pipeline_name ==  "MAIPreform2_Spule0_0816_Upside_mean_pipeline":
+        return MAIPreform2_Spule0_0816_Upside_training_source_path
     elif pipeline_name == "CF_ReferenceSet_mean_pipeline":
         return CF_ReferenceSet_training_source_path
     elif pipeline_name == "CF_ReferenceSet_Small_Dark_mean_pipeline":
@@ -244,6 +272,10 @@ pipelines = {
     "AirCarbon3_80.jpg_dark_3_mean_pipeline": get_AirCarbon3_80_jpg_dark_3_mean_pipeline,
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": get_AirCarbon3_80_jpg_dark_4_mean_pipeline,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": get_AirCarbon3_80_jpg_dark_5_mean_pipeline,
+    "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline": get_MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline,
+    "MAIPreform2_Spule0_0315_Upside_Thread": get_MAIPreform2_Spule0_0315_Upside_mean_pipeline,
+    "MAIPreform2_Spule0_0315_Upside_mean_pipeline": get_MAIPreform2_Spule0_0315_Upside_mean_pipeline,
+    "MAIPreform2_Spule0_0816_Upside_mean_pipeline": get_MAIPreform2_Spule0_0816_Upside_mean_pipeline,
     "CF_ReferenceSet_mean_pipeline": get_CF_ReferenceSet_mean_pipeline,
     "CF_ReferenceSet_Small_Dark_mean_pipeline": get_CF_ReferenceSet_Small_Dark_mean_pipeline,
     "CF_ReferenceSet_Small_Light_mean_pipeline": get_CF_ReferenceSet_Small_Light_mean_pipeline,
@@ -278,6 +310,10 @@ bounds = {
     "AirCarbon3_80.jpg_dark_3_mean_pipeline": AirCarbon3_80_jpg_dark_3_mean_pipeline_bounds,
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": AirCarbon3_80_jpg_dark_4_mean_pipeline_bounds,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": AirCarbon3_80_jpg_dark_5_mean_pipeline_bounds,
+    "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_bounds,
+    "MAIPreform2_Spule0_0315_Upside_Thread": MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline_bounds,
+    "MAIPreform2_Spule0_0315_Upside_mean_pipeline": MAIPreform2_Spule0_0315_Upside_mean_pipeline_bounds,
+    "MAIPreform2_Spule0_0816_Upside_mean_pipeline": MAIPreform2_Spule0_0816_Upside_mean_pipeline_bounds,
     "CF_ReferenceSet_mean_pipeline": CF_ReferenceSet_mean_pipeline_bounds,
     "CF_ReferenceSet_Small_Dark_mean_pipeline": CF_ReferenceSet_Small_Dark_mean_pipeline_bounds,
     "CF_ReferenceSet_Small_Light_mean_pipeline": CF_ReferenceSet_Small_Light_mean_pipeline_bounds,
@@ -312,6 +348,10 @@ initial_params = {
     "AirCarbon3_80.jpg_dark_3_mean_pipeline": AirCarbon3_80_jpg_dark_3_mean_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": AirCarbon3_80_jpg_dark_4_mean_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params,
+    "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_initial_params,
+    "MAIPreform2_Spule0_0315_Upside_Thread": MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline_initial_params,
+    "MAIPreform2_Spule0_0315_Upside_mean_pipeline": MAIPreform2_Spule0_0315_Upside_mean_pipeline_initial_params,
+    "MAIPreform2_Spule0_0816_Upside_mean_pipeline": MAIPreform2_Spule0_0816_Upside_mean_pipeline_initial_params,
     "CF_ReferenceSet_mean_pipeline": CF_ReferenceSet_mean_pipeline_initial_params,
     "CF_ReferenceSet_Small_Dark_mean_pipeline": CF_ReferenceSet_Small_Dark_mean_pipeline_initial_params,
     "CF_ReferenceSet_Small_Light_mean_pipeline": CF_ReferenceSet_Small_Light_mean_pipeline_initial_params,

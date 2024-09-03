@@ -89,7 +89,7 @@ def get_MVTec_AD_Screw_Scratch_mean_pipeline(params):
                 "<l>                    union2(TempRegion, FaultyRegion, FaultyRegion)</l>\n" \
                 "<l>                endif</l>\n" \
                 "<l>                smallest_rectangle1(FaultyRegion, Row1, Col1, Row2, Col2)</l>\n" \
-                "<l>                region_features(FaultyRegion, 'area', Value)       </l>\n" \
+                "<l>                region_features(FaultyRegion, 'area', Value)</l>\n" \
                 "<l>            endfor</l>\n" \
                 "<l>        endfor</l>\n" \
                 "<c>        </c>\n" \

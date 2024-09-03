@@ -25,17 +25,24 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try        </l>
-<c>        * SobelAmp</c>
 <l>        FilterTypeSA := 'y'</l>
-<l>        MaskSizeSA := 5            </l>
+<l>        MaskSizeSA := 5</l>
+<c>        </c>
+<l>        Channel := 1</l>
+<l>        Threshold := 23</l>
+<l>        *Sign := -1</l>
+<c>        </c>
+<l>        DiffusionCoefficient := 'parabolic'</l>
+<l>        Contrast := 10</l>
+<l>        Theta := 3</l>
+<l>        Iterations := 1</l>
+<c>        </c>
+<c>        * SobelAmp    </c>
 <l>        sobel_amp(Image, ImageA, FilterTypeSA, MaskSizeSA)</l>
 <c>        </c>
 <c>        * ZeroCrossingB</c>
 <l>        zero_crossing(ImageA, RegionA)</l>
 <c>        </c>
-<l>        Channel := 1</l>
-<l>        Threshold := 23</l>
-<l>        Sign := -1</l>
 <c>        * ThresholdAccessChannel        </c>
 <l>        abs_image(Image, ImageB)        </l>
 <l>        count_channels(ImageB, NumChannels)</l>
@@ -47,10 +54,6 @@
 <l>        endif</l>
 <c>        </c>
 <c>        * AnisotropicDiffusion</c>
-<l>        DiffusionCoefficient := 'parabolic'</l>
-<l>        Contrast := 10</l>
-<l>        Theta := 3</l>
-<l>        Iterations := 1</l>
 <l>        anisotropic_diffusion(ImageB, ImageB, DiffusionCoefficient, Contrast, Theta, Iterations)</l>
 <c>        </c>
 <l>        union2(RegionA, RegionB, Region)</l>

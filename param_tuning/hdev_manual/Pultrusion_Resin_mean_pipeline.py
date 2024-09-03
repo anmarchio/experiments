@@ -29,7 +29,7 @@ def get_Pultrusion_Resin_mean_pipeline(params):
     # Core Pipeline Code
     core_code = "<c>        * CropSmallestRectangle</c>\n" + \
                 convert_margin_to_int() + \
-                "<l>         median_image(Image, Image, MaskType, Radius, Margin)</l>\n" + \
+                "<l>        median_image(Image, Image, MaskType, Radius, Margin)</l>\n" + \
                 "<c>        </c>\n" + \
                 "<c>        * SobelAmp</c>\n" + \
                 "<l>        get_image_type(Image2, Type)</l>\n" + \

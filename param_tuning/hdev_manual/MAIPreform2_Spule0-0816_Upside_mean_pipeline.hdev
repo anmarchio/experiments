@@ -25,11 +25,11 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<c>        * CropRectangle</c>
 <l>        MinRatio := 0.0899999961256981</l>
 <l>        MaskHeight := 3</l>
 <l>        MaskWidth := 15</l>
 <c>        </c>
+<c>        * CropRectangle               </c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region)</l>
 <c>        </c>

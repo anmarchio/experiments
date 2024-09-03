@@ -31,7 +31,6 @@
 <c>        </c>
 <l>        Channel := 1</l>
 <l>        Threshold := 4</l>
-<l>        Sign := -1</l>
 <c>        </c>
 <c>        * GrayClosing       </c>
 <c>        * with struct element circle</c>

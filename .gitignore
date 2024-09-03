@@ -3,4 +3,6 @@
 out/imgs/*
 out/json/*
 test/imgs/fullscale_fibers_sample.jpg
+test/param_tuning/manual_hdev/*.hdev
+test/param_tuning/manual_hdev/*/
 venv/*
