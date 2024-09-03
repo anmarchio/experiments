@@ -71,7 +71,7 @@ MAIPreform2_Spule0_0315_Upside_mean_pipeline_bounds = [
     [0, 255]
 ]
 
-MAIPreform2_Spule0_0315_Upside_mean_pipeline_training_source_path = os.path.join(EVIAS_SRC_PATH,
+MAIPreform2_Spule0_0315_Upside_training_source_path = os.path.join(EVIAS_SRC_PATH,
                                                                                  "MAIPreform2.0",
                                                                                  "20170502_Compositence",
                                                                                  "Spule0-0315_Upside",
