@@ -283,20 +283,21 @@ def extract_fitness_values(file_paths):
             # Filter out the relevant lines for SA and LS
             sa_best = None
             ls_best = None
-            
+
             for line in lines:
                 parts = line.strip().split(';')
-                if len(parts) >= 5:  # Ensure line has enough parts to be valid
-                    iteration = int(parts[0].strip())
-                    performance = float(parts[1].strip())
-                    algorithm = parts[4].strip().lower()
-                    
-                    # Assuming the last iteration (99) has the best performance
-                    if iteration == 99:
-                        if algorithm == 'sa':
-                            sa_best = performance
-                        elif algorithm == 'ls':
-                            ls_best = performance
+                if isinstance(parts[0], (int, np.int32, float)):
+                    if len(parts) >= 5:  # Ensure line has enough parts to be valid
+                        iteration = int(parts[0].strip())
+                        performance = float(parts[1].strip())
+                        algorithm = parts[4].strip().lower()
+
+                        # Assuming the last iteration (99) has the best performance
+                        if iteration == 99:
+                            if algorithm == 'sa':
+                                sa_best = performance
+                            elif algorithm == 'ls':
+                                ls_best = performance
             
             # Append the best results to the lists
             if sa_best is not None:

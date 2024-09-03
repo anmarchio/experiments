@@ -10,8 +10,8 @@ from param_tuning.hdev_manual.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN
 from param_tuning.local_search import run_local_search
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import write_digraph_to_files, \
-    check_dir_exists, plot_bar_charts
-from settings import PARAM_TUNING_RESULTS_PATH
+    check_dir_exists, plot_bar_charts, extract_fitness_values
+from settings import PARAM_TUNING_RESULTS_PATH, HDEV_RESULTS_PATH
 
 
 def show_param_tuning_menu():
@@ -22,12 +22,13 @@ def show_param_tuning_menu():
     print("1 -- MANUAL 1: Export digraphs to txt")
     print("2 -- MANUAL 2: Read manual HDEV files and perform SA/LS")
     print("3 -- AUTOMATIC: Read DB and apply HDEV optimization")
+    print("4 -- Plot results in bar charts")
     print("0 -- EXIT")
 
     print("\n")
     selection = input("Selection: ")
     try:
-        if 0 < int(selection) < 4:
+        if 0 < int(selection) < 5:
             return int(selection)
     except:
         selection = 0
@@ -96,7 +97,7 @@ def run_param_tuning() -> int:
 
     if selection == 4:
         # Example usage
-        file_paths = [os.path.join(WDIR, "test", "param_tuning", "manual_hdev", name + ".txt") for name in MANUAL_HDEV_PIPELINES_MEAN]
+        file_paths = [os.path.join(HDEV_RESULTS_PATH, "param_tuning", "manual_hdev", name + ".txt") for name in MANUAL_HDEV_PIPELINES_MEAN]
         ls_results, sa_results = extract_fitness_values(file_paths)
         print("Plot results in bar chart.")
         # datasets, cgp_results, ls_results, sa_results
