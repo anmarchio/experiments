@@ -1,5 +1,4 @@
 import os
-import re
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -269,12 +268,8 @@ def plot_bar_charts(datasets, cgp_results, ls_results, sa_results):
     # overwrite variables with DUMMY data
     # datasets, cgp_results, ls_results, sa_results = get_dummy_data_rows()
 
-    if len(cgp_results) == 0:
-        for ls in ls_results:
-            if ls > 0.1:
-                cgp_results.append(ls + np.random.uniform(-0.1, 0.05))
-            else:
-                cgp_results.append(0.01)
+    if not (len(datasets) == len(ls_results) == len(sa_results)):
+        raise ValueError("Array mismatch!")
 
     changes = [max(ls_results[i] - cgp_results[i], sa_results[i] - cgp_results[i]) for i in range(len(cgp_results))]
 
@@ -282,89 +277,3 @@ def plot_bar_charts(datasets, cgp_results, ls_results, sa_results):
     plot_changes_bars(datasets, changes)
 
 
-def get_line_pattern():
-    # Regular expressions for each part of the structure
-    iteration_pattern = r'-?\d+'
-    performance_pattern = r'\d+\.\d+'
-    criterion_pattern = r'\w+'
-    parameters_pattern = r'(\d+, )*\d+, ?'  # match comma-separated integers with optional trailing space
-    algorithm_pattern = r'(\w+:\d+\.\d+,?)+'
-    configuration_pattern = r'\w+'
-    pipeline_pattern = r'[\w_]+'
-    datetime_pattern = r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}'
-
-    # Combine all patterns into one
-    line_pattern = re.compile(
-        rf'{iteration_pattern};'
-        rf'{performance_pattern};'
-        rf'{criterion_pattern};'
-        rf'{parameters_pattern};'
-        rf'{algorithm_pattern};'
-        rf'{configuration_pattern};'
-        rf'{pipeline_pattern};'
-        rf'{datetime_pattern};'
-    )
-
-    return line_pattern
-
-
-def get_header_pattern():
-    return "Iteration; Performance; Criterion; Parameters; Algorithm; Configuration; Pipeline; Datetime;\n"
-
-
-def extract_fitness_values(file_paths):
-    sa_results = []
-    ls_results = []
-
-    for file_path in file_paths:
-        with open(file_path, 'r') as file:
-            lines = file.readlines()
-
-            # Filter out the relevant lines for SA and LS
-            sa_best = None
-            ls_best = None
-
-            if lines[0] != get_header_pattern():
-                print("!!! ERROR: File header compromised !!!")
-                print("Aborting ...")
-                return [], []
-
-            for line in lines:
-                parts = line.strip().split(';')
-                if line != get_header_pattern():
-                    if len(parts) >= 5:  # Ensure line has enough parts to be valid
-                        iteration = int(parts[0].strip())
-                        performance = float(parts[1].strip())
-                        if parts[4] == "sa" or parts[4] == "ls":
-                            algorithm = parts[4].strip().lower()
-                        else:
-                            algorithm = parts[5].strip().lower()
-
-                        if algorithm == 'sa':
-                            curr_sa_best = performance
-                        elif algorithm == 'ls':
-                            curr_ls_best = performance
-
-                        # Assuming the last iteration (99) has the best performance
-                        if iteration == 99:
-                            if algorithm == 'sa':
-                                sa_best = performance
-                            elif algorithm == 'ls':
-                                ls_best = performance
-
-            # Append the best results to the lists
-            if sa_best is not None:
-                sa_results.append(sa_best)
-                sa_best = None
-            if ls_best is not None:
-                ls_results.append(ls_best)
-                ls_best = None
-
-            if len(ls_results) != len(sa_results):
-                print("WARNING: SA and LS Result Array mismatch!")
-                if len(ls_results) < len(sa_results):
-                    ls_results.append(0.0)
-                else:
-                    sa_results.append(0.0)
-
-    return sa_results, ls_results

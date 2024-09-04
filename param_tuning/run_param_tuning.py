@@ -4,13 +4,14 @@ import sys
 from api import env_var
 from api.database import Database
 from api.models import Dataset
+from param_tuning.data_parser import extract_fitness_values, get_cgp_ls_sa_dict_from_pipelines
 from param_tuning.dataset_pipeline_analysis import get_grouped_datasets_with_digraph_by_mean_fitness, \
     read_db_and_apply_algorithms_to_hdev, objective
 from param_tuning.hdev_manual.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN
 from param_tuning.local_search import run_local_search
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import write_digraph_to_files, \
-    check_dir_exists, plot_bar_charts, extract_fitness_values
+    check_dir_exists, plot_bar_charts
 from settings import PARAM_TUNING_RESULTS_PATH, HDEV_RESULTS_PATH
 
 
@@ -49,7 +50,7 @@ def run_param_tuning() -> int:
     # Get linked list of grouped Datasets with according digraph closest to MEAN fitness
     linked_list_of_mean_fitness_and_digraph = {}
 
-    if selection == 1 or selection == 3:
+    if selection == 1 or selection >= 3:
         print("Get linked list of grouped Datasets with according digraph closest to MEAN fitness")
         print("-- from DB path: " + env_var.SQLITE_PATH)
         linked_list_of_mean_fitness_and_digraph = get_grouped_datasets_with_digraph_by_mean_fitness(db.get_session())
@@ -96,13 +97,19 @@ def run_param_tuning() -> int:
             print("Aborted.")
 
     if selection == 4:
-        # Example usage
-        file_paths = [os.path.join(HDEV_RESULTS_PATH, "param_tuning", "manual_hdev", name + ".txt") for name in MANUAL_HDEV_PIPELINES_MEAN]
-        ls_results, sa_results = extract_fitness_values(file_paths)
         print("Plot results in bar chart.")
-        # datasets, cgp_results, ls_results, sa_results
+        file_paths = [os.path.join(HDEV_RESULTS_PATH, "param_tuning", "manual_hdev", name + ".txt") for name in
+                      MANUAL_HDEV_PIPELINES_MEAN]
+        ls_results, sa_results = extract_fitness_values(file_paths)
         datasets = [name.replace("_mean_pipeline", "") for name in MANUAL_HDEV_PIPELINES_MEAN]
-        plot_bar_charts(datasets, [], ls_results, sa_results)
+
+        cgp_results = get_cgp_ls_sa_dict_from_pipelines(datasets,
+                                                        linked_list_of_mean_fitness_and_digraph,
+                                                        ls_results,
+                                                        sa_results)
+
+        # datasets, cgp_results, ls_results, sa_results
+        plot_bar_charts(datasets, cgp_results, ls_results, sa_results)
     return 0
 
 
