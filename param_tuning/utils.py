@@ -210,7 +210,7 @@ def plot_fitness_bars(datasets, cgp_results, ls_results, sa_results):
     num_datasets = len(datasets)
 
     # Create a figure and axis
-    fig, ax = plt.subplots(figsize=(15, 20), dpi=100)
+    fig, ax = plt.subplots(figsize=(10, 20), dpi=100)
 
     # Bar width
     bar_width = 0.25
@@ -256,7 +256,7 @@ def plot_changes_bars(datasets, changes):
 
     # Create a horizontal bar chart
     # plt.figure(figsize=(10, 6))
-    plt.figure(figsize=(15, 20), dpi=100)
+    plt.figure(figsize=(13, 20), dpi=100)
     plt.barh(datasets, changes, color=colors)
 
     # Add title and labels
