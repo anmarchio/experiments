@@ -292,3 +292,35 @@ def plot_bar_charts(datasets, cgp_results, ls_results, sa_results):
     plot_changes_bars(datasets, changes)
 
 
+def results_to_latex_table(datasets, cgp_results, ls_results, sa_results):
+    tex_code = "\\begin{table}[h]\n" \
+               "\centering\n" \
+               "\caption{\\textcolor{magenta}{Segmentation results of optimization heuristics applied for parameter " \
+               "tuning on CGP outputs; the optimizers comprise \\textit{local search (LS)} and \\textit{simmulated " \
+               "annealing (SA)}}}\n" \
+               "\label{tab:further_optimization}\n" \
+               "\\resizebox{0.4\columnwidth}{!}{%\n" \
+               "	\\begin{tabular}{c l l l c c c c}\n" \
+               "		\\toprule\n" \
+               "		\\textbf{ID} & \\textbf{Dataset Name} & $\overline{MCC_{CGP}}$ & \\textbf{MCC_{LS}}$ & \\textbf{MCC_{SA}} \\\\\n" \
+               "		\midrule\n"
+
+    for i in range(0, len(datasets) - 1, 1):
+        tex_code += f'		{i}  & {datasets[i]}  & {cgp_results[i]}    & {ls_results[i]}         & {sa_results[i]}   \\\\\n'
+
+    """
+    tex_code += "		8  & \\textcolor{magenta}{CF\_RefSet}  & LS    & ?         & ?   \\\\\n" \
+               "		28 & \\textcolor{magenta}{Tile\_Crack} & LS    & ?         & ?   \\\\\n" \
+               "		35 & \\textcolor{magenta}{Pul\_Resin}  & LS     & ?         & ?   \\\\\n" \
+               "		\hline\n" \
+               "		8  & \\textcolor{magenta}{CF\_RefSet}  & SA   & ?         & ?   \\\\\n" \
+               "		28 & \\textcolor{magenta}{Tile\_Crack} & SA   & ?         & ?   \\\\\n" \
+               "		35 & \\textcolor{magenta}{Pul\_Resin}  & SA    & ?         & ?   \\\\\n"
+    """
+
+    tex_code += "		\\bottomrule\n" \
+                "	\end{tabular}\n" \
+                "}\n" \
+                "\end{table}\n"
+
+    return tex_code
