@@ -306,7 +306,7 @@ def results_to_latex_table(datasets, cgp_results, ls_results, sa_results):
                "		\midrule\n"
 
     for i in range(0, len(datasets) - 1, 1):
-        tex_code += f'		{i}  & {datasets[i]}  & {cgp_results[i]}    & {ls_results[i]}         & {sa_results[i]}   \\\\\n'
+        tex_code += f'		{i}  & {datasets[i].replace("_", "\\_")}  & {"%.3f" % cgp_results[i]}    & {"%.3f" % ls_results[i]}         & {"%.3f" % sa_results[i]}   \\\\\n'
 
     """
     tex_code += "		8  & \\textcolor{magenta}{CF\_RefSet}  & LS    & ?         & ?   \\\\\n" \
