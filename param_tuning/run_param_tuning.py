@@ -109,6 +109,10 @@ def run_param_tuning() -> int:
                                                         sa_results)
 
         # datasets, cgp_results, ls_results, sa_results
+        datasets.reverse()
+        cgp_results.reverse()
+        ls_results.reverse()
+        sa_results.reverse()
         plot_bar_charts(datasets, cgp_results, ls_results, sa_results)
     return 0
 

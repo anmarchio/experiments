@@ -126,7 +126,7 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     "AirCarbon3_80.jpg_dark_3_mean_pipeline",
     "AirCarbon3_80.jpg_dark_4_mean_pipeline",
     "AirCarbon3_80.jpg_dark_5_mean_pipeline",
-    # !!![NO PARAMETERS]!!! "KollektorSSD_mean_pipeline",
+    "KolektorSDD_mean_pipeline",
     "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
     "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
     "MAIPreform2_Spule0_0315_Upside_mean_pipeline",

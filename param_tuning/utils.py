@@ -5,7 +5,7 @@ import numpy as np
 
 from datetime import datetime
 
-from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC
+from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC, PARAM_TUNING_RESULTS_PATH
 
 
 def raw_source_directory(dataset_source_directory):
@@ -201,12 +201,16 @@ def get_dummy_data_rows():
 def plot_fitness_bars(datasets, cgp_results, ls_results, sa_results):
     # Plot Bar Chart of CGP vs. LS/SA results
     # ---------------------------------------
+    # Bar Color
+    cgp_bar_color = 'steelblue'
+    ls_bar_color = 'tomato'
+    sa_bar_color = 'gray'
 
     # Number of datasets
     num_datasets = len(datasets)
 
     # Create a figure and axis
-    fig, ax = plt.subplots(figsize=(10, 8))
+    fig, ax = plt.subplots(figsize=(15, 20), dpi=100)
 
     # Bar width
     bar_width = 0.25
@@ -215,23 +219,28 @@ def plot_fitness_bars(datasets, cgp_results, ls_results, sa_results):
     y_pos = np.arange(num_datasets)
 
     # Plotting the bars
-    ax.barh(y_pos, cgp_results, color='blue', height=bar_width, label='CGP Result')
-    ax.barh(y_pos + bar_width, ls_results, color='lightcoral', height=bar_width, label='LS Result')
-    ax.barh(y_pos + 2 * bar_width, sa_results, color='lightgray', height=bar_width, label='SA Result')
+    ax.barh(y_pos, cgp_results, color=cgp_bar_color, height=bar_width, label='CGP Result')
+    ax.barh(y_pos + bar_width, ls_results, color=ls_bar_color, height=bar_width, label='LS Result')
+    ax.barh(y_pos + 2 * bar_width, sa_results, color=sa_bar_color, height=bar_width, label='SA Result')
 
     # Setting the y ticks with dataset names
     ax.set_yticks(y_pos + bar_width)
     ax.set_yticklabels(datasets)
 
     # Adding labels and title
-    ax.set_xlabel('Result')
-    ax.set_title('Results Comparison by Dataset')
+    ax.set_xlabel('Fitness')
+    ax.set_title('Achieved Fitness through CGP, LS and SA by Dataset')
     ax.legend()
 
     # Set x-axis limits for changes plot (0 to +1.0)
     plt.xlim(0.0, 1.0)
     # Display grid
     plt.grid(True, axis='x', linestyle='--', alpha=0.7)
+
+    # Save plot if path is provided
+    current_date = datetime.now().strftime("%Y%m%d")
+    filename = f"{current_date}_cgp_ls_sa_barchart.png"
+    plt.savefig(os.path.join(PARAM_TUNING_RESULTS_PATH, filename))
 
     # Display the plot
     plt.tight_layout()
@@ -243,21 +252,27 @@ def plot_changes_bars(datasets, changes):
     # ---------------------------------------
 
     # Create color array based on positive or negative changes
-    colors = ['lightblue' if change >= 0 else 'lightcoral' for change in changes]
+    colors = ['lightgreen' if change >= 0 else 'tomato' for change in changes]
 
     # Create a horizontal bar chart
-    plt.figure(figsize=(10, 6))
+    # plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(15, 20), dpi=100)
     plt.barh(datasets, changes, color=colors)
 
     # Add title and labels
     plt.title('Fitness Net Increase')
-    plt.xlabel('Change in Fitness')
+    plt.xlabel('Fitness increase through LS or SA compared to CGP baseline')
     plt.ylabel('Dataset')
 
     # Set x-axis limits for changes plot (-0.5 to +0.5)
-    plt.xlim(-1.0, 1.0)
+    plt.xlim(0.0, 1.0)
     # Display grid
     plt.grid(True, axis='x', linestyle='--', alpha=0.7)
+
+    # Save plot if path is provided
+    current_date = datetime.now().strftime("%Y%m%d")
+    filename = f"{current_date}_cgp_ls_sa_increase.png"
+    plt.savefig(os.path.join(PARAM_TUNING_RESULTS_PATH, filename))
 
     # Show the plot
     plt.show(block=True)
@@ -268,7 +283,7 @@ def plot_bar_charts(datasets, cgp_results, ls_results, sa_results):
     # overwrite variables with DUMMY data
     # datasets, cgp_results, ls_results, sa_results = get_dummy_data_rows()
 
-    if not (len(datasets) == len(ls_results) == len(sa_results)):
+    if not (len(datasets) == len(cgp_results) == len(ls_results) == len(sa_results)):
         raise ValueError("Array mismatch!")
 
     changes = [max(ls_results[i] - cgp_results[i], sa_results[i] - cgp_results[i]) for i in range(len(cgp_results))]

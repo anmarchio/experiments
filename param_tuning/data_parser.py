@@ -1,4 +1,7 @@
+import os
 import re
+
+from settings import HDEV_RESULTS_PATH
 
 
 def get_cgp_ls_sa_dict_from_pipelines(pipeline_names,
@@ -62,54 +65,65 @@ def extract_fitness_values(file_paths):
     ls_results = []
 
     for file_path in file_paths:
-        with open(file_path, 'r') as file:
-            lines = file.readlines()
+        if file_path == os.path.join(HDEV_RESULTS_PATH, "param_tuning", "manual_hdev", "KolektorSDD_mean_pipeline.txt"):
+            # No optimization was performed for KollektorSSD
+            # Because is does not contain any parameters
+            sa_results.append(0.0)
+            ls_results.append(0.0)
+            continue
+        elif not os.path.exists(file_path):
+            print("ERROR: cannot load file.")
+            print(file_path)
+            raise FileNotFoundError
+        else:
+            with open(file_path, 'r') as file:
+                lines = file.readlines()
 
-            # Filter out the relevant lines for SA and LS
-            sa_best = None
-            ls_best = None
-
-            if lines[0] != get_header_pattern():
-                print("!!! ERROR: File header compromised !!!")
-                print("Aborting ...")
-                return [], []
-
-            for line in lines:
-                parts = line.strip().split(';')
-                if line != get_header_pattern():
-                    if len(parts) >= 5:  # Ensure line has enough parts to be valid
-                        iteration = int(parts[0].strip())
-                        performance = float(parts[1].strip())
-                        if parts[4] == "sa" or parts[4] == "ls":
-                            algorithm = parts[4].strip().lower()
-                        else:
-                            algorithm = parts[5].strip().lower()
-
-                        if algorithm == 'sa':
-                            curr_sa_best = performance
-                        elif algorithm == 'ls':
-                            curr_ls_best = performance
-
-                        # Assuming the last iteration (99) has the best performance
-                        if iteration == 99:
-                            if algorithm == 'sa':
-                                sa_best = performance
-                            elif algorithm == 'ls':
-                                ls_best = performance
-
-            # Append the best results to the lists
-            if sa_best is not None:
-                sa_results.append(sa_best)
+                # Filter out the relevant lines for SA and LS
                 sa_best = None
-            if ls_best is not None:
-                ls_results.append(ls_best)
                 ls_best = None
 
-            if len(ls_results) != len(sa_results):
-                print("WARNING: SA and LS Result Array mismatch!")
-                if len(ls_results) < len(sa_results):
-                    ls_results.append(0.0)
-                else:
-                    sa_results.append(0.0)
+                if lines[0] != get_header_pattern():
+                    print("!!! ERROR: File header compromised !!!")
+                    print("Aborting ...")
+                    return [], []
+
+                for line in lines:
+                    parts = line.strip().split(';')
+                    if line != get_header_pattern():
+                        if len(parts) >= 5:  # Ensure line has enough parts to be valid
+                            iteration = int(parts[0].strip())
+                            performance = float(parts[1].strip())
+                            if parts[4] == "sa" or parts[4] == "ls":
+                                algorithm = parts[4].strip().lower()
+                            else:
+                                algorithm = parts[5].strip().lower()
+
+                            if algorithm == 'sa':
+                                curr_sa_best = performance
+                            elif algorithm == 'ls':
+                                curr_ls_best = performance
+
+                            # Assuming the last iteration (99) has the best performance
+                            if iteration == 99:
+                                if algorithm == 'sa':
+                                    sa_best = performance
+                                elif algorithm == 'ls':
+                                    ls_best = performance
+
+                # Append the best results to the lists
+                if sa_best is not None:
+                    sa_results.append(sa_best)
+                    sa_best = None
+                if ls_best is not None:
+                    ls_results.append(ls_best)
+                    ls_best = None
+
+                if len(ls_results) != len(sa_results):
+                    print("WARNING: SA and LS Result Array mismatch!")
+                    if len(ls_results) < len(sa_results):
+                        ls_results.append(0.0)
+                    else:
+                        sa_results.append(0.0)
 
     return sa_results, ls_results
