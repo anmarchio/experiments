@@ -101,7 +101,8 @@ def run_param_tuning() -> int:
         ls_results, sa_results = extract_fitness_values(file_paths)
         print("Plot results in bar chart.")
         # datasets, cgp_results, ls_results, sa_results
-        plot_bar_charts(MANUAL_HDEV_PIPELINES_MEAN, [], ls_results, sa_results)
+        datasets = [name.replace("_mean_pipeline", "") for name in MANUAL_HDEV_PIPELINES_MEAN]
+        plot_bar_charts(datasets, [], ls_results, sa_results)
     return 0
 
 
