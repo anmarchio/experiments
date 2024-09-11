@@ -40,7 +40,7 @@ MVTec_AD_Cable_Missing_mean_pipeline_initial_params = [
     'perona-malik',
     10,
     3,
-    100,
+    60,
     'smooth_histo',
     'dark'
 ]
@@ -49,10 +49,10 @@ MVTec_AD_Cable_Missing_mean_pipeline_bounds = [
     ['perona-malik', 'weickert', 'parabolic'],
     [2, 5, 10, 20, 50, 100],
     [0.5, 1.0, 3.0],
-    [1, 3, 10, 100, 500],
+    [v for v in range(1, 60, 1)],  # [1, 3, 10, 100, 500]
     ['max_separability', 'smooth_histo'],
     ['light', 'dark']
 ]
 
 MVTec_AD_Cable_Missing_training_source_path = os.path.join(EVIAS_SRC_PATH,
-                                                              "MVTecAnomalyDetection", "cable_missing_train")
+                                                           "MVTecAnomalyDetection", "cable_missing_train")

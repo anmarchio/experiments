@@ -105,7 +105,7 @@ def extract_fitness_values(file_paths):
                                 curr_ls_best = performance
 
                             # Assuming the last iteration (99) has the best performance
-                            if iteration == 99:
+                            if iteration == 99 or iteration == 29:
                                 if algorithm == 'sa':
                                     sa_best = performance
                                 elif algorithm == 'ls':

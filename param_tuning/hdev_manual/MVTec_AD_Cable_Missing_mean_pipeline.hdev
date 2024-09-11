@@ -4,8 +4,10 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Cable_Missing_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/MVTecAnomalyDetection/cable_missing_train/images'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/cable_missing_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
+<c></c>
+<l>dev_update_on()</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <c></c>
@@ -28,7 +30,7 @@
 <l>        DiffusionCoefficient := 'perona-malik'</l>
 <l>        Contrast := 10</l>
 <l>        Theta := 3</l>
-<l>        Iterations := 100</l>
+<l>        Iterations := 60</l>
 <c>        </c>
 <l>        Method := 'smooth_histo'</l>
 <l>        LightDark := 'dark'</l>

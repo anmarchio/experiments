@@ -299,10 +299,10 @@ def results_to_latex_table(datasets, cgp_results, ls_results, sa_results):
                "tuning on CGP outputs; the optimizers comprise \\textit{local search (LS)} and \\textit{simmulated " \
                "annealing (SA)}}}\n" \
                "\label{tab:further_optimization}\n" \
-               "\\resizebox{0.4\columnwidth}{!}{%\n" \
+               "\\resizebox{0.9\columnwidth}{!}{%\n" \
                "	\\begin{tabular}{c l l l c c c c}\n" \
                "		\\toprule\n" \
-               "		\\textbf{ID} & \\textbf{Dataset Name} & $\overline{MCC_{CGP}}$ & \\textbf{MCC_{LS}}$ & \\textbf{MCC_{SA}} \\\\\n" \
+               "		\\textbf{ID} & \\textbf{Dataset Name} & $\overline{MCC_{CGP}}$ & \\textbf{MCC\\_{LS}}$ & \\textbf{MCC\\_{SA}} \\\\\n" \
                "		\midrule\n"
 
     for i in range(0, len(datasets) - 1, 1):
