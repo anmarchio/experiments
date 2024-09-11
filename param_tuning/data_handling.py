@@ -1,19 +1,16 @@
 # Function to extract features from binary images
 import os
+from decimal import Decimal
 
 import cv2
 import numpy as np
-
 # from skimage.feature import graycomatrix, graycoprops
-from keras.src.utils import img_to_array
 from skimage.feature.texture import graycomatrix, graycoprops
 from skimage.io import imread
-# from skimage.measure import shannon_entropy
-
-from decimal import Decimal
-
 from skimage.measure.entropy import shannon_entropy
 from sklearn.metrics import confusion_matrix
+
+# from skimage.measure import shannon_entropy
 
 # IMG_SIZE = 256
 IMG_SIZE = 128
@@ -100,7 +97,6 @@ def load_data(train_images: [], train_labels: [], mask_as_gray=True, default_siz
 
 
 from PIL import Image
-from sklearn.metrics import matthews_corrcoef, jaccard_score, f1_score, accuracy_score
 
 
 def load_images_from_folder(folder):
@@ -108,11 +104,13 @@ def load_images_from_folder(folder):
     for filename in os.listdir(folder):
         if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg'):
             img = Image.open(os.path.join(folder, filename)).convert('L')
+            img = img.resize(size=(IMG_SIZE, IMG_SIZE), resample=None)
             img_array = np.array(img)
+
             # Convert the image to a binary array (0 for black, 1 for white)
             binary_array = np.where(img_array > 0, 1, 0)
             images.append(binary_array.flatten())
-    return images
+    return np.array(images)
 
 
 def calculate_metrics(ground_truth_path, prediction_path):
@@ -120,16 +118,19 @@ def calculate_metrics(ground_truth_path, prediction_path):
     ground_truth_images = load_images_from_folder(ground_truth_path)
     prediction_images = load_images_from_folder(prediction_path)
 
+    ground_truth_images_flat = ground_truth_images.flatten()
+    prediction_images_flat = prediction_images.flatten()
+
     # Initialize accumulators for metrics
     tp_total = fp_total = tn_total = fn_total = 0.0
 
     # Iterate over the image pairs
-    for gt, pred in zip(ground_truth_images, prediction_images):
+    for gt, pred in zip(ground_truth_images_flat, prediction_images_flat):
         # Calculate TP, FP, TN, FN
-        tp = np.sum((gt == 1) & (pred == 1))
-        fp = np.sum((gt == 0) & (pred == 1))
+        tp = np.sum((gt > 0) & (pred > 0))
+        fp = np.sum((gt == 0) & (pred > 0))
         tn = np.sum((gt == 0) & (pred == 0))
-        fn = np.sum((gt == 1) & (pred == 0))
+        fn = np.sum((gt > 0) & (pred == 0))
 
         # Accumulate totals
         tp_total += float(tp)

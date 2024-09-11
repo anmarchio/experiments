@@ -33,6 +33,10 @@ def run_pipeline(pipeline_name, graph, params, manual: bool = True):
     if not os.path.exists(prediction_path):
         os.mkdir(prediction_path)
 
+    if hdev_code is None:
+        print("ERROR: hdev_code" + pipeline_name + " is None!")
+        return 0.0
+
     write_hdev_code_to_file(hdev_path, hdev_code)
 
     # Execute Pipeline

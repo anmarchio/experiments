@@ -5,7 +5,7 @@ from numpy import int32
 """
 Simulated Annealing Default Parameters
 """
-SA_N_ITERATIONS = 100
+SA_N_ITERATIONS = 30
 SA_COOLING_RATE = 0.9
 SA_TEMP = 10.0
 
@@ -13,7 +13,7 @@ SA_TEMP = 10.0
 """
 Local Search Default Parameters
 """
-LS_N_ITERATIONS = 100
+LS_N_ITERATIONS = 30
 LS_STEP_SIZE = 0.1
 
 
