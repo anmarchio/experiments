@@ -72,6 +72,27 @@ class Run(Base):
     legend = Column(String)
 
     @staticmethod
+    def create_from_txt(date_txt,
+                        overview_txt,
+                        experiment):
+        run_number = 0
+        runs = []
+        with open(overview_txt, "r") as overview_fitness:
+            for line in overview_fitness.readlines():
+                if "Iteration" in line:
+                    run_number = int(line[10:13])
+                    fitness_tmp = line[26:-1]
+                    fitness = float(fitness_tmp.replace(",", "."))
+                    run = Run(
+                        experiment_id=experiment.experiment_id,
+                        started_at=experiment.created_at,
+                        number=run_number,
+                        legend=""
+                    )
+                    runs.append(run)
+        return runs
+
+    @staticmethod
     def create_from_json(date_txt,
                          overview_json,
                          experiment):
@@ -375,6 +396,28 @@ class BestIndividualFit(Base):
                 best_individual_fit.analyzer_id = analyzer.analyzer_id
                 session.add(best_individual_fit)
 
+    @staticmethod
+    def create_from_txt(
+            path,
+            analyzer,
+            session):
+        with open(path) as f:
+            for line in f.readlines():
+                if "Generation,BestIndividual" not in line:
+                    gen_id = 0
+                    best_ind_fit = 0.0
+                    try:
+                        gen_id = int(line.split(",")[0])
+                        best_ind_fit = float(line.split(",")[1])
+                    except:
+                        print("WARNING: Failed to read BestIndividual")
+                    best_individual_fit = BestIndividualFit(
+                        generation=gen_id,
+                        best_individual_fitness=best_ind_fit
+                    )
+                    best_individual_fit.analyzer_id = analyzer.analyzer_id
+                    session.add(best_individual_fit)
+
 
 class AvgPopulationFit(Base):
     __tablename__ = "avg_population_fit"
@@ -398,6 +441,28 @@ class AvgPopulationFit(Base):
                 avg_population_fit.analyzer_id = analyzer.analyzer_id
                 session.add(avg_population_fit)
 
+    @staticmethod
+    def create_from_txt(
+            path,
+            analyzer,
+            session):
+        with open(path) as f:
+            for line in f.readlines():
+                if "Generation,AvgPopulation" not in line:
+                    gen_id = 0
+                    avg_pop_fit = 0.0
+                    try:
+                        gen_id = int(line.split(",")[0])
+                        avg_pop_fit = float(line.split(",")[1])
+                    except:
+                        print("WARNING: Failed to read AvgPopulation")
+                    avg_population_fit = AvgPopulationFit(
+                        generation=gen_id,
+                        average_population_fitness=avg_pop_fit
+                    )
+                    avg_population_fit.analyzer_id = analyzer.analyzer_id
+                    session.add(avg_population_fit)
+
 
 class AvgOffspringFit(Base):
     __tablename__ = "avg_offspring_fit"
@@ -420,6 +485,28 @@ class AvgOffspringFit(Base):
                 )
                 avg_offspring_fit.analyzer_id = analyzer.analyzer_id
                 session.add(avg_offspring_fit)
+
+    @staticmethod
+    def create_from_txt(
+            path,
+            analyzer,
+            session):
+        with open(path) as f:
+            for line in f.readlines():
+                if "Generation,AvgOffspring" not in line:
+                    gen_id = 0
+                    avg_off_fit = 0.0
+                    try:
+                        gen_id = int(line.split(",")[0])
+                        avg_off_fit = float(line.split(",")[1])
+                    except:
+                        print("WARNING: Failed to read AvgOffSpring")
+                    avg_offspring_fit = AvgOffspringFit(
+                        generation=gen_id,
+                        average_offspring_fitness=avg_off_fit
+                    )
+                    avg_offspring_fit.analyzer_id = analyzer.analyzer_id
+                    session.add(avg_offspring_fit)
 
 
 class Pipeline(Base):
@@ -446,6 +533,7 @@ class Pipeline(Base):
         pipeline_id = pipeline.pipeline_id
         digraph = pipeline.digraph
         return experiment_id, run_id, pipeline_id, digraph
+
 
 class Individual(Base):
     __tablename__ = "individual"

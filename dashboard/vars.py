@@ -68,7 +68,8 @@ DATASET_NAMES = [
     'CF_ReferenceSet_Small_Light',
     'AirCarbon3_80.jpg',
     '80.jpg_dark',
-    'MVTec_AD_Toothbrush_Sm'
+    'MVTec_AD_Toothbrush_Sm',
+    'RoadCracks'
 ]
 
 """
@@ -203,5 +204,6 @@ PATH_TO_DATASET_NAME_MAP = {
     'D:\\evias_expmts\\Magnetic-Tile-Defect\\MT_Blowhole_train': DATASET_NAMES[6],
     'D:\\evias_expmts\\Pultrusion\\train': DATASET_NAMES[9],
     'D:\\evias_expmts\\severstal-steel\\train_cgp': DATASET_NAMES[8],
+    'D:\\evias_expmts\\CrackForest': DATASET_NAMES[43],
     'unknown': None
     }

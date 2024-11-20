@@ -100,7 +100,7 @@ def get_col_bar(lowest):
         color = "green"
     return f"""
         <div class="colorbar1">
-            <span style="width: {lowest*100}%; height: 10px; display: block; float: lefT; background-color: {color};"></span>
+            <span style="width: {lowest * 100}%; height: 10px; display: block; float: lefT; background-color: {color};"></span>
         </div>
         <br />
         {lowest}
@@ -177,6 +177,8 @@ def check_filetype(file_name, filetype_to_check, eligible_filetypes=None):
 '''
 ================== Config Log ==================
 '''
+
+
 def convert_directory_to_html_list(folder, file_types=['json']):
     if os.path.exists(folder):
         list_elements = ""
@@ -284,7 +286,8 @@ def create_html_grid_section(grid_path):
         iteration_html += to_html_list_element(
             make_collapsable(convert_directory_to_html_list(p_join(grid_path, iteration), [".json", ".txt"]),
                              f'Iteration {iteration}'))
-        iteration_html += make_collapsable(to_svg(p_join(grid_path, iteration, "append_pipeline.txt")), f'append_pipeline.txt')
+        iteration_html += make_collapsable(to_svg(p_join(grid_path, iteration, "append_pipeline.txt")),
+                                           f'append_pipeline.txt')
         iteration_html += make_collapsable(to_svg(p_join(grid_path, iteration, "pipeline.txt")), f'pipeline.txt')
     return html + to_html_list(iteration_html)
 
@@ -292,6 +295,8 @@ def create_html_grid_section(grid_path):
 '''
 ================== Config Log ==================
 '''
+
+
 def create_html_config_section(config_folder):
     html = '<h4>Config</h4>\n'
     html += convert_directory_to_html_list(config_folder, ['.txt'])
@@ -364,6 +369,8 @@ def create_data_plot(folder, file_name, plot_title, batch_name, iteration):
 '''
 ================== Analyzer Log ==================
 '''
+
+
 def create_html_analyzer_section(analyzer_folder, batch_name):
     html = '<h4>Analyzer</h4>\n'
     if not os.path.exists(analyzer_folder):
@@ -392,6 +399,8 @@ def create_html_analyzer_section(analyzer_folder, batch_name):
 '''
 ================== Log ==================
 '''
+
+
 def create_html_log_section(folder):
     html = '<h4>Log</h4>\n'
     if not os.path.exists(folder):

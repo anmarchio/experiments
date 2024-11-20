@@ -3,6 +3,7 @@ import os
 import re
 import xml.etree.ElementTree as ET
 from datetime import datetime
+from enum import Enum
 
 from database import Database
 from models import Experiment, Run, Dataset, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
@@ -14,6 +15,11 @@ from models import Experiment, Run, Dataset, Analyzer, AvgOffspringFit, AvgPopul
 DB = Database()
 
 
+class LogType(Enum):
+    TXT = 1
+    JSON = 2
+
+
 def exception_case(path):
     date_txt_path = os.path.join(path, "date.txt")
     overview_json_path = os.path.join(path, "overview.json")
@@ -21,7 +27,7 @@ def exception_case(path):
     source_json_path = os.path.join(path, "source.json")
 
     existing_files = [os.path.exists(x) for x in [date_txt_path, overview_json_path, seed_txt_path, source_json_path]]
-    if [False, False, False, True] == existing_files or [False, False, False, False] == existing_files :
+    if [False, False, False, True] == existing_files or [False, False, False, False] == existing_files:
 
         for exc in os.listdir(os.path.join(path, "exceptions")):
             dataset = Dataset.create_from_json(
@@ -48,6 +54,7 @@ def create_experiment_and_run_metadata(path: str):
 
     date_txt_path = os.path.join(path, "date.txt")
     overview_json_path = os.path.join(path, "overview.json")
+    overview_txt_path = os.path.join(path, "overview.txt")
     seed_txt_path = os.path.join(path, "seed.txt")
     source_json_path = os.path.join(path, "source.json")
 
@@ -65,11 +72,19 @@ def create_experiment_and_run_metadata(path: str):
     DB.get_session().add(experiment)
     DB.get_session().commit()
 
-    runs = Run.create_from_json(
-        date_txt=date_txt_path,
-        overview_json=overview_json_path,
-        experiment=experiment
-    )
+    if os.path.exists(overview_txt_path):
+        runs = Run.create_from_txt(
+            date_txt=date_txt_path,
+            overview_txt=overview_txt_path,
+            experiment=experiment
+        )
+    else:
+        runs = Run.create_from_json(
+            date_txt=date_txt_path,
+            overview_json=overview_json_path,
+            experiment=experiment
+        )
+
     for r in runs:
         DB.get_session().add(r)
 
@@ -81,11 +96,18 @@ def create_experiment_and_run_metadata(path: str):
 def create_analyzer(path, experiment: Experiment, run_number):
     print("\tReading analyzers for run ", run_number)
 
+    extension = "json"
+    ltype = LogType.JSON
     analyzer_files = {
-        "AvgOffspringFit": os.path.join(path, "Analyzer", run_number, "AvgOffspringFit.json"),
-        "AvgPopulationFit": os.path.join(path, "Analyzer", run_number, "AvgPopulationFit.json"),
-        "BestIndividualFit": os.path.join(path, "Analyzer", run_number, "BestIndividualFit.json")
+        "AvgOffspringFit": os.path.join(path, "Analyzer", run_number, "AvgOffspringFit"),
+        "AvgPopulationFit": os.path.join(path, "Analyzer", run_number, "AvgPopulationFit"),
+        "BestIndividualFit": os.path.join(path, "Analyzer", run_number, "BestIndividualFit")
     }
+
+    for af in analyzer_files.keys():
+        if not os.path.exists(analyzer_files[af] + extension):
+            ltype = LogType.TXT
+            analyzer_files[af] = analyzer_files[af] + ".txt"
 
     # Check if the all files exist in run_number
     if not all([os.path.exists(a[1]) for a in analyzer_files.items()]):
@@ -104,25 +126,48 @@ def create_analyzer(path, experiment: Experiment, run_number):
 
     run_entry.analyzer_id = analyzer.analyzer_id
 
-    AvgOffspringFit.create_from_json(
-        analyzer_files['AvgOffspringFit'],
-        analyzer,
-        DB.get_session()
-    )
+    if ltype == LogType.JSON:
+        AvgOffspringFit.create_from_json(
+            analyzer_files['AvgOffspringFit'],
+            analyzer,
+            DB.get_session()
+        )
+    else:
+        AvgOffspringFit.create_from_txt(
+            analyzer_files['AvgOffspringFit'],
+            analyzer,
+            DB.get_session()
+        )
+
     DB.get_session().commit()
 
-    AvgPopulationFit.create_from_json(
-        analyzer_files['AvgPopulationFit'],
-        analyzer,
-        DB.get_session()
-    )
+    if ltype == LogType.JSON:
+        AvgPopulationFit.create_from_json(
+            analyzer_files['AvgPopulationFit'],
+            analyzer,
+            DB.get_session()
+        )
+    else:
+        AvgPopulationFit.create_from_txt(
+            analyzer_files['AvgPopulationFit'],
+            analyzer,
+            DB.get_session()
+        )
+
     DB.get_session().commit()
 
-    BestIndividualFit.create_from_json(
-        analyzer_files['BestIndividualFit'],
-        analyzer,
-        DB.get_session()
-    )
+    if ltype == LogType.JSON:
+        BestIndividualFit.create_from_json(
+            analyzer_files['BestIndividualFit'],
+            analyzer,
+            DB.get_session()
+        )
+    else:
+        BestIndividualFit.create_from_txt(
+            analyzer_files['BestIndividualFit'],
+            analyzer,
+            DB.get_session()
+        )
     DB.get_session().commit()
 
 
@@ -167,8 +212,8 @@ def create_individuals(path, experiment: Experiment, run_number):
         run_element = evaluation_loader_json[str(i)]
 
         analyzer = DB.get_session().query(Analyzer).filter_by(
-                run_id=run.run_id
-            ).first()
+            run_id=run.run_id
+        ).first()
         individual = Individual.create_from_json(run_element, analyzer, pipeline)
         DB.get_session().add(individual)
         DB.get_session().commit()
@@ -202,7 +247,8 @@ def create_individuals(path, experiment: Experiment, run_number):
             continue
         items = individual_evaluation_json[str(j)]
 
-        print("\t Reading items in run ", str(run_number), " for individual ", str(j)," of ", len(individual_evaluation_json), " ...")
+        print("\t Reading items in run ", str(run_number), " for individual ", str(j), " of ",
+              len(individual_evaluation_json), " ...")
         for ind_item in items:
             individual = DB.get_session().query(Individual).filter_by(
                 analyzer_id=analyzer.analyzer_id,
@@ -214,7 +260,7 @@ def create_individuals(path, experiment: Experiment, run_number):
                     analyzer_id=analyzer.analyzer_id,
                     pipeline_id=pipeline.pipeline_id,
                     individual_object_id=int(ind_item['IndividualId'])
-                    )
+                )
             item = Item(
                 MCC=ind_item['FitnessValues']['MCC'],
                 name=ind_item['Item'],
@@ -417,7 +463,7 @@ def create_grid(path, experiment: Experiment, run_number):
         return 0
 
     run = DB.get_session().query(Run).filter_by(
-        experiment_id = experiment.experiment_id,
+        experiment_id=experiment.experiment_id,
         number=int(run_number)).first()
 
     f_grid = open(grid_files['grid'], "r")
@@ -454,10 +500,10 @@ def create_images(path, experiment: Experiment, run_number):
         return 0
 
     run = DB.get_session().query(Run).filter_by(
-            experiment_id=experiment.experiment_id,
-            number=int(run_number)
-        ).first()
-    f_images=open(images_files['AppendPipelineConfusionMatrix'], "r")
+        experiment_id=experiment.experiment_id,
+        number=int(run_number)
+    ).first()
+    f_images = open(images_files['AppendPipelineConfusionMatrix'], "r")
     images_json = json.load(f_images)
     for img in images_json:
         confusion_matrix = ConfusionMatrix(
@@ -556,6 +602,6 @@ def import_many(path):
     for dirname in os.listdir(path):
         progress = int(i / 20) * 20
         print("|" + "=" * progress + "-" * (20 - progress) + "|")
-        print(import_one(os.path.join(path,dirname)))
+        print(import_one(os.path.join(path, dirname)))
         i += 1
     print('Finished importing.')

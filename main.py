@@ -60,7 +60,7 @@ def main() -> int:
         from datasets between a minimum and maximum number of generations 
         """
         yesno = input('Show dataset names in plot? (y/n)')
-        read_database_and_plot_fitness_per_dataset(140, 500, show_names=(yesno == 'y'))
+        read_database_and_plot_fitness_per_dataset(49, 500, show_names=(yesno == 'y'))
 
     # yesno = input('read_database_and_show_plots? (y/n)')
     if selection == 3:
@@ -115,7 +115,6 @@ def main() -> int:
         extract the pipeline, convert it to HDEV code.
         Then apply Simulated Annealing / Local Search to tune the real valued parameters. 
         """
-
         read_database_and_plot_fitness_per_dataset(140, 500, show_names=True, create_plot=False)
         run_param_tuning()
 
