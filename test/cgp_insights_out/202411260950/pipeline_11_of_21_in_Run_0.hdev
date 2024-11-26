@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'MVTec_AD_Cable_Missing_mean_pipeline'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/cable_missing_train/images'</l>
+<l>output_path := 'out/'</l>
+<c></c>
+<l>dev_update_on()</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try                </l>
+<c>        * ======</c>
+<c>        * PATH 1</c>
+<c>        * ======</c>
+<c>        * sobel_amp</c>
+<l>        sobel_amp(Image, Image1, 'y_binomial', 7)</l>
+<c>        </c>
+<c>        * ThresholdAccessChannel        </c>
+<l>        Channel := 2</l>
+<l>        Threshold := 17</l>
+<l>        Sign := -1</l>
+<c>        </c>
+<l>        abs_image(Image1, Image1)        </l>
+<l>        count_channels(Image1, NumChannels)</l>
+<l>        if(NumChannels == 3)</l>
+<l>            access_channel(Image, Image, Channel)</l>
+<l>            threshold(Image1, Region1, Threshold, 255)</l>
+<l>        else</l>
+<l>            threshold(Image1, Region1, Threshold, 255)</l>
+<l>        endif</l>
+<c>        </c>
+<c>        * SelectShape</c>
+<l>        select_shape(Region1, Region1, 'ra', 'and', 41, 99999)</l>
+<c>        </c>
+<l>        dev_display(Image)   </l>
+<l>        dev_display(Region1)</l>
+<l>        dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<c>        </c>
+<c>        * ======</c>
+<c>        * PATH 2</c>
+<c>        * ======</c>
+<c>        * GaussFilter</c>
+<l>        gauss_filter(Image, Image2, 9)</l>
+<c>        </c>
+<l>        dev_display(Image2)</l>
+<l>        dev_disp_text('Image2', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<c>        </c>
+<c>        * ======</c>
+<c>        * MERGE</c>
+<c>        * ======        </c>
+<c>        * HistoToThresh</c>
+<l>        Sigma := 1</l>
+<l>        union1(Region1, Region1)</l>
+<l>        gray_histo(Region1, Image1, AbsoluteHisto, RelativeHisto)</l>
+<l>        histo_to_thresh(AbsoluteHisto, Sigma, MinThresh, MaxThresh)</l>
+<l>        threshold(Image2, Region2, MinThresh, MaxThresh)</l>
+<c>        </c>
+<c>        * SelectShape</c>
+<l>        select_shape(Region2, Region, 'inner_radius', 'and', 92, 99999)</l>
+<c>        </c>
+<l>        dev_display(Image)</l>
+<l>        dev_display(Region)</l>
+<l>        dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

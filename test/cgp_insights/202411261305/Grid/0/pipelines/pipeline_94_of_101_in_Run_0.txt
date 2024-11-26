@@ -1,0 +1,7 @@
+digraph Pipeline { 
+rankdir = "RL";39 [label="Union1\n"];
+25 [label="RegionGrowing\nRasterHeight=9\n RasterWidth=7\n Tolerance=1\n MinRegionSize=500"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+39 -> 25 [];
+25 -> _1 [];
+}

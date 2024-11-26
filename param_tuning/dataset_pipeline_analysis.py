@@ -13,7 +13,7 @@ from param_tuning.local_search import run_local_search
 from param_tuning.read_dot import parse_dot
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import raw_source_directory, index_closest_to_mean, write_to_file, write_csv_and_tex
-from settings import RESULTS_PATH, HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
+from settings import HDEV_RESULTS_PATH, RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 
 
 def run_pipeline(pipeline_name, graph, params, manual: bool = True):

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HalconPipeline xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <AdjacencyList>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>39</Head>
+      <Tail>22</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>22</Head>
+      <Tail>7</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+    <EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+      <Head>7</Head>
+      <Tail>-1</Tail>
+    </EdgeOfHObjectHObjectHalconOperatorNodeHalconInputNodeHalconOperatorNodeObject>
+  </AdjacencyList>
+  <Name>DefaultName</Name>
+  <Nodes>
+    <HalconOperatorNode xsi:type="Union1">
+      <NodeID>39</NodeID>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="RegionGrowing">
+      <NodeID>22</NodeID>
+      <RasterHeight>5</RasterHeight>
+      <RasterWidth>9</RasterWidth>
+      <Tolerance>1</Tolerance>
+      <MinRegionSize>500</MinRegionSize>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="EliminateMinMax">
+      <NodeID>7</NodeID>
+      <MaskWidth>25</MaskWidth>
+      <MaskHeight>19</MaskHeight>
+      <Gap>34</Gap>
+      <Mode>2</Mode>
+    </HalconOperatorNode>
+    <HalconOperatorNode xsi:type="HalconInputNode">
+      <NodeID>-1</NodeID>
+      <ProgramInputIdentifier>-1</ProgramInputIdentifier>
+    </HalconOperatorNode>
+  </Nodes>
+  <AutoDisposeIntermediateOutputs>false</AutoDisposeIntermediateOutputs>
+</HalconPipeline>

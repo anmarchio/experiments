@@ -1,0 +1,21 @@
+digraph Pipeline { 
+rankdir = "RL";74 [label="Opening\nStructElement=Ellipse\n A=17\n B=18"];
+26 [label="AutoThreshold\nSigma=0"];
+56 [label="CloseEdges\nMinAmplitude=85"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+15 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+39 [label="AreaToRectangle\n"];
+23 [label="ThresholdAccessChannel\nChannel=2\n Threshold=24\n Sign=-1"];
+18 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+0 [label="KirschAmp\n"];
+74 -> 26 [];
+74 -> 56 [];
+26 -> _1 [];
+56 -> 15 [];
+56 -> 39 [];
+15 -> _1 [];
+39 -> 23 [];
+23 -> 18 [];
+18 -> 0 [];
+0 -> _1 [];
+}

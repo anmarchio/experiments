@@ -1,0 +1,2896 @@
+{
+  "0": [
+    {
+      "FitnessValues": {
+        "MCC": -0.00027005203156252978
+      },
+      "IndividualId": 1,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00026469444550928029
+      },
+      "IndividualId": 1,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00025956028931695374
+      },
+      "IndividualId": 1,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027077138173124508
+      },
+      "IndividualId": 1,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027662196439268659
+      },
+      "IndividualId": 1,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0002627431494726083
+      },
+      "IndividualId": 1,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027005203156252978
+      },
+      "IndividualId": 2,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00026469444550928029
+      },
+      "IndividualId": 2,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00025956028931695374
+      },
+      "IndividualId": 2,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027077138173124508
+      },
+      "IndividualId": 2,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027662196439268659
+      },
+      "IndividualId": 2,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0002627431494726083
+      },
+      "IndividualId": 2,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 5,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 5,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 5,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 5,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 5,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 5,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 6,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 6,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 6,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 6,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 6,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 6,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 7,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 7,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 7,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 7,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 7,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 7,
+      "Item": "005.png"
+    }
+  ],
+  "1": [
+    {
+      "FitnessValues": {
+        "MCC": -0.035805944477696146
+      },
+      "IndividualId": 9,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.11125297727157854
+      },
+      "IndividualId": 9,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.10726391603003324
+      },
+      "IndividualId": 9,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.12140601182146195
+      },
+      "IndividualId": 9,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.03127014727379962
+      },
+      "IndividualId": 9,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.03141078749062625
+      },
+      "IndividualId": 9,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027005203156252978
+      },
+      "IndividualId": 10,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 10,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 10,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 10,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 10,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0002627431494726083
+      },
+      "IndividualId": 10,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 11,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 11,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 11,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 11,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 11,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 11,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 12,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 12,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 12,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 12,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 12,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 12,
+      "Item": "005.png"
+    }
+  ],
+  "2": [
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 13,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 13,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 13,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 13,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 13,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 13,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 14,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 14,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 14,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 14,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 14,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 14,
+      "Item": "005.png"
+    }
+  ],
+  "3": [
+    {
+      "FitnessValues": {
+        "MCC": 0.89338487995756577
+      },
+      "IndividualId": 17,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.70347900111617545
+      },
+      "IndividualId": 17,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.51695123259260567
+      },
+      "IndividualId": 17,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.921815079182603
+      },
+      "IndividualId": 17,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.88723436007936585
+      },
+      "IndividualId": 17,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.93897117189149482
+      },
+      "IndividualId": 17,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 18,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 18,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 18,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 18,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 18,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 18,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 19,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 19,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 19,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 19,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 19,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 19,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 20,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 20,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 20,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 20,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 20,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 20,
+      "Item": "005.png"
+    }
+  ],
+  "4": [
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 21,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.43134485766693109
+      },
+      "IndividualId": 21,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.50490350637463854
+      },
+      "IndividualId": 21,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 21,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.38917610591237339
+      },
+      "IndividualId": 21,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 21,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.303102919793911
+      },
+      "IndividualId": 22,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 22,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 22,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 22,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.21829769907462171
+      },
+      "IndividualId": 22,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 22,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.932442845371251
+      },
+      "IndividualId": 23,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.91530004146305244
+      },
+      "IndividualId": 23,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.89220981955265477
+      },
+      "IndividualId": 23,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.92453527440963013
+      },
+      "IndividualId": 23,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.87569271102273682
+      },
+      "IndividualId": 23,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.93303374737872813
+      },
+      "IndividualId": 23,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 24,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 24,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 24,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 24,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 24,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 24,
+      "Item": "005.png"
+    }
+  ],
+  "5": [
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 25,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 25,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 25,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 25,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 25,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 25,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.24973911142881081
+      },
+      "IndividualId": 26,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.14715426809424439
+      },
+      "IndividualId": 26,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.10372402868340855
+      },
+      "IndividualId": 26,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0820322830659367
+      },
+      "IndividualId": 26,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.025083253180594536
+      },
+      "IndividualId": 26,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.20423239003705984
+      },
+      "IndividualId": 26,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.32373883890475674
+      },
+      "IndividualId": 27,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.40166105560397353
+      },
+      "IndividualId": 27,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.36700200009880252
+      },
+      "IndividualId": 27,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.37070849241917914
+      },
+      "IndividualId": 27,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.1407942946305164
+      },
+      "IndividualId": 27,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.080371176527309615
+      },
+      "IndividualId": 27,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 28,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 28,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 28,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 28,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 28,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 28,
+      "Item": "005.png"
+    }
+  ],
+  "6": [
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 29,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 29,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 29,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 29,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 29,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 29,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 30,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 30,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 30,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 30,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 30,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 30,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 31,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 31,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 31,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 31,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 31,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 31,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.010452569476549212
+      },
+      "IndividualId": 32,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0029713648944299557
+      },
+      "IndividualId": 32,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0056403598077673072
+      },
+      "IndividualId": 32,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0046196526192580781
+      },
+      "IndividualId": 32,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0079629347818188333
+      },
+      "IndividualId": 32,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0057276488987217005
+      },
+      "IndividualId": 32,
+      "Item": "005.png"
+    }
+  ],
+  "7": [
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 33,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 33,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 33,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 33,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 33,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 33,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 34,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 34,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 34,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 34,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 34,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 34,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 35,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 35,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 35,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 35,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 35,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 35,
+      "Item": "005.png"
+    }
+  ],
+  "8": [
+    {
+      "FitnessValues": {
+        "MCC": 0.15412518517784593
+      },
+      "IndividualId": 37,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.18263605394844643
+      },
+      "IndividualId": 37,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.18420544533743974
+      },
+      "IndividualId": 37,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.31503508479054959
+      },
+      "IndividualId": 37,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.27752999967805209
+      },
+      "IndividualId": 37,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.082189569276763366
+      },
+      "IndividualId": 37,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 38,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 38,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 38,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 38,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 38,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 38,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 39,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 39,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 39,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 39,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 39,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 39,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.93005410656682785
+      },
+      "IndividualId": 40,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.91432191434687948
+      },
+      "IndividualId": 40,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.89557810757529
+      },
+      "IndividualId": 40,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.92281045403345952
+      },
+      "IndividualId": 40,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.89600381726786438
+      },
+      "IndividualId": 40,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.93086278976166459
+      },
+      "IndividualId": 40,
+      "Item": "005.png"
+    }
+  ],
+  "9": [
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 41,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 41,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 41,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 41,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 41,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 41,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 42,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 42,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 42,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 42,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 42,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 42,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.93005410656682785
+      },
+      "IndividualId": 43,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.91432191434687948
+      },
+      "IndividualId": 43,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.89557810757529
+      },
+      "IndividualId": 43,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.92281045403345952
+      },
+      "IndividualId": 43,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.89600381726786438
+      },
+      "IndividualId": 43,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.93086278976166459
+      },
+      "IndividualId": 43,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 44,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 44,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 44,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 44,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 44,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 44,
+      "Item": "005.png"
+    }
+  ],
+  "10": [
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 45,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 45,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 45,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 45,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 45,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 45,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027005203156252978
+      },
+      "IndividualId": 46,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00026469444550928029
+      },
+      "IndividualId": 46,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00025956028931695374
+      },
+      "IndividualId": 46,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027077138173124508
+      },
+      "IndividualId": 46,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027662196439268659
+      },
+      "IndividualId": 46,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0002627431494726083
+      },
+      "IndividualId": 46,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.92576690078088331
+      },
+      "IndividualId": 47,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.91112143131164081
+      },
+      "IndividualId": 47,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.89790522585221377
+      },
+      "IndividualId": 47,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.92504539128175634
+      },
+      "IndividualId": 47,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.89765418755652915
+      },
+      "IndividualId": 47,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.928686571377709
+      },
+      "IndividualId": 47,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 48,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 48,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 48,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 48,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 48,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 48,
+      "Item": "005.png"
+    }
+  ],
+  "11": [
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 49,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 49,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 49,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 49,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 49,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 49,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027005203156252978
+      },
+      "IndividualId": 50,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00026469444550928029
+      },
+      "IndividualId": 50,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00025956028931695374
+      },
+      "IndividualId": 50,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027077138173124508
+      },
+      "IndividualId": 50,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027662196439268659
+      },
+      "IndividualId": 50,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0002627431494726083
+      },
+      "IndividualId": 50,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.32675781384794134
+      },
+      "IndividualId": 51,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.29242629027777284
+      },
+      "IndividualId": 51,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.295808980422857
+      },
+      "IndividualId": 51,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.33130294929090426
+      },
+      "IndividualId": 51,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.35411658957142189
+      },
+      "IndividualId": 51,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.27203207920490519
+      },
+      "IndividualId": 51,
+      "Item": "005.png"
+    }
+  ],
+  "12": [
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 53,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 53,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 53,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 53,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 53,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 53,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.38824431027784534
+      },
+      "IndividualId": 54,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.22251616786881298
+      },
+      "IndividualId": 54,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.32575705487491086
+      },
+      "IndividualId": 54,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 54,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.29227146133023957
+      },
+      "IndividualId": 54,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 54,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 55,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 55,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 55,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 55,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 55,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 55,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 56,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 56,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 56,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 56,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 56,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 56,
+      "Item": "005.png"
+    }
+  ],
+  "13": [
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 57,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 57,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 57,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 57,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 57,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 57,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 58,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 58,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.016810984010994252
+      },
+      "IndividualId": 58,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 58,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 58,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.03334453604867537
+      },
+      "IndividualId": 58,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.045911230653522671
+      },
+      "IndividualId": 59,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 59,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 59,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 59,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 59,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 59,
+      "Item": "005.png"
+    }
+  ],
+  "14": [
+    {
+      "FitnessValues": {
+        "MCC": -0.00027005203156252978
+      },
+      "IndividualId": 61,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00026469444550928029
+      },
+      "IndividualId": 61,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00025956028931695374
+      },
+      "IndividualId": 61,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027077138173124508
+      },
+      "IndividualId": 61,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.00027662196439268659
+      },
+      "IndividualId": 61,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": -0.0002627431494726083
+      },
+      "IndividualId": 61,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 62,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 62,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 62,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 62,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 62,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 62,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.93331593446284855
+      },
+      "IndividualId": 63,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.91759737845745815
+      },
+      "IndividualId": 63,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.88143695934227539
+      },
+      "IndividualId": 63,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.92686023667040229
+      },
+      "IndividualId": 63,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.86904372301810007
+      },
+      "IndividualId": 63,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.9300928282826455
+      },
+      "IndividualId": 63,
+      "Item": "005.png"
+    }
+  ],
+  "15": [
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 65,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 65,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 65,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 65,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 65,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 65,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 66,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 66,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 66,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 66,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 66,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 66,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 67,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 67,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 67,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 67,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 67,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 67,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 68,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 68,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 68,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 68,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 68,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 68,
+      "Item": "005.png"
+    }
+  ],
+  "16": [
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 69,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 69,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 69,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 69,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 69,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 69,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 70,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 70,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 70,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 70,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 70,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 70,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 71,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 71,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 71,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 71,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 71,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 71,
+      "Item": "005.png"
+    }
+  ],
+  "17": [
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 73,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 73,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 73,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.35422731489265413
+      },
+      "IndividualId": 73,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 73,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 73,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 74,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 74,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 74,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 74,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 74,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 74,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 75,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 75,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 75,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 75,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 75,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 75,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.92719670558733269
+      },
+      "IndividualId": 76,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.91226474881273911
+      },
+      "IndividualId": 76,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.89759336256308841
+      },
+      "IndividualId": 76,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.92483609533198019
+      },
+      "IndividualId": 76,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.8973350503947165
+      },
+      "IndividualId": 76,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.92847427842188923
+      },
+      "IndividualId": 76,
+      "Item": "005.png"
+    }
+  ],
+  "18": [
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 77,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 77,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 77,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 77,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 77,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": 0.0
+      },
+      "IndividualId": 77,
+      "Item": "005.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 78,
+      "Item": "000.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 78,
+      "Item": "001.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 78,
+      "Item": "002.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 78,
+      "Item": "003.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 78,
+      "Item": "004.png"
+    },
+    {
+      "FitnessValues": {
+        "MCC": null
+      },
+      "IndividualId": 78,
+      "Item": "005.png"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "000.png": {
+    "true positives": 66516,
+    "true negatives": 884633,
+    "false positives": 89454,
+    "false negatives": 7973,
+    "MCC": 0.57835927863765235,
+    "height": 1024,
+    "width": 1024,
+    "size total": 1048576
+  },
+  "001.png": {
+    "true positives": 61661,
+    "true negatives": 901719,
+    "false positives": 75094,
+    "false negatives": 10102,
+    "MCC": 0.58658805578001627,
+    "height": 1024,
+    "width": 1024,
+    "size total": 1048576
+  },
+  "002.png": {
+    "true positives": 57246,
+    "true negatives": 898484,
+    "false positives": 80904,
+    "false negatives": 11942,
+    "MCC": 0.54667536089296875,
+    "height": 1024,
+    "width": 1024,
+    "size total": 1048576
+  },
+  "003.png": {
+    "true positives": 65137,
+    "true negatives": 889320,
+    "false positives": 84398,
+    "false negatives": 9721,
+    "MCC": 0.576891328548284,
+    "height": 1024,
+    "width": 1024,
+    "size total": 1048576
+  },
+  "004.png": {
+    "true positives": 67737,
+    "true negatives": 882323,
+    "false positives": 88368,
+    "false negatives": 10148,
+    "MCC": 0.57360763328984765,
+    "height": 1024,
+    "width": 1024,
+    "size total": 1048576
+  },
+  "005.png": {
+    "true positives": 61685,
+    "true negatives": 910556,
+    "false positives": 67240,
+    "false negatives": 9095,
+    "MCC": 0.61329898023016993,
+    "height": 1024,
+    "width": 1024,
+    "size total": 1048576
+  }
+}

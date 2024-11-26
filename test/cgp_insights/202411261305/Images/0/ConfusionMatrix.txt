@@ -1,0 +1,54 @@
+Image: 000.png
+IntersectionOverUnion: 0,405726380510299
+MCC: 0,578359278637652
+True positives: 66516
+True negatives: 884633
+False positives: 89454
+False negatives: 7973
+Reference image height: 1024, width: 1024, total: 1048576
+
+Image: 001.png
+IntersectionOverUnion: 0,419871031002948
+MCC: 0,586588055780016
+True positives: 61661
+True negatives: 901719
+False positives: 75094
+False negatives: 10102
+Reference image height: 1024, width: 1024, total: 1048576
+
+Image: 002.png
+IntersectionOverUnion: 0,381406070943155
+MCC: 0,546675360892969
+True positives: 57246
+True negatives: 898484
+False positives: 80904
+False negatives: 11942
+Reference image height: 1024, width: 1024, total: 1048576
+
+Image: 003.png
+IntersectionOverUnion: 0,40900813784096
+MCC: 0,576891328548284
+True positives: 65137
+True negatives: 889320
+False positives: 84398
+False negatives: 9721
+Reference image height: 1024, width: 1024, total: 1048576
+
+Image: 004.png
+IntersectionOverUnion: 0,407433249324824
+MCC: 0,573607633289848
+True positives: 67737
+True negatives: 882323
+False positives: 88368
+False negatives: 10148
+Reference image height: 1024, width: 1024, total: 1048576
+
+Image: 005.png
+IntersectionOverUnion: 0,446927981451963
+MCC: 0,61329898023017
+True positives: 61685
+True negatives: 910556
+False positives: 67240
+False negatives: 9095
+Reference image height: 1024, width: 1024, total: 1048576
+

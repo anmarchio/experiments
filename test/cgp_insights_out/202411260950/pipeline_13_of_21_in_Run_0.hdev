@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'MVTec_AD_Cable_Missing_mean_pipeline'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/cable_missing_train/images'</l>
+<l>output_path := 'out/'</l>
+<c></c>
+<l>dev_update_on()</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try              </l>
+<c>        * ======</c>
+<c>        * PATH 1</c>
+<c>        * ======   </c>
+<c>        *GrayRangeRect</c>
+<l>        gray_range_rect(Image, Image1, 247, 211)</l>
+<c>        </c>
+<c>        * SobelAmp</c>
+<l>        sobel_amp(Image1, Image1, 'y_binomial', 3)</l>
+<c>        </c>
+<c>        * AutoThreshold</c>
+<l>        convert_image_type(Image1, Image1, 'byte')</l>
+<l>        auto_threshold(Image1, Region1, 5)</l>
+<c>        </c>
+<l>        dev_display(Image)</l>
+<l>        dev_display(Region1)</l>
+<l>        dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<c>        </c>
+<c>        * ======</c>
+<c>        * PATH 2</c>
+<c>        * ======</c>
+<c>        * DualRank</c>
+<l>        MaskType := 'circle'</l>
+<l>        Radius := 72</l>
+<l>        ModePercent := 89</l>
+<l>        Margin := 'Ninety'</l>
+<c>        </c>
+<c>        *mirrored = 1,</c>
+<c>        *cyclic = 2,</c>
+<c>        *continued = 3, </c>
+<c>        *//0, 30, 60, 90, 120, 150, 180, 210, 240, 255</c>
+<l>        if(Margin == 'Zero')</l>
+<l>            Margin := 0</l>
+<l>        elseif(Margin == 'Thirty')</l>
+<l>            Margin := 30</l>
+<l>        elseif(Margin == 'Sixty')</l>
+<l>            Margin := 60</l>
+<l>        elseif(Margin == 'Ninety')</l>
+<l>            Margin := 90</l>
+<l>        elseif(Margin == 'OneTwenty')</l>
+<l>            Margin := 120</l>
+<l>        elseif(Margin == 'OneFifty')</l>
+<l>            Margin := 150</l>
+<l>        elseif(Margin == 'OneEighty')</l>
+<l>            Margin := 180</l>
+<l>        elseif(Margin == 'TwoTen')</l>
+<l>            Margin := 210</l>
+<l>        elseif(Margin == 'TwoForty')</l>
+<l>            Margin := 240</l>
+<l>        elseif(Margin == 'TwoFifityFive')</l>
+<l>            Margin := 255</l>
+<l>        endif</l>
+<c>        </c>
+<l>        dual_rank(Image, Image2, MaskType, Radius, ModePercent, Margin)</l>
+<c>        </c>
+<c>        * sobel_amp</c>
+<l>        sobel_amp(Image2, Image2, 'y_binomial', 7)</l>
+<c>        </c>
+<c>        * VarThreshold</c>
+<l>        MaskWidth := 0</l>
+<l>        MaskHeight := 0</l>
+<l>        StdDevScale := 0</l>
+<l>        AbsThreshold := 0</l>
+<l>        LightDark := 'not_equal'</l>
+<c>        </c>
+<l>        get_image_type(Image2, Type)</l>
+<c>        </c>
+<l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and Type != 'real')</l>
+<l>            min_max_gray(Image2, Image2, 0, Min, Max, Range)</l>
+<l>            if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
+<l>                if ((Max - Min) &gt; 0)</l>
+<l>                    Mult := 255.0 / (Max - Min)</l>
+<l>                else</l>
+<l>                    Mult := 255.0</l>
+<l>                endif</l>
+<l>                Add := -Mult * Min</l>
+<l>                scale_image(Image2, Image2, Mult, Add)</l>
+<l>            else</l>
+<l>                scale_image(Image2, Image2, 1, 0)</l>
+<l>            endif</l>
+<c>            </c>
+<l>            StandardType := 'byte'</l>
+<l>            convert_image_type(Image2, Image2, 'byte')</l>
+<l>            var_threshold(Image2, Region2, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)    </l>
+<l>        else </l>
+<l>            var_threshold(Image2, Region2, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)    </l>
+<l>        endif</l>
+<c>        </c>
+<l>        dev_display(Image)   </l>
+<l>        dev_display(Region2)</l>
+<l>        dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<c>        </c>
+<c>        * ======</c>
+<c>        * PATH 2</c>
+<c>        * ======</c>
+<c>        * GaussFilter</c>
+<l>        gauss_filter(Image, Image2, 9)</l>
+<c>        </c>
+<l>        dev_display(Image2)</l>
+<l>        dev_disp_text('Image2', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<c>        </c>
+<c>        * ======</c>
+<c>        * MERGE Path 1 &amp; 2</c>
+<c>        * ======        </c>
+<c>        * Union2</c>
+<l>        union2(Region1, Region2, Region12)</l>
+<c>        </c>
+<c>        * ======</c>
+<c>        * PATH 3</c>
+<c>        * ======</c>
+<c>        * SigmaImage</c>
+<l>        sigma_image(Image, Image3, 11, 7, 106)</l>
+<c>        </c>
+<l>        dev_display(Image)</l>
+<l>        dev_display(Region)</l>
+<l>        dev_disp_text('Path3', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<c>        </c>
+<c>        * ======</c>
+<c>        * FINAL</c>
+<c>        * ======</c>
+<c>        * HistoToThresh</c>
+<l>        Sigma := 1</l>
+<l>        union1(Region12, Region12)</l>
+<l>        gray_histo(Region12, Image2, AbsoluteHisto, RelativeHisto)</l>
+<l>        histo_to_thresh(AbsoluteHisto, Sigma, MinThresh, MaxThresh)</l>
+<l>        threshold(Image2, Region4, MinThresh, MaxThresh)</l>
+<c>        </c>
+<c>        * SelectShape</c>
+<l>        select_shape(Region4, Region, 'inner_radius', 'and', 92, 99999)</l>
+<c>        </c>
+<l>        dev_display(Image)</l>
+<l>        dev_display(Region)</l>
+<l>        dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

@@ -1,0 +1,22 @@
+digraph Pipeline { 
+rankdir = "RL";94 [label="Union2\n"];
+38 [label="Union2\n"];
+74 [label="Opening\nStructElement=Ellipse\n A=12\n B=15"];
+25 [label="RegionGrowing\nRasterHeight=9\n RasterWidth=11\n Tolerance=1\n MinRegionSize=500"];
+21 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=31\n Scale=0,2"];
+47 [label="ExpandGray\nThreshold=30\n Iterations=7\n Mode=image"];
+39 [label="Union1\n"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+6 [label="MeanImage\nMaskWidth=297\n MaskHeight=431"];
+94 -> 38 [];
+94 -> 74 [];
+38 -> 25 [];
+38 -> 21 [];
+74 -> 47 [];
+74 -> 39 [];
+25 -> _1 [];
+21 -> 6 [];
+47 -> 39 [];
+39 -> 25 [];
+6 -> _1 [];
+}

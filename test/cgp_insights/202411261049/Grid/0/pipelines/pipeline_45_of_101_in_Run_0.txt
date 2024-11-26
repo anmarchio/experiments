@@ -1,0 +1,25 @@
+digraph Pipeline { 
+rankdir = "RL";74 [label="Opening\nStructElement=Rectangle\n A=17\n B=26"];
+65 [label="Union1\n"];
+41 [label="HistoToThresh\nSigma=4"];
+37 [label="Erosion1\nIterations=21\n StructElement=Circle\n A=9\n B=7"];
+20 [label="FastThreshold\nMinGray=96\n MaxGrayOffset=202\n MinSize=46"];
+3 [label="EliminateMinMax\nMaskWidth=5\n MaskHeight=13\n Gap=38\n Mode=1"];
+24 [label="CropRectangle\nMinRatio=0,0249999985098839\n MaskHeight=5\n MaskWidth=9"];
+10 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=3"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+13 [label="SobelAmp\nFilterType=x\n MaskSize=7"];
+1 [label="SmoothImage\nFilter=gauss\n Alpha=4,099999"];
+74 -> 65 [];
+74 -> 41 [];
+65 -> 37 [];
+41 -> 20 [];
+41 -> 3 [];
+37 -> 24 [];
+20 -> 10 [];
+3 -> _1 [];
+24 -> 13 [];
+10 -> 1 [];
+13 -> 3 [];
+1 -> _1 [];
+}

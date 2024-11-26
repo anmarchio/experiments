@@ -3,6 +3,7 @@ import sys
 from os.path import join as p_join
 
 from dashboard.acsos_plots import create_fitness_plot, create_acsos_complexity_plot
+from dashboard.cgp_insights_plot import plot_cgp_insights
 from dashboard.create_analysis_plots import read_database_and_plot_fitness_per_dataset, read_database_and_show_plots, \
     generate_plots_from_json, compute_complexity_and_fitness_correlation
 from dashboard.dashboard import matplot_dashboard, hvplot_test
@@ -21,11 +22,12 @@ def show_program_menu():
     print('6 -- Print Sample Plots')
     print('7 -- Create ACSOS Plot')
     print('8 -- Follow Up Optimization using SA / LS')
+    print('9 -- Plot CGP Insights')
     print('0 -- EXIT')
 
     print("\n")
     selection = input('Selection: ')
-    if 0 < int(selection) < 9:
+    if 0 < int(selection) < 10:
         return int(selection)
     return 0
 
@@ -117,6 +119,13 @@ def main() -> int:
         """
         read_database_and_plot_fitness_per_dataset(140, 500, show_names=True, create_plot=False)
         run_param_tuning()
+
+    if selection == 9:
+        """
+        Read data from test\cgp_insights and plot results
+        in separate charts for teaching/visualization
+        """
+        plot_cgp_insights()
 
 
 if __name__ == '__main__':

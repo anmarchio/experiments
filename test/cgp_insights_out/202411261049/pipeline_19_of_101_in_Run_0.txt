@@ -1,0 +1,11 @@
+digraph Pipeline { 
+rankdir = "RL";74 [label="Erosion1\nIterations=11\n StructElement=Circle\n A=13\n B=16"];
+31 [label="Connection\nNeighborhood=8"];
+20 [label="ThresholdAccessChannel\nChannel=3\n Threshold=25\n Sign=-1"];
+19 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+74 -> 31 [];
+31 -> 20 [];
+20 -> 19 [];
+19 -> _1 [];
+}

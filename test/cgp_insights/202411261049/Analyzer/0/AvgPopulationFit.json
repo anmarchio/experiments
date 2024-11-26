@@ -1,0 +1,406 @@
+[
+  {
+    "Generation": -1,
+    "AveragePopulationFitness": 0.0
+  },
+  {
+    "Generation": 0,
+    "AveragePopulationFitness": 0.0
+  },
+  {
+    "Generation": 1,
+    "AveragePopulationFitness": 0.0
+  },
+  {
+    "Generation": 2,
+    "AveragePopulationFitness": 0.0
+  },
+  {
+    "Generation": 3,
+    "AveragePopulationFitness": 0.0
+  },
+  {
+    "Generation": 4,
+    "AveragePopulationFitness": 0.041872104760313306
+  },
+  {
+    "Generation": 5,
+    "AveragePopulationFitness": 0.23950534236124132
+  },
+  {
+    "Generation": 6,
+    "AveragePopulationFitness": 0.23950534236124132
+  },
+  {
+    "Generation": 7,
+    "AveragePopulationFitness": 0.23950534236124132
+  },
+  {
+    "Generation": 8,
+    "AveragePopulationFitness": 0.23950534236124132
+  },
+  {
+    "Generation": 9,
+    "AveragePopulationFitness": 0.23950534236124132
+  },
+  {
+    "Generation": 10,
+    "AveragePopulationFitness": 0.23950534236124132
+  },
+  {
+    "Generation": 11,
+    "AveragePopulationFitness": 0.25695619016026144
+  },
+  {
+    "Generation": 12,
+    "AveragePopulationFitness": 0.25695619016026144
+  },
+  {
+    "Generation": 13,
+    "AveragePopulationFitness": 0.2726574734644035
+  },
+  {
+    "Generation": 14,
+    "AveragePopulationFitness": 0.2726574734644035
+  },
+  {
+    "Generation": 15,
+    "AveragePopulationFitness": 0.2726574734644035
+  },
+  {
+    "Generation": 16,
+    "AveragePopulationFitness": 0.2726574734644035
+  },
+  {
+    "Generation": 17,
+    "AveragePopulationFitness": 0.29549701913668736
+  },
+  {
+    "Generation": 18,
+    "AveragePopulationFitness": 0.29549701913668736
+  },
+  {
+    "Generation": 19,
+    "AveragePopulationFitness": 0.29549701913668736
+  },
+  {
+    "Generation": 20,
+    "AveragePopulationFitness": 0.29549701913668736
+  },
+  {
+    "Generation": 21,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 22,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 23,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 24,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 25,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 26,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 27,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 28,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 29,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 30,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 31,
+    "AveragePopulationFitness": 0.320323925253902
+  },
+  {
+    "Generation": 32,
+    "AveragePopulationFitness": 0.32728482909797579
+  },
+  {
+    "Generation": 33,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 34,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 35,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 36,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 37,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 38,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 39,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 40,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 41,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 42,
+    "AveragePopulationFitness": 0.338322327246335
+  },
+  {
+    "Generation": 43,
+    "AveragePopulationFitness": 0.3556076289951407
+  },
+  {
+    "Generation": 44,
+    "AveragePopulationFitness": 0.3556076289951407
+  },
+  {
+    "Generation": 45,
+    "AveragePopulationFitness": 0.3556076289951407
+  },
+  {
+    "Generation": 46,
+    "AveragePopulationFitness": 0.3556076289951407
+  },
+  {
+    "Generation": 47,
+    "AveragePopulationFitness": 0.3556076289951407
+  },
+  {
+    "Generation": 48,
+    "AveragePopulationFitness": 0.3556076289951407
+  },
+  {
+    "Generation": 49,
+    "AveragePopulationFitness": 0.43729978487101789
+  },
+  {
+    "Generation": 50,
+    "AveragePopulationFitness": 0.4483237800178364
+  },
+  {
+    "Generation": 51,
+    "AveragePopulationFitness": 0.4483237800178364
+  },
+  {
+    "Generation": 52,
+    "AveragePopulationFitness": 0.4483237800178364
+  },
+  {
+    "Generation": 53,
+    "AveragePopulationFitness": 0.4483237800178364
+  },
+  {
+    "Generation": 54,
+    "AveragePopulationFitness": 0.60768724216489811
+  },
+  {
+    "Generation": 55,
+    "AveragePopulationFitness": 0.60768724216489811
+  },
+  {
+    "Generation": 56,
+    "AveragePopulationFitness": 0.60768724216489811
+  },
+  {
+    "Generation": 57,
+    "AveragePopulationFitness": 0.60768724216489811
+  },
+  {
+    "Generation": 58,
+    "AveragePopulationFitness": 0.60768724216489811
+  },
+  {
+    "Generation": 59,
+    "AveragePopulationFitness": 0.60768724216489811
+  },
+  {
+    "Generation": 60,
+    "AveragePopulationFitness": 0.60768724216489811
+  },
+  {
+    "Generation": 61,
+    "AveragePopulationFitness": 0.60768724216489811
+  },
+  {
+    "Generation": 62,
+    "AveragePopulationFitness": 0.60768724216489811
+  },
+  {
+    "Generation": 63,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 64,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 65,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 66,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 67,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 68,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 69,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 70,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 71,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 72,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 73,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 74,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 75,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 76,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 77,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 78,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 79,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 80,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 81,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 82,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 83,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 84,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 85,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 86,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 87,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 88,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 89,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 90,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 91,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 92,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 93,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 94,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 95,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 96,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 97,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 98,
+    "AveragePopulationFitness": 0.639097919064202
+  },
+  {
+    "Generation": 99,
+    "AveragePopulationFitness": 0.639097919064202
+  }
+]

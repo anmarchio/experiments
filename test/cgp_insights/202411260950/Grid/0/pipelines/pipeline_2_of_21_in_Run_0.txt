@@ -1,0 +1,14 @@
+digraph Pipeline { 
+rankdir = "RL";69 [label="AreaToRectangle\n"];
+57 [label="CloseEdges\nMinAmplitude=155"];
+17 [label="SobelAmp\nFilterType=y\n MaskSize=5"];
+24 [label="RegionGrowing\nRasterHeight=13\n RasterWidth=1\n Tolerance=19\n MinRegionSize=50"];
+3 [label="BinomialFilter\nMaskHeight=13\n MaskWidth=27"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+69 -> 57 [];
+57 -> 17 [];
+57 -> 24 [];
+17 -> 3 [];
+24 -> _1 [];
+3 -> _1 [];
+}

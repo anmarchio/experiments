@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'MVTec_AD_Cable_Missing_mean_pipeline'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/cable_missing_train/images'</l>
+<l>output_path := 'out/'</l>
+<c></c>
+<l>dev_update_on()</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try         </l>
+<c>        * ======</c>
+<c>        * PATH 1</c>
+<c>        * ======</c>
+<c>        * eliminateminmax</c>
+<l>        MaskWidth := 13</l>
+<l>        MaskHeight := 27</l>
+<l>        binomial_filter(Image, Image1, MaskWidth, MaskHeight)</l>
+<c>        </c>
+<l>        dev_display(Image1)</l>
+<c>        </c>
+<c>        * sobel_amp</c>
+<l>        FilterType := 'y'</l>
+<l>        MaskSize := 5</l>
+<l>        sobel_amp(Image1, Image1, FilterType, MaskSize)</l>
+<c>        </c>
+<l>        dev_display(Image1)        </l>
+<l>        dev_disp_text('Image1', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<c>        </c>
+<c>        * ======</c>
+<c>        * PATH 2</c>
+<c>        * ======</c>
+<c>        * RegionGrowing</c>
+<l>        RasterHeight := 13</l>
+<l>        RasterWidth := 1</l>
+<l>        Tolerance := 19</l>
+<l>        MinRegionSize := 50</l>
+<l>        regiongrowing(Image, Region2, RasterHeight, RasterWidth, Tolerance, MinRegionSize)</l>
+<c>        </c>
+<l>        dev_display(Image)   </l>
+<l>        dev_display(Region2)</l>
+<l>        dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<c>        </c>
+<c>        * CloseEdges</c>
+<l>        get_image_type(Image1, Type)</l>
+<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>
+<l>            convert_image_type(Image1, Image1, 'byte')</l>
+<l>        endif</l>
+<l>        close_edges(Region2, Image1, Region, 155)</l>
+<c>        </c>
+<l>        dev_display(Image)</l>
+<l>        dev_display(Region)</l>
+<l>        dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<c>        </c>
+<c>        * AreaToRectangle        </c>
+<l>        area_center(Region, Area, Row, Column)</l>
+<l>        Num:= | Area |</l>
+<l>        gen_empty_region(Rectangles)</l>
+<l>        for Index1 := 1 to Num by 1</l>
+<l>            select_obj(Region, obj, Index1)</l>
+<l>            smallest_rectangle1(obj, Row11, Column11, Row21, Column21)</l>
+<l>            gen_rectangle1(Rectangle, Row11, Column11, Row21, Column21)</l>
+<l>            union2(Rectangles, Rectangle, Rectangles)</l>
+<l>        endfor        </l>
+<l>        Region := Rectangles</l>
+<c>        </c>
+<l>        dev_display(Image)</l>
+<l>        dev_display(Region)</l>
+<l>        dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
+<l>        stop()</l>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

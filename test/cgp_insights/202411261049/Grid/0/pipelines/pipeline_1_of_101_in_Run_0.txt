@@ -1,0 +1,11 @@
+digraph Pipeline { 
+rankdir = "RL";33 [label="SelectShape\nMin=89\n Max=99999\n Features=rectangularity"];
+25 [label="ZeroCrossing\n"];
+18 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+6 [label="GrayClosing\nStructElement=Circle\n A=3\n B=28\n GrayValueMax=0"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+33 -> 25 [];
+25 -> 18 [];
+18 -> 6 [];
+6 -> _1 [];
+}

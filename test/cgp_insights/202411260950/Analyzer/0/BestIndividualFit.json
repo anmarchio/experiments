@@ -1,0 +1,86 @@
+[
+  {
+    "Generation": -1,
+    "BestIndividualFitness": -0.00026740721033088395
+  },
+  {
+    "Generation": 0,
+    "BestIndividualFitness": -0.00026740721033088395
+  },
+  {
+    "Generation": 1,
+    "BestIndividualFitness": 0.0
+  },
+  {
+    "Generation": 2,
+    "BestIndividualFitness": 0.0
+  },
+  {
+    "Generation": 3,
+    "BestIndividualFitness": 0.0
+  },
+  {
+    "Generation": 4,
+    "BestIndividualFitness": 0.0
+  },
+  {
+    "Generation": 5,
+    "BestIndividualFitness": 0.81030595413663509
+  },
+  {
+    "Generation": 6,
+    "BestIndividualFitness": 0.91220240653300888
+  },
+  {
+    "Generation": 7,
+    "BestIndividualFitness": 0.91220240653300888
+  },
+  {
+    "Generation": 8,
+    "BestIndividualFitness": 0.91220240653300888
+  },
+  {
+    "Generation": 9,
+    "BestIndividualFitness": 0.91220240653300888
+  },
+  {
+    "Generation": 10,
+    "BestIndividualFitness": 0.91493853159199745
+  },
+  {
+    "Generation": 11,
+    "BestIndividualFitness": 0.91493853159199745
+  },
+  {
+    "Generation": 12,
+    "BestIndividualFitness": 0.91493853159199745
+  },
+  {
+    "Generation": 13,
+    "BestIndividualFitness": 0.91493853159199745
+  },
+  {
+    "Generation": 14,
+    "BestIndividualFitness": 0.91493853159199745
+  },
+  {
+    "Generation": 15,
+    "BestIndividualFitness": 0.91493853159199745
+  },
+  {
+    "Generation": 16,
+    "BestIndividualFitness": 0.91493853159199745
+  },
+  {
+    "Generation": 17,
+    "BestIndividualFitness": 0.91493853159199745
+  },
+  {
+    "Generation": 18,
+    "BestIndividualFitness": 0.91493853159199745
+  },
+  {
+    "Generation": 19,
+    "BestIndividualFitness": 0.91493853159199745
+  }
+]

@@ -1,0 +1,6 @@
+[
+  {
+    "trainingDataDirectory": "D:\\evias_expmts\\MVTecAnomalyDetection\\cable_missing_train",
+    "validationDataDirectory": "D:\\evias_expmts\\MVTecAnomalyDetection\\cable_missing_val"
+  }
+]

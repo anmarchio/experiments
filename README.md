@@ -45,6 +45,7 @@ The repository contains the following function to process experimental data:
   * `6 -- Print Sample Plots`
   * `7 -- Create ACSOS Plot`
   * `8 -- Follow Up Optimization using SA / LS`
+  * `8 -- Print Insight Plot of Cable Missing CGP Training`
   * `0 -- EXIT`
 
 #### Guide to Script Outputs

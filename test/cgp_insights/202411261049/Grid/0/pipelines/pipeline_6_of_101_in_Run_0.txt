@@ -1,0 +1,28 @@
+digraph Pipeline { 
+rankdir = "RL";74 [label="Opening\nStructElement=Ellipse\n A=27\n B=4"];
+55 [label="CloseEdges\nMinAmplitude=72"];
+30 [label="Union2\n"];
+11 [label="SobelAmp\nFilterType=x_binomial\n MaskSize=3"];
+27 [label="RegionGrowing\nRasterHeight=19\n RasterWidth=9\n Tolerance=5\n MinRegionSize=500"];
+28 [label="VarThreshold\nMaskWidth=19\n MaskHeight=13\n StdDevScale=-0,09999993\n AbsThreshold=19\n LightDark=light"];
+24 [label="AreaSizeThreshold\nMinGray=22\n MaxGray=239\n MinSize=10000\n MaxSize=18000\n WindowWidth=310\n WindowHeight=190"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+13 [label="SobelAmp\nFilterType=y\n MaskSize=5"];
+18 [label="SobelAmp\nFilterType=x\n MaskSize=5"];
+9 [label="MedianImage\nMaskType=circle\n Radius=29\n Margin=Sixty"];
+7 [label="GaussFilter\nMaskSize=7"];
+74 -> 55 [];
+74 -> 30 [];
+55 -> 11 [];
+55 -> 27 [];
+30 -> 28 [];
+30 -> 24 [];
+11 -> _1 [];
+27 -> 13 [];
+28 -> 18 [];
+24 -> 9 [];
+13 -> 7 [];
+18 -> _1 [];
+9 -> _1 [];
+7 -> _1 [];
+}

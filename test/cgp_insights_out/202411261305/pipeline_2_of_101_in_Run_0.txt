@@ -1,0 +1,13 @@
+digraph Pipeline { 
+rankdir = "RL";94 [label="Erosion1\nIterations=10\n StructElement=Ellipse\n A=13\n B=27"];
+77 [label="Closing\nA=25\n B=24\n C=1,178097\n StructElementType=Ellipse"];
+37 [label="Erosion1\nIterations=14\n StructElement=Rectangle\n A=17\n B=29"];
+24 [label="BinaryThreshold\nMethod=max_separability\n LightDark=light"];
+8 [label="EdgesImage\nFilter=canny\n Alpha=0,8\n Low=20\n High=40\n NonMaximumSuppression=nms"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+94 -> 77 [];
+77 -> 37 [];
+37 -> 24 [];
+24 -> 8 [];
+8 -> _1 [];
+}
