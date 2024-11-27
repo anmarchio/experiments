@@ -1,0 +1,406 @@
+[
+  {
+    "Generation": -1,
+    "AverageOffspringFitness": 0.0
+  },
+  {
+    "Generation": 0,
+    "AverageOffspringFitness": -4.5385685054074414E-05
+  },
+  {
+    "Generation": 1,
+    "AverageOffspringFitness": 0.0
+  },
+  {
+    "Generation": 2,
+    "AverageOffspringFitness": 0.0081186400011207371
+  },
+  {
+    "Generation": 3,
+    "AverageOffspringFitness": 0.0
+  },
+  {
+    "Generation": 4,
+    "AverageOffspringFitness": 0.0
+  },
+  {
+    "Generation": 5,
+    "AverageOffspringFitness": 0.0
+  },
+  {
+    "Generation": 6,
+    "AverageOffspringFitness": 0.0096526003904966688
+  },
+  {
+    "Generation": 7,
+    "AverageOffspringFitness": 0.0
+  },
+  {
+    "Generation": 8,
+    "AverageOffspringFitness": 0.0065829805057636311
+  },
+  {
+    "Generation": 9,
+    "AverageOffspringFitness": 0.015081575137687967
+  },
+  {
+    "Generation": 10,
+    "AverageOffspringFitness": -0.00041698719564848045
+  },
+  {
+    "Generation": 11,
+    "AverageOffspringFitness": 0.0017712274757808867
+  },
+  {
+    "Generation": 12,
+    "AverageOffspringFitness": 0.010740670302878548
+  },
+  {
+    "Generation": 13,
+    "AverageOffspringFitness": 0.030163150275375934
+  },
+  {
+    "Generation": 14,
+    "AverageOffspringFitness": 0.014786281754377375
+  },
+  {
+    "Generation": 15,
+    "AverageOffspringFitness": 0.028134948903573685
+  },
+  {
+    "Generation": 16,
+    "AverageOffspringFitness": 0.018764675352793692
+  },
+  {
+    "Generation": 17,
+    "AverageOffspringFitness": 0.011501360913278916
+  },
+  {
+    "Generation": 18,
+    "AverageOffspringFitness": 0.14838460025162487
+  },
+  {
+    "Generation": 19,
+    "AverageOffspringFitness": 0.026126109064585123
+  },
+  {
+    "Generation": 20,
+    "AverageOffspringFitness": 0.0073692707697775323
+  },
+  {
+    "Generation": 21,
+    "AverageOffspringFitness": 0.17840894245149169
+  },
+  {
+    "Generation": 22,
+    "AverageOffspringFitness": 0.31096336887905263
+  },
+  {
+    "Generation": 23,
+    "AverageOffspringFitness": 0.45218163662027488
+  },
+  {
+    "Generation": 24,
+    "AverageOffspringFitness": 0.087931224385096277
+  },
+  {
+    "Generation": 25,
+    "AverageOffspringFitness": 0.16107364501268129
+  },
+  {
+    "Generation": 26,
+    "AverageOffspringFitness": 0.389509496173202
+  },
+  {
+    "Generation": 27,
+    "AverageOffspringFitness": 0.21742866469748023
+  },
+  {
+    "Generation": 28,
+    "AverageOffspringFitness": 0.21326058840485423
+  },
+  {
+    "Generation": 29,
+    "AverageOffspringFitness": 0.013662010681236333
+  },
+  {
+    "Generation": 30,
+    "AverageOffspringFitness": 0.46937341949826455
+  },
+  {
+    "Generation": 31,
+    "AverageOffspringFitness": 0.042789657687643833
+  },
+  {
+    "Generation": 32,
+    "AverageOffspringFitness": 0.14099953289833142
+  },
+  {
+    "Generation": 33,
+    "AverageOffspringFitness": 0.15847078265388911
+  },
+  {
+    "Generation": 34,
+    "AverageOffspringFitness": 0.43061669970897593
+  },
+  {
+    "Generation": 35,
+    "AverageOffspringFitness": 0.12771134622540656
+  },
+  {
+    "Generation": 36,
+    "AverageOffspringFitness": 0.20662422737735092
+  },
+  {
+    "Generation": 37,
+    "AverageOffspringFitness": 0.19397642408691534
+  },
+  {
+    "Generation": 38,
+    "AverageOffspringFitness": 0.15922997576970394
+  },
+  {
+    "Generation": 39,
+    "AverageOffspringFitness": 0.31932288566634059
+  },
+  {
+    "Generation": 40,
+    "AverageOffspringFitness": 0.0
+  },
+  {
+    "Generation": 41,
+    "AverageOffspringFitness": 0.14889969102057096
+  },
+  {
+    "Generation": 42,
+    "AverageOffspringFitness": 0.26410423452403686
+  },
+  {
+    "Generation": 43,
+    "AverageOffspringFitness": 0.19513374194616764
+  },
+  {
+    "Generation": 44,
+    "AverageOffspringFitness": 0.268895822739984
+  },
+  {
+    "Generation": 45,
+    "AverageOffspringFitness": 0.3326399362236081
+  },
+  {
+    "Generation": 46,
+    "AverageOffspringFitness": -0.00408449921807187
+  },
+  {
+    "Generation": 47,
+    "AverageOffspringFitness": 0.10466757597214492
+  },
+  {
+    "Generation": 48,
+    "AverageOffspringFitness": 0.30569816758003054
+  },
+  {
+    "Generation": 49,
+    "AverageOffspringFitness": 0.350645927798542
+  },
+  {
+    "Generation": 50,
+    "AverageOffspringFitness": 0.0
+  },
+  {
+    "Generation": 51,
+    "AverageOffspringFitness": 0.003142801411091876
+  },
+  {
+    "Generation": 52,
+    "AverageOffspringFitness": 0.3805739502591749
+  },
+  {
+    "Generation": 53,
+    "AverageOffspringFitness": 0.15813752881580381
+  },
+  {
+    "Generation": 54,
+    "AverageOffspringFitness": 0.003617220501524355
+  },
+  {
+    "Generation": 55,
+    "AverageOffspringFitness": 0.20110687447445835
+  },
+  {
+    "Generation": 56,
+    "AverageOffspringFitness": 0.20252006941397593
+  },
+  {
+    "Generation": 57,
+    "AverageOffspringFitness": 0.23575638277432173
+  },
+  {
+    "Generation": 58,
+    "AverageOffspringFitness": 0.14707620280603395
+  },
+  {
+    "Generation": 59,
+    "AverageOffspringFitness": 0.23585792369407033
+  },
+  {
+    "Generation": 60,
+    "AverageOffspringFitness": 0.47681333837677609
+  },
+  {
+    "Generation": 61,
+    "AverageOffspringFitness": 0.16448044251460819
+  },
+  {
+    "Generation": 62,
+    "AverageOffspringFitness": 0.3490970110085132
+  },
+  {
+    "Generation": 63,
+    "AverageOffspringFitness": 0.18935677294851261
+  },
+  {
+    "Generation": 64,
+    "AverageOffspringFitness": 0.11624681139429924
+  },
+  {
+    "Generation": 65,
+    "AverageOffspringFitness": 0.14657686855567664
+  },
+  {
+    "Generation": 66,
+    "AverageOffspringFitness": 0.18359024675806648
+  },
+  {
+    "Generation": 67,
+    "AverageOffspringFitness": 0.32330985054164468
+  },
+  {
+    "Generation": 68,
+    "AverageOffspringFitness": 0.14851287867908902
+  },
+  {
+    "Generation": 69,
+    "AverageOffspringFitness": 0.21861347012757376
+  },
+  {
+    "Generation": 70,
+    "AverageOffspringFitness": 0.32520513966554354
+  },
+  {
+    "Generation": 71,
+    "AverageOffspringFitness": 0.17175170243599169
+  },
+  {
+    "Generation": 72,
+    "AverageOffspringFitness": 0.15528642184064786
+  },
+  {
+    "Generation": 73,
+    "AverageOffspringFitness": 0.129732694213141
+  },
+  {
+    "Generation": 74,
+    "AverageOffspringFitness": 0.0238199653361899
+  },
+  {
+    "Generation": 75,
+    "AverageOffspringFitness": 0.055029134610754739
+  },
+  {
+    "Generation": 76,
+    "AverageOffspringFitness": 0.039412499667196052
+  },
+  {
+    "Generation": 77,
+    "AverageOffspringFitness": 0.47754411977858413
+  },
+  {
+    "Generation": 78,
+    "AverageOffspringFitness": 0.16834828509385213
+  },
+  {
+    "Generation": 79,
+    "AverageOffspringFitness": 0.00539400447139539
+  },
+  {
+    "Generation": 80,
+    "AverageOffspringFitness": 0.024362946619828338
+  },
+  {
+    "Generation": 81,
+    "AverageOffspringFitness": 0.014696796782345591
+  },
+  {
+    "Generation": 82,
+    "AverageOffspringFitness": 0.062102566493036679
+  },
+  {
+    "Generation": 83,
+    "AverageOffspringFitness": 0.17605500184389572
+  },
+  {
+    "Generation": 84,
+    "AverageOffspringFitness": 0.5973513232079074
+  },
+  {
+    "Generation": 85,
+    "AverageOffspringFitness": 0.16304404114933457
+  },
+  {
+    "Generation": 86,
+    "AverageOffspringFitness": 0.16872404213115272
+  },
+  {
+    "Generation": 87,
+    "AverageOffspringFitness": 0.029708278804838034
+  },
+  {
+    "Generation": 88,
+    "AverageOffspringFitness": 0.32333491922628088
+  },
+  {
+    "Generation": 89,
+    "AverageOffspringFitness": 0.36651594075029714
+  },
+  {
+    "Generation": 90,
+    "AverageOffspringFitness": 0.0063155051659742291
+  },
+  {
+    "Generation": 91,
+    "AverageOffspringFitness": 0.1951291180867524
+  },
+  {
+    "Generation": 92,
+    "AverageOffspringFitness": 0.29698312124614235
+  },
+  {
+    "Generation": 93,
+    "AverageOffspringFitness": 0.2629137324974512
+  },
+  {
+    "Generation": 94,
+    "AverageOffspringFitness": 0.33284584668031525
+  },
+  {
+    "Generation": 95,
+    "AverageOffspringFitness": 0.11549354637498782
+  },
+  {
+    "Generation": 96,
+    "AverageOffspringFitness": 0.14391987173761198
+  },
+  {
+    "Generation": 97,
+    "AverageOffspringFitness": 0.16285223459045772
+  },
+  {
+    "Generation": 98,
+    "AverageOffspringFitness": 0.1403700568194359
+  },
+  {
+    "Generation": 99,
+    "AverageOffspringFitness": 0.16074469036099895
+  }
+]

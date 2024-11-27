@@ -1,0 +1,1 @@
+Iteration: 0 Best Fitness: 0,646669838452562

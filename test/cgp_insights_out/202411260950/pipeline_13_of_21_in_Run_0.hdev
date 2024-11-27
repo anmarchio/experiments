@@ -36,13 +36,15 @@
 <c>        * SobelAmp</c>
 <l>        sobel_amp(Image1, Image1, 'y_binomial', 3)</l>
 <c>        </c>
+<l>        dev_display(Image1)</l>
+<c>        </c>
 <c>        * AutoThreshold</c>
 <l>        convert_image_type(Image1, Image1, 'byte')</l>
 <l>        auto_threshold(Image1, Region1, 5)</l>
 <c>        </c>
 <l>        dev_display(Image)</l>
 <l>        dev_display(Region1)</l>
-<l>        dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * ======</c>
@@ -117,7 +119,7 @@
 <c>        </c>
 <l>        dev_display(Image)   </l>
 <l>        dev_display(Region2)</l>
-<l>        dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * ======</c>
@@ -127,7 +129,7 @@
 <l>        gauss_filter(Image, Image2, 9)</l>
 <c>        </c>
 <l>        dev_display(Image2)</l>
-<l>        dev_disp_text('Image2', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Image2', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * ======</c>
@@ -142,9 +144,9 @@
 <c>        * SigmaImage</c>
 <l>        sigma_image(Image, Image3, 11, 7, 106)</l>
 <c>        </c>
-<l>        dev_display(Image)</l>
-<l>        dev_display(Region)</l>
-<l>        dev_disp_text('Path3', 'window', 12, 12, 'black', [], [])</l>
+<l>        dev_display(Image3)</l>
+<l>        dev_display(Region12)</l>
+<l>        *dev_disp_text('Path3', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * ======</c>
@@ -162,7 +164,7 @@
 <c>        </c>
 <l>        dev_display(Image)</l>
 <l>        dev_display(Region)</l>
-<l>        dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>

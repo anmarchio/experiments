@@ -1,0 +1,6 @@
+[
+  {
+    "trainingDataDirectory": "D:\\evias_expmts\\MVTecAnomalyDetection\\tile_crack_train",
+    "validationDataDirectory": "D:\\evias_expmts\\MVTecAnomalyDetection\\tile_crack_val"
+  }
+]

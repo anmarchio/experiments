@@ -1,0 +1,7 @@
+digraph Pipeline { 
+rankdir = "RL";85 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=21\n Scale=0,5"];
+6 [label="GrayClosing\nStructElement=Circle\n A=7\n B=2\n GrayValueMax=10"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+85 -> 6 [];
+6 -> _1 [];
+}

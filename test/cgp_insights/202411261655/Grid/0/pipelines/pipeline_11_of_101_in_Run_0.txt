@@ -1,0 +1,17 @@
+digraph Pipeline { 
+rankdir = "RL";77 [label="Erosion1\nIterations=16\n StructElement=Circle\n A=15\n B=28"];
+40 [label="HistoToThresh\nSigma=3"];
+35 [label="Union2\n"];
+16 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+28 [label="VarThreshold\nMaskWidth=13\n MaskHeight=5\n StdDevScale=-0,9\n AbsThreshold=123\n LightDark=dark"];
+26 [label="BinaryThreshold\nMethod=max_separability\n LightDark=dark"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+77 -> 40 [];
+40 -> 35 [];
+40 -> 16 [];
+35 -> 28 [];
+35 -> 26 [];
+16 -> _1 [];
+28 -> _1 [];
+26 -> _1 [];
+}

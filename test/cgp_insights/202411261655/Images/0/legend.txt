@@ -1,0 +1,3 @@
+Red: actual (ist)
+Green: reference (soll)
+Yellow: intersection of actual and reference, i.e. true positives

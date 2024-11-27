@@ -23,6 +23,8 @@
 <l>    endif</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
 <l>    get_image_size(Image, Width, Height)</l>
+<c>    </c>
+<l>    dev_display(Image)</l>
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
@@ -43,7 +45,7 @@
 <l>        sobel_amp(Image1, Image1, FilterType, MaskSize)</l>
 <c>        </c>
 <l>        dev_display(Image1)        </l>
-<l>        dev_disp_text('Image1', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Image1', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * ======</c>
@@ -58,7 +60,7 @@
 <c>        </c>
 <l>        dev_display(Image)   </l>
 <l>        dev_display(Region2)</l>
-<l>        dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * CloseEdges</c>
@@ -68,9 +70,9 @@
 <l>        endif</l>
 <l>        close_edges(Region2, Image1, Region, 155)</l>
 <c>        </c>
-<l>        dev_display(Image)</l>
+<l>        dev_display(Image1)</l>
 <l>        dev_display(Region)</l>
-<l>        dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * AreaToRectangle        </c>
@@ -87,7 +89,7 @@
 <c>        </c>
 <l>        dev_display(Image)</l>
 <l>        dev_display(Region)</l>
-<l>        dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>

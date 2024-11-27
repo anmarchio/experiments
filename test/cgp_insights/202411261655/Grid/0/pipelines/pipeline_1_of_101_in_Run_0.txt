@@ -1,0 +1,16 @@
+digraph Pipeline { 
+rankdir = "RL";78 [label="Closing\nA=3\n B=4\n C=0\n StructElementType=Rectangle"];
+40 [label="HistoToThresh\nSigma=2"];
+29 [label="AutoThreshold\nSigma=2"];
+9 [label="EdgesImage\nFilter=canny\n Alpha=1,2\n Low=5\n High=10\n NonMaximumSuppression=nms"];
+10 [label="SobelAmp\nFilterType=x_binomial\n MaskSize=5"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+7 [label="AnisotropicDiffusion\nDiffusionCoefficient=parabolic\n Contrast=50\n Theta=1\n Iterations=1"];
+78 -> 40 [];
+40 -> 29 [];
+40 -> 9 [];
+29 -> 10 [];
+9 -> _1 [];
+10 -> 7 [];
+7 -> _1 [];
+}

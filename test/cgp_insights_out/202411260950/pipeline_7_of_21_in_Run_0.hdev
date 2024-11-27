@@ -50,7 +50,7 @@
 <c>        </c>
 <l>        dev_display(Image)   </l>
 <l>        dev_display(Region1)</l>
-<l>        dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Region2', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * ======</c>
@@ -69,7 +69,7 @@
 <l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>
 <c>        </c>
 <l>        dev_display(Image2)</l>
-<l>        dev_disp_text('Image2', 'window', 12, 12, 'black', [], [])</l>
+<l>        *dev_disp_text('Image2', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * ======</c>
@@ -91,26 +91,26 @@
 <l>        phi := 0.0         </l>
 <l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>
 <l>        gen_ellipse(StructElement2, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
-<l>        opening(Region1, StructElement2, Region)</l>
+<l>        opening(Region1, StructElement2, Region1)</l>
 <c>        </c>
 <l>        dev_display(Image)</l>
-<l>        dev_display(Region)</l>
-<l>        dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
+<l>        dev_display(Region1)</l>
+<l>        *dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <c>        </c>
 <c>        * HistoToThresh</c>
 <l>        Sigma := 1</l>
-<l>        union1(Region, Region)</l>
-<l>        gray_histo(Region, Image1, AbsoluteHisto, RelativeHisto)</l>
+<l>        union1(Region1, Region1)</l>
+<l>        gray_histo(Region1, Image1, AbsoluteHisto, RelativeHisto)</l>
 <l>        histo_to_thresh(AbsoluteHisto, Sigma, MinThresh, MaxThresh)</l>
 <l>        threshold(Image1, Region2, MinThresh, MaxThresh)</l>
 <c>        </c>
 <c>        * SelectShape</c>
-<l>        select_shape(Region2, Region3, 'inner_radius', 'and', 92, 99999)</l>
+<l>        select_shape(Region2, Region, 'inner_radius', 'and', 92, 99999)</l>
 <c>        </c>
 <l>        dev_display(Image)</l>
-<l>        dev_display(Region3)</l>
-<l>        dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
+<l>        dev_display(Region)</l>
+<l>        *dev_disp_text('Final', 'window', 12, 12, 'black', [], [])</l>
 <l>        stop()</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
