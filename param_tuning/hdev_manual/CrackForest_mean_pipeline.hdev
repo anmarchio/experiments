@@ -3,8 +3,8 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'MVTec_AD_Zipper_Rough_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/MVTecAnomalyDetection/zipper_rough_train/images'</l>
+<l>dataset_name := 'CrackForest_mean_pipeline'</l>
+<l>source_path := 'D:/evias_expmts/CrackForest/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -25,30 +25,15 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<l>        MaskSize1 := 11</l>
-<c>        </c>
+<c>        * rankdir = "RL";80 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=21\n Scale=0,3"];</c>
+<c>        * _1 [label="HalconInputNode\nProgramInputIdentifier=-1"];</c>
 <l>        Method := 'adapted_std_deviation'</l>
 <l>        LightDark := 'dark'</l>
 <l>        MaskSize := 21</l>
-<l>        Scale := 0.2</l>
+<l>        Scale := 0.3</l>
 <c>        </c>
-<l>        A := 22</l>
-<l>        B := 20</l>
-<l>        C := -0.785398</l>
-<c>        </c>
-<c>        * GaussFilter</c>
-<c>        * 7 [label="GaussFilter\nMaskSize=11"];</c>
-<l>        gauss_filter(Image, Image, MaskSize1)</l>
-<c></c>
-<c>        * LocalThreshold</c>
-<c>        * 27 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=21\n Scale=0.2"];</c>
+<c>        * LocalThreshold        </c>
 <l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])        </l>
-<c>        </c>
-<c>        * Closing</c>
-<c>        * 38 [label="Closing\nA=22\n B=20\n C=-0.785398\n StructElementType=Rectangle"];        </c>
-<l>        gen_rectangle1(RectangleStructElement, 0, 0, A, B)</l>
-<l>        closing(Region, RectangleStructElement, Region)</l>
-<c>        </c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

@@ -5,8 +5,7 @@ from os.path import join as p_join
 from dashboard.acsos_plots import create_fitness_plot, create_acsos_complexity_plot
 from dashboard.cgp_insights_plot import plot_cgp_insights
 from dashboard.create_analysis_plots import read_database_and_plot_fitness_per_dataset, read_database_and_show_plots, \
-    generate_plots_from_json, compute_complexity_and_fitness_correlation, plot_missing_ls_sa_values, \
-    plot_missing_cgp_charts
+    generate_plots_from_json, compute_complexity_and_fitness_correlation
 from dashboard.dashboard import matplot_dashboard, hvplot_test
 from dashboard.plotting import computations_per_computing_unit, plot_sample, plot_fitness_evolution, \
     fancy_mean_plot, entropy_fitness_plot, fitness_boxplots
@@ -23,7 +22,7 @@ def show_program_menu():
     print('6 -- Print Sample Plots')
     print('7 -- Create ACSOS Plot')
     print('8 -- Follow Up Optimization using SA / LS')
-    print('8 -- Plot Missing SA/LS and CGP Evolutions')
+    print('9 -- Plot Missing SA/LS and CGP Evolutions')
     print('10 -- Plot CGP Insights')
     print('0 -- EXIT')
 
@@ -119,14 +118,15 @@ def main() -> int:
         extract the pipeline, convert it to HDEV code.
         Then apply Simulated Annealing / Local Search to tune the real valued parameters. 
         """
-        read_database_and_plot_fitness_per_dataset(140, 500, show_names=True, create_plot=False)
+        # read_database_and_plot_fitness_per_dataset(140, 500, show_names=True, create_plot=False)
         run_param_tuning()
 
     if selection == 9:
+        #plot_missing_ls_sa_values()
         """
+        Plots fitness evolution plot for transistor and crackforest
         """
-        plot_missing_ls_sa_values()
-        plot_missing_cgp_charts()
+        read_database_and_show_plots(48, 51, grouped_dataset=True, show_legend=(yesno == 'y'))
 
     if selection == 10:
         """

@@ -76,6 +76,21 @@ def get_ellipse_struct_code(A, B, phi):
     return ellipse_struct_code
 
 
+def get_circle_struct_code():
+    circle_struct_code = f"<c>        * StructElementType Circle</c>\n" + \
+                         f"<l>        StructElementType := 'Circle'</l>\n" + \
+                         f"<l>        shape_param0 := 0</l>\n" + \
+                         f"<l>        shape_param1 := 0</l>\n" + \
+                         f"<l>        shape_param2 := 0</l>\n" + \
+                         f"<l>        gen_empty_obj(StructElement)</l>\n" + \
+                         f"<c>        </c>\n" + \
+                         f"<l>        if(StructElementType == 'Circle')0</l>\n" + \
+                         f"<l>            tuple_ceil(shape_param0 + 1, shape_param0_ceil)\n" + \
+                         f"<l>            gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, shape_param0)</l>\n" + \
+                         f"<l>        endif</l>\n"
+    return circle_struct_code
+
+
 def get_crop_rectangle_code():
     crop_rectangle_code = "<c></c>\n" \
                           "<c>        * CropRectangle  </c>\n" \

@@ -29,6 +29,8 @@ from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_4_mean import AirCarbon3_80
 from param_tuning.hdev_manual.AirCarbon3_80_jpg_dark_5_mean import AirCarbon3_80_jpg_dark_5_training_source_path, \
     get_AirCarbon3_80_jpg_dark_5_mean_pipeline, AirCarbon3_80_jpg_dark_5_mean_pipeline_bounds, \
     AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params
+from param_tuning.hdev_manual.CrackForest_mean import CrackForest_training_source_path, get_CrackForest_mean_pipeline, \
+    CrackForest_mean_pipeline_bounds, CrackForest_mean_pipeline_initial_params
 from param_tuning.hdev_manual.MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline import \
     MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path, \
     get_MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline, \
@@ -100,6 +102,9 @@ from param_tuning.hdev_manual.MVTec_AD_Tile_Crack_mean import MVTec_AD_Tile_Crac
 from param_tuning.hdev_manual.MVTec_AD_Toothbrush_Sm_mean import MVTec_AD_Toothbrush_Sm_mean_pipeline_bounds, \
     MVTec_AD_Toothbrush_Sm_mean_pipeline_initial_params, get_MVTec_AD_Toothbrush_Sm_mean_pipeline, \
     MVTec_AD_Toothbrush_Sm_training_source_path
+from param_tuning.hdev_manual.MVTec_AD_Transistor_mean import MVTec_AD_Transistor_training_source_path, \
+    get_MVTec_AD_Transistor_mean_pipeline, MVTec_AD_Transistor_mean_pipeline_bounds, \
+    MVTec_AD_Transistor_mean_pipeline_initial_params
 from param_tuning.hdev_manual.MVTec_AD_Wood_Scratch_mean_pipeline import MVTec_AD_Wood_Scratch_training_source_path, \
     get_MVTec_AD_Wood_Scratch_mean_pipeline, MVTec_AD_Wood_Scratch_mean_pipeline_bounds, \
     MVTec_AD_Wood_Scratch_mean_pipeline_initial_params
@@ -119,42 +124,44 @@ from param_tuning.hdev_manual.severstal_steel_mean import severstal_steel_mean_p
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_MEAN = [
-    "AirCarbon2_t_8.jpg_mean_pipeline",
-    "AirCarbon3_80.jpg_bright_mean_pipeline",
-    "AirCarbon3_80.jpg_dark_1_mean_pipeline",
-    "AirCarbon3_80.jpg_dark_2_mean_pipeline",
-    "AirCarbon3_80.jpg_dark_3_mean_pipeline",
-    "AirCarbon3_80.jpg_dark_4_mean_pipeline",
-    "AirCarbon3_80.jpg_dark_5_mean_pipeline",
-    "KolektorSDD_mean_pipeline",
-    "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
-    "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
-    "MAIPreform2_Spule0_0315_Upside_mean_pipeline",
-    "MAIPreform2_Spule0_0816_Upside_mean_pipeline",
-    "CF_ReferenceSet_mean_pipeline",
-    "CF_ReferenceSet_Small_Dark_mean_pipeline",
-    "CF_ReferenceSet_Small_Light_mean_pipeline",
-    "FabricDefectsAITEX_mean_pipeline",
-    "MT_Blowhole_train_mean_pipeline",
-    "MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
-    "MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
-    "MVTec_AD_Cable_Missing_mean_pipeline",
-    "MVTec_AD_Capsule_mean_pipeline",
-    "MVTec_AD_Carpet_mean_pipeline",
-    "MVTec_AD_Grid_Thread_mean_pipeline",
-    "MVTec_AD_Hazelnut_Crack_mean_pipeline",
-    "MVTec_AD_Leather_mean_pipeline",
-    "MVTec_AD_Metal_Nut_mean_pipeline",
-    "MVTec_AD_Pill_Crack_mean_pipeline",
-    "MVTec_AD_Screw_Scratch_mean_pipeline",
-    "MVTec_AD_Tile_Crack_mean_pipeline",
-    "MVTec_AD_Toothbrush_Sm_mean_pipeline",
-    "MVTec_AD_Wood_Scratch_mean_pipeline",
-    "MVTec_AD_Zipper_Rough_mean_pipeline",
-    "Pultrusion_Resin_Augmtd_mean_pipeline",
-    "Pultrusion_Resin_mean_pipeline",
-    "Pultrusion_Window_mean_pipeline",
-    "severstal-steel_mean_pipeline"
+    #"AirCarbon2_t_8.jpg_mean_pipeline",
+    #"AirCarbon3_80.jpg_bright_mean_pipeline",
+    #"AirCarbon3_80.jpg_dark_1_mean_pipeline",
+    #"AirCarbon3_80.jpg_dark_2_mean_pipeline",
+    #"AirCarbon3_80.jpg_dark_3_mean_pipeline",
+    #"AirCarbon3_80.jpg_dark_4_mean_pipeline",
+    #"AirCarbon3_80.jpg_dark_5_mean_pipeline",
+    #"KolektorSDD_mean_pipeline",
+    #"MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
+    #"MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
+    #"MAIPreform2_Spule0_0315_Upside_mean_pipeline",
+    #"MAIPreform2_Spule0_0816_Upside_mean_pipeline",
+    #"CF_ReferenceSet_mean_pipeline",
+    #"CF_ReferenceSet_Small_Dark_mean_pipeline",
+    #"CF_ReferenceSet_Small_Light_mean_pipeline",
+    #"FabricDefectsAITEX_mean_pipeline",
+    #"MT_Blowhole_train_mean_pipeline",
+    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
+    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
+    #"MVTec_AD_Cable_Missing_mean_pipeline",
+    #"MVTec_AD_Capsule_mean_pipeline",
+    #"MVTec_AD_Carpet_mean_pipeline",
+    #"MVTec_AD_Grid_Thread_mean_pipeline",
+    #"MVTec_AD_Hazelnut_Crack_mean_pipeline",
+    #"MVTec_AD_Leather_mean_pipeline",
+    #"MVTec_AD_Metal_Nut_mean_pipeline",
+    #"MVTec_AD_Pill_Crack_mean_pipeline",
+    #"MVTec_AD_Screw_Scratch_mean_pipeline",
+    #"MVTec_AD_Tile_Crack_mean_pipeline",
+    #"MVTec_AD_Toothbrush_Sm_mean_pipeline",
+    #"MVTec_AD_Wood_Scratch_mean_pipeline",
+    #"MVTec_AD_Zipper_Rough_mean_pipeline",
+    #"Pultrusion_Resin_Augmtd_mean_pipeline",
+    #"Pultrusion_Resin_mean_pipeline",
+    #"Pultrusion_Window_mean_pipeline",
+    #"severstal-steel_mean_pipeline",
+    "CrackForest_mean_pipeline", # <=== Missing Follow-Up
+    "MVTec_AD_Transistor_mean_pipeline" # <=== Missing Follow-Up
 ]
 
 
@@ -256,6 +263,10 @@ def get_manual_hdev_pipeline_training_source_path(pipeline_name: str) -> str:
         return Pultrusion_Window_training_source_path
     elif pipeline_name == "severstal-steel_mean_pipeline":
         return severstal_steel_training_source_path
+    elif pipeline_name == "MVTec_AD_Transistor_mean_pipeline":
+        return MVTec_AD_Transistor_training_source_path
+    elif pipeline_name == "CrackForest_mean_pipeline":
+        return CrackForest_training_source_path
 
     return None
 
@@ -301,7 +312,9 @@ pipelines = {
     "Pultrusion_Resin_Augmtd_mean_pipeline": get_Pultrusion_Resin_Augmtd_mean_pipeline,
     "Pultrusion_Resin_mean_pipeline": get_Pultrusion_Resin_mean_pipeline,
     "Pultrusion_Window_mean_pipeline": get_Pultrusion_Window_mean_pipeline,
-    "severstal-steel_mean_pipeline": get_severstal_steel_mean_pipeline
+    "severstal-steel_mean_pipeline": get_severstal_steel_mean_pipeline,
+    "MVTec_AD_Transistor_mean_pipeline": get_MVTec_AD_Transistor_mean_pipeline,
+    "CrackForest_mean_pipeline": get_CrackForest_mean_pipeline,
 }
 
 bounds = {
@@ -339,7 +352,9 @@ bounds = {
     "Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_mean_pipeline_bounds,
     "Pultrusion_Resin_mean_pipeline": Pultrusion_Resin_mean_pipeline_bounds,
     "Pultrusion_Window_mean_pipeline": Pultrusion_Window_mean_pipeline_bounds,
-    "severstal-steel_mean_pipeline": severstal_steel_bounds
+    "severstal-steel_mean_pipeline": severstal_steel_bounds,
+    "MVTec_AD_Transistor_mean_pipeline": MVTec_AD_Transistor_mean_pipeline_bounds,
+    "CrackForest_mean_pipeline": CrackForest_mean_pipeline_bounds
 }
 
 initial_params = {
@@ -377,5 +392,7 @@ initial_params = {
     "Pultrusion_Resin_Augmtd_mean_pipeline": Pultrusion_Resin_Augmtd_mean_pipeline_initial_params,
     "Pultrusion_Resin_mean_pipeline": Pultrusion_Resin_mean_pipeline_initial_params,
     "Pultrusion_Window_mean_pipeline": Pultrusion_Window_mean_pipeline_initial_params,
-    "severstal-steel_mean_pipeline": severstal_steel_mean_pipeline_initial_params
+    "severstal-steel_mean_pipeline": severstal_steel_mean_pipeline_initial_params,
+    "MVTec_AD_Transistor_mean_pipeline": MVTec_AD_Transistor_mean_pipeline_initial_params,
+    "CrackForest_mean_pipeline": CrackForest_mean_pipeline_initial_params
 }

@@ -248,22 +248,3 @@ def read_database_and_plot_fitness_per_dataset(
         )
 
     print_fitness_values_in_table(dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs)
-
-
-def plot_missing_ls_sa_values():
-    raise NotImplementedError
-    """
-    * `9 -- Plot Missing SA/LS and CGP Evolutions`
-      * creates plot of transistor and roadcracks cgp fitness progress
-      * computes sa/ls for the same pipelines (transistor and roadcracks)
-    """
-
-
-def plot_missing_cgp_charts():
-    raise NotImplementedError
-    """    
-    * `10 -- Plot CGP Insights`
-      * Read from `test\cgp_insights` logs for missing_cable and tile_cracks
-      * creates dot pipeline charts for generations with a fitness increase
-      * writes it to `test\cgp_insights_out`
-    """
