@@ -84,8 +84,8 @@ def get_circle_struct_code():
                          f"<l>        shape_param2 := 0</l>\n" + \
                          f"<l>        gen_empty_obj(StructElement)</l>\n" + \
                          f"<c>        </c>\n" + \
-                         f"<l>        if(StructElementType == 'Circle')0</l>\n" + \
-                         f"<l>            tuple_ceil(shape_param0 + 1, shape_param0_ceil)\n" + \
+                         f"<l>        if(StructElementType == 'Circle')</l>\n" + \
+                         f"<l>            tuple_ceil(shape_param0 + 1, shape_param0_ceil)</l>\n" + \
                          f"<l>            gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, shape_param0)</l>\n" + \
                          f"<l>        endif</l>\n"
     return circle_struct_code

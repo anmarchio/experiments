@@ -123,21 +123,15 @@
 <c>        * ------</c>
 <c>        * PATH 3</c>
 <c>        * ------</c>
+<l>        union1(Region2, Region2)</l>
 <l>        union2(Region1, Region2, Region)</l>
 <c>        </c>
-<c>        * Opening        </c>
-<l>        StructElementType := 'Circle'</l>
-<l>        shape_param0 := 0</l>
-<l>        shape_param1 := 0</l>
-<l>        shape_param2 := 0</l>
-<l>        gen_empty_obj(StructElement)</l>
-<c>        </c>
-<l>        if(StructElementType == 'Circle')</l>
-<l>            tuple_ceil(shape_param0 + 1, shape_param0_ceil)            </l>
-<l>            gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, shape_param0)</l>
-<l>        endif</l>
-<c>        </c>
-<l>        opening(Region1, StructElement, Region)</l>
+<c>        * Opening</c>
+<l>        tuple_ceil(A + 1, param1)</l>
+<l>        tuple_ceil(B + 1, param2)</l>
+<l>        gen_circle(StructElement1, param1, param2, A)</l>
+<l>        opening(Region, StructElement1, Region)</l>
+<l>        dev_disp_text('hello', 'window', Row1, Col1, 'black', [], [])</l>
 <c>        </c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>

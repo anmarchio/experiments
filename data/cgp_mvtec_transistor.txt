@@ -1,0 +1,12 @@
+Transistor
+202411181407\Analyzer\0\BestIndividualFit.txt
+202411181407\Analyzer\1
+202411181407\Analyzer\2
+202411181407\Analyzer\3
+202411181407\Analyzer\4
+
+202411191517\Analyzer\0\BestIndividualFit.txt
+202411191517\Analyzer\1
+202411191517\Analyzer\2
+202411191517\Analyzer\3
+202411191517\Analyzer\4

@@ -33,6 +33,13 @@ def show_program_menu():
     return 0
 
 
+def plot_missing_cgp_values():
+    - read cgp_mvtec BestIndividualFit
+    - transfer to fit_values_array
+    - transfer to std_dev array
+    - plot and save chart
+
+
 def main() -> int:
     """
     Set Default Paths
@@ -122,11 +129,12 @@ def main() -> int:
         run_param_tuning()
 
     if selection == 9:
-        #plot_missing_ls_sa_values()
+        # plot_missing_ls_sa_values()
         """
         Plots fitness evolution plot for transistor and crackforest
         """
-        read_database_and_show_plots(48, 51, grouped_dataset=True, show_legend=(yesno == 'y'))
+        #read_database_and_show_plots(48, 51, grouped_dataset=True, show_legend=(yesno == 'y'))
+        plot_missing_cgp_values()
 
     if selection == 10:
         """

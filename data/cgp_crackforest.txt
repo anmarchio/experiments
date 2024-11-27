@@ -1,0 +1,12 @@
+RoadCracks
+202411172145\Analyzer\0\BestIndividualFit.txt
+202411172145\Analyzer\1
+202411172145\Analyzer\2
+202411172145\Analyzer\3
+202411172145\Analyzer\4
+
+202411182020\Analyzer\0\BestIndividualFit.txt
+202411182020\Analyzer\1
+202411182020\Analyzer\2
+202411182020\Analyzer\3
+202411182020\Analyzer\4

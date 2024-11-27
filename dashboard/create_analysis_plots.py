@@ -248,3 +248,25 @@ def read_database_and_plot_fitness_per_dataset(
         )
 
     print_fitness_values_in_table(dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs)
+
+
+def plot_missing_ls_sa_values():
+    title = "Transistor"
+    show_legend = True
+    fit_values = []
+    mean_std_dev_fit_values = [0.2749]
+    plot_mean_std_dev_fitness_arrays(
+        title,
+        "Best Individual",
+        fit_values,
+        mean_std_dev_fit_values,
+        path=os.path.join("scripts", "report", title + ".png"),
+        show_legend=show_legend
+    )
+
+    title2 = "RoadCracks"
+    fit_values2 = []
+    mean_std_dev_fit_values = [
+        [], #mean
+        [0.2382]
+    ]
