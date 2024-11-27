@@ -22,7 +22,8 @@ def show_program_menu():
     print('6 -- Print Sample Plots')
     print('7 -- Create ACSOS Plot')
     print('8 -- Follow Up Optimization using SA / LS')
-    print('9 -- Plot CGP Insights')
+    print('8 -- Plot Missing SA/LS and CGP Evolutions')
+    print('10 -- Plot CGP Insights')
     print('0 -- EXIT')
 
     print("\n")
@@ -30,6 +31,14 @@ def show_program_menu():
     if 0 < int(selection) < 10:
         return int(selection)
     return 0
+
+
+def plot_missing_ls_sa_values():
+    raise NotImplementedError
+
+
+def plot_missing_cgp_charts():
+    raise NotImplementedError
 
 
 def main() -> int:
@@ -121,6 +130,12 @@ def main() -> int:
         run_param_tuning()
 
     if selection == 9:
+        """
+        """
+        plot_missing_ls_sa_values()
+        plot_missing_cgp_charts()
+
+    if selection == 10:
         """
         Read data from test\cgp_insights and plot results
         in separate charts for teaching/visualization

@@ -45,7 +45,8 @@ The repository contains the following function to process experimental data:
   * `6 -- Print Sample Plots`
   * `7 -- Create ACSOS Plot`
   * `8 -- Follow Up Optimization using SA / LS`
-  * `8 -- Print Insight Plot of Cable Missing CGP Training`
+  * `8 -- Plot Missing SA/LS and CGP Evolutions`
+  * `10 -- Plot CGP Insights`
   * `0 -- EXIT`
 
 #### Guide to Script Outputs
@@ -69,6 +70,13 @@ The repository contains the following function to process experimental data:
 * `8 -- Follow Up Optimization using SA / LS`
   * Runs follow-up parameter tuning with additional algorithms
   * See section `Follow-Up Optimization`
+* `8 -- Plot Missing SA/LS and CGP Evolutions`
+  * creates plot of transistor and roadcracks cgp fitness progress
+  * computes sa/ls for the same pipelines (transistor and roadcracks)
+* `10 -- Plot CGP Insights`
+  * Read from `test\cgp_insights` logs for missing_cable and tile_cracks
+  * creates dot pipeline charts for generations with a fitness increase
+  * writes it to `test\cgp_insights_out`
 * `0 -- EXIT`
 
 ### Follow Up Optimization using SA / LS
