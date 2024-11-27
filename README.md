@@ -70,7 +70,7 @@ The repository contains the following function to process experimental data:
 * `8 -- Follow Up Optimization using SA / LS`
   * Runs follow-up parameter tuning with additional algorithms
   * See section `Follow-Up Optimization`
-* `8 -- Plot Missing SA/LS and CGP Evolutions`
+* `9 -- Plot Missing SA/LS and CGP Evolutions`
   * creates plot of transistor and roadcracks cgp fitness progress
   * computes sa/ls for the same pipelines (transistor and roadcracks)
 * `10 -- Plot CGP Insights`

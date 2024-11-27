@@ -5,7 +5,8 @@ from os.path import join as p_join
 from dashboard.acsos_plots import create_fitness_plot, create_acsos_complexity_plot
 from dashboard.cgp_insights_plot import plot_cgp_insights
 from dashboard.create_analysis_plots import read_database_and_plot_fitness_per_dataset, read_database_and_show_plots, \
-    generate_plots_from_json, compute_complexity_and_fitness_correlation
+    generate_plots_from_json, compute_complexity_and_fitness_correlation, plot_missing_ls_sa_values, \
+    plot_missing_cgp_charts
 from dashboard.dashboard import matplot_dashboard, hvplot_test
 from dashboard.plotting import computations_per_computing_unit, plot_sample, plot_fitness_evolution, \
     fancy_mean_plot, entropy_fitness_plot, fitness_boxplots
@@ -28,17 +29,9 @@ def show_program_menu():
 
     print("\n")
     selection = input('Selection: ')
-    if 0 < int(selection) < 10:
+    if 0 < int(selection) < 11:
         return int(selection)
     return 0
-
-
-def plot_missing_ls_sa_values():
-    raise NotImplementedError
-
-
-def plot_missing_cgp_charts():
-    raise NotImplementedError
 
 
 def main() -> int:
