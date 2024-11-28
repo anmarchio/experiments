@@ -302,21 +302,8 @@ def plot_missing_cgp_values():
             fitness_charts.append(fitness_values)
             max_generations = max(max_generations, len(fitness_values))
 
-        # Normalize all fitness lists to have the same number of generations
-        for run in fitness_charts:
-            run.extend([None] * (max_generations - len(run)))  # Extend with None to align lengths
+        mean_std_dev_fit_values = compute_mean_and_std_dev(fitness_charts)
 
-        # Compute mean and standard deviation per generation
-        fit_values = [[], []]
-        for gen_idx in range(max_generations):
-            gen_values = [run[gen_idx] for run in fitness_charts if run[gen_idx] is not None]
-            if gen_values:
-                fit_values[0].append(np.mean(gen_values))
-                fit_values[1].append(np.std(gen_values))
-            else:
-                fit_values[0].append(0)
-                fit_values[1].append(0)
-        mean_std_dev_fit_values = compute_mean_and_std_dev(fit_values)
         # Plotting
         plot_mean_std_dev_fitness_arrays(
             title=dataset_name,
