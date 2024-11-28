@@ -12,6 +12,7 @@ from dashboard.plotting import plot_mean_std_dev_fitness_arrays, plot_fitness_pe
 from dashboard.utils import read_file_and_return_norm_dict, mean_std_dev_fitness_per_dataset, compute_mean_and_std_dev, \
     extract_dataset_name, get_mean_fitness_per_dataset, print_fitness_values_in_table, data_linking
 from dashboard.vars import COMPLEXITY_METRICS
+from settings import RESULTS_PATH, WDIR
 
 
 def compute_complexity_and_fitness_correlation(json_file_path):
@@ -250,23 +251,78 @@ def read_database_and_plot_fitness_per_dataset(
     print_fitness_values_in_table(dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs)
 
 
-def plot_missing_ls_sa_values():
-    title = "Transistor"
-    show_legend = True
-    fit_values = []
-    mean_std_dev_fit_values = [0.2749]
-    plot_mean_std_dev_fitness_arrays(
-        title,
-        "Best Individual",
-        fit_values,
-        mean_std_dev_fit_values,
-        path=os.path.join("scripts", "report", title + ".png"),
-        show_legend=show_legend
-    )
-
-    title2 = "RoadCracks"
-    fit_values2 = []
-    mean_std_dev_fit_values = [
-        [], #mean
-        [0.2382]
+def plot_missing_cgp_values():
+    road_cracks_files = [
+        os.path.join(WDIR, "scripts", "results", "202411172145", "Analyzer", "0", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411172145", "Analyzer", "1", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411172145", "Analyzer", "2", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411172145", "Analyzer", "3", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411172145", "Analyzer", "4", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411182020", "Analyzer", "0", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411182020", "Analyzer", "1", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411182020", "Analyzer", "2", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411182020", "Analyzer", "3", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411182020", "Analyzer", "4", "BestIndividualFit.txt")
     ]
+    transistor_files = [
+        os.path.join(WDIR, "scripts", "results", "202411181407", "Analyzer", "0", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411181407", "Analyzer", "1", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411181407", "Analyzer", "2", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411181407", "Analyzer", "3", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411181407", "Analyzer", "4", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411191517", "Analyzer", "0", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411191517", "Analyzer", "1", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411191517", "Analyzer", "2", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411191517", "Analyzer", "3", "BestIndividualFit.txt"),
+        os.path.join(WDIR, "scripts", "results", "202411191517", "Analyzer", "4", "BestIndividualFit.txt")
+    ]
+    datasets = {
+        "CrackForest": road_cracks_files,
+        "MVTec_AD_Transistor": transistor_files
+    }
+
+    for dataset_name in datasets.keys():
+        file_list = datasets[dataset_name]
+        fitness_charts = []
+        max_generations = 0
+
+        # Read all BestIndividualFit files
+        for file_path in file_list:
+            full_path = os.path.join(WDIR, "scripts", "results", file_path)
+            if not os.path.exists(full_path):
+                print(f"File not found: {full_path}")
+                continue
+
+            fitness_values = []
+            with open(full_path, "r") as f:
+                for line in f.readlines()[1:]:  # Skip header
+                    _, fitness = line.strip().split(',')
+                    fitness_values.append(float(fitness))
+
+            fitness_charts.append(fitness_values)
+            max_generations = max(max_generations, len(fitness_values))
+
+        # Normalize all fitness lists to have the same number of generations
+        for run in fitness_charts:
+            run.extend([None] * (max_generations - len(run)))  # Extend with None to align lengths
+
+        # Compute mean and standard deviation per generation
+        fit_values = [[], []]
+        for gen_idx in range(max_generations):
+            gen_values = [run[gen_idx] for run in fitness_charts if run[gen_idx] is not None]
+            if gen_values:
+                fit_values[0].append(np.mean(gen_values))
+                fit_values[1].append(np.std(gen_values))
+            else:
+                fit_values[0].append(0)
+                fit_values[1].append(0)
+        mean_std_dev_fit_values = compute_mean_and_std_dev(fit_values)
+        # Plotting
+        plot_mean_std_dev_fitness_arrays(
+            title=dataset_name,
+            axis_title="Best Individual",
+            fitness_charts=fitness_charts,
+            mean_std_dev_fit_values=mean_std_dev_fit_values,
+            path=os.path.join(WDIR, "scripts", "report", dataset_name + ".png"),
+            show_legend=False
+        )
