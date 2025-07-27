@@ -5,7 +5,8 @@ import numpy as np
 
 from datetime import datetime
 
-from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC, PARAM_TUNING_RESULTS_PATH
+from param_tuning.read_dot import parse_dot
+from settings import PARAM_TUNING_HDEV_MANUAL, EVIAS_SRC, PARAM_TUNING_RESULTS_PATH, RESULTS_PATH
 
 
 def raw_source_directory(dataset_source_directory):
@@ -291,6 +292,19 @@ def plot_bar_charts(datasets, cgp_results, ls_results, sa_results):
     plot_fitness_bars(datasets, cgp_results, ls_results, sa_results)
     plot_changes_bars(datasets, changes)
 
+
+def dataset_to_graphs(dataset: {}) -> {}:
+    graphs = {}
+
+    for i in range(len(dataset['best_pipelines'])):
+        graphs[str(i)] = {
+            'training_path': raw_source_directory(dataset['source']),
+            'results_path': RESULTS_PATH,  # <= has to be the date and time?
+            'datetime': dataset['runs_created_at'][i],
+            'pipeline': parse_dot(dataset['best_pipelines'][i][0].digraph)
+        }
+
+    return graphs
 
 def results_to_latex_table(datasets, cgp_results, ls_results, sa_results):
     tex_code = "\\begin{table}[h]\n" \

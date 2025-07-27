@@ -82,20 +82,6 @@ def objective(pipeline_name, graph, params, manual = True):
     return -performance  # Minimize negative performance to maximize performance
 
 
-def dataset_to_graphs(dataset: {}) -> {}:
-    graphs = {}
-
-    for i in range(len(dataset['best_pipelines'])):
-        graphs[str(i)] = {
-            'training_path': raw_source_directory(dataset['source']),
-            'results_path': RESULTS_PATH,  # <= has to be the date and time?
-            'datetime': dataset['runs_created_at'][i],
-            'pipeline': parse_dot(dataset['best_pipelines'][i][0].digraph)
-        }
-
-    return graphs
-
-
 def get_analyzer_id_by_index_in_dataset_dict(dataset_dict: {}, mean_idx: int):
     idx = 0
     for d in dataset_dict:

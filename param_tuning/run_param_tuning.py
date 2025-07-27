@@ -36,6 +36,95 @@ def show_param_tuning_menu():
     return 0
 
 
+def selection_export_digraphs_to_txt(linked_list_of_mean_fitness_and_digraph):
+    """
+    1 -- MANUAL v1: Export digraphs to txt
+    """
+    # output folder for digraphs
+    digraph_path = os.path.join(PARAM_TUNING_RESULTS_PATH, "digraphs")
+    check_dir_exists(PARAM_TUNING_RESULTS_PATH)
+    check_dir_exists(digraph_path)
+
+    for ds_key in linked_list_of_mean_fitness_and_digraph.keys():
+        dataset_digraph = linked_list_of_mean_fitness_and_digraph[ds_key]
+
+        # Write dataset metadata and digraph to file in folder
+        write_digraph_to_files(ds_key, dataset_digraph, digraph_path)
+
+
+def selection_read_manual_hdev_files_and_perform_sa_ls():
+    """
+    2 -- MANUAL v2: Read manual HDEV files and perform SA/LS
+    """
+    manual_hdev_path = os.path.join(PARAM_TUNING_RESULTS_PATH, "manual_hdev")
+    check_dir_exists(PARAM_TUNING_RESULTS_PATH)
+    check_dir_exists(manual_hdev_path)
+
+    for pipeline_name in MANUAL_HDEV_PIPELINES_MEAN:
+        # Run simulated annealing on dataset
+        run_simulated_annealing(pipeline_name, None, objective, True)
+
+        # Then run local search
+        run_local_search(pipeline_name, None, objective, True)
+
+
+def selection_read_db_and_apply_hdev_optimization(db):
+    print("!!! ATTENTION: This part has not been tested properly !!!")
+
+    print("Do you want to continue? y/n")
+    print("\n")
+    yesno = input("Selection: ")
+    if yesno == "y":
+        experiment_datasets = Dataset.get_pipeline_by_each_dataset(db.get_session())
+
+        read_db_and_apply_algorithms_to_hdev(experiment_datasets)
+    else:
+        print("Aborted.")
+
+
+def selection_plot_cgp_results_in_bar_chart(linked_list_of_mean_fitness_and_digraph):
+    print("Plot results in bar chart.")
+    file_paths = [os.path.join(HDEV_RESULTS_PATH, "param_tuning", "manual_hdev", name + ".txt") for name in
+                  MANUAL_HDEV_PIPELINES_MEAN]
+    ls_results, sa_results = extract_fitness_values(file_paths)
+    datasets = [name.replace("_mean_pipeline", "") for name in MANUAL_HDEV_PIPELINES_MEAN]
+
+    cgp_results = get_cgp_ls_sa_dict_from_pipelines(datasets,
+                                                    linked_list_of_mean_fitness_and_digraph,
+                                                    ls_results,
+                                                    sa_results)
+
+    # datasets, cgp_results, ls_results, sa_results
+    datasets.reverse()
+    cgp_results.reverse()
+    ls_results.reverse()
+    sa_results.reverse()
+    plot_bar_charts(datasets, cgp_results, ls_results, sa_results)
+
+    datasets.reverse()
+    cgp_results.reverse()
+    ls_results.reverse()
+    sa_results.reverse()
+    print(results_to_latex_table(datasets, cgp_results, ls_results, sa_results))
+
+
+def selection_cross_apply_pipelines_on_all_datasets(db):
+    """
+    4 -- Cross-apply cgp pipelines on all datasets (ca. 900 runs)
+    """
+    print("!!! ATTENTION: This part has not been tested properly !!!")
+
+    print("Do you want to continue? y/n")
+    print("\n")
+    yesno = input("Selection: ")
+    if yesno == "y":
+        experiment_datasets = Dataset.get_pipeline_by_each_dataset(db.get_session())
+
+        read_db_and_apply_algorithms_to_hdev(experiment_datasets)
+    else:
+        print("Aborted.")
+
+
 def run_param_tuning() -> int:
     selection = show_param_tuning_menu()
 
@@ -55,71 +144,26 @@ def run_param_tuning() -> int:
         print("-- from DB path: " + env_var.SQLITE_PATH)
         linked_list_of_mean_fitness_and_digraph = get_grouped_datasets_with_digraph_by_mean_fitness(db.get_session())
 
-    # 1 -- MANUAL 1: Export digraphs to txt
+    # 1 -- MANUAL v1: Export digraphs to txt
     if selection == 1:
+        selection_export_digraphs_to_txt(linked_list_of_mean_fitness_and_digraph)
 
-        # output folder for digraphs
-        digraph_path = os.path.join(PARAM_TUNING_RESULTS_PATH, "digraphs")
-        check_dir_exists(PARAM_TUNING_RESULTS_PATH)
-        check_dir_exists(digraph_path)
-
-        for ds_key in linked_list_of_mean_fitness_and_digraph.keys():
-            dataset_digraph = linked_list_of_mean_fitness_and_digraph[ds_key]
-
-            # Write dataset metadata and digraph to file in folder
-            write_digraph_to_files(ds_key, dataset_digraph, digraph_path)
-
-    # 2 -- MANUAL 2: Read manual HDEV files and perform SA/LS
+    # 2 -- MANUAL v2: Read manual HDEV files and perform SA/LS
     if selection == 2:
-        manual_hdev_path = os.path.join(PARAM_TUNING_RESULTS_PATH, "manual_hdev")
-        check_dir_exists(PARAM_TUNING_RESULTS_PATH)
-        check_dir_exists(manual_hdev_path)
-
-        for pipeline_name in MANUAL_HDEV_PIPELINES_MEAN:
-            # Run simulated annealing on dataset
-            run_simulated_annealing(pipeline_name, None, objective, True)
-
-            # Then run local search
-            run_local_search(pipeline_name, None, objective, True)
+        selection_read_manual_hdev_files_and_perform_sa_ls()
 
     # 3 -- AUTOMATIC: Read DB and apply HDEV optimization
     if selection == 3:
-        print("!!! ATTENTION: This part has not been tested properly !!!")
-
-        print("Do you want to continue? y/n")
-        print("\n")
-        yesno = input("Selection: ")
-        if yesno == "y":
-            experiment_datasets = Dataset.get_pipeline_by_each_dataset(db.get_session())
-
-            read_db_and_apply_algorithms_to_hdev(experiment_datasets)
-        else:
-            print("Aborted.")
+        # !!! ATTENTION: This part has not been tested properly !!!
+        selection_read_db_and_apply_hdev_optimization(db)
 
     if selection == 4:
-        print("Plot results in bar chart.")
-        file_paths = [os.path.join(HDEV_RESULTS_PATH, "param_tuning", "manual_hdev", name + ".txt") for name in
-                      MANUAL_HDEV_PIPELINES_MEAN]
-        ls_results, sa_results = extract_fitness_values(file_paths)
-        datasets = [name.replace("_mean_pipeline", "") for name in MANUAL_HDEV_PIPELINES_MEAN]
+        selection_plot_cgp_results_in_bar_chart(linked_list_of_mean_fitness_and_digraph)
 
-        cgp_results = get_cgp_ls_sa_dict_from_pipelines(datasets,
-                                                        linked_list_of_mean_fitness_and_digraph,
-                                                        ls_results,
-                                                        sa_results)
+    # 4 -- Cross-apply cgp pipelines on all datasets (ca. 900 runs)
+    if selection == 5:
+        selection_cross_apply_pipelines_on_all_datasets(db)
 
-        # datasets, cgp_results, ls_results, sa_results
-        datasets.reverse()
-        cgp_results.reverse()
-        ls_results.reverse()
-        sa_results.reverse()
-        plot_bar_charts(datasets, cgp_results, ls_results, sa_results)
-
-        datasets.reverse()
-        cgp_results.reverse()
-        ls_results.reverse()
-        sa_results.reverse()
-        print(results_to_latex_table(datasets, cgp_results, ls_results, sa_results))
     return 0
 
 
