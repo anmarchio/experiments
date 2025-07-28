@@ -10,6 +10,13 @@ This repository contains all scripts that were designed to analyze data from ima
 * crop_to_tile Blende5: `datapreparation\python\crop_to_tiles.py C:\Users\mara_c10\Desktop\2022_CGP_Experimente\Owncloud_AirCarbon3\Annotation\AirCarbon2\160919_SGL\Blende5_6_1800mA C:\Users\mara_c10\Desktop\2022_CGP_Experimente\Owncloud_AirCarbon3\Annotation\AirCarbon2\160919_SGL\Blende5_6_1800mA_rov 140`
 * Dashboard: `dashboard\dashboard.py`
 
+## Contents
+
+1. <a href="#setup-and-usage">API Basics for experimental data / Plotting data [ACSOS 2023]</a>
+1. <a href="#follow-up-optimization-using-sa--ls">Dissertation 2024: Optimization using SA / LS Algorithms [Dissertation 2024]</a>
+1. <a href="#complexity-analysis">Complexity Analysis of CGP Pipelines [Dissertation 2024]</a>
+1. <a href="#pipeline-retrieval">Pipeline Retrieval [Arxiv 2025]</a>
+
 ## Setup and Usage
 
 ### Quick Start
@@ -195,3 +202,18 @@ Estimation for the whole image:
 * `max r_{fit, lbl_edge_density} = 0.324` shows a positive correlation between edge density of labels and fitness.
 * `max r_{fit, lbl_num_superpixels} = 0.366` shows a positive correlation between number of superpixels in the label and fitness.
 * `min r_{fit, relative_label_size} = 0.0531` worst choice, indicating no correlation at all.
+
+## Pipeline Retrieval
+
+- Conduct a similarity comparison between all available image datasets using embeddings.
+- Use pipelines previously computed and evolved on specific image datasets.
+- Cross-apply these pipelines to all other datasets.
+- With approximately 30 datasets, this results in around 900 cross-applications of pipelines.
+- Compute the MCC (Matthews Correlation Coefficient) score for each pipeline run.
+- Compare the MCC scores to the dataset similarity metrics.
+- Test the hypothesis: more similar datasets yield better MCC results when filter pipelines are cross-applied.
+
+### Running Pipeline Retrieval Experiments
+
+* Run the pipeline retrieval script using:
+  * `python -m pipeline_retrieval.run_pipeline_retrieval.py`

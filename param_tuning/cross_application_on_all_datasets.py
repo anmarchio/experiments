@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from param_tuning.dataset_pipeline_analysis import run_pipeline
+from pipeline_retrieval.dataset_pipeline_analysis import run_pipeline
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds
 from param_tuning.utils import dataset_to_graphs, write_log, write_csv_and_tex
 from settings import CROSS_APPLICATION_RESULTS_PATH

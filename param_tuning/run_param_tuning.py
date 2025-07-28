@@ -5,7 +5,7 @@ from api import env_var
 from api.database import Database
 from api.models import Dataset
 from param_tuning.data_parser import extract_fitness_values, get_cgp_ls_sa_dict_from_pipelines
-from param_tuning.dataset_pipeline_analysis import get_grouped_datasets_with_digraph_by_mean_fitness, \
+from pipeline_retrieval.dataset_pipeline_analysis import get_grouped_datasets_with_digraph_by_mean_fitness, \
     read_db_and_apply_algorithms_to_hdev, objective
 from param_tuning.hdev_manual.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN
 from param_tuning.local_search import run_local_search
@@ -108,23 +108,6 @@ def selection_plot_cgp_results_in_bar_chart(linked_list_of_mean_fitness_and_digr
     print(results_to_latex_table(datasets, cgp_results, ls_results, sa_results))
 
 
-def selection_cross_apply_pipelines_on_all_datasets(db):
-    """
-    4 -- Cross-apply cgp pipelines on all datasets (ca. 900 runs)
-    """
-    print("!!! ATTENTION: This part has not been tested properly !!!")
-
-    print("Do you want to continue? y/n")
-    print("\n")
-    yesno = input("Selection: ")
-    if yesno == "y":
-        experiment_datasets = Dataset.get_pipeline_by_each_dataset(db.get_session())
-
-        read_db_and_apply_algorithms_to_hdev(experiment_datasets)
-    else:
-        print("Aborted.")
-
-
 def run_param_tuning() -> int:
     selection = show_param_tuning_menu()
 
@@ -159,10 +142,6 @@ def run_param_tuning() -> int:
 
     if selection == 4:
         selection_plot_cgp_results_in_bar_chart(linked_list_of_mean_fitness_and_digraph)
-
-    # 4 -- Cross-apply cgp pipelines on all datasets (ca. 900 runs)
-    if selection == 5:
-        selection_cross_apply_pipelines_on_all_datasets(db)
 
     return 0
 
