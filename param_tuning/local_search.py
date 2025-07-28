@@ -5,6 +5,7 @@ from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
 from param_tuning.simulated_annealing import params_to_str
 from param_tuning.utils import write_header_to_log, write_log, format_line
+from settings import PARAM_TUNING_HDEV_MANUAL
 
 
 # analogue to Example Simulated Annealing step
@@ -48,7 +49,7 @@ def local_search(pipeline_name, graph, objective, bounds, n_iterations, step_siz
 
         output = format_line(i, -best_eval, params_to_str(candidate), "ls", f"step:{step_size}", pipeline_name)
         print(output)
-        write_log(pipeline_name, output)
+        write_log(PARAM_TUNING_HDEV_MANUAL, pipeline_name, output)
 
     return best, best_eval
 

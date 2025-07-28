@@ -37,3 +37,8 @@ Test Parameter Variables
 TEST_EXPERIMENT_PATH = os.path.join(WDIR, "scripts", "results", "202302021900")
 TEST_SOURCE_JSON_PATH = os.path.join(TEST_EXPERIMENT_PATH, "source.json")
 TEST_PIPELINE_TXT_PATH = os.path.join(TEST_EXPERIMENT_PATH, "Grid", "2", "pipeline.txt")
+
+"""
+Cross Application Results
+"""
+CROSS_APPLICATION_RESULTS_PATH = os.path.join(RESULTS_PATH, "cross_application")

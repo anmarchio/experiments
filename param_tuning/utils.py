@@ -117,7 +117,10 @@ def write_to_file(result_file_path, algorithm, source, experiment_datetime, expe
     f.close()
 
 
-def write_csv_and_tex(read_from_path: str):
+def write_csv_and_tex(read_from_path: str, header: str = None):
+    if header is None:
+        header = "\\textbf{Date} & \\textbf{Dataset} & \\textbf{Expmt Date} & $\overline{Path}$ & \\textbf{Best " \
+                "Params} & \\textbf{Best Scores} \\\\"
     if not os.path.exists(read_from_path):
         return 0
 
@@ -133,8 +136,7 @@ def write_csv_and_tex(read_from_path: str):
                 "   \\resizebox{0.4\columnwidth}{!}{%" + \
                 "       \\begin{tabular}{c l l l c c c c}" + \
                 "           \\toprule" + \
-                "\\textbf{Date} & \\textbf{Dataset} & \\textbf{Expmt Date} & $\overline{Path}$ & \\textbf{Best " \
-                "Params} & \\textbf{Best Scores} \\\\" + \
+                header + \
                 "           \\midrule\n"
 
     for i in range(len(lines)):
@@ -174,8 +176,8 @@ def format_line(iteration, performance, parameters, algorithm, configuration, pi
     return f"{iteration};{performance};{criterion};{parameters};{algorithm};{configuration};{pipeline_name};{datetime.now()};\n"
 
 
-def write_log(pipeline_name, log_content):
-    filepath = os.path.join(PARAM_TUNING_HDEV_MANUAL, pipeline_name + ".txt")
+def write_log(file_path, pipeline_name, log_content):
+    filepath = os.path.join(file_path, pipeline_name + ".txt")
     write_to_file(filepath, log_content)
 
 
