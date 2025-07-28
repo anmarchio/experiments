@@ -1,6 +1,7 @@
 from api.database import Database
 from api.models import Dataset
-from pipeline_retrieval.dataset_pipeline_analysis import read_db_and_apply_algorithms_to_hdev
+from param_tuning.dataset_pipeline_analysis import read_db_and_apply_algorithms_to_hdev
+from pipeline_retrieval.cross_application_on_all_datasets import read_db_and_cross_apply_hdev_pipelines
 
 
 def selection_cross_apply_pipelines_on_all_datasets(db):
@@ -15,7 +16,7 @@ def selection_cross_apply_pipelines_on_all_datasets(db):
     if yesno == "y":
         experiment_datasets = Dataset.get_pipeline_by_each_dataset(db.get_session())
 
-        read_db_and_apply_algorithms_to_hdev(experiment_datasets)
+        read_db_and_cross_apply_hdev_pipelines(experiment_datasets)
     else:
         print("Aborted.")
 
@@ -35,7 +36,7 @@ def main():
     db = Database()
 
     # 4 -- Cross-apply cgp pipelines on all datasets (ca. 900 runs)
-    if selection == 1:
+    if selection == "1":
         selection_cross_apply_pipelines_on_all_datasets(db)
 
 
