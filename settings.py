@@ -42,3 +42,4 @@ TEST_PIPELINE_TXT_PATH = os.path.join(TEST_EXPERIMENT_PATH, "Grid", "2", "pipeli
 Cross Application Results
 """
 CROSS_APPLICATION_RESULTS_PATH = os.path.join(RESULTS_PATH, "cross_application")
+CROSS_APPLICATION_HDEV_MANUAL = os.path.join(CROSS_APPLICATION_RESULTS_PATH, "manual_hdev")

@@ -159,8 +159,8 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     #"Pultrusion_Resin_Augmtd_mean_pipeline",
     #"Pultrusion_Resin_mean_pipeline",
     #"Pultrusion_Window_mean_pipeline",
-    #"severstal-steel_mean_pipeline",
-    # "CrackForest_mean_pipeline", # <=== Missing Follow-Up
+    "severstal-steel_mean_pipeline",
+    "CrackForest_mean_pipeline", # <=== Missing Follow-Up
     "MVTec_AD_Transistor_mean_pipeline" # <=== Missing Follow-Up
 ]
 

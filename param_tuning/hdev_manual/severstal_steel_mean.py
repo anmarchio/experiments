@@ -20,7 +20,7 @@ def get_severstal_steel_mean_pipeline(params):
                   "<l>        MaskWidth := " + str(params[3]) + "</l>\n" + \
                   "<l>        StdDevScale := " + str(params[4]) + "</l>\n" + \
                   "<l>        AbsThreshold := " + str(params[5]) + "</l>\n" + \
-                  "<l>        LightDark := '" + str(params[6]) + "'</l>\n" + \
+                  "<l>        LightDark := " + str(params[6]) + "</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
