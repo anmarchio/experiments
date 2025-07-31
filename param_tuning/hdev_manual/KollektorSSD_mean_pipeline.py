@@ -9,9 +9,11 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_KollektorSSD_mean_pipeline(params):
+def get_KollektorSSD_mean_pipeline(params, dataset_path = None):
     pipeline_name = "KollektorSSD_mean_pipeline"
-    dataset_path = "/KolektorSDD/kos10/images"
+
+    if dataset_path is None:
+        dataset_path = "/KolektorSDD/kos10/images"
 
     # Parameters
     param_lines = ""

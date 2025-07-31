@@ -13,13 +13,14 @@ def run_pipeline_on_dataset(pipeline_name, graph, cross_pipeline = None):
         cross_dataset = get_dataset_by_pipeline_name(cross_pipeline)
         score = run_pipeline(pipeline_name,
                              graph,
-                             params, cross_dataset)
+                             params,
+                             cross_dataset)
 
-        print(f"Resulting performance: {-score}")
+        print(f"Resulting performance: {score}")
         return score
     except Exception as e:
         print(e)
-        write_log(CROSS_APPLICATION_RESULTS_PATH, pipeline_name, str(e))
+        write_log(CROSS_APPLICATION_RESULTS_PATH, pipeline_name, str(e) + "\n")
         return [], [], 0.0
 
 

@@ -124,23 +124,23 @@ from param_tuning.hdev_manual.severstal_steel_mean import severstal_steel_mean_p
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_MEAN = [
-    # "AirCarbon2_t_8.jpg_mean_pipeline",
-    # "AirCarbon3_80.jpg_bright_mean_pipeline",
-    # "AirCarbon3_80.jpg_dark_1_mean_pipeline",
-    # "AirCarbon3_80.jpg_dark_2_mean_pipeline",
-    # "AirCarbon3_80.jpg_dark_3_mean_pipeline",
-    # "AirCarbon3_80.jpg_dark_4_mean_pipeline",
-    # "AirCarbon3_80.jpg_dark_5_mean_pipeline",
-    # "KolektorSDD_mean_pipeline",
-    # "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
-    # "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
-    # "MAIPreform2_Spule0_0315_Upside_mean_pipeline",
-    # "MAIPreform2_Spule0_0816_Upside_mean_pipeline",
-    # "CF_ReferenceSet_mean_pipeline",
-    # "CF_ReferenceSet_Small_Dark_mean_pipeline",
-    # "CF_ReferenceSet_Small_Light_mean_pipeline",
-    # "FabricDefectsAITEX_mean_pipeline",
-    # "MT_Blowhole_train_mean_pipeline",
+    "AirCarbon2_t_8.jpg_mean_pipeline",
+    "AirCarbon3_80.jpg_bright_mean_pipeline",
+    "AirCarbon3_80.jpg_dark_1_mean_pipeline",
+    "AirCarbon3_80.jpg_dark_2_mean_pipeline",
+    "AirCarbon3_80.jpg_dark_3_mean_pipeline",
+    "AirCarbon3_80.jpg_dark_4_mean_pipeline",
+    "AirCarbon3_80.jpg_dark_5_mean_pipeline",
+    "KolektorSDD_mean_pipeline",
+    "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
+    "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
+    "MAIPreform2_Spule0_0315_Upside_mean_pipeline",
+    "MAIPreform2_Spule0_0816_Upside_mean_pipeline",
+    "CF_ReferenceSet_mean_pipeline",
+    "CF_ReferenceSet_Small_Dark_mean_pipeline",
+    "CF_ReferenceSet_Small_Light_mean_pipeline",
+    "FabricDefectsAITEX_mean_pipeline",
+    "MT_Blowhole_train_mean_pipeline",
     # "MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
     # "MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
     # "MVTec_AD_Cable_Missing_mean_pipeline",
@@ -159,9 +159,9 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     # "Pultrusion_Resin_Augmtd_mean_pipeline",
     # "Pultrusion_Resin_mean_pipeline",
     # "Pultrusion_Window_mean_pipeline",
-    "severstal-steel_mean_pipeline",
-    "CrackForest_mean_pipeline",  # <=== Missing Follow-Up
-    "MVTec_AD_Transistor_mean_pipeline"  # <=== Missing Follow-Up
+    # "severstal-steel_mean_pipeline",
+    # "CrackForest_mean_pipeline",  # <=== Missing Follow-Up
+    # "MVTec_AD_Transistor_mean_pipeline"  # <=== Missing Follow-Up
 ]
 
 

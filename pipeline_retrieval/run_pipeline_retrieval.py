@@ -28,11 +28,11 @@ def manual_cross_apply_hdev_pipelines():
                     write_cross_application_log(pipeline_name,
                                                 f"{pipeline_name};{original_score};{cross_dataset};{cross_score};\n")
                 except Exception as e:
-                    print(f"Error running cross dataset {cross_dataset} for pipeline {pipeline_name}: {e}\n")
+                    print(f"Error running cross dataset {cross_dataset} for pipeline {pipeline_name}: {e}")
                     write_cross_application_log(pipeline_name, f"ERROR: {e};\n")
 
         except Exception as e:
-            print(f"Error running pipeline {pipeline_name}: {e}\n")
+            print(f"Error running pipeline {pipeline_name}: {e}")
             write_cross_application_log(pipeline_name, f"FAILED: {e};\n")
             continue
 
