@@ -124,53 +124,53 @@ from param_tuning.hdev_manual.severstal_steel_mean import severstal_steel_mean_p
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_MEAN = [
-    #"AirCarbon2_t_8.jpg_mean_pipeline",
-    #"AirCarbon3_80.jpg_bright_mean_pipeline",
-    #"AirCarbon3_80.jpg_dark_1_mean_pipeline",
-    #"AirCarbon3_80.jpg_dark_2_mean_pipeline",
-    #"AirCarbon3_80.jpg_dark_3_mean_pipeline",
-    #"AirCarbon3_80.jpg_dark_4_mean_pipeline",
-    #"AirCarbon3_80.jpg_dark_5_mean_pipeline",
-    #"KolektorSDD_mean_pipeline",
-    #"MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
-    #"MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
-    #"MAIPreform2_Spule0_0315_Upside_mean_pipeline",
-    #"MAIPreform2_Spule0_0816_Upside_mean_pipeline",
-    #"CF_ReferenceSet_mean_pipeline",
-    #"CF_ReferenceSet_Small_Dark_mean_pipeline",
-    #"CF_ReferenceSet_Small_Light_mean_pipeline",
-    #"FabricDefectsAITEX_mean_pipeline",
-    #"MT_Blowhole_train_mean_pipeline",
-    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
-    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
-    #"MVTec_AD_Cable_Missing_mean_pipeline",
-    #"MVTec_AD_Capsule_mean_pipeline",
-    #"MVTec_AD_Carpet_mean_pipeline",
-    #"MVTec_AD_Grid_Thread_mean_pipeline",
-    #"MVTec_AD_Hazelnut_Crack_mean_pipeline",
-    #"MVTec_AD_Leather_mean_pipeline",
-    #"MVTec_AD_Metal_Nut_mean_pipeline",
-    #"MVTec_AD_Pill_Crack_mean_pipeline",
-    #"MVTec_AD_Screw_Scratch_mean_pipeline",
-    #"MVTec_AD_Tile_Crack_mean_pipeline",
-    #"MVTec_AD_Toothbrush_Sm_mean_pipeline",
-    #"MVTec_AD_Wood_Scratch_mean_pipeline",
-    #"MVTec_AD_Zipper_Rough_mean_pipeline",
-    #"Pultrusion_Resin_Augmtd_mean_pipeline",
-    #"Pultrusion_Resin_mean_pipeline",
-    #"Pultrusion_Window_mean_pipeline",
+    # "AirCarbon2_t_8.jpg_mean_pipeline",
+    # "AirCarbon3_80.jpg_bright_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_1_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_2_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_3_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_4_mean_pipeline",
+    # "AirCarbon3_80.jpg_dark_5_mean_pipeline",
+    # "KolektorSDD_mean_pipeline",
+    # "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
+    # "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
+    # "MAIPreform2_Spule0_0315_Upside_mean_pipeline",
+    # "MAIPreform2_Spule0_0816_Upside_mean_pipeline",
+    # "CF_ReferenceSet_mean_pipeline",
+    # "CF_ReferenceSet_Small_Dark_mean_pipeline",
+    # "CF_ReferenceSet_Small_Light_mean_pipeline",
+    # "FabricDefectsAITEX_mean_pipeline",
+    # "MT_Blowhole_train_mean_pipeline",
+    # "MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
+    # "MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
+    # "MVTec_AD_Cable_Missing_mean_pipeline",
+    # "MVTec_AD_Capsule_mean_pipeline",
+    # "MVTec_AD_Carpet_mean_pipeline",
+    # "MVTec_AD_Grid_Thread_mean_pipeline",
+    # "MVTec_AD_Hazelnut_Crack_mean_pipeline",
+    # "MVTec_AD_Leather_mean_pipeline",
+    # "MVTec_AD_Metal_Nut_mean_pipeline",
+    # "MVTec_AD_Pill_Crack_mean_pipeline",
+    # "MVTec_AD_Screw_Scratch_mean_pipeline",
+    # "MVTec_AD_Tile_Crack_mean_pipeline",
+    # "MVTec_AD_Toothbrush_Sm_mean_pipeline",
+    # "MVTec_AD_Wood_Scratch_mean_pipeline",
+    # "MVTec_AD_Zipper_Rough_mean_pipeline",
+    # "Pultrusion_Resin_Augmtd_mean_pipeline",
+    # "Pultrusion_Resin_mean_pipeline",
+    # "Pultrusion_Window_mean_pipeline",
     "severstal-steel_mean_pipeline",
-    "CrackForest_mean_pipeline", # <=== Missing Follow-Up
-    "MVTec_AD_Transistor_mean_pipeline" # <=== Missing Follow-Up
+    "CrackForest_mean_pipeline",  # <=== Missing Follow-Up
+    "MVTec_AD_Transistor_mean_pipeline"  # <=== Missing Follow-Up
 ]
 
 
-def get_manual_hdev_pipeline(pipeline_name: str, params: np.array):
+def get_manual_hdev_pipeline(pipeline_name: str, params: np.array, cross_dataset=None):
     pipeline_function = pipelines.get(pipeline_name)
 
     if pipeline_function:
         # Call the specific function with the 'params' argument
-        return pipeline_function(params)
+        return pipeline_function(params, cross_dataset)
     else:
         return None
 
@@ -181,6 +181,10 @@ def get_manual_hdev_pipeline_bounds(pipeline_name: str) -> []:
 
 def get_initial_state_by_pipeline_name(pipeline_name: str) -> []:
     return initial_params.get(pipeline_name, None)
+
+
+def get_dataset_by_pipeline_name(pipeline_name: str) -> str:
+    return dataset_paths.get(pipeline_name, None)
 
 
 def get_manual_hdev_pipeline_path(pipeline_name: str):
@@ -315,6 +319,46 @@ pipelines = {
     "severstal-steel_mean_pipeline": get_severstal_steel_mean_pipeline,
     "MVTec_AD_Transistor_mean_pipeline": get_MVTec_AD_Transistor_mean_pipeline,
     "CrackForest_mean_pipeline": get_CrackForest_mean_pipeline,
+}
+
+dataset_paths = {
+    "AirCarbon2_t_8.jpg_mean_pipeline": "/Aircarbon2/Blende5_6_1800mA_rov/training/t_8.jpg/images",
+    "AirCarbon3_80.jpg_bright_mean_pipeline": "/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images",
+    "AirCarbon3_80.jpg_dark_1_mean_pipeline": "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_1/images",
+    "AirCarbon3_80.jpg_dark_2_mean_pipeline": "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_2/images",
+    "AirCarbon3_80.jpg_dark_3_mean_pipeline": "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_3/images",
+    "AirCarbon3_80.jpg_dark_4_mean_pipeline": "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/images",
+    "AirCarbon3_80.jpg_dark_5_mean_pipeline": "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_5/images",
+    "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline": "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images",
+    "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline": "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole/training/images",
+    "MAIPreform2_Spule0_0315_Upside_mean_pipeline": "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone/training/images",
+    "MAIPreform2_Spule0_0816_Upside_mean_pipeline": "/MAIPreform2.0/20170502_Compositence/Spule2-0816_Upside/undone/durchlauf1/training/images",
+    "CF_ReferenceSet_mean_pipeline": "/Aircarbon2/CF_ReferenceSet/images",
+    "CF_ReferenceSet_Small_Dark_mean_pipeline": "/Aircarbon2/CF_ReferenceSet_Small_Dark/images",
+    "CF_ReferenceSet_Small_Light_mean_pipeline": "/Aircarbon2/CF_ReferenceSet_Small_Light/images",
+    "FabricDefectsAITEX_mean_pipeline": "/FabricDefectsAITEX/train/images",
+    "MT_Blowhole_train_mean_pipeline": "/Magnetic-Tile-Defect/MT_Blowhole_train/images",
+    "MVTec_AD_Bottle_Broken_Lg_mean_pipeline": "/MVTecAnomalyDetection/bottle_broken_large_train/images",
+    "MVTec_AD_Bottle_Broken_Sm_mean_pipeline": "/MVTecAnomalyDetection/bottle_broken_small_train/images",
+    "MVTec_AD_Cable_Missing_mean_pipeline": "/MVTecAnomalyDetection/cable_missing_train/images",
+    "MVTec_AD_Capsule_mean_pipeline": "/MVTecAnomalyDetection/capsule_crack_train/images",
+    "MVTec_AD_Carpet_mean_pipeline": "/MVTecAnomalyDetection/carpet_train/images",
+    "MVTec_AD_Grid_Thread_mean_pipeline": "/MVTecAnomalyDetection/grid_thread_train/images",
+    "MVTec_AD_Hazelnut_Crack_mean_pipeline": "/MVTecAnomalyDetection/hazelnut_crack_train/images",
+    "MVTec_AD_Leather_mean_pipeline": "/MVTecAnomalyDetection/leather_train/images",
+    "MVTec_AD_Metal_Nut_mean_pipeline": "/MVTecAnomalyDetection/metal_nut_color_train/images",
+    "MVTec_AD_Pill_Crack_mean_pipeline": "/MVTecAnomalyDetection/pill_crack_train/images",
+    "MVTec_AD_Screw_Scratch_mean_pipeline": "/MVTecAnomalyDetection/screw_scratch_neck_train/images",
+    "MVTec_AD_Tile_Crack_mean_pipeline": "/MVTecAnomalyDetection/tile_crack_train/images",
+    "MVTec_AD_Toothbrush_Sm_mean_pipeline": "/MVTecAnomalyDetection/toothbrush_small_train/images",
+    "MVTec_AD_Wood_Scratch_mean_pipeline": "/MVTecAnomalyDetection/wood_scratch_train/images",
+    "MVTec_AD_Zipper_Rough_mean_pipeline": "/MVTecAnomalyDetection/zipper_rough_train/images",
+    "Pultrusion_Resin_Augmtd_mean_pipeline": "/Pultrusion/resin_cgp_augmntd/train/images",
+    "Pultrusion_Resin_mean_pipeline": "/Pultrusion/resin_cgp/train/images",
+    "Pultrusion_Window_mean_pipeline": "/Pultrusion/window_cgp/train/images",
+    "severstal-steel_mean_pipeline": "/severstal-steel/train_cgp/images",
+    "MVTec_AD_Transistor_mean_pipeline": "/MVTecAnomalyDetection/transistor_damaged_case_train/images",
+    "CrackForest_mean_pipeline": "/CrackForest/images",
 }
 
 bounds = {

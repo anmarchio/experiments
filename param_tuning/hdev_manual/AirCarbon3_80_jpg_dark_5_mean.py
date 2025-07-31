@@ -9,9 +9,12 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_AirCarbon3_80_jpg_dark_5_mean_pipeline(params):
+def get_AirCarbon3_80_jpg_dark_5_mean_pipeline(params, dataset_path=None):
     pipeline_name = "AirCarbon3_80.jpg_dark_5_mean_pipeline"
-    dataset_path = "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_5/images"
+
+    if dataset_path is None:
+        # Default dataset path if not provided
+        dataset_path = "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_5/images"
 
     # Parameters
     param_lines = "<l>        FilterType := '" + str(params[0]) + "'</l>\n" + \

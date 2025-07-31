@@ -7,9 +7,11 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def AirCarbon2_t_8_jpg_mean_pipeline(params):
+def AirCarbon2_t_8_jpg_mean_pipeline(params, dataset=None):
     pipeline_name = "AirCarbon2_t_8.jpg_mean_pipeline"
-    dataset_path = "/Aircarbon2/Blende5_6_1800mA_rov/training/t_8.jpg/images"
+
+    if dataset is None:
+        dataset_path = "/Aircarbon2/Blende5_6_1800mA_rov/training/t_8.jpg/images"
 
     # Parameters
     # 'lines', 'y', 5, 'adapted_std_deviation', 'dark', 15, 0.3

@@ -9,9 +9,11 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_CrackForest_mean_pipeline(params):
+def get_CrackForest_mean_pipeline(params, dataset_path=None):
     pipeline_name = "CrackForest_mean_pipeline"
-    dataset_path = "/CrackForest/images"
+
+    if dataset_path is None:
+        dataset_path = "/CrackForest/images"
 
     # Parameters
     param_lines = "<l>        Method := '" + str(params[0]) + "'</l>\n" + \

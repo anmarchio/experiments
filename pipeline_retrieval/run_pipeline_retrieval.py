@@ -24,17 +24,16 @@ def manual_cross_apply_hdev_pipelines():
             for cross_dataset in [key for key in MANUAL_HDEV_PIPELINES_MEAN if key != pipeline_name]:
 
                 try:
-                    cross_graph = get_initial_state_by_pipeline_name(cross_dataset)
-                    cross_score = run_pipeline_on_dataset(pipeline_name, cross_graph)
+                    cross_score = run_pipeline_on_dataset(pipeline_name, graph, cross_dataset)
                     write_cross_application_log(pipeline_name,
-                                                f"{pipeline_name};{original_score};{cross_dataset};{cross_score};")
+                                                f"{pipeline_name};{original_score};{cross_dataset};{cross_score};\n")
                 except Exception as e:
-                    print(f"Error running cross dataset {cross_dataset} for pipeline {pipeline_name}: {e}")
-                    write_cross_application_log(pipeline_name, f"ERROR: {e};")
+                    print(f"Error running cross dataset {cross_dataset} for pipeline {pipeline_name}: {e}\n")
+                    write_cross_application_log(pipeline_name, f"ERROR: {e};\n")
 
         except Exception as e:
-            print(f"Error running pipeline {pipeline_name}: {e}")
-            write_cross_application_log(pipeline_name, f"FAILED: {e};")
+            print(f"Error running pipeline {pipeline_name}: {e}\n")
+            write_cross_application_log(pipeline_name, f"FAILED: {e};\n")
             continue
 
 

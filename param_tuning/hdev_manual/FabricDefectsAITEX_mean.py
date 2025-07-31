@@ -9,9 +9,11 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_FabricDefectsAITEX_mean_pipeline(params):
+def get_FabricDefectsAITEX_mean_pipeline(params, dataset_path=None):
     pipeline_name = "FabricDefectsAITEX_mean_pipeline"
-    dataset_path = "/FabricDefectsAITEX/train/images"
+
+    if dataset_path is None:
+        dataset_path = "/FabricDefectsAITEX/train/images"
 
     # Parameters
     # 'smooth_histo', 'light', 33, 99999, 'bulkiness', 26, 29, 1.178097

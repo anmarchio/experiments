@@ -9,9 +9,11 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_MAIPreform2_Spule0_0816_Upside_mean_pipeline(params):
+def get_MAIPreform2_Spule0_0816_Upside_mean_pipeline(params, dataset_path=None):
     pipeline_name = "MAIPreform2_Spule0_0816_Upside_mean_pipeline"
-    dataset_path = "/MAIPreform2.0/20170502_Compositence/Spule2-0816_Upside/undone/durchlauf1/training/images"
+
+    if dataset_path is None:
+        dataset_path = "/MAIPreform2.0/20170502_Compositence/Spule2-0816_Upside/undone/durchlauf1/training/images"
 
     # Parameters
     param_lines = "<l>        MinRatio := " + str(params[0]) + "</l>\n" + \

@@ -9,9 +9,11 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_Pultrusion_Resin_Augmtd_mean_pipeline(params):
+def get_Pultrusion_Resin_Augmtd_mean_pipeline(params, dataset_path=None):
     pipeline_name = "Pultrusion_Resin_Augmtd_mean_pipeline"
-    dataset_path = "/Pultrusion/resin_cgp_augmntd/train/images"
+
+    if dataset_path is None:
+        dataset_path = "/Pultrusion/resin_cgp_augmntd/train/images"
 
     # Parameters
     param_lines = "<l>        A := " + str(params[0]) + "</l>\n" + \

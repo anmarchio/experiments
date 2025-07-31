@@ -10,9 +10,11 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_MVTec_AD_Metal_Nut_mean_pipeline(params):
+def get_MVTec_AD_Metal_Nut_mean_pipeline(params, dataset_path=None):
     pipeline_name = "MVTec_AD_Metal_Nut_mean_pipeline"
-    dataset_path = "/MVTecAnomalyDetection/metal_nut_color_train/images"
+
+    if dataset_path is None:
+        dataset_path = "/MVTecAnomalyDetection/metal_nut_color_train/images"
 
     # Parameters
     param_lines =  "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \

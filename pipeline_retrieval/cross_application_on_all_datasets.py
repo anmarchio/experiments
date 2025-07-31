@@ -1,18 +1,19 @@
 import os
 
 from param_tuning.dataset_pipeline_analysis import run_pipeline
-from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline_bounds, MANUAL_HDEV_PIPELINES_MEAN
-from param_tuning.utils import write_log, check_dir_exists
+from param_tuning.hdev_manual.run_hdev_manual import get_initial_state_by_pipeline_name, get_dataset_by_pipeline_name
+from param_tuning.utils import write_log
 from settings import CROSS_APPLICATION_RESULTS_PATH, CROSS_APPLICATION_HDEV_MANUAL
 
 
-def run_pipeline_on_dataset(pipeline_name, graph):
-    bounds = get_manual_hdev_pipeline_bounds(pipeline_name)
+def run_pipeline_on_dataset(pipeline_name, graph, cross_pipeline = None):
+    params = get_initial_state_by_pipeline_name(pipeline_name)
 
     try:
+        cross_dataset = get_dataset_by_pipeline_name(cross_pipeline)
         score = run_pipeline(pipeline_name,
                              graph,
-                             bounds)
+                             params, cross_dataset)
 
         print(f"Resulting performance: {-score}")
         return score

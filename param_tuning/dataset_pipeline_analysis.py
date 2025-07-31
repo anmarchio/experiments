@@ -17,13 +17,13 @@ from param_tuning.utils import raw_source_directory, index_closest_to_mean, writ
 from settings import HDEV_RESULTS_PATH, RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 
 
-def run_pipeline(pipeline_name, graph, params, manual: bool = True):
+def run_pipeline(pipeline_name, graph, params, cross_dataset: None, manual: bool = True):
     hdev_code = ""
     hdev_path = ""
     prediction_path = ""
 
     if manual:
-        hdev_code = get_manual_hdev_pipeline(pipeline_name, params)
+        hdev_code = get_manual_hdev_pipeline(pipeline_name, params, cross_dataset)
         prediction_path = get_manual_hdev_pipeline_path(pipeline_name)
         hdev_path = prediction_path + ".hdev"
     else:

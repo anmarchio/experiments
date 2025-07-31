@@ -9,9 +9,12 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_MVTec_AD_Cable_Missing_mean_pipeline(params):
+def get_MVTec_AD_Cable_Missing_mean_pipeline(params, dataset_path=None):
     pipeline_name = "MVTec_AD_Cable_Missing_mean_pipeline"
-    dataset_path = "/MVTecAnomalyDetection/cable_missing_train/images"
+
+    if dataset_path is None:
+        # Default dataset path for MVTec AD Cable Missing
+        dataset_path = "/MVTecAnomalyDetection/cable_missing_train/images"
 
     # Parameters
     param_lines = "<l>        DiffusionCoefficient := '" + str(params[0]) + "'</l>\n" + \

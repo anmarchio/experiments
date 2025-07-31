@@ -9,9 +9,12 @@ from param_tuning.hdev_manual.hdev_manual_utils import get_custom_hdev_pipeline_
 from settings import EVIAS_SRC_PATH
 
 
-def get_CF_ReferenceSet_Small_Light_mean_pipeline(params):
+def get_CF_ReferenceSet_Small_Light_mean_pipeline(params, dataset_path=None):
     pipeline_name = "CF_ReferenceSet_Small_Light_mean_pipeline"
-    dataset_path = "/Aircarbon2/CF_ReferenceSet_Small_Light/images"
+
+    if dataset_path is None:
+        # Default dataset path for CF_ReferenceSet_Small_Light
+        dataset_path = "/Aircarbon2/CF_ReferenceSet_Small_Light/images"
 
     # Parameters
     param_lines = "<l>        MaskWidth := " + str(params[0]) + "</l>\n" + \
