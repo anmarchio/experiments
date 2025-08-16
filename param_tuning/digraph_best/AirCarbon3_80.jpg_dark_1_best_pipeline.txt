@@ -1,0 +1,19 @@
+dataset: AirCarbon3_80.jpg_dark_1
+
+experiment_id: 108
+run_id: 294
+fit_values: [0.0863834353272311]
+pipeline_id: 294
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";75 [label="Closing\nA=11\n B=12\n C=-1,178097\n StructElementType=Circle"];
+25 [label="ThresholdAccessChannel\nChannel=1\n Threshold=49\n Sign=-1"];
+17 [label="SobelAmp\nFilterType=x\n MaskSize=5"];
+1 [label="EdgesImage\nFilter=canny\n Alpha=0,8\n Low=30\n High=45\n NonMaximumSuppression=nms"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+75 -> 25 [];
+25 -> 17 [];
+17 -> 1 [];
+1 -> _1 [];
+}

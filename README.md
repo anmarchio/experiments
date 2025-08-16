@@ -203,6 +203,117 @@ Estimation for the whole image:
 * `max r_{fit, lbl_num_superpixels} = 0.366` shows a positive correlation between number of superpixels in the label and fitness.
 * `min r_{fit, relative_label_size} = 0.0531` worst choice, indicating no correlation at all.
 
+## Analyzing Pipelines by Fitness
+
+Extracting best individual fitness per dataset from sqlite database:
+```sql
+SELECT d.name AS dataset_name, d.source_directory, bif.best_individual_fitness
+FROM dataset AS d
+JOIN experiment AS e        ON e.dataset_id = d.dataset_id
+JOIN run        AS r        ON r.experiment_id = e.experiment_id
+JOIN analyzer   AS a        ON a.run_id = r.run_id
+JOIN best_individual_fit AS bif ON bif.analyzer_id = a.analyzer_id
+ORDER BY bif.best_individual_fitness DESC;
+```
+
+Returning only the best individual fitness per dataset:
+```sql
+SELECT dataset_name,
+       source_directory,
+       best_individual_fitness,
+       analyzer_id
+FROM (
+    SELECT d.name AS dataset_name,
+           d.source_directory,
+           bif.best_individual_fitness,
+           bif.analyzer_id,
+           ROW_NUMBER() OVER (
+               PARTITION BY d.dataset_id
+               ORDER BY bif.best_individual_fitness DESC
+           ) AS rn
+    FROM dataset AS d
+    JOIN experiment AS e ON e.dataset_id = d.dataset_id
+    JOIN run        AS r ON r.experiment_id = e.experiment_id
+    JOIN analyzer   AS a ON a.run_id = r.run_id
+    JOIN best_individual_fit AS bif ON bif.analyzer_id = a.analyzer_id
+)
+WHERE rn = 1
+ORDER BY best_individual_fitness DESC;
+```
+
+Getting the pipeline and fitness close to mean fitness per dataset:
+```sql
+SELECT dataset_name,
+       source_directory,
+       best_individual_fitness,
+       analyzer_id
+FROM (
+    SELECT d.name AS dataset_name,
+           d.source_directory,
+           bif.best_individual_fitness,
+           bif.analyzer_id,
+           ABS(
+             bif.best_individual_fitness -
+             AVG(bif.best_individual_fitness) OVER (PARTITION BY d.dataset_id)
+           ) AS dist_to_mean,
+           ROW_NUMBER() OVER (
+               PARTITION BY d.dataset_id
+               ORDER BY ABS(
+                 bif.best_individual_fitness -
+                 AVG(bif.best_individual_fitness) OVER (PARTITION BY d.dataset_id)
+               ) ASC
+           ) AS rn
+    FROM dataset AS d
+    JOIN experiment AS e ON e.dataset_id = d.dataset_id
+    JOIN run        AS r ON r.experiment_id = e.experiment_id
+    JOIN analyzer   AS a ON a.run_id = r.run_id
+    JOIN best_individual_fit AS bif ON bif.analyzer_id = a.analyzer_id
+)
+WHERE rn = 1
+ORDER BY dataset_name;
+```
+
+Finally, get pipelines with fitness closest to the lowest fitness per dataset:
+```sql
+SELECT dataset_name,
+       source_directory,
+       best_individual_fitness,
+       analyzer_id
+FROM (
+    SELECT d.name AS dataset_name,
+           d.source_directory,
+           bif.best_individual_fitness,
+           bif.analyzer_id,
+           ROW_NUMBER() OVER (
+               PARTITION BY d.dataset_id
+               ORDER BY bif.best_individual_fitness ASC
+           ) AS rn
+    FROM dataset AS d
+    JOIN experiment AS e ON e.dataset_id = d.dataset_id
+    JOIN run        AS r ON r.experiment_id = e.experiment_id
+    JOIN analyzer   AS a ON a.run_id = r.run_id
+    JOIN best_individual_fit AS bif ON bif.analyzer_id = a.analyzer_id
+)
+WHERE rn = 1
+ORDER BY best_individual_fitness ASC;
+```
+
+How to extract the digraph for a specific individual / analyzer id:
+```sql
+SELECT individual.individual_id, individual.fitness, pipeline.digraph 
+FROM individual, pipeline
+WHERE individual.analyzer_id == 270
+AND individual.analyzer_id == pipeline.pipeline_id
+ORDER BY individual.fitness DESC;
+```
+
+Get the analyzer and experiment results:
+```sql
+SELECT * FROM analyzer, run
+WHERE analyzer.analyzer_id == 307
+AND analyzer.run_id == run.run_id;
+```
+
 ## Pipeline Retrieval
 
 - Conduct a similarity comparison between all available image datasets using embeddings.

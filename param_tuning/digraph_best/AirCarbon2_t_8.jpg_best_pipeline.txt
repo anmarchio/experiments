@@ -1,0 +1,13 @@
+dataset: AirCarbon2_t_8.jpg
+
+experiment_id: 100
+run_id: 270
+fit_values: [0.0377905996329855]
+pipeline_id: 270
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";89 [label="FastThreshold\nMinGray=75\n MaxGrayOffset=215\n MinSize=168"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+89 -> _1 [];
+}

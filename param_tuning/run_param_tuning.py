@@ -7,7 +7,7 @@ from api.models import Dataset
 from param_tuning.data_parser import extract_fitness_values, get_cgp_ls_sa_dict_from_pipelines
 from param_tuning.dataset_pipeline_analysis import get_grouped_datasets_with_digraph_by_mean_fitness, \
     read_db_and_apply_algorithms_to_hdev, objective
-from param_tuning.hdev_manual.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN
+from param_tuning.hdev_manual_mean.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN
 from param_tuning.local_search import run_local_search
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import write_digraph_to_files, \

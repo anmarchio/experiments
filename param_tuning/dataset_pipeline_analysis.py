@@ -7,7 +7,7 @@ from api.models import Dataset, Pipeline
 from dashboard.utils import data_linking
 from param_tuning.data_handling import calculate_metrics
 from param_tuning.hdev.hdev_helpers import translate_graph_to_hdev
-from param_tuning.hdev_manual.run_hdev_manual import get_manual_hdev_pipeline, get_manual_hdev_pipeline_path, \
+from param_tuning.hdev_manual_mean.run_hdev_manual import get_manual_hdev_pipeline, get_manual_hdev_pipeline_path, \
     get_manual_hdev_pipeline_training_source_path
 from param_tuning.local_search import run_local_search
 from param_tuning.read_dot import parse_dot

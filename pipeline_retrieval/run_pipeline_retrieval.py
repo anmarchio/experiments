@@ -1,6 +1,6 @@
 import os
 
-from param_tuning.hdev_manual.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN, get_initial_state_by_pipeline_name
+from param_tuning.hdev_manual_mean.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN, get_initial_state_by_pipeline_name
 from param_tuning.utils import check_dir_exists
 from pipeline_retrieval.cross_application_on_all_datasets import (run_pipeline_on_dataset,
                                                                   write_cross_application_header_to_log,
@@ -8,12 +8,21 @@ from pipeline_retrieval.cross_application_on_all_datasets import (run_pipeline_o
 from settings import CROSS_APPLICATION_RESULTS_PATH
 
 
-def manual_cross_apply_hdev_pipelines():
+def manual_cross_apply_hdev_pipelines(mean: bool = True,
+                                           best: bool = False):
+    """
+    Cross-apply manual hdev pipelines on all datasets (ca. 900 runs).
+    Only pipelines are used, which are defined in
+    - MANUAL_HDEV_PIPELINES_MEAN
+    - MANUAL_HDEV_PIPELINES_BEST
+    """
     manual_hdev_path = os.path.join(CROSS_APPLICATION_RESULTS_PATH, "manual_hdev")
     check_dir_exists(CROSS_APPLICATION_RESULTS_PATH)
     check_dir_exists(manual_hdev_path)
 
-    for pipeline_name in MANUAL_HDEV_PIPELINES_MEAN:
+    manual_hdev_pipelines = MANUAL_HDEV_PIPELINES_MEAN if mean else MANUAL_HDEV_PIPELINES_BEST
+
+    for pipeline_name in manual_hdev_pipelines:
         write_cross_application_header_to_log(pipeline_name)
 
         try:
@@ -21,7 +30,7 @@ def manual_cross_apply_hdev_pipelines():
             original_score = run_pipeline_on_dataset(pipeline_name, graph)
 
             # pick cross-datasets minus the current
-            for cross_dataset in [key for key in MANUAL_HDEV_PIPELINES_MEAN if key != pipeline_name]:
+            for cross_dataset in [key for key in manual_hdev_pipelines if key != pipeline_name]:
 
                 try:
                     cross_score = run_pipeline_on_dataset(pipeline_name, graph, cross_dataset)
@@ -40,8 +49,10 @@ def manual_cross_apply_hdev_pipelines():
 def main():
     print("CGP Pipeline Cross Application")
     print("-" * 30)
-
-    selection = input("Start the CGP pipeline cross application? (1 = yes)")
+    print("1 - MEAN (by MCC) hdev pipeline cross application")
+    print("2 - BEST (by MCC) hdev pipeline cross application")
+    print("0 - Exit")
+    selection = input("Selection: ")
 
     # Exit program
     if selection == "0":
@@ -50,7 +61,12 @@ def main():
 
     # 4 -- Cross-apply cgp pipelines on all datasets (ca. 900 runs)
     if selection == "1":
-        manual_cross_apply_hdev_pipelines()
+        manual_cross_apply_hdev_pipelines(mean = True)
+    
+    if selection == "2":
+        print("BEST (by MCC) hdev pipeline cross application is not implemented yet.")
+        manual_cross_apply_hdev_pipelines(mean = False, best = True)
+        return 0
 
 
 if __name__ == "__main__":
