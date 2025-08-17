@@ -1,0 +1,19 @@
+dataset: CF_ReferenceSet_Light_Dark
+
+experiment_id: 86
+run_id: 235
+fit_values: [0.339732305466048]
+pipeline_id: 235
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";33 [label="Closing\nA=21\n B=25\n C=0,785398\n StructElementType=Circle"];
+21 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=31\n Scale=0,2"];
+10 [label="SobelAmp\nFilterType=y\n MaskSize=5"];
+0 [label="MedianWeighted\nMaskType=inner\n MaskSize=3"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+33 -> 21 [];
+21 -> 10 [];
+10 -> 0 [];
+0 -> _1 [];
+}

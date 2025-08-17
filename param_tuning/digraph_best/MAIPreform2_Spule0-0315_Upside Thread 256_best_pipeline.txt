@@ -1,0 +1,22 @@
+dataset: MAIPreform2_Spule0-0315_Upside Thread 256
+
+experiment_id: 186
+run_id: 382
+fit_values: [0.33467992609909]
+pipeline_id: 382
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";32 [label="Opening\nStructElement=Rectangle\n A=26\n B=21"];
+21 [label="Threshold\nMin=10\n Max=200"];
+25 [label="ZeroCrossing\n"];
+1 [label="GrayClosing\nStructElement=Circle\n A=11\n B=25\n GrayValueMax=5"];
+4 [label="GrayDilation\nStructElement=Circle\n A=4\n B=12\n GrayValueMax=10"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+32 -> 21 [];
+32 -> 25 [];
+21 -> 1 [];
+25 -> 4 [];
+1 -> _1 [];
+4 -> _1 [];
+}

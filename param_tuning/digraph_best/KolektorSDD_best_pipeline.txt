@@ -1,0 +1,15 @@
+dataset: KolektorSDD
+
+experiment_id: 102
+run_id: 276
+fit_values: [0.102230998944487]
+pipeline_id: 276
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";83 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=31\n Scale=0,3"];
+7 [label="CoherenceEnhancingDiff\nSigma=0,4\n Rho=2\n Theta=0,3\n Iterations=230"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+83 -> 7 [];
+7 -> _1 [];
+}

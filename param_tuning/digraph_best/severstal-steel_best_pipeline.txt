@@ -1,0 +1,17 @@
+dataset: severstal-steel
+
+experiment_id: 159
+run_id: 335
+fit_values: [0.353380333735377]
+pipeline_id: 335
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";74 [label="Dilation1\nIterations=1\n StructElement=Ellipse\n A=18\n B=18"];
+27 [label="Threshold\nMin=65\n Max=240"];
+4 [label="EdgesImage\nFilter=canny\n Alpha=1.2\n Low=5\n High=20\n NonMaximumSuppression=nms"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+74 -> 27 [];
+27 -> 4 [];
+4 -> _1 [];
+}

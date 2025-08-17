@@ -1,0 +1,17 @@
+dataset: MVTec_D_Leather
+
+experiment_id: 78
+run_id: 214
+fit_values: [0.47247579891175]
+pipeline_id: 214
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";38 [label="AreaToRectangle\n"];
+23 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=15\n Scale=0,3"];
+8 [label="GrayErosion\nStructElement=Circle\n A=19\n B=8\n GrayValueMax=1"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+38 -> 23 [];
+23 -> 8 [];
+8 -> _1 [];
+}

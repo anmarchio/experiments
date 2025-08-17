@@ -1,0 +1,19 @@
+dataset: MVTec_AD_Capsule
+
+experiment_id: 79
+run_id: 216
+fit_values: [0.256053772948489]
+pipeline_id: 216
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";73 [label="Closing\nA=26\n B=18\n C=0,392699\n StructElementType=Circle"];
+28 [label="VarThreshold\nMaskWidth=9\n MaskHeight=17\n StdDevScale=0,9000002\n AbsThreshold=81\n LightDark=light"];
+14 [label="SobelAmp\nFilterType=x\n MaskSize=5"];
+7 [label="EdgesImage\nFilter=canny\n Alpha=1,3\n Low=10\n High=25\n NonMaximumSuppression=nms"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+73 -> 28 [];
+28 -> 14 [];
+14 -> 7 [];
+7 -> _1 [];
+}

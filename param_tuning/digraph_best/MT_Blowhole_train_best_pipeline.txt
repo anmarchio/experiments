@@ -1,0 +1,15 @@
+dataset: MT_Blowhole_train
+
+experiment_id: 89
+run_id: 245
+fit_values: [0.430239353707102]
+pipeline_id: 245
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";29 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=15\n Scale=0,3"];
+2 [label="MedianImage\nMaskType=circle\n Radius=2\n Margin=TwoFifityFive"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+29 -> 2 [];
+2 -> _1 [];
+}

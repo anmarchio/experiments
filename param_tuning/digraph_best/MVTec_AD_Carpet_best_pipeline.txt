@@ -1,0 +1,22 @@
+dataset: MVTec_AD_Carpet
+
+experiment_id: 77
+run_id: 211
+fit_values: [0.475444538498299]
+pipeline_id: 211
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";39 [label="Opening\nStructElement=Circle\n A=16\n B=13"];
+22 [label="Threshold\nMin=50\n Max=220"];
+25 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+3 [label="GaussFilter\nMaskSize=3"];
+18 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+39 -> 22 [];
+39 -> 25 [];
+22 -> 3 [];
+25 -> 18 [];
+3 -> _1 [];
+18 -> _1 [];
+}

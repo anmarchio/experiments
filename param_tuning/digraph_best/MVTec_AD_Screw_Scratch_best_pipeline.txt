@@ -1,0 +1,17 @@
+dataset: MVTec_AD_Screw_Scratch
+
+experiment_id: 84
+run_id: 232
+fit_values: [0.3413561771112]
+pipeline_id: 232
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";65 [label="Closing\nA=18\n B=7\n C=0\n StructElementType=Circle"];
+20 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=21\n Scale=0,2"];
+0 [label="EdgesImage\nFilter=canny\n Alpha=0,4\n Low=10\n High=30\n NonMaximumSuppression=nms"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+65 -> 20 [];
+20 -> 0 [];
+0 -> _1 [];
+}

@@ -1,0 +1,19 @@
+dataset: MVTec_AD_Zipper_Rough
+
+experiment_id: 135
+run_id: 316
+fit_values: [0.476883564257889]
+pipeline_id: 316
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";34 [label="Closing\nA=26\n B=27\n C=0.785398\n StructElementType=Ellipse"];
+28 [label="ZeroCrossing\n"];
+14 [label="SobelAmp\nFilterType=y\n MaskSize=7"];
+8 [label="KirschAmp\n"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+34 -> 28 [];
+28 -> 14 [];
+14 -> 8 [];
+8 -> _1 [];
+}

@@ -1,0 +1,17 @@
+dataset: MAIPreform2_Spule0-0315_Upside
+
+experiment_id: 178
+run_id: 362
+fit_values: [0.638448532840093]
+pipeline_id: 362
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";74 [label="Closing\nA=26\n B=26\n C=0.785398\n StructElementType=Ellipse"];
+25 [label="BinaryThreshold\nMethod=max_separability\n LightDark=light"];
+9 [label="GrayOpening\nStructElement=Circle\n A=4\n B=3\n GrayValueMax=2"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+74 -> 25 [];
+25 -> 9 [];
+9 -> _1 [];
+}

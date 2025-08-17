@@ -1,0 +1,17 @@
+dataset: MVTec_AD_Metal_Nut
+
+experiment_id: 80
+run_id: 221
+fit_values: [0.138070422673154]
+pipeline_id: 221
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";36 [label="Closing\nA=25\n B=18\n C=-0,785398\n StructElementType=Rectangle"];
+24 [label="CropRectangle\nMinRatio=0,0649999976158142\n MaskHeight=21\n MaskWidth=13"];
+3 [label="GrayDilation\nStructElement=Circle\n A=3\n B=5\n GrayValueMax=0"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+36 -> 24 [];
+24 -> 3 [];
+3 -> _1 [];
+}

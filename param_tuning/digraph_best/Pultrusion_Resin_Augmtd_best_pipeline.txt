@@ -1,0 +1,26 @@
+dataset: Pultrusion_Resin_Augmtd
+
+experiment_id: 54
+run_id: 139
+fit_values: [0.478281820921755]
+pipeline_id: 139
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";91 [label="SelectShape\nMin=35\n Max=99999\n Features=ra"];
+30 [label="Opening\nStructElement=Rectangle\n A=24\n B=26"];
+24 [label="BinaryThreshold\nMethod=max_separability\n LightDark=light"];
+27 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=light"];
+3 [label="SigmaImage\nMaskHeight=19\n MaskWidth=5\n Sigma=145"];
+12 [label="SobelAmp\nFilterType=x_binomial\n MaskSize=3"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+1 [label="EquHistoImage\n"];
+91 -> 30 [];
+30 -> 24 [];
+30 -> 27 [];
+24 -> 3 [];
+27 -> 12 [];
+3 -> _1 [];
+12 -> 1 [];
+1 -> _1 [];
+}

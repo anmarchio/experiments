@@ -1,0 +1,15 @@
+dataset: MVTec_AD_Bottle_Broken_Lg
+
+experiment_id: 136
+run_id: 320
+fit_values: [0.354622131604506]
+pipeline_id: 320
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";85 [label="BinaryThreshold\nMethod=max_separability\n LightDark=dark"];
+1 [label="MeanImage\nMaskWidth=347\n MaskHeight=283"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+85 -> 1 [];
+1 -> _1 [];
+}

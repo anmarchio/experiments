@@ -1,0 +1,21 @@
+dataset: MVTec_AD_Cable_Missing
+
+experiment_id: 82
+run_id: 272
+fit_values: [0.945314772970347]
+pipeline_id: 272
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";76 [label="Connection\nNeighborhood=4"];
+60 [label="Closing\nA=4\n B=15\n C=0,392699\n StructElementType=Rectangle"];
+36 [label="SelectShape\nMin=45\n Max=99999\n Features=dist_mean"];
+22 [label="BinaryThreshold\nMethod=smooth_histo\n LightDark=dark"];
+3 [label="MedianImage\nMaskType=circle\n Radius=54\n Margin=Ninety"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+76 -> 60 [];
+60 -> 36 [];
+36 -> 22 [];
+22 -> 3 [];
+3 -> _1 [];
+}

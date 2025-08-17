@@ -1,0 +1,15 @@
+dataset: FabricDefectsAITEX
+
+experiment_id: 91
+run_id: 249
+fit_values: [0.195258789601313]
+pipeline_id: 249
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";85 [label="VarThreshold\nMaskWidth=21\n MaskHeight=9\n StdDevScale=0,2000001\n AbsThreshold=76\n LightDark=not_equal"];
+6 [label="EliminateMinMax\nMaskWidth=27\n MaskHeight=31\n Gap=11\n Mode=1"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+85 -> 6 [];
+6 -> _1 [];
+}

@@ -1,0 +1,15 @@
+dataset: MVTec_AD_Grid_Thread
+
+experiment_id: 107
+run_id: 289
+fit_values: [0.474096017167135]
+pipeline_id: 289
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";88 [label="CropRectangle\nMinRatio=0,0549999997019768\n MaskHeight=9\n MaskWidth=21"];
+8 [label="BinomialFilter\nMaskHeight=27\n MaskWidth=31"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+88 -> 8 [];
+8 -> _1 [];
+}

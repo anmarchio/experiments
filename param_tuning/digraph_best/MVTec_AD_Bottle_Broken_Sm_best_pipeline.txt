@@ -1,0 +1,21 @@
+dataset: MVTec_AD_Bottle_Broken_Sm
+
+experiment_id: 137
+run_id: 323
+fit_values: [0.369698033320171]
+pipeline_id: 323
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";93 [label="Union1\n"];
+78 [label="Dilation1\nIterations=12\n StructElement=Ellipse\n A=7\n B=3"];
+22 [label="ZeroCrossing\n"];
+15 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+5 [label="CropSmallestRectangle\nMinGray=21\n MaxGray=255"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+93 -> 78 [];
+78 -> 22 [];
+22 -> 15 [];
+15 -> 5 [];
+5 -> _1 [];
+}

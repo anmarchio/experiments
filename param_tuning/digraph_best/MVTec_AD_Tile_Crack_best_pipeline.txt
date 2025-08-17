@@ -1,0 +1,17 @@
+dataset: MVTec_AD_Tile_Crack
+
+experiment_id: 104
+run_id: 283
+fit_values: [0.685421085713185]
+pipeline_id: 283
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";30 [label="Closing\nA=29\n B=23\n C=-1,178097\n StructElementType=Ellipse"];
+23 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=21\n Scale=0,5"];
+8 [label="MedianWeighted\nMaskType=inner\n MaskSize=3"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+30 -> 23 [];
+23 -> 8 [];
+8 -> _1 [];
+}

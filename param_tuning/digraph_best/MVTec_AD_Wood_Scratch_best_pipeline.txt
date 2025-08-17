@@ -1,0 +1,19 @@
+dataset: MVTec_AD_Wood_Scratch
+
+experiment_id: 134
+run_id: 314
+fit_values: [0.622839372828416]
+pipeline_id: 314
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";67 [label="Closing\nA=30\n B=16\n C=-0.392699\n StructElementType=Circle"];
+21 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=31\n Scale=0.2"];
+11 [label="SobelAmp\nFilterType=y\n MaskSize=7"];
+3 [label="MedianWeighted\nMaskType=gauss\n MaskSize=3"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+67 -> 21 [];
+21 -> 11 [];
+11 -> 3 [];
+3 -> _1 [];
+}

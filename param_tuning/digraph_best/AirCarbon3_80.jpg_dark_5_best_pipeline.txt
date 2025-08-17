@@ -1,0 +1,17 @@
+dataset: AirCarbon3_80.jpg_dark_5
+
+experiment_id: 112
+run_id: 305
+fit_values: [0.0932109780067698]
+pipeline_id: 305
+
+digraph:
+digraph Pipeline {
+rankdir = "RL";26 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=dark\n MaskSize=31\n Scale=0,3"];
+19 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=7"];
+7 [label="SobelAmp\nFilterType=y_binomial\n MaskSize=3"];
+_1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
+26 -> 19 [];
+19 -> 7 [];
+7 -> _1 [];
+}
