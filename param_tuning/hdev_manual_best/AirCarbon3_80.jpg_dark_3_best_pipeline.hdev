@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'AirCarbon3_80.jpg_dark_3'</l>
+<l>source_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_3/images'</l>
+<l>output_path := dataset_name + '/'</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try</l>
+<l>        Filter := 'canny'</l>
+<l>        Alpha := 1.1</l>
+<l>        Low := 25</l>
+<l>        High := 40</l>
+<l>        NonMaximumSuppression := 'nms'</l>
+<c>                </c>
+<l>        FilterType := 'x_binomial'</l>
+<l>        MaskSize := 7</l>
+<c>        </c>
+<l>        Min := 40</l>
+<l>        Max := 205</l>
+<c>        </c>
+<l>        A := 14</l>
+<l>        B := 2</l>
+<l>        C := 1.178097</l>
+<l>        StructElementType := 'Rectangle'</l>
+<c>        </c>
+<l>        edges_image(Image, Image, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
+<l>        sobel_amp(Image, ImageAmp, FilterType, MaskSize)</l>
+<l>        threshold(ImageAmp, Region, Min, Max)</l>
+<c>        </c>
+<c>        * Closing</c>
+<l>        gen_rectangle1(RectangleStructElement, 0, 0, A, B)</l>
+<l>        closing(Region, RectangleStructElement, Region)</l>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

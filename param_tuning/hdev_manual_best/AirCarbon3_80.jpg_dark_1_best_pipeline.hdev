@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'AirCarbon3_80.jpg_dark_1'</l>
+<l>source_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>
+<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 1 to |ImageFiles| - 1 by 1</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try        </l>
+<l>        Filter := 'canny'</l>
+<l>        Alpha := 0.8</l>
+<l>        Low := 30</l>
+<l>        High := 45</l>
+<l>        NonMaximumSuppression := 'nms'</l>
+<c>        </c>
+<l>        FilterTypeSA := 'x'</l>
+<l>        MaskSizeSA := 5</l>
+<c>        </c>
+<l>        Channel := 1</l>
+<l>        Threshold := 49</l>
+<c>        </c>
+<l>        A := 11</l>
+<l>        B := 12</l>
+<l>        C := -1.178097</l>
+<c>        </c>
+<l>        edges_image(Image, ImaAmp, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
+<c>        </c>
+<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>
+<c>        </c>
+<c>        * ThresholdAccessChannel        </c>
+<l>        abs_image(Image, Image)</l>
+<c>        </c>
+<l>        count_channels(Image, NumChannels)</l>
+<l>        if(NumChannels == 3)</l>
+<l>           access_channel(Image, Image, Channel)</l>
+<l>           threshold(Image, Region, Threshold, 255)</l>
+<l>        else</l>
+<l>            threshold(Image, Region, Threshold, 255)</l>
+<l>        endif</l>
+<c>        </c>
+<c>        * Closing</c>
+<c>        * 75 [label="Closing\nA=11\n B=12\n C=-1,178097\n StructElementType=Circle"];</c>
+<c>        * with struct element circle</c>
+<l>        tuple_ceil(A + 1, shape_param0_ceil)    </l>
+<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)        </l>
+<l>        closing(Region, StructElement, Region)</l>
+<c>        </c>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    file_exists(out_path, dir_exists)</l>
+<l>    *if(dir_exists == 0)</l>
+<l>    *    make_dir(out_path)</l>
+<l>    *endif</l>
+<l>    out_img_path := out_path + Index</l>
+<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
