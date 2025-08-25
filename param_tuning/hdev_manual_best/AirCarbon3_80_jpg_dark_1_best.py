@@ -74,7 +74,7 @@ AirCarbon3_80_jpg_dark_1_best_pipeline_initial_params = [
 ]
 
 AirCarbon3_80_jpg_dark_1_best_pipeline_bounds = [
-    ['canny'],
+    ['canny', 'deriche1', 'deriche1_int4', 'deriche2', 'deriche2_int4', 'lanser1', 'lanser2', 'mshen', 'shen', 'sobel_fast'],
     [0.1, 0.2, 0.3, 0.4, 0.5, 0.7, 0.9, 1.1],
     [v for v in range(1, 255, 1)],
     [v for v in range(1, 255, 1)],
