@@ -10,7 +10,7 @@ from settings import EVIAS_SRC_PATH
 
 
 def get_AirCarbon3_80_jpg_dark_5_mean_pipeline(params, dataset_path=None):
-    pipeline_name = "AirCarbon3_80.jpg_dark_5_mean_pipeline"
+    pipeline_name = "AirCarbon3_80.jpg_mean_5_best_pipeline"
 
     if dataset_path is None:
         # Default dataset path if not provided
