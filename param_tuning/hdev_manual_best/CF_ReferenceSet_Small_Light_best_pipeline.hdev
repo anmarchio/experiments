@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'CF_ReferenceSet_Small_Light_best_pipeline'</l>
+<l>source_path := 'C:/evias_expmts/Aircarbon2/CF_ReferenceSet_Small_Light/images'</l>
+<l>output_path := dataset_name + '/'</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try        </l>
+<c>        * Parameters</c>
+<l>        MaskType := 'inner'</l>
+<l>        MaskSizeMedian := 3</l>
+<c>        </c>
+<l>        FilterType := 'y'</l>
+<l>        MaskSizeSobel := 5</l>
+<c>        </c>
+<l>        Method := 'adapted_std_deviation'</l>
+<l>        LightDark := 'dark'</l>
+<l>        MaskSizeThresh := 31</l>
+<l>        Scale := 0.2</l>
+<c>        </c>
+<l>        StructElementType := 'circle'</l>
+<l>        A := 21</l>
+<l>        B := 25</l>
+<l>        C := 0.785398</l>
+<c>        </c>
+<c>        * Pipeline</c>
+<l>        median_weighted(Image, ImageMedian, MaskType, MaskSizeMedian)</l>
+<l>        sobel_amp(ImageMedian, ImageSobel, FilterType, MaskSizeSobel)</l>
+<l>        local_threshold(ImageSobel, Region, Method, LightDark, MaskSizeThresh, Scale)</l>
+<l>        tuple_ceil(A + 1, shape_param0_ceil)    </l>
+<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)</l>
+<l>        closing(Region, StructElement, Region)</l>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    out_img_path := output_path + Index</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
