@@ -3,8 +3,8 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'CF_ReferenceSet_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/Aircarbon2/CF_ReferenceSet/images'</l>
+<l>dataset_name := 'KollektorSSD_best_pipeline'</l>
+<l>source_path := 'D:/evias_expmts/KolektorSDD/kos10/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -24,18 +24,22 @@
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
-<l>    try        </l>
-<c>        * Parameters        </c>
-<l>        MaskWidth := 23</l>
-<l>        MaskHeight := 15</l>
-<l>        StdDevScale := 0.7000001</l>
-<l>        AbsThreshold := 85</l>
-<l>        LightDark := 'not_equal'</l>
+<l>    try </l>
+<c>        * Parameters</c>
+<l>        Sigma := 0.4</l>
+<l>        Rho := 2</l>
+<l>        Theta := 0.3</l>
+<l>        Iterations := 230</l>
 <c>        </c>
-<c>        * Pipeline        </c>
-<l>        var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>
+<l>        Method := 'adapted_std_deviation'</l>
+<l>        LightDark := 'dark'</l>
+<l>        MaskSize := 31</l>
+<l>        Scale := 0.3</l>
 <c>        </c>
-<l>        connection(Region, Region)</l>
+<c>        * Pipeline</c>
+<l>        coherence_enhancing_diff(Image, DiffImage, Sigma, Rho, Theta, Iterations)</l>
+<c>        </c>
+<l>        local_threshold(DiffImage, Region, Method, LightDark, MaskSize, Scale)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -43,9 +47,9 @@
 <c>    * END Code Block</c>
 <c>    * --------------</c>
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
-<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'margin')</l>
 <l>    out_img_path := output_path + Index</l>
-<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
 <l>endfor</l>
 <l>*exit()</l>
 </body>

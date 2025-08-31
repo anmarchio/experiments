@@ -3,8 +3,8 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'CF_ReferenceSet_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/Aircarbon2/CF_ReferenceSet/images'</l>
+<l>dataset_name := 'MAIPreform2_Spule0-0315_Upside_Thread_256_mean_pipeline'</l>
+<l>source_path := 'D:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -24,18 +24,30 @@
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
-<l>    try        </l>
-<c>        * Parameters        </c>
-<l>        MaskWidth := 23</l>
-<l>        MaskHeight := 15</l>
-<l>        StdDevScale := 0.7000001</l>
-<l>        AbsThreshold := 85</l>
-<l>        LightDark := 'not_equal'</l>
+<l>    try </l>
+<c>        * Parameters</c>
+<l>        Channel := 1</l>
+<l>        Threshold := 41</l>
+<l>        Sign := -1</l>
 <c>        </c>
-<c>        * Pipeline        </c>
-<l>        var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>
+<l>        A := 28</l>
+<l>        B := 27</l>
+<l>        GrayValueMax := 40</l>
 <c>        </c>
-<l>        connection(Region, Region)</l>
+<c>        * ThresholdAccessChannel</c>
+<l>       abs_image(Image, ImageB)        </l>
+<l>       count_channels(ImageB, NumChannels)</l>
+<l>       if(NumChannels == 3)</l>
+<l>          access_channel(ImageB, ImageB, Channel)</l>
+<l>          threshold(ImageB, RegionB, Threshold, 255)</l>
+<l>       else</l>
+<l>           threshold(ImageB, RegionB, Threshold, 255)</l>
+<l>       endif</l>
+<c>        </c>
+<c>        * GrayClosing</c>
+<l>        get_image_type(Image, Type)</l>
+<l>        gen_disc_se(SE, Type, A, B, GrayValueMax)</l>
+<l>        gray_closing(RegionB, SE, Region)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

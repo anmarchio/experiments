@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'MAIPreform2_Spule0-0315_Upside_Thread_256_best_pipeline'</l>
+<l>source_path := 'D:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images'</l>
+<l>output_path := dataset_name + '/'</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try </l>
+<c>        * Parameters</c>
+<c>        </c>
+<c>        * GrayClosing</c>
+<l>        A1 := 11</l>
+<l>        B1 := 25</l>
+<l>        GrayValueMax1 := 5</l>
+<c>        </c>
+<c>        * Threshold</c>
+<l>        Min := 10</l>
+<l>        Max := 200</l>
+<c>        </c>
+<c>        * GrayDilation</c>
+<l>        A2 := 4</l>
+<l>        B2 := 12</l>
+<l>        GrayValueMax2 := 10</l>
+<c>        </c>
+<c>        * Opening</c>
+<l>        A3 := 26</l>
+<l>        B3 := 21</l>
+<c>        </c>
+<c>        </c>
+<c>        * Branch 1: Threshold -&gt; GrayClosing</c>
+<l>        get_image_type(Image, Type1)</l>
+<l>        gen_disc_se(SE1, Type1, A1, B1, GrayValueMax1)</l>
+<l>        gray_closing(Image, SE1, ImageClosing)</l>
+<c>        </c>
+<l>        threshold(ImageClosing, Region1, Min, Max)</l>
+<c>        </c>
+<c>        * Branch 2: ZeroCrossing -&gt; GrayDilation</c>
+<l>        get_image_type(Image, Type2)</l>
+<l>        gen_disc_se(SE2, Type2, A2, B2, GrayValueMax2)        </l>
+<l>        gray_dilation(Image, SE2, ImageDilation)</l>
+<c>        </c>
+<l>        zero_crossing(ImageDilation, Region2)</l>
+<c>        </c>
+<c>        * Merge</c>
+<l>        union2(Region1, Region2, Region)</l>
+<c>        </c>
+<c>        * Opening</c>
+<l>        opening_rectangle1(Region, Region, A3, B3)</l>
+<c>        </c>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    out_img_path := output_path + Index</l>
+<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
