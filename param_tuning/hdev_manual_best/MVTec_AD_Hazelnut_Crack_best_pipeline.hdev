@@ -3,8 +3,8 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'MVTec_AD_Leather_mean_pipeline'</l>
-<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/leather_train/images'</l>
+<l>dataset_name := 'MVTec_AD_Hazelnut_Crack_mean_pipeline'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/hazelnut_crack_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -24,31 +24,33 @@
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
-<l>    try        </l>
+<l>    try</l>
 <c>        * Parameters</c>
-<l>        A := 19</l>
-<l>        B := 8</l>
-<l>        GrayValueMax := 1</l>
+<l>        MaskHeightSigma := 9</l>
+<l>        MaskWidthSigma := 7</l>
+<l>        Sigma := 54</l>
 <c>        </c>
 <l>        Method := 'adapted_std_deviation'</l>
 <l>        LightDark := 'dark'</l>
 <l>        MaskSize := 15</l>
-<l>        Scale := 0.3</l>
+<l>        Scale := 0.5</l>
 <c>        </c>
+<l>        A := 17</l>
+<l>        B := 12</l>
+<l>        C := 0.785398</l>
+<l>        StructElementType := 'ellipse'</l>
+<c></c>
 <c>        * Pipeline</c>
+<l>        sigma_image(Image, ImageSigma, MaskWidthSigma, MaskHeightSigma, Sigma)</l>
 <c>        </c>
-<c>        * GrayErosion</c>
-<l>        get_image_type(Image, Type)</l>
-<l>        gen_disc_se(SE, Type, A, B, GrayValueMax)</l>
-<l>        gray_erosion(Image, SE, ImageEroded)</l>
+<l>        local_threshold(ImageSigma, RegionThresh, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
 <c>        </c>
-<c>        * LocalThreshold</c>
-<l>        local_threshold(ImageEroded, RegionThresh, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>
-<c>        </c>
-<c>        * AreaToRectangle</c>
 <l>        area_center(RegionThresh, Area, Row, Column)</l>
 <l>        gen_rectangle1(RectangleRegion, Row - Area/2, Column - Area/2, Row + Area/2, Column + Area/2)</l>
-<l>        union2(RegionThresh, RectangleRegion, Region)      </l>
+<l>        union2(RegionThresh, RectangleRegion, RegionRect)</l>
+<c>        </c>
+<l>        gen_ellipse(RectangleStructElement, 0, 0, C, A, B)</l>
+<l>        closing(RegionRect, RectangleStructElement, Region)    </l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
