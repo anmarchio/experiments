@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>dataset_name := 'MVTec_AD_Pill_Crack_mean_pipeline'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/pill_crack_train/images'</l>
+<l>output_path := dataset_name + '/'</l>
+<c></c>
+<l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<c></c>
+<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
+<l>    file_exists(output_path, dir_exists)</l>
+<l>    if(dir_exists == 0)</l>
+<l>        make_dir(output_path)</l>
+<l>    endif</l>
+<l>    out_img_path := output_path + Index + '.png'</l>
+<l>    file_exists(out_img_path, exists)</l>
+<l>    if(exists)</l>
+<l>        delete_file(out_img_path)</l>
+<l>    endif</l>
+<l>    read_image(Image, ImageFiles[Index])</l>
+<l>    get_image_size(Image, Width, Height)</l>
+<c>    * --------------</c>
+<c>    * CGP Code Block</c>
+<c>    * --------------</c>
+<l>    try</l>
+<c>        * Parameters</c>
+<l>        A1 := 12</l>
+<l>        B1 := 11</l>
+<l>        GrayValueMax := 0</l>
+<c>        </c>
+<l>        MinRatio := 0.105</l>
+<l>        MaskHeightCrop := 27</l>
+<l>        MaskWidthCrop := 29</l>
+<c>        </c>
+<l>        A2 := 16</l>
+<l>        B2 := 15</l>
+<l>        C := 0.392699</l>
+<l>        StructElementType := 'circle'</l>
+<c>        </c>
+<c>        * Pipeline</c>
+<c>        </c>
+<c>        * GrayErosion</c>
+<l>        get_image_type(Image, Type)</l>
+<l>        gen_disc_se(SE1, Type, A1, B1, GrayValueMax)</l>
+<l>        gray_erosion(Image, SE1, ImageEroded)</l>
+<c>        </c>
+<c>        * CropRectangle (Relative Threshold)</c>
+<l>        gen_empty_obj (RelativeRegion)</l>
+<l>        count_channels (ImageEroded, NumChannels)</l>
+<l>        if (NumChannels &gt; 1)</l>
+<l>            access_channel (ImageEroded, ImageEroded, 1)</l>
+<l>        endif</l>
+<c>        </c>
+<l>        get_image_type (ImageEroded, ImgType)</l>
+<l>        if (ImgType != 'byte' and ImgType != 'uint2' and ImgType != 'direction' and ImgType != 'cyclic' and ImgType != 'real')</l>
+<l>            convert_image_type (ImageEroded, ImageEroded, 'byte')</l>
+<l>        endif</l>
+<c>        </c>
+<l>        fast_threshold (ImageEroded, Region, 45, 255, 80)</l>
+<l>        fill_up (Region, Rectangle)</l>
+<c>        </c>
+<l>        smallest_rectangle1 (Rectangle, Row1, Col1, Row2, Col2)</l>
+<l>        reduce_domain (ImageEroded, Rectangle, NewImgReduced)</l>
+<c>        </c>
+<l>        region_features (Rectangle, 'width', Width)</l>
+<l>        region_features (Rectangle, 'height', Height)</l>
+<c>        </c>
+<l>        WStep := Width / MaskWidthCrop</l>
+<l>        HStep := Height / MaskHeightCrop</l>
+<c>        </c>
+<l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>
+<l>        StepW := WStep / 2</l>
+<c>        </c>
+<l>        for ImgWidth := Col1 + 20 to EndW by StepW</l>
+<l>            EndH := Row2 - (HStep / 1.5)</l>
+<l>            StepH := HStep / 2</l>
+<c>        </c>
+<l>            for ImgHeight := Row1 + 3 to EndH by StepH</l>
+<l>                crop_rectangle1 (NewImgReduced, ImgPart, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>
+<c>        </c>
+<l>                gray_histo_range (ImgPart, ImgPart, 0, 255, 2, Histo, BinSize)</l>
+<c>        </c>
+<l>                PixelCount := Histo[0] + Histo[1]</l>
+<c>        </c>
+<l>                if (PixelCount &gt; 0.6 * WStep * HStep)</l>
+<l>                    Ratio := Histo[1] / PixelCount</l>
+<c>        </c>
+<l>                    if (Ratio &lt; MinRatio)</l>
+<l>                        gen_rectangle1 (FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>
+<l>                        union2 (RelativeRegion, FaultyRegion, RelativeRegion)</l>
+<l>                    endif</l>
+<l>                endif</l>
+<l>            endfor</l>
+<l>        endfor</l>
+<c>        </c>
+<l>        RegionCrop := RelativeRegion</l>
+<c>        </c>
+<c>        * Closing</c>
+<l>        get_image_type(Image, Type)</l>
+<l>        gen_disc_se(StructElement, Type, A2, B2, 0)        </l>
+<l>        closing(RegionCrop, StructElement, Region)</l>
+<c>        </c>
+<l>    catch (Exception)</l>
+<l>        gen_empty_region(Region)</l>
+<l>    endtry</l>
+<c>    * --------------</c>
+<c>    * END Code Block</c>
+<c>    * --------------</c>
+<l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
+<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
+<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>endfor</l>
+<l>*exit()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
