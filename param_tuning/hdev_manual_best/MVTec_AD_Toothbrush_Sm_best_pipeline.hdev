@@ -3,7 +3,7 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'MVTec_AD_Toothbrush_Sm_mean_pipeline'</l>
+<l>dataset_name := 'MVTec_AD_Toothbrush_Sm_best_pipeline'</l>
 <l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/toothbrush_small_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
@@ -25,27 +25,55 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
-<l>        A := 16</l>
-<l>        B := 13</l>
-<l>        GrayValueMax := 0</l>
+<c>        * Parameters</c>
+<l>        FilterType := 'y'</l>
+<l>        MaskSize := 7</l>
 <c>        </c>
-<l>        Min := 30 </l>
-<l>        Max := 250</l>
+<l>        MaskWidth := 5</l>
+<l>        MaskHeight := 17</l>
+<l>        StdDevScale := 0.9000002</l>
+<l>        AbsThreshold := 76</l>
+<l>        LightDark := 'dark'</l>
 <c>        </c>
-<c>        * GrayClosing</c>
-<c>        * 4 [label="GrayClosing\nStructElement=Circle\n A=16\n B=13\n GrayValueMax=0"];</c>
+<c>        * Pipeline</c>
 <c>        </c>
-<c>        * with struct element circle</c>
-<c>        * StructElementType Ellipse</c>
-<c>        * using A, B and C as shape_params</c>
-<l>        get_image_type(Image, Type)</l>
-<l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>
-<l>        gray_closing(Image, StructElement, Image)</l>
+<c>        * SobelAmp</c>
+<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>
 <c>        </c>
-<c>        * Threshold</c>
-<c>        * 24 [label="Threshold\nMin=30\n Max=250"];</c>
+<c>        * VarThreshold        </c>
+<l>        get_image_type(Image, Type)        </l>
+<l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and Type != 'real')</l>
+<l>            min_max_gray(Image, Image, 0, Min, Max, Range)</l>
+<l>            if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
+<l>                if ((Max - Min) &gt; 0)</l>
+<l>                    Mult := 255.0 / (Max - Min)</l>
+<l>                else</l>
+<l>                    Mult := 255.0</l>
+<l>                endif</l>
+<l>                Add := -Mult * Min</l>
+<l>                scale_image(Image, Image, Mult, Add)</l>
+<l>            else</l>
+<l>                scale_image(Image, Image, 1, 0)</l>
+<l>            endif</l>
+<c>            </c>
+<l>            StandardType := 'byte'</l>
+<l>            convert_image_type(Image, Image, 'byte')</l>
+<l>            var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)    </l>
+<l>        else </l>
+<l>            var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)    </l>
+<l>        endif</l>
 <c>        </c>
-<l>        threshold(Image, Region, Min, Max)</l>
+<c>        * AreaToRectangle</c>
+<l>        area_center(Region, Area, Row, Column)</l>
+<l>        Num:= | Area |</l>
+<l>        gen_empty_region(Rectangles)</l>
+<l>        for Index1 := 1 to Num by 1</l>
+<l>            select_obj(Region, obj, Index1)</l>
+<l>            smallest_rectangle1(obj, Row11, Column11, Row21, Column21)</l>
+<l>            gen_rectangle1(Rectangle, Row11, Column11, Row21, Column21)</l>
+<l>            union2(Rectangles, Rectangle, Rectangles)</l>
+<l>        endfor        </l>
+<l>        Region := Rectangles</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -54,7 +82,7 @@
 <c>    * --------------</c>
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
 <l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
-<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
 <l>endfor</l>
 <l>*exit()</l>
 </body>
