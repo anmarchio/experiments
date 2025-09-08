@@ -3,7 +3,7 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'Pultrusion_Window_mean_pipeline'</l>
+<l>dataset_name := 'Pultrusion_Window_best_pipeline'</l>
 <l>source_path := 'D:/evias_expmts/Pultrusion/window_cgp/train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
@@ -25,32 +25,31 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
+<c>        * Parameters</c>
 <l>        MinGray := 21</l>
 <l>        MaxGray := 255</l>
 <c>        </c>
 <l>        FilterType := 'y'</l>
-<l>        MaskSize := 3</l>
+<l>        MaskSizeSobel := 7</l>
 <c>        </c>
-<l>        MinRatio := 0.0399999991059303</l>
-<l>        MaskHeight := 27</l>
-<l>        MaskWidth := 29</l>
+<l>        MinRatio := 0.095</l>
+<l>        MaskHeight := 23</l>
+<l>        MaskWidth := 15</l>
+<c>        </c>
+<c>        * Pipeline</c>
 <c>        </c>
 <c>        * CropSmallestRectangle</c>
-<c>        * CropSmallestRectangle\nMinGray=21\n MaxGray=255"</c>
-<c>                </c>
-<l>        threshold(Image, Region, MinGray, MaxGray)</l>
-<l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
-<l>        crop_rectangle1(Image, Image2, Row1, Column1, Row2, Column2)</l>
-<c></c>
-<c>        * SobelAmp</c>
-<c>        * 13 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
+<l>        threshold(Image, RegionRect, MinGray, MaxGray)</l>
+<l>        smallest_rectangle1(RegionRect, Row1, Col1, Row2, Col2)</l>
+<l>        crop_rectangle1(Image, ImageCropSmall, Row1, Col1, Row2, Col2)</l>
 <c>        </c>
-<l>        get_image_type(Image2, Type)</l>
+<c>        * SobelAmp        </c>
+<l>        get_image_type(Image, Type)</l>
 <l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>
 <l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>
 <c>                * Scale To Gray</c>
 <l>                gen_empty_obj(ScaledImage)</l>
-<l>                min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>                min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
 <l>                if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
 <l>                    if(MaxGrayVal - MinGrayVal &gt; 0)</l>
 <l>                        Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
@@ -58,13 +57,13 @@
 <l>                        Mult := 255.0</l>
 <l>                    endif</l>
 <l>                    Add := - Mult * MinGrayVal</l>
-<l>                    scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>                    scale_image(Image, ImageScaled, Mult, Add)</l>
 <l>                else</l>
-<l>                    scale_image(Image2, ImageScaled, Mult, Add)                </l>
+<l>                    scale_image(Image, ImageScaled, Mult, Add)                </l>
 <l>                endif</l>
 <c>                </c>
 <c>                * Convert to StandardType (byte)</c>
-<l>                convert_image_type(ScaledImage, Image2, 'byte')</l>
+<l>                convert_image_type(ScaledImage, Image, 'byte')</l>
 <l>            endif</l>
 <l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real') </l>
 <c>            * Scale To Gray</c>
@@ -77,26 +76,25 @@
 <l>                    Mult := 255.0                </l>
 <l>                endif</l>
 <l>                Add := - Mult * MinGrayVal</l>
-<l>                scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>                scale_image(Image, ImageScaled, Mult, Add)</l>
 <l>            else</l>
-<l>                scale_image(Image2, ImageScaled, Mult, Add)                </l>
+<l>                scale_image(Image, ImageScaled, Mult, Add)                </l>
 <l>            endif                </l>
-<l>            convert_image_type(Image2, Image2, 'byte')</l>
+<l>            convert_image_type(Image, Image2, 'byte')</l>
 <l>        endif</l>
-<l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>
+<l>        sobel_amp(Image, Image, FilterType, MaskSizeSobel)</l>
 <c>        </c>
-<c>        * CropRectangle</c>
-<c>        * 86 [label="CropRectangle\nMinRatio=0,0399999991059303\n MaskHeight=27\n MaskWidth=29"];</c>
-<l>        abs_image(Image2, Image2)</l>
+<c>        * CropRectangle (Relative Threshold)</c>
+<l>        abs_image(Image, Image)</l>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region)</l>
 <c>        </c>
-<l>        count_channels(Image2, NumChannels)</l>
+<l>        count_channels(Image, NumChannels)</l>
 <l>        if(NumChannels &gt; 1)</l>
-<l>            access_channel(Image2, Image2, 1)          </l>
+<l>            access_channel(Image, Image, 1)          </l>
 <l>        endif</l>
 <c>        </c>
-<l>        get_image_type(Image2, Type)</l>
+<l>        get_image_type(Image, Type)</l>
 <l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and Type != 'real')</l>
 <c>            * Scale To Gray            </c>
 <l>            gen_empty_obj(ScaledImage)</l>
@@ -108,15 +106,15 @@
 <l>                    Mult := 255.0</l>
 <l>                endif</l>
 <l>                Add := - Mult * MinGrayVal</l>
-<l>                scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>                scale_image(Image, ImageScaled, Mult, Add)</l>
 <l>            else</l>
-<l>                scale_image(Image2, ImageScaled, Mult, Add)                </l>
+<l>                scale_image(Image, ImageScaled, Mult, Add)                </l>
 <l>            endif</l>
 <c>            </c>
 <c>            * Convert to StandardType (byte)</c>
-<l>            convert_image_type(ScaledImage, Image2, 'byte')</l>
+<l>            convert_image_type(ScaledImage, Image, 'byte')</l>
 <l>        endif</l>
-<l>        fast_threshold(Image2, Region, 45, 255, 80)</l>
+<l>        fast_threshold(Image, Region, 45, 255, 80)</l>
 <l>        fill_up(Region, Rectangle)</l>
 <c>        </c>
 <l>        gen_empty_obj(FaultyRegion)</l>
@@ -125,7 +123,7 @@
 <l>        gen_empty_obj(RelativeRegion)</l>
 <c>        </c>
 <l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>
-<l>        reduce_domain(Image2, Rectangle, NewImageReduced)</l>
+<l>        reduce_domain(Image, Rectangle, NewImageReduced)</l>
 <l>        region_features(Rectangle, 'width', RegWidth)</l>
 <l>        region_features(Rectangle, 'height', RegHeight)</l>
 <c>        </c>
@@ -175,6 +173,19 @@
 <l>        else</l>
 <l>            Region := RelativeRegion</l>
 <l>        endif</l>
+<c>        </c>
+<c>        * AreaToRectangle</c>
+<l>        area_center(Region, Area, Row, Column)</l>
+<l>        Num := |Area|</l>
+<l>        gen_empty_region(Rectangles)</l>
+<l>        for Index1 := 1 to Num by 1</l>
+<l>            select_obj(Region, obj, Index1)</l>
+<l>            smallest_rectangle1(obj, Row11, Col11, Row21, Col21)</l>
+<l>            gen_rectangle1(Rectangle, Row11, Col11, Row21, Col21)</l>
+<l>            union2(Rectangles, Rectangle, Rectangles)</l>
+<l>        endfor</l>
+<l>        Region := Rectangles</l>
+<c></c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
