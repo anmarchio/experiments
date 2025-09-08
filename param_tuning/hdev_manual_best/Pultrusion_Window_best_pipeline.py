@@ -16,64 +16,131 @@ def get_Pultrusion_Window_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/Pultrusion/window_cgp/train/images"
 
-    # Parameters
-    param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
-                  "<l>        Radius := " + str(params[1]) + "</l>\n" + \
-                  "<l>        Margin := '" + str(params[2]) + "'</l>\n" + \
-                  "<l>        FilterType := '" + str(params[3]) + "'</l>\n" + \
-                  "<l>        MaskSize := " + str(params[4]) + "</l>\n" + \
-                  "<l>        MinSize := " + str(params[5]) + "</l>\n" + \
-                  "<l>        MaxSize := " + str(params[6]) + "</l>\n" + \
-                  "<l>        WindowWidth := " + str(params[7]) + "</l>\n" + \
-                  "<l>        WindowHeight := " + str(params[8]) + "</l>\n" + \
-                  "<c></c>\n"
+        # Parameters
+        param_lines = (
+                "<l>        MinGray := " + str(params[0]) + "</l>\n"
+                                                            "<l>        MaxGray := " + str(params[1]) + "</l>\n"
+                                                                                                        "<c></c>\n"
+                                                                                                        "<l>        FilterType := '" + str(
+            params[2]) + "'</l>\n"
+                         "<l>        MaskSize := " + str(params[3]) + "</l>\n"
+                                                                      "<c></c>\n"
+                                                                      "<l>        MinRatio := " + str(
+            params[4]) + "</l>\n"
+                         "<l>        MaskHeight := " + str(params[5]) + "</l>\n"
+                                                                        "<l>        MaskWidth := " + str(
+            params[6]) + "</l>\n"
+                         "<c></c>\n"
+        )
 
-    # Core Pipeline Code
-    core_code = "<c>        * MedianImage</c>\n" + \
-                convert_margin_to_int() + \
-                "<l>        get_image_size(Image, Width2, Height2)</l>\n" + \
-                "<l>        Width2 := Width2 / 2</l>\n" + \
-                "<l>        Height2 := Height2 / 2</l>\n" + \
-                "<l>        if(Width2 >= Radius)</l>\n" + \
-                "<l>            radius := Radius</l>\n" + \
-                "<l>        else</l>\n" + \
-                "<l>            radius := Height2 - 1</l>\n" + \
-                "<l>        endif</l>\n" + \
-                "<c>        </c>\n" + \
-                "<l>        median_image(Image, Image, MaskType, radius, Margin)</l>\n" + \
-                "<c>        </c>\n" + \
-                "<c>        * SobelAmp</c>\n" + \
-                sobel_check_filter_type() + \
-                "<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
-                "<c>        </c>\n" + \
-                area_size_threshold()
+        # Core pipeline
+        core_code = (
+            "<c>* CropSmallestRectangle</c>\n"
+            "<l>        threshold(Image, Region, MinGray, MaxGray)</l>\n"
+            "<l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>\n"
+            "<l>        crop_rectangle1(Image, Image2, Row1, Column1, Row2, Column2)</l>\n"
+            "<c></c>\n"
+            "<c>* SobelAmp with scaling/conversion</c>\n"
+            "<l>        get_image_type(Image2, Type)</l>\n"
+            "<l>        if (FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>\n"
+            "<l>            if (Type != 'byte' and Type != 'int2' and Type != 'real')</l>\n"
+            "<l>                gen_empty_obj(ScaledImage)</l>\n"
+            "<l>                min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>\n"
+            "<l>                if (not(MinGrayVal <= 255 and MaxGrayVal >= 0))</l>\n"
+            "<l>                    if (MaxGrayVal - MinGrayVal > 0)</l>\n"
+            "<l>                        Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>\n"
+            "<l>                    else</l>\n"
+            "<l>                        Mult := 255.0</l>\n"
+            "<l>                    endif</l>\n"
+            "<l>                    Add := - Mult * MinGrayVal</l>\n"
+            "<l>                    scale_image(Image2, ImageScaled, Mult, Add)</l>\n"
+            "<l>                else</l>\n"
+            "<l>                    scale_image(Image2, ImageScaled, Mult, Add)</l>\n"
+            "<l>                endif</l>\n"
+            "<l>                convert_image_type(ScaledImage, Image2, 'byte')</l>\n"
+            "<l>            endif</l>\n"
+            "<l>        elseif (Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n"
+            "<l>            gen_empty_obj(ScaledImage)</l>\n"
+            "<l>            min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>\n"
+            "<l>            if (not(MinGrayVal <= 255 and MaxGrayVal >= 0))</l>\n"
+            "<l>                if (MaxGrayVal - MinGrayVal > 0)</l>\n"
+            "<l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>\n"
+            "<l>                else</l>\n"
+            "<l>                    Mult := 255.0</l>\n"
+            "<l>                endif</l>\n"
+            "<l>                Add := - Mult * MinGrayVal</l>\n"
+            "<l>                scale_image(Image2, ImageScaled, Mult, Add)</l>\n"
+            "<l>            else</l>\n"
+            "<l>                scale_image(Image2, ImageScaled, Mult, Add)</l>\n"
+            "<l>            endif</l>\n"
+            "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n"
+            "<l>        endif</l>\n"
+            "<l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>\n"
+            "<c></c>\n"
+            "<c>* CropRectangle (Relative Threshold)</c>\n"
+            "<l>        gen_empty_obj(RelativeRegion)</l>\n"
+            "<l>        count_channels(Image, NumChannels)</l>\n"
+            "<l>        if (NumChannels > 1)</l>\n"
+            "<l>            access_channel(Image, Image, 1)</l>\n"
+            "<l>        endif</l>\n"
+            "<l>        get_image_type(Image, ImgType)</l>\n"
+            "<l>        if (ImgType != 'byte' and ImgType != 'uint2' and ImgType != 'direction' and ImgType != 'cyclic' and ImgType != 'real')</l>\n"
+            "<l>            convert_image_type(Image, Image, 'byte')</l>\n"
+            "<l>        endif</l>\n"
+            "<l>        fast_threshold(Image, Region, 45, 255, 80)</l>\n"
+            "<l>        fill_up(Region, Rectangle)</l>\n"
+            "<l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>\n"
+            "<l>        reduce_domain(Image, Rectangle, NewImgReduced)</l>\n"
+            "<l>        region_features(Rectangle, 'width', Width)</l>\n"
+            "<l>        region_features(Rectangle, 'height', Height)</l>\n"
+            "<l>        WStep := Width / MaskWidth</l>\n"
+            "<l>        HStep := Height / MaskHeight</l>\n"
+            "<l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>\n"
+            "<l>        StepW := WStep / 2</l>\n"
+            "<l>        for ImgWidth := Col1 + 20 to EndW by StepW</l>\n"
+            "<l>            EndH := Row2 - (HStep / 1.5)</l>\n"
+            "<l>            StepH := HStep / 2</l>\n"
+            "<l>            for ImgHeight := Row1 + 3 to EndH by StepH</l>\n"
+            "<l>                crop_rectangle1(NewImgReduced, ImgPart, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>\n"
+            "<l>                gray_histo_range(ImgPart, ImgPart, 0, 255, 2, Histo, BinSize)</l>\n"
+            "<l>                PixelCount := Histo[0] + Histo[1]</l>\n"
+            "<l>                if (PixelCount > 0.6 * WStep * HStep)</l>\n"
+            "<l>                    Ratio := Histo[1] / PixelCount</l>\n"
+            "<l>                    if (Ratio < MinRatio)</l>\n"
+            "<l>                        gen_rectangle1(FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>\n"
+            "<l>                        union2(RelativeRegion, FaultyRegion, RelativeRegion)</l>\n"
+            "<l>                    endif</l>\n"
+            "<l>                endif</l>\n"
+            "<l>            endfor</l>\n"
+            "<l>        endfor</l>\n"
+            "<l>        Region := RelativeRegion</l>\n"
+            "<c></c>\n"
+            "<c>* AreaToRectangle</c>\n"
+            "<l>        area_center(Region, Area, Row, Column)</l>\n"
+            "<l>        gen_rectangle1(RectangleRegion, Row - Area/2, Column - Area/2, Row + Area/2, Column + Area/2)</l>\n"
+            "<l>        union2(Region, RectangleRegion, Region)</l>\n"
+        )
 
-    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
-
+        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 Pultrusion_Window_best_pipeline_initial_params = [
-    'circle',
-    47,
-    'TwoTen',
-    'y',
-    7,
-    10000,
-    21000,
-    200,
-    220
+    21,  # MinGray
+    255,  # MaxGray
+    'y',  # FilterType
+    3,  # MaskSize
+    0.04,  # MinRatio
+    27,  # MaskHeight
+    29  # MaskWidt
 ]
 
 Pultrusion_Window_best_pipeline_bounds = [
-    ['circle', 'square'],  # MaskType
-    [1, 101],  # Radius
-    ['cyclic', 'continued', 'Zero', 'Thirty', 'Sixty', 'Ninety', 'OneTwenty', 'OneFifty', 'OneEighty', 'TwoTen',
-     'TwoForty', 'TwoFiftyFive'],  # Margin
-    ['y', 'y_binomial', 'x', 'x_binomial'],
-    [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
-    [v for v in range(9000, 10999, 1000)],
-    [v for v in range(18000, 21999, 1000)],
-    [v for v in range(160, 320, 10)],
-    [v for v in range(160, 320, 10)]
+    [v for v in range(0, 256)],  # MinGray
+    [v for v in range(0, 256)],  # MaxGray
+    ['x', 'y', 'x_binomial', 'y_binomial'],  # FilterType
+    [3, 5, 7, 9, 11],  # MaskSize
+    [round(0.01 * v, 3) for v in range(0, 101)],  # MinRatio
+    [v for v in range(1, 100)],  # MaskHeight
+    [v for v in range(1, 100)]  # MaskWidth
 ]
 
 Pultrusion_Window_training_source_path = os.path.join(EVIAS_SRC_PATH,
