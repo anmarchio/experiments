@@ -59,7 +59,7 @@ MVTec_AD_Cable_Missing_best_pipeline_initial_params = [
     15  # B
 ]
 
-MVTec_AD_Cable_Missing_mean_pipeline_bounds = [
+MVTec_AD_Cable_Missing_best_pipeline_bounds = [
     ['circle', 'square', 'mask'],                 # MaskType
     [v for v in range(1, 200)],                   # Radius
     ['Ninety', 'zero', 'mirrored', 'constant'],   # Margin

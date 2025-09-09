@@ -1,6 +1,8 @@
 import os
 
-from param_tuning.hdev_manual_mean.run_hdev_manual import MANUAL_HDEV_PIPELINES_MEAN, get_initial_state_by_pipeline_name
+from param_tuning.hdev_manual_best.run_hdev_manual_best import MANUAL_HDEV_PIPELINES_BEST
+from param_tuning.hdev_manual_mean.run_hdev_manual_mean import MANUAL_HDEV_PIPELINES_MEAN
+from param_tuning.run_hdev_manual import get_initial_state_by_pipeline_name
 from param_tuning.utils import check_dir_exists
 from pipeline_retrieval.cross_application_on_all_datasets import (run_pipeline_on_dataset,
                                                                   write_cross_application_header_to_log,

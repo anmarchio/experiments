@@ -52,7 +52,7 @@ def get_AirCarbon3_80_jpg_bright_best_pipeline(params, dataset_path=None):
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
-AirCarbon3_80_jpg_bright_mean_pipeline_initial_params = [
+AirCarbon3_80_jpg_bright_best_pipeline_initial_params = [
     0.1,
     2,
     0.1,
@@ -67,7 +67,7 @@ AirCarbon3_80_jpg_bright_mean_pipeline_initial_params = [
 
 AirCarbon3_80_jpg_bright_best_pipeline_bounds = [
     [0.0, 0.1, 0.5, 1.0],
-    [0.0, 1.0, 3.0, 5.0, 10.0, 30.0]
+    [0.0, 1.0, 3.0, 5.0, 10.0, 30.0],
     [0.1, 0.2, 0.3, 0.4, 0.5],
     [v for v in range(1, 500, 1)],
     ['y_binomial', 'x', 'x_binomial', 'y'],

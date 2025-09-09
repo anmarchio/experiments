@@ -44,7 +44,7 @@ AirCarbon3_80_jpg_dark_4_best_pipeline_initial_params = [
     20     # GrayValueMax
 ]
 
-AirCarbon3_80_jpg_dark_4_mean_pipeline_bounds = [
+AirCarbon3_80_jpg_dark_4_best_pipeline_bounds = [
     [v for v in range(1, 255, 1)],  # MinGray
     [v for v in range(1, 255, 1)],  # MaxGrayOffset
     [v for v in range(1, 500, 1)],  # MinSize

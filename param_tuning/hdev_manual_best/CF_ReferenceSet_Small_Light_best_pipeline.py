@@ -5,7 +5,7 @@ CF_ReferenceSet_Small_Light_mean_pipeline.py
 """
 import os
 
-from param_tuning.hdev_manual_best.hdev_manual_utils import get_custom_hdev_pipeline_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code
 from settings import EVIAS_SRC_PATH
 
 

@@ -5,6 +5,8 @@ AirCarbon3_80.jpg_dark_2_best_pipeline
 """
 import os
 
+import numpy as np
+
 from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code
 from settings import EVIAS_SRC_PATH
 
@@ -94,7 +96,7 @@ AirCarbon3_80_jpg_dark_2_best_pipeline_bounds = [
     [v for v in range(1, 255, 1)],
     ['sum_abs', 'sum_sqrt', 'x', 'y', 'sum_abs_binomial', 'sum_sqrt_binomial', 'x_binomial', 'y_binomial'],
     [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
-    [v for v in range(0.5, 30.0, 0.5)],
+    [np.arange(0.5, 30.0, 0.5)],
     [v for v in range(1, 30, 1)],
     [v for v in range(1, 30, 1)]
 ]

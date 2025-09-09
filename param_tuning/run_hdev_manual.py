@@ -2,7 +2,8 @@ import os
 
 import numpy as np
 
-from param_tuning.hdev_manual_best.run_hdev_manual_best import MANUAL_HDEV_PIPELINES_BEST
+from param_tuning.hdev_manual_best.run_hdev_manual_best import MANUAL_HDEV_PIPELINES_BEST, pipelines_best, bounds_best, \
+    initial_params_best
 from param_tuning.hdev_manual_mean.AirCarbon2_t_8_jpg_mean import AirCarbon2_t_8_jpg_training_source_path
 from param_tuning.hdev_manual_mean.AirCarbon3_80_jpg_bright_mean import AirCarbon3_80_jpg_bright_training_source_path
 from param_tuning.hdev_manual_mean.AirCarbon3_80_jpg_dark_1_mean import AirCarbon3_80_jpg_dark_1_training_source_path
@@ -53,7 +54,7 @@ from settings import PARAM_TUNING_HDEV_MANUAL
 
 
 def get_manual_hdev_pipeline(pipeline_name: str, params: np.array, cross_dataset=None):
-    pipelines = pipelines_mean + pipelines_best
+    pipelines = pipelines_mean | pipelines_best
     pipeline_function = pipelines.get(pipeline_name)
 
     if pipeline_function:
@@ -64,12 +65,12 @@ def get_manual_hdev_pipeline(pipeline_name: str, params: np.array, cross_dataset
 
 
 def get_manual_hdev_pipeline_bounds(pipeline_name: str) -> []:
-    bounds = bounds_mean + bounds_best
+    bounds = bounds_mean | bounds_best
     return bounds.get(pipeline_name, None)
 
 
 def get_initial_state_by_pipeline_name(pipeline_name: str) -> []:
-    initial_params = initial_params_mean + initial_params_best
+    initial_params = initial_params_mean | initial_params_best
     return initial_params.get(pipeline_name, None)
 
 

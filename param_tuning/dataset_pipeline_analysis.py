@@ -7,10 +7,10 @@ from api.models import Dataset, Pipeline
 from dashboard.utils import data_linking
 from param_tuning.data_handling import calculate_metrics
 from param_tuning.hdev.hdev_helpers import translate_graph_to_hdev
-from param_tuning.hdev_manual_mean.run_hdev_manual import get_manual_hdev_pipeline, get_manual_hdev_pipeline_path, \
-    get_manual_hdev_pipeline_training_source_path
 from param_tuning.local_search import run_local_search
 from param_tuning.read_dot import parse_dot
+from param_tuning.run_hdev_manual import get_manual_hdev_pipeline, get_manual_hdev_pipeline_path, \
+    get_manual_hdev_pipeline_training_source_path
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import raw_source_directory, index_closest_to_mean, write_to_file, write_csv_and_tex, \
     dataset_to_graphs

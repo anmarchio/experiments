@@ -1,6 +1,6 @@
 """
 =======================================
-MVTec_AD_Wood_Scratch_mean_pipeline
+MVTec_AD_Wood_Scratch_best_pipeline
 =======================================
 """
 import os
@@ -10,8 +10,8 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def get_MVTec_AD_Wood_Scratch_mean_pipeline(params, dataset_path=None):
-    pipeline_name = "MVTec_AD_Wood_Scratch_mean_pipeline"
+def get_MVTec_AD_Wood_Scratch_best_pipeline(params, dataset_path=None):
+    pipeline_name = "MVTec_AD_Wood_Scratch_best_pipeline"
 
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/wood_scratch_train/images"
@@ -23,7 +23,7 @@ def get_MVTec_AD_Wood_Scratch_mean_pipeline(params, dataset_path=None):
             params[1]) + "</l>\n"
                          "<c></c>\n"
                          "<l>        FilterType := '" + str(params[2]) + "'</l>\n"
-                                                                         "<l>        MaskSizeSobel := " + str(
+                         "<l>        MaskSizeSobel := " + str(
             params[3]) + "</l>\n"
                          "<c></c>\n"
                          "<l>        Method := '" + str(params[4]) + "'</l>\n"
@@ -59,7 +59,7 @@ def get_MVTec_AD_Wood_Scratch_mean_pipeline(params, dataset_path=None):
         return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
-MVTec_AD_Wood_Scratch_mean_pipeline_initial_params = [
+MVTec_AD_Wood_Scratch_best_pipeline_initial_params = [
     'gauss',  # MaskType
     3,  # MaskSizeMedian
     'y',  # FilterType
@@ -71,7 +71,7 @@ MVTec_AD_Wood_Scratch_mean_pipeline_initial_params = [
     30  # A
 ]
 
-MVTec_AD_Wood_Scratch_mean_pipeline_bounds = [
+MVTec_AD_Wood_Scratch_best_pipeline_bounds = [
 
     ['inner', 'outer', 'circle', 'gauss'],  # MaskType
     [v for v in range(1, 21)],  # MaskSizeMedian

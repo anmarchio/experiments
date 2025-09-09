@@ -4,7 +4,7 @@ import numpy as np
 
 from param_tuning.algorithm_step import params_to_str, perturb, SA_N_ITERATIONS, SA_COOLING_RATE, SA_TEMP
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
-from param_tuning.hdev_manual_mean.run_hdev_manual import get_manual_hdev_pipeline_bounds, get_initial_state_by_pipeline_name
+from param_tuning.run_hdev_manual import get_initial_state_by_pipeline_name, get_manual_hdev_pipeline_bounds
 from param_tuning.utils import write_header_to_log, write_log, format_line
 from settings import PARAM_TUNING_HDEV_MANUAL
 

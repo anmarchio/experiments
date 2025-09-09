@@ -10,6 +10,87 @@ import numpy as np
 
 from param_tuning.hdev_manual_best.AirCarbon2_t_8_jpg_best import AirCarbon2_t_8_jpg_best_pipeline, \
     AirCarbon2_t_8_jpg_best_pipeline_bounds, AirCarbon2_t_8_jpg_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.AirCarbon3_80_jpg_bright_best_pipeline import \
+    get_AirCarbon3_80_jpg_bright_best_pipeline, AirCarbon3_80_jpg_bright_best_pipeline_bounds, \
+    AirCarbon3_80_jpg_bright_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.AirCarbon3_80_jpg_dark_1_best import get_AirCarbon3_80_jpg_dark_1_best_pipeline, \
+    AirCarbon3_80_jpg_dark_1_best_pipeline_bounds, AirCarbon3_80_jpg_dark_1_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.AirCarbon3_80_jpg_dark_2_best import get_AirCarbon3_80_jpg_dark_2_best_pipeline, \
+    AirCarbon3_80_jpg_dark_2_best_pipeline_bounds, AirCarbon3_80_jpg_dark_2_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.AirCarbon3_80_jpg_dark_3_best import get_AirCarbon3_80_jpg_dark_3_best_pipeline, \
+    AirCarbon3_80_jpg_dark_3_best_pipeline_bounds, AirCarbon3_80_jpg_dark_3_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.AirCarbon3_80_jpg_dark_4_best import get_AirCarbon3_80_jpg_dark_4_best_pipeline, \
+    AirCarbon3_80_jpg_dark_4_best_pipeline_initial_params, AirCarbon3_80_jpg_dark_4_best_pipeline_bounds
+from param_tuning.hdev_manual_best.AirCarbon3_80_jpg_dark_5_best import get_AirCarbon3_80_jpg_dark_5_best_pipeline, \
+    AirCarbon3_80_jpg_dark_5_best_pipeline_initial_params, AirCarbon3_80_jpg_dark_5_best_pipeline_bounds
+from param_tuning.hdev_manual_best.CF_ReferenceSet_Small_Dark_best_pipeline import \
+    get_CF_ReferenceSet_Small_Dark_best_pipeline, CF_ReferenceSet_Small_Dark_best_pipeline_bounds, \
+    CF_ReferenceSet_Small_Dark_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.CF_ReferenceSet_Small_Light_best_pipeline import \
+    get_CF_ReferenceSet_Small_Light_best_pipeline, CF_ReferenceSet_Small_Light_best_pipeline_bounds, \
+    CF_ReferenceSet_Small_Light_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.CF_ReferenceSet_best_pipeline import get_CF_ReferenceSet_best_pipeline, \
+    CF_ReferenceSet_best_pipeline_bounds, CF_ReferenceSet_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.CrackForest_best import get_CrackForest_best_pipeline, \
+    CrackForest_best_pipeline_bounds, CrackForest_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.FabricDefectsAITEX_best import get_FabricDefectsAITEX_best_pipeline, \
+    FabricDefectsAITEX_best_pipeline_bounds, FabricDefectsAITEX_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline import \
+    get_MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline, \
+    MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline_bounds, \
+    MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline import \
+    get_MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline, MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline_bounds, \
+    MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MAIPreform2_Spule0_0315_Upside_best_pipeline import \
+    get_MAIPreform2_Spule0_0315_Upside_best_pipeline, MAIPreform2_Spule0_0315_Upside_best_pipeline_bounds, \
+    MAIPreform2_Spule0_0315_Upside_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MAIPreform2_Spule0_0816_Upside_best_pipeline import \
+    get_MAIPreform2_Spule0_0816_Upside_best_pipeline, MAIPreform2_Spule0_0816_Upside_best_pipeline_bounds, \
+    MAIPreform2_Spule0_0816_Upside_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MT_Blowhole_train_best import get_MT_Blowhole_train_best_pipeline, \
+    MT_Blowhole_train_best_pipeline_bounds, MT_Blowhole_train_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Bottle_Broken_Lg_best import get_MVTec_AD_Bottle_Broken_Lg_best_pipeline, \
+    MVTec_AD_Bottle_Broken_Lg_best_pipeline_bounds, MVTec_AD_Bottle_Broken_Lg_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Bottle_Broken_Sm_best import get_MVTec_AD_Bottle_Broken_Sm_best_pipeline, \
+    MVTec_AD_Bottle_Broken_Sm_best_pipeline_bounds, MVTec_AD_Bottle_Broken_Sm_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Cable_Missing_best import get_MVTec_AD_Cable_Missing_best_pipeline, \
+    MVTec_AD_Cable_Missing_best_pipeline_initial_params, MVTec_AD_Cable_Missing_best_pipeline_bounds
+from param_tuning.hdev_manual_best.MVTec_AD_Capsule_best import get_MVTec_AD_Capsule_best_pipeline, \
+    MVTec_AD_Capsule_best_pipeline_bounds, MVTec_AD_Capsule_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Carpet_best import get_MVTec_AD_Carpet_best_pipeline, \
+    MVTec_AD_Carpet_best_pipeline_bounds, MVTec_AD_Carpet_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Grid_Thread_best import get_MVTec_AD_Grid_Thread_best_pipeline, \
+    MVTec_AD_Grid_Thread_best_pipeline_bounds, MVTec_AD_Grid_Thread_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Hazelnut_Crack_best import get_MVTec_AD_Hazelnut_Crack_best_pipeline, \
+    MVTec_AD_Hazelnut_Crack_best_pipeline_bounds, MVTec_AD_Hazelnut_Crack_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Leather_best import get_MVTec_AD_Leather_best_pipeline, \
+    MVTec_AD_Leather_best_pipeline_bounds, MVTec_AD_Leather_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Metal_Nut_best import get_MVTec_AD_Metal_Nut_best_pipeline, \
+    MVTec_AD_Metal_Nut_best_pipeline_bounds, MVTec_AD_Metal_Nut_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Pill_Crack_best import get_MVTec_AD_Pill_Crack_best_pipeline, \
+    MVTec_AD_Pill_Crack_best_pipeline_bounds, MVTec_AD_Pill_Crack_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Screw_Scratch_best import get_MVTec_AD_Screw_Scratch_best_pipeline, \
+    MVTec_AD_Screw_Scratch_best_pipeline_bounds, MVTec_AD_Screw_Scratch_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Tile_Crack_best import get_MVTec_AD_Tile_Crack_best_pipeline, \
+    MVTec_AD_Tile_Crack_best_pipeline_bounds, MVTec_AD_Tile_Crack_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Toothbrush_Sm_best import get_MVTec_AD_Toothbrush_Sm_best_pipeline, \
+    MVTec_AD_Toothbrush_Sm_best_pipeline_bounds, MVTec_AD_Toothbrush_Sm_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Transistor_best import get_MVTec_AD_Transistor_best_pipeline, \
+    MVTec_AD_Transistor_best_pipeline_bounds, MVTec_AD_Transistor_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Wood_Scratch_best_pipeline import get_MVTec_AD_Wood_Scratch_best_pipeline, \
+    MVTec_AD_Wood_Scratch_best_pipeline_bounds, MVTec_AD_Wood_Scratch_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.MVTec_AD_Zipper_Rough_best_pipeline import get_MVTec_AD_Zipper_Rough_best_pipeline, \
+    MVTec_AD_Zipper_Rough_best_pipeline_initial_params, MVTec_AD_Zipper_Rough_best_pipeline_bounds
+from param_tuning.hdev_manual_best.Pultrusion_Resin_Augmtd_best_pipeline import \
+    get_Pultrusion_Resin_Augmtd_best_pipeline, Pultrusion_Resin_Augmtd_best_pipeline_bounds, \
+    Pultrusion_Resin_Augmtd_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.Pultrusion_Resin_best_pipeline import get_Pultrusion_Resin_best_pipeline, \
+    Pultrusion_Resin_best_pipeline_bounds, Pultrusion_Resin_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.Pultrusion_Window_best_pipeline import get_Pultrusion_Window_best_pipeline, \
+    Pultrusion_Window_best_pipeline_bounds, Pultrusion_Window_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.severstal_steel_best import get_severstal_steel_best_pipeline, \
+    severstal_steel_best_pipeline_initial_params
 from param_tuning.hdev_manual_mean.AirCarbon2_t_8_jpg_mean import AirCarbon2_t_8_jpg_training_source_path, \
     AirCarbon2_t_8_jpg_mean_pipeline, AirCarbon2_t_8_jpg_mean_pipeline_bounds, \
     AirCarbon2_t_8_jpg_mean_pipeline_initial_params
@@ -173,7 +254,7 @@ DICTS for best pipelines, bounds, source_paths
 =============================
 """
 
-pipelines_best_temp = {
+pipelines_best = {
     "AirCarbon2_t_8.jpg_best_pipeline": AirCarbon2_t_8_jpg_best_pipeline,
     "AirCarbon3_80.jpg_bright_best_pipeline": get_AirCarbon3_80_jpg_bright_best_pipeline,
     "AirCarbon3_80.jpg_dark_1_best_pipeline": get_AirCarbon3_80_jpg_dark_1_best_pipeline,
@@ -213,7 +294,8 @@ pipelines_best_temp = {
     "CrackForest_best_pipeline": get_CrackForest_best_pipeline,
 }
 
-bounds_best_temp = {
+
+bounds_best = {
     "AirCarbon2_t_8.jpg_best_pipeline": AirCarbon2_t_8_jpg_best_pipeline_bounds,
     "AirCarbon3_80.jpg_bright_best_pipeline": AirCarbon3_80_jpg_bright_best_pipeline_bounds,
     "AirCarbon3_80.jpg_dark_1_best_pipeline": AirCarbon3_80_jpg_dark_1_best_pipeline_bounds,
@@ -253,7 +335,8 @@ bounds_best_temp = {
     "CrackForest_best_pipeline": CrackForest_best_pipeline_bounds
 }
 
-initial_params_best_temp = {
+
+initial_params_best = {
     "AirCarbon2_t_8.jpg_best_pipeline": AirCarbon2_t_8_jpg_best_pipeline_initial_params,
     "AirCarbon3_80.jpg_bright_best_pipeline": AirCarbon3_80_jpg_bright_best_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_1_best_pipeline": AirCarbon3_80_jpg_dark_1_best_pipeline_initial_params,

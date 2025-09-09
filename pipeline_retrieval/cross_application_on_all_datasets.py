@@ -1,7 +1,7 @@
 import os
 
 from param_tuning.dataset_pipeline_analysis import run_pipeline
-from param_tuning.hdev_manual_mean.run_hdev_manual import get_initial_state_by_pipeline_name, get_dataset_by_pipeline_name
+from param_tuning.run_hdev_manual import get_initial_state_by_pipeline_name, get_dataset_by_pipeline_name
 from param_tuning.utils import write_log
 from settings import CROSS_APPLICATION_RESULTS_PATH, CROSS_APPLICATION_HDEV_MANUAL
 

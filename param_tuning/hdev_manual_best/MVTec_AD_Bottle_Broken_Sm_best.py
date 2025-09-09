@@ -1,6 +1,6 @@
 """
 =======================================
-MVTec_AD_Bottle_Broken_Sm_mean_pipeline
+MVTec_AD_Bottle_Broken_Sm_best_pipeline
 =======================================
 """
 import os
@@ -9,8 +9,8 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def get_MVTec_AD_Bottle_Broken_Sm_mean_pipeline(params, dataset_path=None):
-    pipeline_name = "MVTec_AD_Bottle_Broken_Sm_mean_pipeline"
+def get_MVTec_AD_Bottle_Broken_Sm_best_pipeline(params, dataset_path=None):
+    pipeline_name = "MVTec_AD_Bottle_Broken_Sm_best_pipeline"
 
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/bottle_broken_small_train/images"
@@ -59,7 +59,7 @@ def get_MVTec_AD_Bottle_Broken_Sm_mean_pipeline(params, dataset_path=None):
         return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
-MVTec_AD_Bottle_Broken_Sm_mean_pipeline_initial_params = [
+MVTec_AD_Bottle_Broken_Sm_best_pipeline_initial_params = [
     21,  # MinGray
     255,  # MaxGray
     'y_binomial',  # FilterType
@@ -69,7 +69,7 @@ MVTec_AD_Bottle_Broken_Sm_mean_pipeline_initial_params = [
     3.0  # B
 ]
 
-MVTec_AD_Bottle_Broken_Sm_mean_pipeline_bounds = [
+MVTec_AD_Bottle_Broken_Sm_best_pipeline_bounds = [
     [v for v in range(0, 255)],  # MinGray
     [v for v in range(0, 255)],  # MaxGray
     ['sum_abs', 'sum_sqrt', 'x', 'y', 'x_binomial', 'y_binomial'],  # FilterType
