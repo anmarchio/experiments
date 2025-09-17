@@ -26,25 +26,22 @@ def get_AirCarbon3_80_jpg_bright_best_pipeline(params, dataset_path=None):
                   "<l>        LightDark := '" + str(params[7]) + "'</l>\n" + \
                   "<l>        MaskSizeLT := " + str(params[8]) + "</l>\n" + \
                   "<l>        Scale := " + str(params[9]) + "</l>\n\n"
+    """
+        access_channel(ImageAmp, ImageAmp, 1)
+        convert_image_type(ImageAmp, ImageAmp, 'byte')
 
+        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeLT, Scale])
+    """
     # Core Pipeline Code
     core_code = "<l>        coherence_enhancing_diff(Image, Image, Sigma, Rho, Theta, Iterations)</l>\n" \
                 "<c></c>\n" \
                 "<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n" + \
                 "<c></c>\n" \
-                "<c>        * ThresholdAccessChannel</c>\n" \
+                "<c>        * Threshold</c>\n" \
+                "<l>        access_channel(ImageB, ImageB, 1)</l>\n" \
+                "<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>\n" \
                 "<c>        </c>\n" \
-                "<l>        abs_image(Image, ImageB)</l>\n" \
-                "<c>        </c>\n" \
-                "<l>        count_channels(ImageB, NumChannels)</l>\n" \
-                "<l>        if(NumChannels == 3)</l>\n" \
-                "<l>           access_channel(ImageB, ImageB, Channel)</l>\n" \
-                "<l>           threshold(ImageB, RegionB, Threshold, 255)</l>\n" \
-                "<l>        else</l>\n" \
-                "<l>            threshold(ImageB, RegionB, Threshold, 255)</l>\n" \
-                "<l>        endif</l>\n" \
-                "<c>        </c>\n" \
-                "<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], " \
+                "<l>        local_threshold(ImageB, Region, Method, LightDark, ['mask_size', 'scale'], " \
                 "[MaskSizeLT, Scale])</l>\n" + \
                 "<c></c>\n" \
                 "<l>        connection(Region, Region)</l>\n"

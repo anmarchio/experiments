@@ -18,15 +18,15 @@ def get_AirCarbon3_80_jpg_dark_3_best_pipeline(params, dataset_path=None):
     # Parameters
     param_lines = "<l>        Filter := '" + str(params[0]) + "'</l>\n" + \
                   "<l>        Alpha := " + str(params[1]) + "</l>\n" + \
-                  "<l>        Low := " + str(params[3]) + "</l>\n" + \
-                  "<l>        High := " + str(params[4]) + "</l>\n" + \
-                  "<l>        NonMaximumSuppression := '" + str(params[2]) + "'</l>\n" + \
+                  "<l>        Low := " + str(params[2]) + "</l>\n" + \
+                  "<l>        High := " + str(params[3]) + "</l>\n" + \
+                  "<l>        NonMaximumSuppression := '" + str(params[4]) + "'</l>\n" + \
                   "<l>        FilterType := '" + str(params[5]) + "'</l>\n" + \
                   "<l>        MaskSize := " + str(params[6]) + "</l>\n" + \
-                  "<l>        Min := " + str(params[6]) + "</l>\n" + \
-                  "<l>        Max := " + str(params[6]) + "</l>\n" + \
-                  "<l>        A := " + str(params[7]) + "</l>\n" + \
-                  "<l>        B := " + str(params[8]) + "</l>\n" + \
+                  "<l>        Min := " + str(params[7]) + "</l>\n" + \
+                  "<l>        Max := " + str(params[8]) + "</l>\n" + \
+                  "<l>        A := " + str(params[9]) + "</l>\n" + \
+                  "<l>        B := " + str(params[10]) + "</l>\n" + \
                   "<l>        C := 1.178097</l>\n" + \
                                                              "<c></c>\n"
 

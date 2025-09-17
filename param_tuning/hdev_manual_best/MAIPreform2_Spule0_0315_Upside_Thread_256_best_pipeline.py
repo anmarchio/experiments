@@ -38,7 +38,7 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline(params, dataset_
             "<l>        endif</l>\n"
             "<c></c>\n"
             "<c>* GrayClosing</c>\n"
-            "<l>        get_image_type(Image, Type)</l>\n"
+            "<l>        get_image_type(ImageB, Type)</l>\n"
             "<l>        gen_disc_se(SE, Type, A, B, GrayValueMax)</l>\n"
             "<l>        gray_closing(RegionB, SE, Region)</l>\n"
         )

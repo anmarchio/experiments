@@ -39,9 +39,16 @@
 <c>        </c>
 <c>        * Pipeline</c>
 <l>        sobel_amp(Image, ImageAmp1, FilterType1, MaskSize1)</l>
-<l>        sobel_amp(ImageAmp1, ImageAmp2, FilterType2, MaskSize2)</l>
 <c>        </c>
-<l>        local_threshold(ImageAmp2, Region, Method, MaskSizeThreshold, LightDark, Scale)</l>
+<l>        get_image_type(ImageAmp1, Type)</l>
+<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>
+<l>            convert_image_type(ImageAmp1, ImageAmp1, 'byte')</l>
+<l>        endif</l>
+<l>        sobel_amp(ImageAmp1, ImageAmp2, FilterType2, MaskSize2)</l>
+<c>           </c>
+<l>        access_channel(ImageAmp2, ImageAmp2, 1)</l>
+<l>        convert_image_type(ImageAmp2, ImageAmp2, 'byte')</l>
+<l>        local_threshold(ImageAmp2, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeThreshold, Scale])</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

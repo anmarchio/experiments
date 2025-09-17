@@ -45,7 +45,7 @@
 <l>       endif</l>
 <c>        </c>
 <c>        * GrayClosing</c>
-<l>        get_image_type(Image, Type)</l>
+<l>        get_image_type(ImageB, Type)</l>
 <l>        gen_disc_se(SE, Type, A, B, GrayValueMax)</l>
 <l>        gray_closing(RegionB, SE, Region)</l>
 <l>    catch (Exception)</l>

@@ -21,7 +21,7 @@ def get_AirCarbon3_80_jpg_dark_2_best_pipeline(params, dataset_path=None):
     param_lines = "<l>        FilterTypeSA_1 := '" + str(params[0]) + "'</l>\n" + \
                   "<l>        MaxSizeSA_1 := " + str(params[1]) + "</l>\n" + \
                   "<l>        Method := '" + str(params[2]) + "'</l>\n" + \
-                  "<l>        LightDark := " + str(params[3]) + "</l>\n" + \
+                  "<l>        LightDark := '" + str(params[3]) + "'</l>\n" + \
                   "<l>        MaskSize := " + str(params[4]) + "</l>\n" + \
                   "<l>        Scale := " + str(params[5]) + "</l>\n" + \
                   "<l>        Filter := '" + str(params[6]) + "'</l>\n" + \

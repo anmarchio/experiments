@@ -14,8 +14,7 @@ def AirCarbon2_t_8_jpg_best_pipeline(params, dataset_path=None):
         dataset_path = "/Aircarbon2/Blende5_6_1800mA_rov/training/t_8.jpg/images"
 
     # Parameters
-    # 'lines', 'y', 5, 'adapted_std_deviation', 'dark', 15, 0.3
-    param_lines = "<l>        MinGray := '" + str(params[0]) + "'</l>\n" + \
+    param_lines = "<l>        MinGray := " + str(params[0]) + "</l>\n" + \
                   "<l>        MaxGray := " + str(params[1]) + "</l>\n" + \
                   "<l>        MinSize := " + str(params[2]) + "</l>\n\n"
     # Core Pipeline Code

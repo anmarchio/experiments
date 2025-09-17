@@ -2,7 +2,7 @@ import os
 
 from param_tuning.hdev_manual_best.run_hdev_manual_best import MANUAL_HDEV_PIPELINES_BEST
 from param_tuning.hdev_manual_mean.run_hdev_manual_mean import MANUAL_HDEV_PIPELINES_MEAN
-from param_tuning.run_hdev_manual import get_initial_state_by_pipeline_name
+from param_tuning.run_hdev_manual import get_initial_state_by_pipeline_name, get_dataset_by_pipeline_name
 from param_tuning.utils import check_dir_exists
 from pipeline_retrieval.cross_application_on_all_datasets import (run_pipeline_on_dataset,
                                                                   write_cross_application_header_to_log,
@@ -10,8 +10,7 @@ from pipeline_retrieval.cross_application_on_all_datasets import (run_pipeline_o
 from settings import CROSS_APPLICATION_RESULTS_PATH
 
 
-def manual_cross_apply_hdev_pipelines(mean: bool = True,
-                                           best: bool = False):
+def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
     """
     Cross-apply manual hdev pipelines on all datasets (ca. 900 runs).
     Only pipelines are used, which are defined in
@@ -22,10 +21,23 @@ def manual_cross_apply_hdev_pipelines(mean: bool = True,
     check_dir_exists(CROSS_APPLICATION_RESULTS_PATH)
     check_dir_exists(manual_hdev_path)
 
-    manual_hdev_pipelines = MANUAL_HDEV_PIPELINES_MEAN if mean else MANUAL_HDEV_PIPELINES_BEST
+    # mean by default
+    manual_hdev_pipelines = MANUAL_HDEV_PIPELINES_MEAN
+
+    if mode == "best" or mode == "best_test":
+        manual_hdev_pipelines = MANUAL_HDEV_PIPELINES_BEST
 
     for pipeline_name in manual_hdev_pipelines:
         write_cross_application_header_to_log(pipeline_name)
+
+        if mode == "mean_test" or mode == "best_test":
+            # only run the pipeline on its own dataset
+            # and let it raise an error
+            regular_dataset = get_dataset_by_pipeline_name(pipeline_name)
+            print(f"Running {pipeline_name} on {regular_dataset}) ...")
+            cross_score = run_pipeline_on_dataset(pipeline_name, get_initial_state_by_pipeline_name(pipeline_name),
+                                                  regular_dataset)
+            continue
 
         try:
             graph = get_initial_state_by_pipeline_name(pipeline_name)
@@ -33,7 +45,6 @@ def manual_cross_apply_hdev_pipelines(mean: bool = True,
 
             # pick cross-datasets minus the current
             for cross_dataset in [key for key in manual_hdev_pipelines if key != pipeline_name]:
-
                 try:
                     cross_score = run_pipeline_on_dataset(pipeline_name, graph, cross_dataset)
                     write_cross_application_log(pipeline_name,
@@ -53,6 +64,8 @@ def main():
     print("-" * 30)
     print("1 - MEAN (by MCC) hdev pipeline cross application")
     print("2 - BEST (by MCC) hdev pipeline cross application")
+    print("3 - Test MEAN (by MCC) hdev pipeline cross application (only one pipeline)")
+    print("4 - Test BEST (by MCC) hdev pipeline cross application (only one pipeline)")
     print("0 - Exit")
     selection = input("Selection: ")
 
@@ -63,13 +76,23 @@ def main():
 
     # 4 -- Cross-apply cgp pipelines on all datasets (ca. 900 runs)
     if selection == "1":
-        manual_cross_apply_hdev_pipelines(mean = True)
-    
+        print("MEAN (by MCC) hdev pipeline cross application ...")
+        manual_cross_apply_hdev_pipelines(mode="mean")
+
     if selection == "2":
-        print("BEST (by MCC) hdev pipeline cross application is not implemented yet.")
-        manual_cross_apply_hdev_pipelines(mean = False, best = True)
+        print("BEST (by MCC) hdev pipeline cross application ...")
+        manual_cross_apply_hdev_pipelines(mode="best")
         return 0
 
+    if selection == "3":
+        print("Test MEAN (by MCC) hdev pipeline cross application ...")
+        manual_cross_apply_hdev_pipelines(mode="mean_test")
+        return 0
+
+    if selection == "4":
+        print("Test BEST (by MCC) hdev pipeline cross application ...")
+        manual_cross_apply_hdev_pipelines(mode="best_test")
+        return 0
 
 if __name__ == "__main__":
     main()
