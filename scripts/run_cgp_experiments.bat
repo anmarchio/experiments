@@ -14,15 +14,18 @@ REM SETUP
 REM ==========================================================
 
 ECHO ------------
-REM call SET COMMANDLINE=D:\dev\optimization\Optimization.Commandline\bin\Debug\Optimization.Commandline.exe
-call SET COMMANDLINE=C:\Users\Public\dev_mara\optimization\Optimization.Commandline\bin\Debug\Optimization.Commandline.exe
+REM call SET COMMANDLINE=C:\Users\Public\dev_mara\optimization\Optimization.Commandline\bin\Debug\Optimization.Commandline.exe
+call SET COMMANDLINE=D:\dev\github\optimization\Optimization.Commandline\bin\Debug\Optimization.Commandline.exe
 
 REM ----------------------------------------------------------
 REM Default parameters
 REM ----------------------------------------------------------
 call SET RUNS=1
-call SET GENERATIONS=300
-call SET CWDIR=C:\Users\Public\evias_expmts\
+REM GENERATIONS=300
+call SET GENERATIONS=150
+REM call SET CWDIR=C:\Users\Public\evias_expmts\
+call SET CWDIR=D:\evias_expmts
+
 
 setlocal EnableDelayedExpansion 
 
@@ -193,7 +196,7 @@ REM Run Experiments
 REM ==========================================================
 REM for %%e in (%expmnts%) do (
 
-for /l %%i in (5 1 5) do (
+for /l %%i in (0 1 39) do (
 	call echo RUNS: %RUNS%
 	call echo GENERATIONS: %GENERATIONS%
 	

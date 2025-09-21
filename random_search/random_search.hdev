@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>* ------------------------------------------------------------</c>
+<c>* Random search over filter pipelines for binary segmentation</c>
+<c>* Metric: Matthews Correlation Coefficient (MCC)</c>
+<c>* HALCON / HDevelop script</c>
+<c>* ------------------------------------------------------------</c>
+<c></c>
+<c>* =========================</c>
+<c>* CONFIG</c>
+<c>* =========================</c>
+<c>* &lt;- change me</c>
+<l>ImageDir := 'C:/data/images'</l>
+<c>* &lt;- change me (binary GT images; &gt;0 = positive)</c>
+<l>LabelDir := 'C:/data/labels'</l>
+<c>* &lt;- change me</c>
+<l>ResultDir := 'C:/data/results'</l>
+<c></c>
+<c>* ==========================</c>
+<c>* number of random pipelines to test</c>
+<l>MaxTrials := 200</l>
+<c>* max number of filters to chain (1..MaxPipelineLen)</c>
+<l>MaxPipelineLen := 3                    </l>
+<c>* RNG seed for reproducibility</c>
+<l>Seed := 42</l>
+<c>* apply a small opening to clean preds (0/1)</c>
+<l>DoOpeningPost := 1</l>
+<l>OpeningRadius := 2</l>
+<c></c>
+<c>* =========================</c>
+<c>* PREP: load file lists</c>
+<c>* =========================</c>
+<l>list_image_files (ImageDir, 'default', [], ImageFiles)</l>
+<l>list_image_files (LabelDir, 'default', [], LabelFiles)</l>
+<c></c>
+<l>if (|ImageFiles| = 0 or |ImageFiles| != |LabelFiles|)</l>
+<l>    throw ('Image/label file lists are empty or different length.')</l>
+<l>endif</l>
+<c></c>
+<c>* =========================</c>
+<c>* RNG setup</c>
+<c>* =========================</c>
+<l>set_system ('seed', Seed)</l>
+<c>* helper to draw random int in [a,b]</c>
+<c>* rndInt := a + floor(tuple_rand(1) * (b - a + 1))</c>
+<c></c>
+<c>* =========================</c>
+<c>* Define candidate filters and parameter ranges</c>
+<c>* (All filters operate on the current working image in the pipeline)</c>
+<c>* =========================</c>
+<l>FilterNames := ['gauss','mean','median','sobel_amp','laplace','gray_open','gray_close']</l>
+<c></c>
+<c>* =========================</c>
+<c>* Helpers</c>
+<c>* =========================</c>
+<c>* apply_random_filter := procedure (ImageIn : ImageOut, ParamDesc : ) </c>
+<c>* mcc_region := procedure (PredRegion, GTRegion, Width, Height : MCC :) </c>
+<c>* segment_to_region := procedure (Img : RegionOut, UsedThr, SegDesc :) </c>
+<c></c>
+<c>* =========================</c>
+<c>* Search</c>
+<c>* =========================</c>
+<l>BestMeanMCC := -1.0</l>
+<l>BestConfigDesc := ''</l>
+<l>BestTrialIdx := -1</l>
+<c></c>
+<l>dev_update_off ()</l>
+<l>dev_close_window ()</l>
+<c></c>
+<l>for Trial := 1 to MaxTrials by 1</l>
+<c>    * Draw random pipeline length</c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    PipeLen := 1 + floor(Rand * MaxPipelineLen)</l>
+<c></c>
+<c>    * Build + describe pipeline</c>
+<l>    PipelineDesc := []</l>
+<l>    SumMCC := 0.0</l>
+<c></c>
+<l>    for i := 0 to |ImageFiles|-1 by 1</l>
+<l>        read_image (Img, ImageFiles[i])</l>
+<l>        read_image (GtImg, LabelFiles[i])</l>
+<c></c>
+<c>        * Ensure single-channel byte where needed</c>
+<l>        count_channels(Img, Channels)</l>
+<l>        if (|Channels| &gt; 0)</l>
+<c>            * no-op, common case</c>
+<l>        endif</l>
+<c></c>
+<l>        get_image_size (Img, W, H)</l>
+<c></c>
+<c>        * Convert GT image to region (anything &gt; 0 is positive)</c>
+<l>        threshold (GtImg, R_gt, 1, 255)</l>
+<c></c>
+<c>        * Apply random filter pipeline</c>
+<l>        copy_image (Img, Work)</l>
+<l>        PipeStepDesc := []</l>
+<l>        for k := 1 to PipeLen by 1</l>
+<l>            apply_random_filter(Work, Work, PipeStepDesc, StepDesc)</l>
+<l>            PipeStepDesc := [PipeStepDesc, StepDesc]</l>
+<l>        endfor</l>
+<c></c>
+<c>        * Segment to region</c>
+<l>        segment_to_region (Work, RegionOut, UsedThr, SegDesc)</l>
+<c></c>
+<c>        * Optional post-processing on prediction to reduce noise</c>
+<l>        if (DoOpeningPost)</l>
+<l>            opening_circle (R_pred, R_pred, OpeningRadius)</l>
+<l>        endif</l>
+<c></c>
+<c>        * Compute MCC</c>
+<l>        get_image_size(Img, Width, Height)</l>
+<l>        mcc_region (RegionOut, R_gt, Width, Height, MCC)</l>
+<l>        SumMCC := SumMCC + MCC</l>
+<l>    endfor</l>
+<c></c>
+<l>    MeanMCC := SumMCC / |ImageFiles|</l>
+<l>    tuple_concat(PipeStepDesc, ' -&gt; ', PipeStepDesc_Concat)</l>
+<l>    PipelineDesc := 'len=' + PipeLen + ' :: ' + PipeStepDesc_Concat + ' -&gt; ' + SegDesc</l>
+<c></c>
+<l>    if (MeanMCC &gt; BestMeanMCC)</l>
+<l>        BestMeanMCC := MeanMCC</l>
+<l>        BestConfigDesc := PipelineDesc</l>
+<l>        BestTrialIdx := Trial</l>
+<l>    endif</l>
+<c></c>
+<c>    * (Optional) progress print</c>
+<l>    dev_disp_text ('Trial ' + Trial + '/' + MaxTrials + '  Mean MCC=' + MeanMCC$'.4f', \
+                   'window', \
+                   'top', \
+                   'left', \
+                   'black', \
+                   [], \
+                   [])</l>
+<l>endfor</l>
+<c></c>
+<c>* =========================</c>
+<c>* Report</c>
+<c>* =========================</c>
+<l>get_system_time(MSecond, Second, Minute, Hour, Day, YDay, Month, Year)</l>
+<l>open_file(ResultDir + \
+          '/' + \
+          Year + \
+          Month + \
+          Day + \
+          Hour + \
+          Minute + \
+          Second + \
+          '-randsearch-result', \
+          'output', \
+          FileHandle)</l>
+<l>output_string := ['--- Random Search Complete ---', \
+               'Trials      : ' + MaxTrials, \
+               'Best Trial  : ' + BestTrialIdx, \
+               'Best Mean MCC: ' + BestMeanMCC$'.5f', \
+               'Best Config : ' + BestConfigDesc]</l>
+<l>fwrite_string(FileHandle, output_string)</l>
+<c></c>
+<c>* Example: rerun best pipeline on the first image and visualize</c>
+<l>if (|ImageFiles| &gt; 0)</l>
+<l>    read_image (Img0, ImageFiles[0])</l>
+<l>    read_image (Gt0, LabelFiles[0])</l>
+<l>    get_image_size (Img0, W0, H0)</l>
+<l>    threshold (Gt0, R_gt0, 1, 255)</l>
+<c></c>
+<c>    * Reconstruct best pipeline from description is nontrivial in pure text;</c>
+<c>    * for quick visual, just run once more with the same RNG seed up to BestTrialIdx.</c>
+<l>    set_system ('seed', Seed)</l>
+<l>    for t := 1 to BestTrialIdx-1 by 1</l>
+<c>        * burn RNG to the same state the search used</c>
+<l>        tuple_rand(1000, Rand)</l>
+<l>        tmp := Rand</l>
+<l>    endfor</l>
+<c></c>
+<c>    * Draw the same PipeLen and steps again (approximate demo)</c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    PipeLen := 1 + floor(Rand * MaxPipelineLen)</l>
+<l>    copy_image (Img0, Work0)</l>
+<l>    for k := 1 to PipeLen by 1</l>
+<l>        apply_random_filter (Work0, ImageOut, FilterNames, ParamDesc1)</l>
+<l>    endfor</l>
+<l>    segment_to_region (Work0, RegionOut1, UsedThr2, SegDesc2)</l>
+<c></c>
+<l>    dev_close_window ()</l>
+<l>    dev_open_window_fit_image (Img0, 0, 0, -1, -1, WindowHandle)</l>
+<l>    dev_display (Img0)</l>
+<l>    dev_set_color ('green')</l>
+<l>    dev_display (R_gt0)</l>
+<l>    dev_set_color ('red')</l>
+<l>    dev_display (Gt0)</l>
+<l>endif</l>
+<c></c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+<procedure name="apply_random_filter">
+<interface>
+<io>
+<par name="ImageIn" base_type="iconic" dimension="0"/>
+</io>
+<oo>
+<par name="ImageOut" base_type="iconic" dimension="0"/>
+</oo>
+<ic>
+<par name="FilterNames" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="ParamDesc" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<c></c>
+<c>* -- Apply one filter (by name) with randomly sampled params</c>
+<c>*    IN : ImageIn</c>
+<c>*    OUT: ImageOut, ParamDesc (string describing the sampled params)</c>
+<c>*apply_random_filter := procedure (ImageIn : ImageOut, ParamDesc : ) </c>
+<c></c>
+<c>* pick one filter</c>
+<l>N := |FilterNames|</l>
+<l>tuple_rand(1, Rand)</l>
+<l>idx := floor(Rand * N)</l>
+<l>if (idx &gt;= N)</l>
+<l>    idx := N - 1</l>
+<l>endif</l>
+<l>F := FilterNames[idx]</l>
+<c></c>
+<l>ParamDesc := ''</l>
+<c></c>
+<l>if (F == 'gauss')</l>
+<c>    * sigma in [0.5..5.0]</c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    Sigma := 0.5 + Rand * 4.5</l>
+<l>    gauss_image (ImageIn, ImageOut, Sigma)</l>
+<l>    ParamDesc := 'gauss(sigma=' + Sigma$'.2f' + ')'</l>
+<c></c>
+<l>elseif (F == 'mean')</l>
+<c>    * mask size odd in [3..15]</c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    mw := 3 + floor(Rand * 13)</l>
+<c>    * force odd</c>
+<l>    mw := mw - (1 - mw % 2)</l>
+<c>        </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    mh := 3 + floor(Rand * 13)</l>
+<l>    mh := mh - (1 - mh % 2)</l>
+<c>        </c>
+<l>    mean_image (ImageIn, ImageOut, mw, mh)</l>
+<c>        </c>
+<l>    ParamDesc := 'mean(' + mw + 'x' + mh + ')'</l>
+<c></c>
+<l>elseif (F == 'median')</l>
+<c>    * 'circle' radius in [1..7]</c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    Radius := 1 + floor(Rand * 7)</l>
+<l>    median_image (ImageIn, ImageOut, 'circle', Radius, 'mirrored')</l>
+<l>    ParamDesc := 'median(circle,r=' + Radius + ')'</l>
+<c></c>
+<l>elseif (F == 'sobel_amp')</l>
+<c>    * filter type {'sum_abs','sqrt'}, mask size {3,5,7}</c>
+<l>    FT := ['sum_abs','sqrt']</l>
+<l>    ms := [3,5,7]</l>
+<c>    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    tIdx := floor(Rand * |FT|)</l>
+<l>    if (tIdx &gt;= |FT|) </l>
+<l>        tIdx := |FT| - 1 </l>
+<l>    endif</l>
+<c>    </c>
+<l>    mIdx := floor(Rand * |ms|)</l>
+<l>    if (mIdx &gt;= |ms|)</l>
+<l>        mIdx := |ms| - 1</l>
+<l>    endif</l>
+<c>    </c>
+<l>    sobel_amp (ImageIn, ImageOut, FT[tIdx], ms[mIdx])</l>
+<l>    ParamDesc := 'sobel_amp(' + FT[tIdx] + ',' + ms[mIdx] + ')'</l>
+<c></c>
+<l>elseif (F == 'laplace')</l>
+<c>    * 'n-4' or 'n-8', and filter size {3,5,7}</c>
+<l>    NConn := ['n-4','n-8']</l>
+<l>    Sizes := [3,5,7]</l>
+<c>    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    cIdx := floor(Rand * |NConn|)</l>
+<l>    if (cIdx &gt;= |NConn|) </l>
+<l>        cIdx := |NConn| - 1 </l>
+<l>    endif</l>
+<c>    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    sIdx := floor(Rand * |Sizes|)</l>
+<l>    if (sIdx &gt;= |Sizes|) </l>
+<l>        sIdx := |Sizes| - 1 </l>
+<l>    endif</l>
+<c>    </c>
+<l>    laplace (ImageIn, ImageOut, NConn[cIdx], Sizes[sIdx])</l>
+<l>    ParamDesc := 'laplace(' + NConn[cIdx] + ',' + Sizes[sIdx] + ')'</l>
+<c></c>
+<l>elseif (F == 'gray_open')</l>
+<c>    * gray opening with circle radius in [1..5]    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    R := 1 + floor(Rand * 5)</l>
+<l>    gray_opening_shape (ImageIn, ImageOut, 'circle', R)</l>
+<l>    ParamDesc := 'gray_open(circle,r=' + R + ')'</l>
+<c></c>
+<l>elseif (F == 'gray_close')</l>
+<c>    * gray closing with circle radius in [1..5]</c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    R := 1 + floor(Rand * 5)</l>
+<l>    gray_closing_shape (ImageIn, ImageOut, 'circle', R)</l>
+<l>    ParamDesc := 'gray_close(circle,r=' + R + ')'</l>
+<l>else</l>
+<c>    * fallback: no-op</c>
+<l>    copy_image (ImageIn, ImageOut)</l>
+<l>    ParamDesc := 'noop'</l>
+<l>endif</l>
+<c></c>
+<l>return ()</l>
+</body>
+<docu id="apply_random_filter">
+<parameters>
+<parameter id="FilterNames"/>
+<parameter id="ImageIn"/>
+<parameter id="ImageOut"/>
+<parameter id="ParamDesc"/>
+</parameters>
+</docu>
+</procedure>
+<procedure name="segment_to_region">
+<interface>
+<io>
+<par name="Img" base_type="iconic" dimension="0"/>
+</io>
+<oo>
+<par name="RegionOut" base_type="iconic" dimension="0"/>
+</oo>
+<oc>
+<par name="UsedThr" base_type="ctrl" dimension="0"/>
+<par name="SegDesc" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<c>* -- Segment an image into a region using auto threshold (random method + light/dark)</c>
+<c>* segment_to_region := procedure (Img : RegionOut, UsedThr, SegDesc :) </c>
+<l>Methods := ['max_separability','smooth_histo']</l>
+<l>Lights  := ['light','dark']</l>
+<c>    </c>
+<l>tuple_rand(1, Rand)</l>
+<l>mIdx := floor(Rand * |Methods|)</l>
+<l>if (mIdx &gt;= |Methods|) </l>
+<l>    mIdx := |Methods| - 1 </l>
+<l>endif</l>
+<c>    </c>
+<l>tuple_rand(1, Rand)</l>
+<l>lIdx := floor(Rand * |Lights|)</l>
+<l>if (lIdx &gt;= |Lights|)</l>
+<l>    lIdx := |Lights|  - 1</l>
+<l>endif</l>
+<c>    </c>
+<l>binary_threshold (Img, RegionOut, Methods[mIdx], Lights[lIdx], UsedThr)</l>
+<l>SegDesc := 'binary_threshold(' + Methods[mIdx] + ',' + Lights[lIdx] + '; thr=' + UsedThr + ')'</l>
+<c></c>
+<l>return ()</l>
+</body>
+<docu id="segment_to_region">
+<parameters>
+<parameter id="Img"/>
+<parameter id="RegionOut"/>
+<parameter id="SegDesc"/>
+<parameter id="UsedThr"/>
+</parameters>
+</docu>
+</procedure>
+<procedure name="mcc_region">
+<interface>
+<io>
+<par name="PredRegion" base_type="iconic" dimension="0"/>
+<par name="GTRegion" base_type="iconic" dimension="0"/>
+</io>
+<ic>
+<par name="Width" base_type="ctrl" dimension="0"/>
+<par name="Height" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="MCC" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<c>* -- Compute MCC between predicted region and GT region for one image</c>
+<c>* mcc_region := procedure (PredRegion, GTRegion, Width, Height : MCC :) </c>
+<c></c>
+<c>* Intersection (TP)</c>
+<l>intersection (PredRegion, GTRegion, R_tp)</l>
+<l>area_center (R_tp, TP, Row, Col)</l>
+<c></c>
+<c>* FP = Pred minus GT</c>
+<l>difference (PredRegion, GTRegion, R_fp)</l>
+<l>area_center (R_fp, FP, Row, Col)</l>
+<c></c>
+<c>* FN = GT minus Pred</c>
+<l>difference (GTRegion, PredRegion, R_fn)</l>
+<l>area_center (R_fn, FN, Row, Col)</l>
+<c></c>
+<c>* TN = total - (TP+FP+FN)</c>
+<l>Total := Width * Height</l>
+<l>TN := max2(0, Total - (TP + FP + FN))</l>
+<c></c>
+<l>Den := sqrt((TP+FP) * (TP+FN) * (TN+FP) * (TN+FN))</l>
+<l>if (Den &lt;= 0)</l>
+<l>    MCC := -1.0</l>
+<l>else</l>
+<l>    MCC := ((TP * TN) - (FP * FN)) / Den</l>
+<l>endif</l>
+<c></c>
+<l>return ()</l>
+</body>
+<docu id="mcc_region">
+<parameters>
+<parameter id="GTRegion"/>
+<parameter id="Height"/>
+<parameter id="MCC"/>
+<parameter id="PredRegion"/>
+<parameter id="Width"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

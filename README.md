@@ -16,6 +16,8 @@ This repository contains all scripts that were designed to analyze data from ima
 1. <a href="#follow-up-optimization-using-sa--ls">Dissertation 2024: Optimization using SA / LS Algorithms [Dissertation 2024]</a>
 1. <a href="#complexity-analysis">Complexity Analysis of CGP Pipelines [Dissertation 2024]</a>
 1. <a href="#pipeline-retrieval">Pipeline Retrieval [Arxiv 2025]</a>
+1. <a href="#free-dependencies">Benchmark Experiment with Open Graph (classic CGP-IP)</a>
+1. <a href="#random-search">Random Search on HDev</a>
 
 ## Setup and Usage
 
@@ -328,3 +330,40 @@ AND analyzer.run_id == run.run_id;
 
 * Run the pipeline retrieval script using:
   * `python -m pipeline_retrieval.run_pipeline_retrieval.py`
+## Benchmarking Experiment with Open Graph (classic CGP-IP)
+* Using an open graph 
+* Dot graph:
+```dot
+digraph Dependencies {
+    Region2Region -> Image2Region;
+    Region2Region -> ImageAndRegionToRegion;
+    Region2Region -> EdgeAmpAndRegionToRegion;
+    Region2Region -> Input;   // ⚠ backwards
+
+
+    EdgeAmplitude -> Image2Image;
+    EdgeAmplitude -> Region2Region;
+    EdgeAmplitude -> Input;
+
+    Image2Region -> Image2Image;
+    Image2Region -> EdgeAmplitude;
+    Image2Region -> Input;
+
+    Image2Image -> Input;
+    EdgeAmpAndRegionToRegion -> Input;
+
+
+    // And-dependencies (multi-input logic):
+    ImageAndRegionToRegion -> Image2Image;  // requires {Region2Region, Image2Region}
+    EdgeAmpAndRegionToRegion -> Region2Region; // requires {edge}
+    EdgeAmpAndRegionToRegion -> Image2Region;     // requires {edge}
+    
+    Output -> Region2Region;
+    Output -> Image2Region;
+    Output -> Image2Image;
+    Output -> EdgeAmplitude;
+    Output -> EdgeAmpAndRegionToRegion;
+}
+```
+## Random Search
+tbd

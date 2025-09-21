@@ -20,23 +20,23 @@ call SET COMMANDLINE=D:\dev\github\optimization\Optimization.Commandline\bin\Deb
 REM ----------------------------------------------------------
 REM Default parameters
 REM ----------------------------------------------------------
-call SET RUNS=5
-call SET GENERATIONS=50
+call SET RUNS=10
+call SET GENERATIONS=150
 call SET CWDIR=D:\evias_expmts
 
 setlocal EnableDelayedExpansion 
 
-set expmnts_train[0]=Aircarbon3\20210325_13h25_rov\training\80.jpg_dark_1
-set expmnts_val[0]=Aircarbon3\20210325_13h25_rov\training\81.jpg_dark
-set expmnts_res[0]=Aircarbon3\20210325_13h25_rov\results
+set expmnts_train[0]=MVTecAnomalyDetection\cable_missing_train
+set expmnts_val[0]=MVTecAnomalyDetection\cable_missing_val
+set expmnts_res[0]=MVTecAnomalyDetection\results
 
-set expmnts_train[1]=MVTecAnomalyDetection\cable_missing_train
-set expmnts_val[1]=MVTecAnomalyDetection\cable_missing_val
-set expmnts_res[1]=MVTecAnomalyDetection\results
+set expmnts_train[1]=Pultrusion\resin_cgp_augmntd\train
+set expmnts_val[1]=Pultrusion\resin_cgp_augmntd\val
+set expmnts_res[1]=Pultrusion\results
 
-set expmnts_train[2]=Pultrusion\resin_cgp_augmntd\train
-set expmnts_val[2]=Pultrusion\resin_cgp_augmntd\val
-set expmnts_res[2]=Pultrusion\results
+set expmnts_train[3]=Aircarbon3\20210325_13h25_rov\training\80.jpg_dark_1
+set expmnts_val[3]=Aircarbon3\20210325_13h25_rov\training\81.jpg_dark
+set expmnts_res[3]=Aircarbon3\20210325_13h25_rov\results
 
 set expmnts_train[3]=severstal-steel\train_cgp
 set expmnts_val[3]=severstal-steel\val_cgp 
