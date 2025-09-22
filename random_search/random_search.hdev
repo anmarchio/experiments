@@ -8,16 +8,59 @@
 <c>* Metric: Matthews Correlation Coefficient (MCC)</c>
 <c>* HALCON / HDevelop script</c>
 <c>* ------------------------------------------------------------</c>
+<c>* ------------------------------------------------------------</c>
+<c>* Read experiment parameters from parameters.txt</c>
+<c>* Each line: WDIR;ImageDir;LabelDir;ResultDir;</c>
+<c>* Example:</c>
+<c>*   D:\evias_expmts;severstal-steel\train_cgp\imags;severstal-steel\train_cgp\labels;D:\dev\github\experiments\random_search\results;</c>
+<c>* ------------------------------------------------------------</c>
 <c></c>
+<l>ParamFile := 'parameters.txt'</l>
+<c></c>
+<l>open_file (ParamFile, 'input', FileHandle)</l>
+<l>Parameters := []</l>
+<l>while (true)</l>
+<l>    fread_string(FileHandle,Line,IsEOF)</l>
+<l>    if (IsEOF)</l>
+<l>        break</l>
+<l>    endif</l>
+<l>    if (Line != '')</l>
+<l>        Parameters := [Parameters, Line]</l>
+<l>    endif</l>
+<l>    *fnew_line (FileHandle)</l>
+<l>endwhile</l>
+<l>close_file (FileHandle)</l>
+<c></c>
+<c>* Remove header if present (check first token)</c>
+<l>tuple_split(Parameters[0], ';', Tokens)</l>
+<l>if (Tokens[0] == 'wdir')</l>
+<l>    Parameters := Parameters[1:|Parameters|-1]</l>
+<l>endif</l>
+<c></c>
+<c>* Prepare tuples for each column</c>
+<l>WDIR := []</l>
+<l>ImageDir := []</l>
+<l>LabelDir := []</l>
+<l>ResultDir := []</l>
+<c></c>
+<l>for i := 0 to |Parameters|-1 by 1</l>
+<l>    tuple_split(Parameters[i], ';', Parts)</l>
+<l>    if (|Parts| &gt;= 4)</l>
+<l>        WDIR := [WDIR, Parts[0]]</l>
+<l>        ImageDir := [ImageDir, Parts[1]]</l>
+<l>        LabelDir := [LabelDir, Parts[2]]</l>
+<l>        ResultDir := [ResultDir, Parts[3]]</l>
+<l>    endif</l>
+<l>endfor</l>
 <c>* =========================</c>
 <c>* CONFIG</c>
 <c>* =========================</c>
 <c>* &lt;- change me</c>
-<l>ImageDir := 'C:/data/images'</l>
+<l>*ImageDir := ''</l>
 <c>* &lt;- change me (binary GT images; &gt;0 = positive)</c>
-<l>LabelDir := 'C:/data/labels'</l>
+<l>*LabelDir := ''</l>
 <c>* &lt;- change me</c>
-<l>ResultDir := 'C:/data/results'</l>
+<l>*ResultDir := ''</l>
 <c></c>
 <c>* ==========================</c>
 <c>* number of random pipelines to test</c>
@@ -280,8 +323,9 @@
 <c></c>
 <l>elseif (F == 'laplace')</l>
 <c>    * 'n-4' or 'n-8', and filter size {3,5,7}</c>
-<l>    NConn := ['n-4','n-8']</l>
-<l>    Sizes := [3,5,7]</l>
+<l>    ResultTpye := ['absolute', 'absolute_binomial', 'signed', 'signed_binomial', 'signed_clipped', 'signed_clipped_binomial']</l>
+<l>    NConn := ['n_4', 'n_8', 'n_8_isotropic']</l>
+<l>    Sizes := [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39]</l>
 <c>    </c>
 <l>    tuple_rand(1, Rand)</l>
 <l>    cIdx := floor(Rand * |NConn|)</l>
@@ -295,21 +339,53 @@
 <l>        sIdx := |Sizes| - 1 </l>
 <l>    endif</l>
 <c>    </c>
-<l>    laplace (ImageIn, ImageOut, NConn[cIdx], Sizes[sIdx])</l>
+<l>    tuple_rand(1, Rand)</l>
+<l>    rIdx := floor(Rand * |ResultTpye|)</l>
+<l>    if (rIdx &gt;= |ResultTpye|) </l>
+<l>        rIdx := |ResultTpye| - 1 </l>
+<l>    endif</l>
+<c>    </c>
+<l>    laplace(ImageOut, ImageLaplace, ResultTpye[rIdx], Sizes[sIdx], NConn[cIdx])</l>
 <l>    ParamDesc := 'laplace(' + NConn[cIdx] + ',' + Sizes[sIdx] + ')'</l>
 <c></c>
 <l>elseif (F == 'gray_open')</l>
 <c>    * gray opening with circle radius in [1..5]    </c>
 <l>    tuple_rand(1, Rand)</l>
 <l>    R := 1 + floor(Rand * 5)</l>
-<l>    gray_opening_shape (ImageIn, ImageOut, 'circle', R)</l>
+<c>    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    hdx := floor(Rand)</l>
+<l>    MaskWidth := [3, 5, 7, 9, 11, 13, 15]</l>
+<c>    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    wdx := floor(Rand)</l>
+<l>    MaskHeight := [3, 5, 7, 9, 11, 13, 15]</l>
+<c>    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    sdx := floor(Rand)</l>
+<l>    MaskShape := ['octagon', 'rectangle', 'rhombus']</l>
+<c>    </c>
+<l>    gray_opening_shape(ImageLaplace, ImageOpening, MaskWidth[wdx], MaskHeight[hdx], MaskShape[sdx])</l>
 <l>    ParamDesc := 'gray_open(circle,r=' + R + ')'</l>
 <c></c>
 <l>elseif (F == 'gray_close')</l>
 <c>    * gray closing with circle radius in [1..5]</c>
 <l>    tuple_rand(1, Rand)</l>
 <l>    R := 1 + floor(Rand * 5)</l>
-<l>    gray_closing_shape (ImageIn, ImageOut, 'circle', R)</l>
+<c>    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    hdx := floor(Rand)</l>
+<l>    MaskWidth := [3, 5, 7, 9, 11, 13, 15]</l>
+<c>    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    wdx := floor(Rand)</l>
+<l>    MaskHeight := [3, 5, 7, 9, 11, 13, 15]</l>
+<c>    </c>
+<l>    tuple_rand(1, Rand)</l>
+<l>    sdx := floor(Rand)</l>
+<l>    MaskShape := ['octagon', 'rectangle', 'rhombus']</l>
+<c>    </c>
+<l>    gray_closing_shape(ImageOpening, ImageOpening, MaskWidth[wdx], MaskHeight[hdx], MaskShape[sdx])</l>
 <l>    ParamDesc := 'gray_close(circle,r=' + R + ')'</l>
 <l>else</l>
 <c>    * fallback: no-op</c>

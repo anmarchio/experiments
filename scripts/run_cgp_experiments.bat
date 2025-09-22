@@ -20,7 +20,7 @@ call SET COMMANDLINE=D:\dev\github\optimization\Optimization.Commandline\bin\Deb
 REM ----------------------------------------------------------
 REM Default parameters
 REM ----------------------------------------------------------
-call SET RUNS=1
+call SET RUNS=10
 REM GENERATIONS=300
 call SET GENERATIONS=150
 REM call SET CWDIR=C:\Users\Public\evias_expmts\
@@ -196,7 +196,7 @@ REM Run Experiments
 REM ==========================================================
 REM for %%e in (%expmnts%) do (
 
-for /l %%i in (0 1 39) do (
+for /l %%i in (8 1 29) do (
 	call echo RUNS: %RUNS%
 	call echo GENERATIONS: %GENERATIONS%
 	
