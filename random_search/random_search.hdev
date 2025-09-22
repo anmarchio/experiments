@@ -201,11 +201,11 @@
 <l>    open_file(ResultDirPath, \
               'output', \
               FileHandle)</l>
-<l>    output_string := ['--- Random Search Complete ---', \
-                   'Trials      : ' + MaxTrials, \
-                   'Best Trial  : ' + BestTrialIdx, \
-                   'Best Mean MCC: ' + BestMeanMCC$'.5f', \
-                   'Best Config : ' + BestConfigDesc]</l>
+<l>    output_string := ['--- Random Search Complete ---\n', \
+                   'Trials      : ' + MaxTrials + '\n', \
+                   'Best Trial  : ' + BestTrialIdx + '\n', \
+                   'Best Mean MCC: ' + BestMeanMCC$'.5f' + '\n', \
+                   'Best Config : ' + BestConfigDesc + '\n']</l>
 <l>    fwrite_string(FileHandle, output_string)</l>
 <c>    </c>
 <c>    * Example: rerun best pipeline on the first image and visualize</c>
