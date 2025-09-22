@@ -39,19 +39,23 @@
 <c></c>
 <c>* Prepare tuples for each column</c>
 <l>WDIR := []</l>
-<l>ImageDir := []</l>
-<l>LabelDir := []</l>
-<l>ResultDir := []</l>
+<l>ImageDirs := []</l>
+<l>LabelDirs := []</l>
+<l>ResultDir := ''</l>
 <c></c>
 <l>for i := 0 to |Parameters|-1 by 1</l>
 <l>    tuple_split(Parameters[i], ';', Parts)</l>
 <l>    if (|Parts| &gt;= 4)</l>
 <l>        WDIR := [WDIR, Parts[0]]</l>
-<l>        ImageDir := [ImageDir, Parts[1]]</l>
-<l>        LabelDir := [LabelDir, Parts[2]]</l>
-<l>        ResultDir := [ResultDir, Parts[3]]</l>
+<l>        ImageDirs := [ImageDirs, Parts[1]]</l>
+<l>        LabelDirs := [LabelDirs, Parts[2]]</l>
+<l>        ResultDir := Parts[3]</l>
 <l>    endif</l>
 <l>endfor</l>
+<c></c>
+<l>if(|ImageDirs| == 0 or |LabelDirs| == 0 or |ImageDirs| != |LabelDirs|)</l>
+<l>    throw('ImageDirs and LabelDirs mismatch!')</l>
+<l>endif</l>
 <c>* =========================</c>
 <c>* CONFIG</c>
 <c>* =========================</c>
@@ -73,168 +77,172 @@
 <l>DoOpeningPost := 1</l>
 <l>OpeningRadius := 2</l>
 <c></c>
-<c>* =========================</c>
-<c>* PREP: load file lists</c>
-<c>* =========================</c>
-<l>list_image_files (ImageDir, 'default', [], ImageFiles)</l>
-<l>list_image_files (LabelDir, 'default', [], LabelFiles)</l>
-<c></c>
-<l>if (|ImageFiles| = 0 or |ImageFiles| != |LabelFiles|)</l>
-<l>    throw ('Image/label file lists are empty or different length.')</l>
-<l>endif</l>
-<c></c>
-<c>* =========================</c>
-<c>* RNG setup</c>
-<c>* =========================</c>
-<l>set_system ('seed', Seed)</l>
-<c>* helper to draw random int in [a,b]</c>
-<c>* rndInt := a + floor(tuple_rand(1) * (b - a + 1))</c>
-<c></c>
-<c>* =========================</c>
-<c>* Define candidate filters and parameter ranges</c>
-<c>* (All filters operate on the current working image in the pipeline)</c>
-<c>* =========================</c>
-<l>FilterNames := ['gauss','mean','median','sobel_amp','laplace','gray_open','gray_close']</l>
-<c></c>
-<c>* =========================</c>
-<c>* Helpers</c>
-<c>* =========================</c>
-<c>* apply_random_filter := procedure (ImageIn : ImageOut, ParamDesc : ) </c>
-<c>* mcc_region := procedure (PredRegion, GTRegion, Width, Height : MCC :) </c>
-<c>* segment_to_region := procedure (Img : RegionOut, UsedThr, SegDesc :) </c>
-<c></c>
-<c>* =========================</c>
-<c>* Search</c>
-<c>* =========================</c>
-<l>BestMeanMCC := -1.0</l>
-<l>BestConfigDesc := ''</l>
-<l>BestTrialIdx := -1</l>
-<c></c>
-<l>dev_update_off ()</l>
-<l>dev_close_window ()</l>
-<c></c>
-<l>for Trial := 1 to MaxTrials by 1</l>
-<c>    * Draw random pipeline length</c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    PipeLen := 1 + floor(Rand * MaxPipelineLen)</l>
-<c></c>
-<c>    * Build + describe pipeline</c>
-<l>    PipelineDesc := []</l>
-<l>    SumMCC := 0.0</l>
-<c></c>
-<l>    for i := 0 to |ImageFiles|-1 by 1</l>
-<l>        read_image (Img, ImageFiles[i])</l>
-<l>        read_image (GtImg, LabelFiles[i])</l>
-<c></c>
-<c>        * Ensure single-channel byte where needed</c>
-<l>        count_channels(Img, Channels)</l>
-<l>        if (|Channels| &gt; 0)</l>
-<c>            * no-op, common case</c>
-<l>        endif</l>
-<c></c>
-<l>        get_image_size (Img, W, H)</l>
-<c></c>
-<c>        * Convert GT image to region (anything &gt; 0 is positive)</c>
-<l>        threshold (GtImg, R_gt, 1, 255)</l>
-<c></c>
-<c>        * Apply random filter pipeline</c>
-<l>        copy_image (Img, Work)</l>
-<l>        PipeStepDesc := []</l>
-<l>        for k := 1 to PipeLen by 1</l>
-<l>            apply_random_filter(Work, Work, PipeStepDesc, StepDesc)</l>
-<l>            PipeStepDesc := [PipeStepDesc, StepDesc]</l>
+<l>for Index := 0 to |ImageDirs| - 1 by 1</l>
+<l>    ImageDir := WDIR + '\\' + ImageDirs[Index]</l>
+<l>    LabelDir := WDIR + '\\' + LabelDirs[Index]</l>
+<c>    * =========================</c>
+<c>    * PREP: load file lists</c>
+<c>    * =========================</c>
+<l>    list_image_files (ImageDir, 'default', [], ImageFiles)</l>
+<l>    list_image_files (LabelDir, 'default', [], LabelFiles)</l>
+<c>    </c>
+<l>    if (|ImageFiles| = 0 or |ImageFiles| != |LabelFiles|)</l>
+<l>        throw ('Image/label file lists are empty or different length.')</l>
+<l>    endif</l>
+<c>    </c>
+<c>    * =========================</c>
+<c>    * RNG setup</c>
+<c>    * =========================</c>
+<l>    set_system ('seed_rand', Seed)</l>
+<c>    * helper to draw random int in [a,b]</c>
+<c>    * rndInt := a + floor(tuple_rand(1) * (b - a + 1))</c>
+<c>    </c>
+<c>    * =========================</c>
+<c>    * Define candidate filters and parameter ranges</c>
+<c>    * (All filters operate on the current working image in the pipeline)</c>
+<c>    * =========================</c>
+<l>    FilterNames := ['gauss','mean','median','sobel_amp','laplace','gray_open','gray_close']</l>
+<c>    </c>
+<c>    * =========================</c>
+<c>    * Helpers</c>
+<c>    * =========================</c>
+<c>    * apply_random_filter := procedure (ImageIn : ImageOut, ParamDesc : ) </c>
+<c>    * mcc_region := procedure (PredRegion, GTRegion, Width, Height : MCC :) </c>
+<c>    * segment_to_region := procedure (Img : RegionOut, UsedThr, SegDesc :) </c>
+<c>    </c>
+<c>    * =========================</c>
+<c>    * Search</c>
+<c>    * =========================</c>
+<l>    BestMeanMCC := -1.0</l>
+<l>    BestConfigDesc := ''</l>
+<l>    BestTrialIdx := -1</l>
+<c>    </c>
+<l>    dev_update_off ()</l>
+<l>    dev_close_window ()</l>
+<c>    </c>
+<l>    for Trial := 1 to MaxTrials by 1</l>
+<c>        * Draw random pipeline length</c>
+<l>        tuple_rand(1, Rand)</l>
+<l>        PipeLen := 1 + floor(Rand * MaxPipelineLen)</l>
+<c>    </c>
+<c>        * Build + describe pipeline</c>
+<l>        PipelineDesc := []</l>
+<l>        SumMCC := 0.0</l>
+<c>    </c>
+<l>        for i := 0 to |ImageFiles|-1 by 1</l>
+<l>            read_image (Img, ImageFiles[i])</l>
+<l>            read_image (GtImg, LabelFiles[i])</l>
+<c>    </c>
+<c>            * Ensure single-channel byte where needed</c>
+<l>            count_channels(Img, Channels)</l>
+<l>            if (|Channels| &gt; 0)</l>
+<c>                * no-op, common case</c>
+<l>            endif</l>
+<c>    </c>
+<l>            get_image_size (Img, W, H)</l>
+<c>    </c>
+<c>            * Convert GT image to region (anything &gt; 0 is positive)</c>
+<l>            threshold (GtImg, R_gt, 1, 255)</l>
+<c>    </c>
+<c>            * Apply random filter pipeline</c>
+<l>            copy_image (Img, Work)</l>
+<l>            PipeStepDesc := []</l>
+<l>            for k := 1 to PipeLen by 1</l>
+<l>                apply_random_filter(Work, Work, FilterNames, StepDesc)</l>
+<l>                PipeStepDesc := [PipeStepDesc, StepDesc]</l>
+<l>            endfor</l>
+<c>    </c>
+<c>            * Segment to region</c>
+<l>            segment_to_region (Work, RegionOut, UsedThr, SegDesc)</l>
+<c>    </c>
+<c>            * Optional post-processing on prediction to reduce noise</c>
+<l>            if (DoOpeningPost)</l>
+<l>                opening_circle (RegionOut, R_pred, OpeningRadius)</l>
+<l>            endif</l>
+<c>    </c>
+<c>            * Compute MCC</c>
+<l>            get_image_size(Img, Width, Height)</l>
+<l>            mcc_region (RegionOut, R_gt, Width, Height, MCC)</l>
+<l>            SumMCC := SumMCC + MCC</l>
 <l>        endfor</l>
-<c></c>
-<c>        * Segment to region</c>
-<l>        segment_to_region (Work, RegionOut, UsedThr, SegDesc)</l>
-<c></c>
-<c>        * Optional post-processing on prediction to reduce noise</c>
-<l>        if (DoOpeningPost)</l>
-<l>            opening_circle (R_pred, R_pred, OpeningRadius)</l>
+<c>    </c>
+<l>        MeanMCC := SumMCC / |ImageFiles|</l>
+<l>        tuple_concat(PipeStepDesc, ' -&gt; ', PipeStepDesc_Concat)</l>
+<l>        PipelineDesc := 'len=' + PipeLen + ' :: ' + PipeStepDesc_Concat + ' -&gt; ' + SegDesc</l>
+<c>    </c>
+<l>        if (MeanMCC &gt; BestMeanMCC)</l>
+<l>            BestMeanMCC := MeanMCC</l>
+<l>            BestConfigDesc := PipelineDesc</l>
+<l>            BestTrialIdx := Trial</l>
 <l>        endif</l>
-<c></c>
-<c>        * Compute MCC</c>
-<l>        get_image_size(Img, Width, Height)</l>
-<l>        mcc_region (RegionOut, R_gt, Width, Height, MCC)</l>
-<l>        SumMCC := SumMCC + MCC</l>
+<c>    </c>
+<c>        * (Optional) progress print</c>
+<l>        dev_disp_text ('Trial ' + Trial + '/' + MaxTrials + '  Mean MCC=' + MeanMCC$'.4f', \
+                       'window', \
+                       'top', \
+                       'left', \
+                       'black', \
+                       [], \
+                       [])</l>
 <l>    endfor</l>
-<c></c>
-<l>    MeanMCC := SumMCC / |ImageFiles|</l>
-<l>    tuple_concat(PipeStepDesc, ' -&gt; ', PipeStepDesc_Concat)</l>
-<l>    PipelineDesc := 'len=' + PipeLen + ' :: ' + PipeStepDesc_Concat + ' -&gt; ' + SegDesc</l>
-<c></c>
-<l>    if (MeanMCC &gt; BestMeanMCC)</l>
-<l>        BestMeanMCC := MeanMCC</l>
-<l>        BestConfigDesc := PipelineDesc</l>
-<l>        BestTrialIdx := Trial</l>
+<c>    </c>
+<c>    * =========================</c>
+<c>    * Report</c>
+<c>    * =========================</c>
+<l>    get_system_time(MSecond, Second, Minute, Hour, Day, YDay, Month, Year)</l>
+<l>    ResultDirPath := ResultDir + '\\' + \
+              Year + \
+              Month + \
+              Day + \
+              Hour + \
+              Minute + \
+              Second + \
+              '-randsearch-result.txt'</l>
+<l>    open_file(ResultDirPath, \
+              'output', \
+              FileHandle)</l>
+<l>    output_string := ['--- Random Search Complete ---', \
+                   'Trials      : ' + MaxTrials, \
+                   'Best Trial  : ' + BestTrialIdx, \
+                   'Best Mean MCC: ' + BestMeanMCC$'.5f', \
+                   'Best Config : ' + BestConfigDesc]</l>
+<l>    fwrite_string(FileHandle, output_string)</l>
+<c>    </c>
+<c>    * Example: rerun best pipeline on the first image and visualize</c>
+<l>    if (|ImageFiles| &gt; 0)</l>
+<l>        read_image (Img0, ImageFiles[0])</l>
+<l>        read_image (Gt0, LabelFiles[0])</l>
+<l>        get_image_size (Img0, W0, H0)</l>
+<l>        threshold (Gt0, R_gt0, 1, 255)</l>
+<c>    </c>
+<c>        * Reconstruct best pipeline from description is nontrivial in pure text;</c>
+<c>        * for quick visual, just run once more with the same RNG seed up to BestTrialIdx.</c>
+<l>        set_system ('seed_rand', Seed)</l>
+<l>        for t := 1 to BestTrialIdx-1 by 1</l>
+<c>            * burn RNG to the same state the search used</c>
+<l>            tuple_rand(1000, Rand)</l>
+<l>            tmp := Rand</l>
+<l>        endfor</l>
+<c>    </c>
+<c>        * Draw the same PipeLen and steps again (approximate demo)</c>
+<l>        tuple_rand(1, Rand)</l>
+<l>        PipeLen := 1 + floor(Rand * MaxPipelineLen)</l>
+<l>        copy_image (Img0, Work0)</l>
+<l>        for k := 1 to PipeLen by 1</l>
+<l>            apply_random_filter (Work0, ImageOut, FilterNames, ParamDesc1)</l>
+<l>        endfor</l>
+<l>        segment_to_region (Work0, RegionOut1, UsedThr2, SegDesc2)</l>
+<c>    </c>
+<l>        dev_close_window ()</l>
+<l>        dev_open_window_fit_image (Img0, 0, 0, -1, -1, WindowHandle)</l>
+<l>        dev_display (Img0)</l>
+<l>        dev_set_color ('green')</l>
+<l>        dev_display (R_gt0)</l>
+<l>        dev_set_color ('red')</l>
+<l>        dev_display (Gt0)</l>
 <l>    endif</l>
 <c></c>
-<c>    * (Optional) progress print</c>
-<l>    dev_disp_text ('Trial ' + Trial + '/' + MaxTrials + '  Mean MCC=' + MeanMCC$'.4f', \
-                   'window', \
-                   'top', \
-                   'left', \
-                   'black', \
-                   [], \
-                   [])</l>
 <l>endfor</l>
-<c></c>
-<c>* =========================</c>
-<c>* Report</c>
-<c>* =========================</c>
-<l>get_system_time(MSecond, Second, Minute, Hour, Day, YDay, Month, Year)</l>
-<l>open_file(ResultDir + \
-          '/' + \
-          Year + \
-          Month + \
-          Day + \
-          Hour + \
-          Minute + \
-          Second + \
-          '-randsearch-result', \
-          'output', \
-          FileHandle)</l>
-<l>output_string := ['--- Random Search Complete ---', \
-               'Trials      : ' + MaxTrials, \
-               'Best Trial  : ' + BestTrialIdx, \
-               'Best Mean MCC: ' + BestMeanMCC$'.5f', \
-               'Best Config : ' + BestConfigDesc]</l>
-<l>fwrite_string(FileHandle, output_string)</l>
-<c></c>
-<c>* Example: rerun best pipeline on the first image and visualize</c>
-<l>if (|ImageFiles| &gt; 0)</l>
-<l>    read_image (Img0, ImageFiles[0])</l>
-<l>    read_image (Gt0, LabelFiles[0])</l>
-<l>    get_image_size (Img0, W0, H0)</l>
-<l>    threshold (Gt0, R_gt0, 1, 255)</l>
-<c></c>
-<c>    * Reconstruct best pipeline from description is nontrivial in pure text;</c>
-<c>    * for quick visual, just run once more with the same RNG seed up to BestTrialIdx.</c>
-<l>    set_system ('seed', Seed)</l>
-<l>    for t := 1 to BestTrialIdx-1 by 1</l>
-<c>        * burn RNG to the same state the search used</c>
-<l>        tuple_rand(1000, Rand)</l>
-<l>        tmp := Rand</l>
-<l>    endfor</l>
-<c></c>
-<c>    * Draw the same PipeLen and steps again (approximate demo)</c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    PipeLen := 1 + floor(Rand * MaxPipelineLen)</l>
-<l>    copy_image (Img0, Work0)</l>
-<l>    for k := 1 to PipeLen by 1</l>
-<l>        apply_random_filter (Work0, ImageOut, FilterNames, ParamDesc1)</l>
-<l>    endfor</l>
-<l>    segment_to_region (Work0, RegionOut1, UsedThr2, SegDesc2)</l>
-<c></c>
-<l>    dev_close_window ()</l>
-<l>    dev_open_window_fit_image (Img0, 0, 0, -1, -1, WindowHandle)</l>
-<l>    dev_display (Img0)</l>
-<l>    dev_set_color ('green')</l>
-<l>    dev_display (R_gt0)</l>
-<l>    dev_set_color ('red')</l>
-<l>    dev_display (Gt0)</l>
-<l>endif</l>
-<c></c>
 </body>
 <docu id="main">
 <parameters/>
@@ -276,7 +284,13 @@
 <l>if (F == 'gauss')</l>
 <c>    * sigma in [0.5..5.0]</c>
 <l>    tuple_rand(1, Rand)</l>
-<l>    Sigma := 0.5 + Rand * 4.5</l>
+<l>    RandInt := floor(Rand * 5)</l>
+<l>    Sigmas := [3,5,7,9,11]</l>
+<l>    Sigma := Sigmas[RandInt]</l>
+<l>    get_image_type(ImageIn, Type)</l>
+<l>    if(Type != 'int4')</l>
+<l>        convert_image_type(ImageIn, ImageIn, 'int4')</l>
+<l>    endif</l>
 <l>    gauss_image (ImageIn, ImageOut, Sigma)</l>
 <l>    ParamDesc := 'gauss(sigma=' + Sigma$'.2f' + ')'</l>
 <c></c>
@@ -285,12 +299,19 @@
 <l>    tuple_rand(1, Rand)</l>
 <l>    mw := 3 + floor(Rand * 13)</l>
 <c>    * force odd</c>
-<l>    mw := mw - (1 - mw % 2)</l>
+<l>    tuple_mod(int(mw), 2, mw_mod_2)</l>
+<l>    mw := mw - (1 - mw_mod_2)</l>
 <c>        </c>
 <l>    tuple_rand(1, Rand)</l>
 <l>    mh := 3 + floor(Rand * 13)</l>
-<l>    mh := mh - (1 - mh % 2)</l>
-<c>        </c>
+<c>    </c>
+<l>    tuple_mod(int(mh),2,mh_mod_2)</l>
+<l>    mh := mh - (1 - mh_mod_2)</l>
+<c>    </c>
+<l>    get_image_type(ImageIn, Type)</l>
+<l>    if(Type != 'byte' and Type != 'uint2' and Type != 'int2' and Type != 'int4' and Type != 'real')</l>
+<l>        convert_image_type(ImageIn, ImageIn, 'int4')</l>
+<l>    endif</l>
 <l>    mean_image (ImageIn, ImageOut, mw, mh)</l>
 <c>        </c>
 <l>    ParamDesc := 'mean(' + mw + 'x' + mh + ')'</l>
@@ -299,13 +320,19 @@
 <c>    * 'circle' radius in [1..7]</c>
 <l>    tuple_rand(1, Rand)</l>
 <l>    Radius := 1 + floor(Rand * 7)</l>
+<c>    * byte* / int2* / uint2* / int4* / real</c>
+<c>    </c>
+<l>    get_image_type(ImageIn, Type)</l>
+<l>    if(Type != 'byte' and Type != 'uint2' and Type != 'int2' and Type != 'int4' and Type != 'real')</l>
+<l>        convert_image_type(ImageIn, ImageIn, 'int4')</l>
+<l>    endif</l>
 <l>    median_image (ImageIn, ImageOut, 'circle', Radius, 'mirrored')</l>
 <l>    ParamDesc := 'median(circle,r=' + Radius + ')'</l>
 <c></c>
 <l>elseif (F == 'sobel_amp')</l>
 <c>    * filter type {'sum_abs','sqrt'}, mask size {3,5,7}</c>
-<l>    FT := ['sum_abs','sqrt']</l>
-<l>    ms := [3,5,7]</l>
+<l>    FT := [ 'sum_abs', 'sum_sqrt', 'x', 'y', 'sum_abs_binomial', 'sum_sqrt_binomial', 'x_binomial', 'y_binomial']</l>
+<l>    ms := [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39]</l>
 <c>    </c>
 <l>    tuple_rand(1, Rand)</l>
 <l>    tIdx := floor(Rand * |FT|)</l>
@@ -318,14 +345,21 @@
 <l>        mIdx := |ms| - 1</l>
 <l>    endif</l>
 <c>    </c>
-<l>    sobel_amp (ImageIn, ImageOut, FT[tIdx], ms[mIdx])</l>
+<l>    try</l>
+<l>        sobel_amp (ImageIn, ImageOut, FT[int(tIdx)], ms[int(mIdx)])</l>
+<l>    catch (Exception)</l>
+<l>        get_image_type(ImageIn, emptType)</l>
+<l>        get_image_size(ImageIn, emptWidth, emptHeight)</l>
+<l>        gen_image_const(ImageOut, emptType, emptWidth, emptHeight)</l>
+<l>    endtry</l>
 <l>    ParamDesc := 'sobel_amp(' + FT[tIdx] + ',' + ms[mIdx] + ')'</l>
-<c></c>
+<c>    </c>
 <l>elseif (F == 'laplace')</l>
 <c>    * 'n-4' or 'n-8', and filter size {3,5,7}</c>
 <l>    ResultTpye := ['absolute', 'absolute_binomial', 'signed', 'signed_binomial', 'signed_clipped', 'signed_clipped_binomial']</l>
 <l>    NConn := ['n_4', 'n_8', 'n_8_isotropic']</l>
-<l>    Sizes := [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39]</l>
+<l>    Sizes := [3, 5, 7, 9, 11, 13] </l>
+<c>    *, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39]</c>
 <c>    </c>
 <l>    tuple_rand(1, Rand)</l>
 <l>    cIdx := floor(Rand * |NConn|)</l>
@@ -345,7 +379,13 @@
 <l>        rIdx := |ResultTpye| - 1 </l>
 <l>    endif</l>
 <c>    </c>
-<l>    laplace(ImageOut, ImageLaplace, ResultTpye[rIdx], Sizes[sIdx], NConn[cIdx])</l>
+<c>    * byte / uint2 / int2 / int2 / int4</c>
+<l>    get_image_type(ImageIn, Type)</l>
+<l>    if(Type != 'byte' and Type != 'uint2')</l>
+<l>        convert_image_type(ImageIn, ImageIn, 'uint2')</l>
+<l>    endif</l>
+<c>    </c>
+<l>    laplace(ImageIn, ImageOut, ResultTpye[int(rIdx)], Sizes[int(sIdx)], NConn[int(cIdx)])</l>
 <l>    ParamDesc := 'laplace(' + NConn[cIdx] + ',' + Sizes[sIdx] + ')'</l>
 <c></c>
 <l>elseif (F == 'gray_open')</l>
@@ -356,16 +396,22 @@
 <l>    tuple_rand(1, Rand)</l>
 <l>    hdx := floor(Rand)</l>
 <l>    MaskWidth := [3, 5, 7, 9, 11, 13, 15]</l>
+<l>    hdx := floor(Rand * |MaskWidth|)</l>
 <c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    wdx := floor(Rand)</l>
+<l>    *tuple_rand(1, Rand)</l>
 <l>    MaskHeight := [3, 5, 7, 9, 11, 13, 15]</l>
+<l>    *wdx := floor(Rand * |MaskHeight|)</l>
 <c>    </c>
 <l>    tuple_rand(1, Rand)</l>
-<l>    sdx := floor(Rand)</l>
 <l>    MaskShape := ['octagon', 'rectangle', 'rhombus']</l>
+<l>    sdx := floor(Rand * |MaskShape|)</l>
 <c>    </c>
-<l>    gray_opening_shape(ImageLaplace, ImageOpening, MaskWidth[wdx], MaskHeight[hdx], MaskShape[sdx])</l>
+<l>    get_image_type(ImageIn, Type)</l>
+<l>    if(Type != 'byte' and Type != 'uint2')</l>
+<l>        convert_image_type(ImageIn, ImageIn, 'uint2')</l>
+<l>    endif</l>
+<c>    </c>
+<l>    gray_opening_shape(ImageIn, ImageOut, MaskWidth[int(hdx)], MaskHeight[int(hdx)], MaskShape[int(sdx)])</l>
 <l>    ParamDesc := 'gray_open(circle,r=' + R + ')'</l>
 <c></c>
 <l>elseif (F == 'gray_close')</l>
@@ -385,7 +431,11 @@
 <l>    sdx := floor(Rand)</l>
 <l>    MaskShape := ['octagon', 'rectangle', 'rhombus']</l>
 <c>    </c>
-<l>    gray_closing_shape(ImageOpening, ImageOpening, MaskWidth[wdx], MaskHeight[hdx], MaskShape[sdx])</l>
+<l>    get_image_type(ImageIn, Type)</l>
+<l>    if(Type != 'byte' and Type != 'uint2')</l>
+<l>        convert_image_type(ImageIn, ImageIn, 'uint2')</l>
+<l>    endif</l>
+<l>    gray_closing_shape(ImageIn, ImageOut, MaskWidth[wdx], MaskHeight[hdx], MaskShape[sdx])</l>
 <l>    ParamDesc := 'gray_close(circle,r=' + R + ')'</l>
 <l>else</l>
 <c>    * fallback: no-op</c>
@@ -435,6 +485,10 @@
 <l>    lIdx := |Lights|  - 1</l>
 <l>endif</l>
 <c>    </c>
+<l>get_image_type(Img, Type)</l>
+<l>if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>
+<l>    convert_image_type(Img, Img, 'uint2')</l>
+<l>endif</l>
 <l>binary_threshold (Img, RegionOut, Methods[mIdx], Lights[lIdx], UsedThr)</l>
 <l>SegDesc := 'binary_threshold(' + Methods[mIdx] + ',' + Lights[lIdx] + '; thr=' + UsedThr + ')'</l>
 <c></c>
@@ -483,7 +537,23 @@
 <l>Total := Width * Height</l>
 <l>TN := max2(0, Total - (TP + FP + FN))</l>
 <c></c>
-<l>Den := sqrt((TP+FP) * (TP+FN) * (TN+FP) * (TN+FN))</l>
+<l>tuple_add(TP, FP, TP_plus_FP)</l>
+<l>tuple_add(TP, FN, TP_plus_FN)</l>
+<l>tuple_add(TN, FP, TN_plus_FP)</l>
+<l>tuple_add(TN, FN, TN_plus_FN)</l>
+<c></c>
+<l>tuple_real(TN_plus_FN, TN_plus_FN)</l>
+<l>tuple_real(TP_plus_FN, TP_plus_FN)</l>
+<l>tuple_real(TN_plus_FP, TN_plus_FP)</l>
+<l>tuple_real(TN_plus_FN, TN_plus_FN)</l>
+<c></c>
+<l>tuple_mult(TP_plus_FP, TP_plus_FN, Prod)</l>
+<l>tuple_mult(Prod, TN_plus_FP, Prod)</l>
+<l>tuple_mult(Prod, TN_plus_FN, Prod)</l>
+<l>*Den := sqrt((TP+FP) * (TP+FN) * (TN+FP) * (TN+FN))</l>
+<c></c>
+<l>tuple_sqrt(Prod, Den)</l>
+<c></c>
 <l>if (Den &lt;= 0)</l>
 <l>    MCC := -1.0</l>
 <l>else</l>

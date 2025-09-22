@@ -1,0 +1,3 @@
+wdir;images;labels;resultdir;
+D:\evias_expmts;severstal-steel\train_cgp\images;severstal-steel\train_cgp\labels;D:\dev\github\experiments\random_search\results;
+D:\evias_expmts;Pultrusion\resin_cgp\train\images;Pultrusion\resin_cgp\train\labels;D:\dev\github\experiments\random_search\results;
