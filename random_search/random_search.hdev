@@ -68,9 +68,9 @@
 <c></c>
 <c>* ==========================</c>
 <c>* number of random pipelines to test</c>
-<l>MaxTrials := 200</l>
+<l>MaxTrials := 1000</l>
 <c>* max number of filters to chain (1..MaxPipelineLen)</c>
-<l>MaxPipelineLen := 3                    </l>
+<l>MaxPipelineLen := 5                    </l>
 <c>* RNG seed for reproducibility</c>
 <l>Seed := 42</l>
 <c>* apply a small opening to clean preds (0/1)</c>
@@ -156,10 +156,15 @@
 <l>            segment_to_region (Work, RegionOut, UsedThr, SegDesc)</l>
 <c>    </c>
 <c>            * Optional post-processing on prediction to reduce noise</c>
-<l>            if (DoOpeningPost)</l>
-<l>                opening_circle (RegionOut, R_pred, OpeningRadius)</l>
-<l>            endif</l>
-<c>    </c>
+<l>            *if (DoOpeningPost)</l>
+<l>            *    opening_circle (RegionOut, R_pred, OpeningRadius)</l>
+<l>            *endif</l>
+<c>            * Add random region post-processing</c>
+<l>            postprocess_region_random (R_pred : R_pred, PostDesc :, )</l>
+<c>            </c>
+<l>            tuple_concat(PipeStepDesc, ' -&gt; ', PipeStepDesc)</l>
+<l>            PipelineDesc := 'len=' + PipeLen + ' :: ' + PipeStepDesc + ' -&gt; ' + SegDesc + ' -&gt; ' + PostDesc</l>
+<c></c>
 <c>            * Compute MCC</c>
 <l>            get_image_size(Img, Width, Height)</l>
 <l>            mcc_region (RegionOut, R_gt, Width, Height, MCC)</l>
@@ -264,65 +269,269 @@
 </oc>
 </interface>
 <body>
+<c>* =========================</c>
+<c>* Extended filter space (image -&gt; image)</c>
+<c>* =========================</c>
+<c>* Includes: AnisotropicDiffusion, BandpassImage(lines), BinomialFilter, CoherenceEnhancingDiff,</c>
+<c>* DualRank, EliminateMinMax, EquHistoImage, GaussFilter, GrayRangeRect, HighpassImage,</c>
+<c>* KirschAmp, Laplace, Roberts, SobelAmp (yours), Mean/Median/Gray Open/Close (yours)</c>
 <c></c>
-<c>* -- Apply one filter (by name) with randomly sampled params</c>
-<c>*    IN : ImageIn</c>
-<c>*    OUT: ImageOut, ParamDesc (string describing the sampled params)</c>
 <c>*apply_random_filter := procedure (ImageIn : ImageOut, ParamDesc : ) </c>
+<l>FilterNames := ['anisotropic_diffusion','bandpass_lines','binomial_filter','coherence_enhancing_diff', \
+                    'dual_rank','eliminate_min_max','equ_histo_image','gauss_filter','gray_range_rect', \
+                    'highpass_image','kirsch_amp','laplace','roberts', \
+                    'gauss','mean','median','sobel_amp','gray_open','gray_close']</l>
 <c></c>
-<c>* pick one filter</c>
-<l>N := |FilterNames|</l>
 <l>tuple_rand(1, Rand)</l>
-<l>idx := floor(Rand * N)</l>
-<l>if (idx &gt;= N)</l>
-<l>    idx := N - 1</l>
+<l>idx := floor(Rand * |FilterNames|)</l>
+<l>if (idx &gt;= |FilterNames|)</l>
+<l>    idx := |FilterNames| - 1</l>
 <l>endif</l>
 <l>F := FilterNames[idx]</l>
-<c></c>
 <l>ParamDesc := ''</l>
 <c></c>
-<l>if (F == 'gauss')</l>
-<c>    * sigma in [0.5..5.0]</c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    RandInt := floor(Rand * 5)</l>
+<l>if (F == 'anisotropic_diffusion')</l>
+<l>    *     anisotropic_diffusion(ImageIn, ImageOut, Mode, Contrast, Theta, Iterations)</l>
+<c>    * Modes: 'weickert','perona-malik','parabolic'; Contrast {2,5,10,20,50,100}; Theta {0.5,1.0,3.0}; Iter {1,3,10,100,500}</c>
+<l>    Modes := ['weickert','perona-malik','parabolic']</l>
+<c>        </c>
+<l>    tuple_rand(1, R1)</l>
+<l>    m := floor(R1 * |Modes|)</l>
+<c>        </c>
+<l>    tuple_rand(1, R2)</l>
+<l>    cset := [2,5,10,20,50,100]</l>
+<l>    c := cset[floor(R2*|cset|)]</l>
+<c>        </c>
+<l>    tuple_rand(1, R3)</l>
+<l>    tset := [0.5,1.0,3.0]</l>
+<l>    th := tset[floor(R3*|tset|)]</l>
+<c>        </c>
+<l>    tuple_rand(1, R4)</l>
+<l>    iset := [1,3,10,100,500]</l>
+<c>        </c>
+<l>    it := iset[floor(R4*|iset|)]</l>
+<l>    anisotropic_diffusion (ImageIn, ImageOut, Modes[m], c, th, it)</l>
+<l>    ParamDesc := 'anisotropic_diffusion(' + Modes[m] + ',' + c + ',' + th$'.2f' + ',' + it + ')'</l>
+<c>    * (Mapped from AnisotropicDiffusion.Execute) :contentReference[oaicite:0]{index=0}</c>
+<c>    </c>
+<l>elseif (F == 'bandpass_lines')</l>
+<l>    * bandpass_image(ImageIn, ImageOut, 'lines')</l>
+<l>    bandpass_image (ImageIn, ImageOut, 'lines')</l>
+<l>    ParamDesc := 'bandpass_image(lines)'</l>
+<c>    * (BandpassImage only supports 'lines') :contentReference[oaicite:1]{index=1}</c>
+<c>    </c>
+<l>elseif (F == 'binomial_filter')</l>
+<c>    * binomial_filter(ImageIn, ImageOut, MaskWidth, MaskHeight), odd sizes 1..37</c>
+<l>    odds := [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37]</l>
+<l>    tuple_rand(1, R1) </l>
+<l>    mw := odds[floor(R1*|odds|)]</l>
+<c>    </c>
+<l>    tuple_rand(1, R2)</l>
+<l>    mh := odds[floor(R2*|odds|)]</l>
+<c>    </c>
+<l>    binomial_filter (ImageIn, ImageOut, mw, mh)</l>
+<l>    ParamDesc := 'binomial_filter(' + mw + 'x' + mh + ')'</l>
+<c>    * (BinomialFilter.Execute) :contentReference[oaicite:2]{index=2}</c>
+<l>elseif (F == 'coherence_enhancing_diff')</l>
+<l>    * coherence_enhancing_diff(ImageIn, ImageOut, Sigma, Rho, Theta, Iter)</l>
+<c>    * Sigma 0..1; Rho 0..30; Theta 0.1..0.5; Iter 1..500</c>
+<c>    </c>
+<l>    tuple_rand(1, R1)</l>
+<l>    Sigma := round(R1*10)/10.0</l>
+<c>    </c>
+<l>    tuple_rand(1, R2)</l>
+<l>    Rho := floor(R2*31)</l>
+<l>    tset := [0.1,0.2,0.3,0.4,0.5]</l>
+<c>    </c>
+<l>    tuple_rand(1, R3)</l>
+<l>    Theta := tset[floor(R3*|tset|)]</l>
+<c>    </c>
+<l>    tuple_rand(1, R4)</l>
+<l>    Iter := 1 + floor(R4*500)</l>
+<c>    </c>
+<l>    coherence_enhancing_diff (ImageIn, ImageOut, Sigma, Rho, Theta, Iter)</l>
+<l>    ParamDesc := 'coherence_enhancing_diff(' + Sigma$'.1f' + ',' + Rho + ',' + Theta$'.1f' + ',' + Iter + ')'</l>
+<c>    * (CoherenceEnhancingDiff.Execute) :contentReference[oaicite:3]{index=3}</c>
+<c></c>
+<l>elseif (F == 'dual_rank')</l>
+<c>    * dual_rank(ImageIn, ImageOut, 'circle'|'square', Radius(1..101), ModePercent(0..100), margin)</c>
+<l>    mtypes := ['circle','square']</l>
+<l>    margins := ['mirrored','cyclic','continued',0,30,60,90,120,150,180,210,240,255]</l>
+<c>    </c>
+<l>    tuple_rand(1,R1)</l>
+<l>    ms := mtypes[floor(R1*|mtypes|)]</l>
+<c>        </c>
+<l>    tuple_rand(1,R2)</l>
+<l>    radius := 1 + floor(R2 * 101)</l>
+<c>    </c>
+<l>    tuple_rand(1,R3)</l>
+<l>    mp := floor(R3*101)</l>
+<c>    </c>
+<l>    tuple_rand(1,R4)</l>
+<l>    mg := margins[floor(R4*|margins|)]</l>
+<c>    </c>
+<l>    if (type(mg) == 'string')</l>
+<l>        dual_rank (ImageIn, ImageOut, ms, radius, mp, mg)</l>
+<l>    else</l>
+<l>        dual_rank (ImageIn, ImageOut, ms, radius, mp, mg)</l>
+<l>    endif</l>
+<c>    </c>
+<l>    ParamDesc := 'dual_rank(' + ms + ',r=' + radius + ',mp=' + mp + ',m=' + mg + ')'</l>
+<c>    * (DualRank.Execute) :contentReference[oaicite:4]{index=4}</c>
+<c></c>
+<l>elseif (F == 'eliminate_min_max')</l>
+<l>    * eliminate_min_max(ImageIn, ImageOut, MaskW, MaskH, Gap, Mode)</l>
+<c>    * W/H odd 3..31; Gap 1..40; Mode {1,2,3}</c>
+<c>    </c>
+<l>    odds := [3,5,7,9,11,13,15,17,19,21,23,25,27,29,31]</l>
+<c>    </c>
+<l>    tuple_rand(1,R1)</l>
+<l>    mw := odds[floor(R1*|odds|)]</l>
+<c>   </c>
+<l>    tuple_rand(1,R2)</l>
+<l>    mh := odds[floor(R2*|odds|)]</l>
+<c>    </c>
+<l>    tuple_rand(1,R3)</l>
+<l>    gap := 1 + floor(R3*40)</l>
+<c>    </c>
+<l>    modes := [1,2,3]</l>
+<c>   </c>
+<l>    tuple_rand(1,R4)</l>
+<l>    mode := modes[floor(R4*|modes|)]</l>
+<c>   </c>
+<l>    get_image_size (ImageIn, W, H)</l>
+<l>    eliminate_min_max (ImageIn, ImageOut, min([W,mw]), min([H,mh]), gap, mode)</l>
+<l>    ParamDesc := 'eliminate_min_max(' + mw + 'x' + mh + ',gap=' + gap + ',mode=' + mode + ')'</l>
+<c>    * (EliminateMinMax.Execute) :contentReference[oaicite:5]{index=5}</c>
+<c></c>
+<l>elseif (F == 'equ_histo_image')</l>
+<l>    equ_histo_image (ImageIn, ImageOut)</l>
+<l>    ParamDesc := 'equ_histo_image()'</l>
+<c>    * (EquHistoImage.Execute) :contentReference[oaicite:6]{index=6}</c>
+<c></c>
+<l>elseif (F == 'gauss_filter')</l>
+<c>    * gauss_filter(ImageIn, ImageOut, MaskSize) with {3,5,7,9,11}</c>
+<l>    sizes := [3,5,7,9,11]</l>
+<c>        </c>
+<l>    tuple_rand(1,R1)</l>
+<l>    ms := sizes[floor(R1*|sizes|)]</l>
+<c>        </c>
+<l>    gauss_filter (ImageIn, ImageOut, ms)</l>
+<l>    ParamDesc := 'gauss_filter(' + ms + ')'</l>
+<c>    * (GaussFilter.Execute) :contentReference[oaicite:7]{index=7}</c>
+<c></c>
+<l>elseif (F == 'gray_range_rect')</l>
+<c>    * gray_range_rect(ImageIn, ImageOut, MaskH, MaskW) with 3..511</c>
+<c>    </c>
+<l>    tuple_rand(1,R1)</l>
+<l>    mh := 3 + floor(R1*509)</l>
+<c>        </c>
+<l>    tuple_rand(1,R2)</l>
+<l>    mw := 3 + floor(R2*509)</l>
+<c>     </c>
+<l>    gray_range_rect (ImageIn, ImageOut, mh, mw)</l>
+<l>    ParamDesc := 'gray_range_rect(' + mh + 'x' + mw + ')'</l>
+<c>    * (GrayRangeRect.Execute) :contentReference[oaicite:8]{index=8}</c>
+<c></c>
+<l>elseif (F == 'highpass_image')</l>
+<c>    * highpass_image(ImageIn, ImageOut, MaskW, MaskH) (odd typical)</c>
+<c>    </c>
+<l>    odds := [3,5,7,9,11]</l>
+<c>    </c>
+<l>    tuple_rand(1,R1)</l>
+<l>    mw := odds[floor(R1*|odds|)]</l>
+<c>    </c>
+<l>    tuple_rand(1,R2)</l>
+<l>    mh := odds[floor(R2*|odds|)]</l>
+<c>    </c>
+<l>    highpass_image (ImageIn, ImageOut, mw, mh)</l>
+<l>    ParamDesc := 'highpass_image(' + mw + 'x' + mh + ')'</l>
+<c>    * (HighpassImage.Execute) :contentReference[oaicite:9]{index=9}</c>
+<c></c>
+<l>elseif (F == 'kirsch_amp')</l>
+<l>    kirsch_amp (ImageIn, ImageOut)</l>
+<l>    ParamDesc := 'kirsch_amp()'</l>
+<c>    * (KirschAmp.Execute) :contentReference[oaicite:10]{index=10}</c>
+<c>    </c>
+<l>elseif (F == 'laplace')</l>
+<l>    * laplace(ImageIn, ImageOut, ResultType, MaskSize, FilterMask)</l>
+<c>    * From node: result types include 'absolute','signed',...; masks sizes (3,5,7,9,11,13); connectivity 'n_4','n_8','n_8_isotropic'</c>
+<l>    rtypes := ['absolute','absolute_binomial','signed','signed_binomial','signed_clipped','signed_clipped_binomial']</l>
+<l>    nconn  := ['n_4','n_8','n_8_isotropic']</l>
+<l>    sizes  := [3,5,7,9,11,13]</l>
+<c>        </c>
+<l>    tuple_rand(1,R1)</l>
+<l>    rt := rtypes[floor(R1*|rtypes|)]</l>
+<c>        </c>
+<l>    tuple_rand(1,R2)</l>
+<l>    sz := sizes[floor(R2*|sizes|)]</l>
+<c>        </c>
+<l>    tuple_rand(1,R3)</l>
+<l>    nc := nconn[floor(R3*|nconn|)]</l>
+<c>        </c>
+<c>    * Ensure type compatibility</c>
+<c>        </c>
+<l>    get_image_type (ImageIn, _t)</l>
+<c>        </c>
+<l>    if (_t != 'byte' and _t != 'uint2')</l>
+<l>        convert_image_type (ImageIn, ImageIn, 'uint2')</l>
+<l>    endif</l>
+<c>    </c>
+<l>    laplace (ImageIn, ImageOut, rt, sz, nc) </l>
+<l>    ParamDesc := 'laplace(' + rt + ',' + sz + ',' + nc + ')'</l>
+<c>    * (Laplace.Execute parameters) :contentReference[oaicite:11]{index=11}</c>
+<c>    </c>
+<l>elseif (F == 'roberts')</l>
+<c>    * roberts(ImageIn, ImageOut, 'gradient_max'|'gradient_sum'|'roberts_max')        </c>
+<l>    opts := ['gradient_max','gradient_sum','roberts_max']</l>
+<l>    tuple_rand(1,R1)</l>
+<l>    opt := opts[floor(R1*|opts|)]</l>
+<l>    roberts (ImageIn, ImageOut, opt)</l>
+<l>    ParamDesc := 'roberts(' + opt + ')'</l>
+<c>    * (Roberts.Execute) :contentReference[oaicite:12]{index=12}</c>
+<c>    </c>
+<l>elseif (F == 'gauss')</l>
 <l>    Sigmas := [3,5,7,9,11]</l>
-<l>    Sigma := Sigmas[RandInt]</l>
+<c>    </c>
+<l>    tuple_rand(1,R1) </l>
+<c>    </c>
+<l>    Sigma := Sigmas[floor(R1*|Sigmas|)]</l>
 <l>    get_image_type(ImageIn, Type)</l>
+<c>        </c>
 <l>    if(Type != 'int4')</l>
 <l>        convert_image_type(ImageIn, ImageIn, 'int4')</l>
-<l>    endif</l>
+<c>    </c>
+<l>    endif </l>
 <l>    gauss_image (ImageIn, ImageOut, Sigma)</l>
-<l>    ParamDesc := 'gauss(sigma=' + Sigma$'.2f' + ')'</l>
+<l>    ParamDesc := 'gauss(sigma=' + Sigma + ')'</l>
 <c></c>
 <l>elseif (F == 'mean')</l>
-<c>    * mask size odd in [3..15]</c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    mw := 3 + floor(Rand * 13)</l>
-<c>    * force odd</c>
-<l>    tuple_mod(int(mw), 2, mw_mod_2)</l>
-<l>    mw := mw - (1 - mw_mod_2)</l>
+<c>    </c>
+<l>    tuple_rand(1, R1)</l>
+<l>    mw := 3 + floor(R1 * 13)</l>
+<c>    </c>
+<l>    tuple_mod(int(mw),2,mod2)</l>
+<l>    mw := mw - (1 - mod2)</l>
 <c>        </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    mh := 3 + floor(Rand * 13)</l>
-<c>    </c>
-<l>    tuple_mod(int(mh),2,mh_mod_2)</l>
-<l>    mh := mh - (1 - mh_mod_2)</l>
-<c>    </c>
+<l>    tuple_rand(1, R2)</l>
+<l>    mh := 3 + floor(R2 * 13)</l>
+<l>    tuple_mod(int(mh),2,mod2b)</l>
+<l>    mh := mh - (1 - mod2b)</l>
+<c>        </c>
 <l>    get_image_type(ImageIn, Type)</l>
 <l>    if(Type != 'byte' and Type != 'uint2' and Type != 'int2' and Type != 'int4' and Type != 'real')</l>
 <l>        convert_image_type(ImageIn, ImageIn, 'int4')</l>
 <l>    endif</l>
+<c>    </c>
 <l>    mean_image (ImageIn, ImageOut, mw, mh)</l>
-<c>        </c>
 <l>    ParamDesc := 'mean(' + mw + 'x' + mh + ')'</l>
 <c></c>
 <l>elseif (F == 'median')</l>
-<c>    * 'circle' radius in [1..7]</c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    Radius := 1 + floor(Rand * 7)</l>
-<c>    * byte* / int2* / uint2* / int4* / real</c>
+<l>    tuple_rand(1, R1)</l>
+<l>    Radius := 1 + floor(R1 * 7)</l>
 <c>    </c>
 <l>    get_image_type(ImageIn, Type)</l>
+<c>    </c>
 <l>    if(Type != 'byte' and Type != 'uint2' and Type != 'int2' and Type != 'int4' and Type != 'real')</l>
 <l>        convert_image_type(ImageIn, ImageIn, 'int4')</l>
 <l>    endif</l>
@@ -330,120 +539,83 @@
 <l>    ParamDesc := 'median(circle,r=' + Radius + ')'</l>
 <c></c>
 <l>elseif (F == 'sobel_amp')</l>
-<c>    * filter type {'sum_abs','sqrt'}, mask size {3,5,7}</c>
-<l>    FT := [ 'sum_abs', 'sum_sqrt', 'x', 'y', 'sum_abs_binomial', 'sum_sqrt_binomial', 'x_binomial', 'y_binomial']</l>
-<l>    ms := [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39]</l>
+<l>    FT := ['sum_abs','sum_sqrt','x','y','sum_abs_binomial','sum_sqrt_binomial','x_binomial','y_binomial']</l>
 <c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    tIdx := floor(Rand * |FT|)</l>
+<l>    ms := [3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39]</l>
+<c>    </c>
+<l>    tuple_rand(1, R1)</l>
+<l>    tIdx := floor(R1 * |FT|)</l>
+<c>    </c>
 <l>    if (tIdx &gt;= |FT|) </l>
 <l>        tIdx := |FT| - 1 </l>
 <l>    endif</l>
-<c>    </c>
-<l>    mIdx := floor(Rand * |ms|)</l>
+<c>        </c>
+<l>    tuple_rand(1, R2)</l>
+<l>    mIdx := floor(R2 * |ms|)</l>
 <l>    if (mIdx &gt;= |ms|)</l>
 <l>        mIdx := |ms| - 1</l>
 <l>    endif</l>
 <c>    </c>
 <l>    try</l>
 <l>        sobel_amp (ImageIn, ImageOut, FT[int(tIdx)], ms[int(mIdx)])</l>
-<l>    catch (Exception)</l>
+<l>    catch (Exception) </l>
 <l>        get_image_type(ImageIn, emptType)</l>
 <l>        get_image_size(ImageIn, emptWidth, emptHeight)</l>
 <l>        gen_image_const(ImageOut, emptType, emptWidth, emptHeight)</l>
 <l>    endtry</l>
 <l>    ParamDesc := 'sobel_amp(' + FT[tIdx] + ',' + ms[mIdx] + ')'</l>
-<c>    </c>
-<l>elseif (F == 'laplace')</l>
-<c>    * 'n-4' or 'n-8', and filter size {3,5,7}</c>
-<l>    ResultTpye := ['absolute', 'absolute_binomial', 'signed', 'signed_binomial', 'signed_clipped', 'signed_clipped_binomial']</l>
-<l>    NConn := ['n_4', 'n_8', 'n_8_isotropic']</l>
-<l>    Sizes := [3, 5, 7, 9, 11, 13] </l>
-<c>    *, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39]</c>
-<c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    cIdx := floor(Rand * |NConn|)</l>
-<l>    if (cIdx &gt;= |NConn|) </l>
-<l>        cIdx := |NConn| - 1 </l>
-<l>    endif</l>
-<c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    sIdx := floor(Rand * |Sizes|)</l>
-<l>    if (sIdx &gt;= |Sizes|) </l>
-<l>        sIdx := |Sizes| - 1 </l>
-<l>    endif</l>
-<c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    rIdx := floor(Rand * |ResultTpye|)</l>
-<l>    if (rIdx &gt;= |ResultTpye|) </l>
-<l>        rIdx := |ResultTpye| - 1 </l>
-<l>    endif</l>
-<c>    </c>
-<c>    * byte / uint2 / int2 / int2 / int4</c>
-<l>    get_image_type(ImageIn, Type)</l>
-<l>    if(Type != 'byte' and Type != 'uint2')</l>
-<l>        convert_image_type(ImageIn, ImageIn, 'uint2')</l>
-<l>    endif</l>
-<c>    </c>
-<l>    laplace(ImageIn, ImageOut, ResultTpye[int(rIdx)], Sizes[int(sIdx)], NConn[int(cIdx)])</l>
-<l>    ParamDesc := 'laplace(' + NConn[cIdx] + ',' + Sizes[sIdx] + ')'</l>
+<c></c>
 <c></c>
 <l>elseif (F == 'gray_open')</l>
-<c>    * gray opening with circle radius in [1..5]    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    R := 1 + floor(Rand * 5)</l>
-<c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    hdx := floor(Rand)</l>
-<l>    MaskWidth := [3, 5, 7, 9, 11, 13, 15]</l>
-<l>    hdx := floor(Rand * |MaskWidth|)</l>
-<c>    </c>
-<l>    *tuple_rand(1, Rand)</l>
-<l>    MaskHeight := [3, 5, 7, 9, 11, 13, 15]</l>
-<l>    *wdx := floor(Rand * |MaskHeight|)</l>
-<c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    MaskShape := ['octagon', 'rectangle', 'rhombus']</l>
-<l>    sdx := floor(Rand * |MaskShape|)</l>
-<c>    </c>
+<l>    MaskWidth := [3,5,7,9,11,13,15]</l>
+<l>    MaskHeight := [3,5,7,9,11,13,15]</l>
+<l>    MaskShape := ['octagon','rectangle','rhombus']</l>
+<c>        </c>
+<l>    tuple_rand(1,R1)</l>
+<l>    wdx := floor(R1*|MaskWidth|)</l>
+<c>        </c>
+<l>    tuple_rand(1,R2)</l>
+<l>    hdx := floor(R2*|MaskHeight|)</l>
+<c>        </c>
+<l>    tuple_rand(1,R3)</l>
+<l>    sdx := floor(R3*|MaskShape|)</l>
+<c>        </c>
 <l>    get_image_type(ImageIn, Type)</l>
-<l>    if(Type != 'byte' and Type != 'uint2')</l>
-<l>        convert_image_type(ImageIn, ImageIn, 'uint2')</l>
+<c>        </c>
+<l>    if(Type != 'byte' and Type != 'uint2') </l>
+<l>        convert_image_type(ImageIn, ImageIn, 'uint2') </l>
 <l>    endif</l>
-<c>    </c>
-<l>    gray_opening_shape(ImageIn, ImageOut, MaskWidth[int(hdx)], MaskHeight[int(hdx)], MaskShape[int(sdx)])</l>
-<l>    ParamDesc := 'gray_open(circle,r=' + R + ')'</l>
+<c>        </c>
+<l>    gray_opening_shape (ImageIn, ImageOut, MaskWidth[wdx], MaskHeight[hdx], MaskShape[sdx])</l>
+<l>    ParamDesc := 'gray_open(' + MaskShape[sdx] + ',' + MaskWidth[wdx] + 'x' + MaskHeight[hdx] + ')'</l>
 <c></c>
 <l>elseif (F == 'gray_close')</l>
-<c>    * gray closing with circle radius in [1..5]</c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    R := 1 + floor(Rand * 5)</l>
-<c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    hdx := floor(Rand)</l>
-<l>    MaskWidth := [3, 5, 7, 9, 11, 13, 15]</l>
-<c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    wdx := floor(Rand)</l>
-<l>    MaskHeight := [3, 5, 7, 9, 11, 13, 15]</l>
-<c>    </c>
-<l>    tuple_rand(1, Rand)</l>
-<l>    sdx := floor(Rand)</l>
-<l>    MaskShape := ['octagon', 'rectangle', 'rhombus']</l>
-<c>    </c>
+<l>    MaskWidth := [3,5,7,9,11,13,15]</l>
+<l>    MaskHeight := [3,5,7,9,11,13,15]        </l>
+<l>    MaskShape := ['octagon','rectangle','rhombus']</l>
+<c>        </c>
+<l>    tuple_rand(1,R1)</l>
+<l>    wdx := floor(R1*|MaskWidth|)</l>
+<c>        </c>
+<l>    tuple_rand(1,R2)</l>
+<l>    hdx := floor(R2*|MaskHeight|)</l>
+<c>        </c>
+<l>    tuple_rand(1,R3)</l>
+<l>    sdx := floor(R3*|MaskShape|)</l>
+<c>        </c>
 <l>    get_image_type(ImageIn, Type)</l>
+<c>        </c>
 <l>    if(Type != 'byte' and Type != 'uint2')</l>
 <l>        convert_image_type(ImageIn, ImageIn, 'uint2')</l>
 <l>    endif</l>
-<l>    gray_closing_shape(ImageIn, ImageOut, MaskWidth[wdx], MaskHeight[hdx], MaskShape[sdx])</l>
-<l>    ParamDesc := 'gray_close(circle,r=' + R + ')'</l>
+<l>    gray_closing_shape (ImageIn, ImageOut, MaskWidth[wdx], MaskHeight[hdx], MaskShape[sdx])</l>
+<l>    ParamDesc := 'gray_close(' + MaskShape[sdx] + ',' + MaskWidth[wdx] + 'x' + MaskHeight[hdx] + ')'</l>
+<c></c>
 <l>else</l>
-<c>    * fallback: no-op</c>
 <l>    copy_image (ImageIn, ImageOut)</l>
 <l>    ParamDesc := 'noop'</l>
 <l>endif</l>
 <c></c>
-<l>return ()</l>
 </body>
 <docu id="apply_random_filter">
 <parameters>
@@ -492,7 +664,112 @@
 <l>binary_threshold (Img, RegionOut, Methods[mIdx], Lights[lIdx], UsedThr)</l>
 <l>SegDesc := 'binary_threshold(' + Methods[mIdx] + ',' + Lights[lIdx] + '; thr=' + UsedThr + ')'</l>
 <c></c>
-<l>return ()</l>
+<c>* ==================================================================</c>
+<l>Methods := ['binary_threshold','auto_threshold','fast_threshold']</l>
+<c></c>
+<l>tuple_rand(1,R)</l>
+<l>which := floor(R * |Methods|)</l>
+<c></c>
+<l>if (which == 0)</l>
+<c>    * BinaryThreshold (max_separability|smooth_histo, light|dark)</c>
+<l>    mset := ['max_separability','smooth_histo']</l>
+<l>    lset := ['light','dark']</l>
+<c>    </c>
+<l>    tuple_rand(1,r1)</l>
+<l>    m := mset[floor(r1*|mset|)]</l>
+<c>    </c>
+<l>    tuple_rand(1,r2)</l>
+<l>    l := lset[floor(r2*|lset|)]</l>
+<c>    </c>
+<l>    binary_threshold (Img, RegionOut, m, l, UsedThr)</l>
+<l>    SegDesc := 'binary_threshold(' + m + ',' + l + '; thr=' + UsedThr + ')'</l>
+<c>    * (BinaryThreshold.Execute) :contentReference[oaicite:13]{index=13}</c>
+<c></c>
+<l>elseif (which == 1)</l>
+<c>    * AutoThreshold with Sigma in {0,0.5,1,2,3,4,5}</c>
+<l>    sset := [0,0.5,1,2,3,4,5]</l>
+<c>    </c>
+<l>    tuple_rand(1,rs)</l>
+<l>    s := sset[floor(rs*|sset|)]</l>
+<c>    </c>
+<l>    auto_threshold (Img, RegionOut, s)</l>
+<l>    SegDesc := 'auto_threshold(sigma=' + s$'.1f' + ')'</l>
+<l>    UsedThr := -1</l>
+<c>    * (AutoThreshold.Execute) :contentReference[oaicite:14]{index=14}</c>
+<c></c>
+<l>else</l>
+<c>    * FastThreshold: min_gray (0..254), max_gray = min_gray + offset(0..255 clamped), min_size 2..200</c>
+<c>    </c>
+<l>    tuple_rand(1,r1)</l>
+<l>    minGray := floor(r1*255)</l>
+<c>    </c>
+<l>    tuple_rand(1,r2)</l>
+<l>    off := floor(r2*256)</l>
+<c>    </c>
+<l>    MaxGray := min([255, minGray + off])</l>
+<c>    </c>
+<l>    tuple_rand(1,r3)</l>
+<l>    minSize := 2 + floor(r3*199)</l>
+<c>    </c>
+<l>    fast_threshold (Img, RegionOut, minGray, MaxGray, minSize)</l>
+<l>    SegDesc := 'fast_threshold(min=' + minGray + ', max=' + MaxGray + ', minSize=' + minSize + ')'</l>
+<l>    UsedThr := -1</l>
+<c>    * (FastThreshold.Execute) :contentReference[oaicite:15]{index=15}</c>
+<l>endif</l>
+<c></c>
+<l>Methods := ['binary_threshold','auto_threshold','fast_threshold']</l>
+<c></c>
+<l>tuple_rand(1,R)</l>
+<l>which := floor(R * |Methods|)</l>
+<c></c>
+<l>if (which == 0)</l>
+<c>    * BinaryThreshold (max_separability|smooth_histo, light|dark)</c>
+<l>    mset := ['max_separability','smooth_histo']</l>
+<l>    lset := ['light','dark']</l>
+<c>        </c>
+<l>    tuple_rand(1,r1)</l>
+<l>    m := mset[floor(r1*|mset|)]</l>
+<c>        </c>
+<l>    tuple_rand(1,r2)</l>
+<l>    l := lset[floor(r2*|lset|)]</l>
+<c>        </c>
+<l>    binary_threshold (Img, RegionOut, m, l, UsedThr)</l>
+<l>    SegDesc := 'binary_threshold(' + m + ',' + l + '; thr=' + UsedThr + ')'</l>
+<c>    * (BinaryThreshold.Execute) :contentReference[oaicite:13]{index=13}</c>
+<c>    </c>
+<l>elseif (which == 1)</l>
+<c>    * AutoThreshold with Sigma in {0,0.5,1,2,3,4,5}</c>
+<c>        </c>
+<l>    sset := [0,0.5,1,2,3,4,5]</l>
+<c>        </c>
+<l>    tuple_rand(1,rs)</l>
+<l>    s := sset[floor(rs*|sset|)]</l>
+<c>    </c>
+<l>    auto_threshold (Img, RegionOut, s)</l>
+<l>    SegDesc := 'auto_threshold(sigma=' + s$'.1f' + ')'</l>
+<l>    UsedThr := -1</l>
+<c>    * (AutoThreshold.Execute) :contentReference[oaicite:14]{index=14}</c>
+<c></c>
+<l>else</l>
+<c>    * FastThreshold: min_gray (0..254), max_gray = min_gray + offset(0..255 clamped), min_size 2..200</c>
+<c>        </c>
+<l>    tuple_rand(1,r1)</l>
+<l>    minGray := floor(r1*255)</l>
+<c>       </c>
+<l>    tuple_rand(1,r2)</l>
+<l>    off := floor(r2*256)</l>
+<c>        </c>
+<l>    MaxGray := min([255, minGray + off])</l>
+<c>        </c>
+<l>    tuple_rand(1,r3)</l>
+<l>    minSize := 2 + floor(r3*199)</l>
+<c>        </c>
+<l>    fast_threshold (Img, RegionOut, minGray, MaxGray, minSize)</l>
+<c>       </c>
+<l>    SegDesc := 'fast_threshold(min=' + minGray + ', max=' + MaxGray + ', minSize=' + minSize + ')'</l>
+<l>    UsedThr := -1</l>
+<c>    * (FastThreshold.Execute) :contentReference[oaicite:15]{index=15} </c>
+<l>endif</l>
 </body>
 <docu id="segment_to_region">
 <parameters>
@@ -569,6 +846,99 @@
 <parameter id="MCC"/>
 <parameter id="PredRegion"/>
 <parameter id="Width"/>
+</parameters>
+</docu>
+</procedure>
+<procedure name="postprocess_region_random">
+<interface>
+<io>
+<par name="RegionIn" base_type="iconic" dimension="0"/>
+</io>
+<oo>
+<par name="R_pred_out" base_type="iconic" dimension="0"/>
+</oo>
+<oc>
+<par name="PostDescOut" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<c>* =========================</c>
+<c>* Region post-processing (region -&gt; region)</c>
+<c>* Randomly apply one region operator from OperatorNodes</c>
+<c>* =========================</c>
+<l>Ops := ['closing','dilation1','erosion1','union1','union2','connection','area_to_rectangle']</l>
+<c></c>
+<l>tuple_rand(1,R)</l>
+<l>op := Ops[floor(R*|Ops|)]</l>
+<c></c>
+<l>PostDescOut := ''</l>
+<c></c>
+<l>if (op == 'closing')</l>
+<l>*     closing(RegionIn, RegionOut, radius)</l>
+<l>    tuple_rand(1,r1)</l>
+<l>    radius := 1 + floor(r1*15)</l>
+<c>        </c>
+<l>    closing (RegionIn, RegionOut, radius)</l>
+<c>        </c>
+<l>    PostDesc := 'closing(r=' + radius + ')'</l>
+<c>    * (Closing.Execute) :contentReference[oaicite:0]{index=0}</c>
+<c></c>
+<l>elseif (op == 'dilation1')</l>
+<c>    * dilation1(RegionIn, RegionOut, radius)</c>
+<c>        </c>
+<l>    tuple_rand(1,r1)</l>
+<l>    radius := 1 + floor(r1*15)</l>
+<c>        </c>
+<l>    dilation1(RegionIn, RegionOut, radius, 1)</l>
+<l>    PostDesc := 'dilation1(r=' + radius + ')'</l>
+<c>    * (Dilation1.Execute) :contentReference[oaicite:1]{index=1}</c>
+<c>    </c>
+<l>elseif (op == 'erosion1')  </l>
+<c>    * erosion1(RegionIn, RegionOut, radius)</c>
+<l>    tuple_rand(1,r1)</l>
+<l>    radius := 1 + floor(r1*15)</l>
+<c>    </c>
+<l>    erosion1 (RegionIn, RegionOut, radius, 1)</l>
+<l>    PostDesc := 'erosion1(r=' + radius + ')'</l>
+<c>    * (Erosion1.Execute) :contentReference[oaicite:2]{index=2}</c>
+<c>    </c>
+<l>elseif (op == 'union1')</l>
+<l>    *union1(RegionIn, RegionOut)</l>
+<l>    union1 (RegionIn, RegionOut) </l>
+<l>    PostDesc := 'union1()'</l>
+<c>    * (Union1.Execute) :contentReference[oaicite:3]{index=3}</c>
+<c></c>
+<c>    </c>
+<l>elseif (op == 'union2')</l>
+<c>    * union2(RegionIn, RegionOut)</c>
+<l>    union2(RegionIn, RegionIn, RegionUnion)</l>
+<l>    PostDesc := 'union2()'</l>
+<c>    * (Union2.Execute) :contentReference[oaicite:4]{index=4}</c>
+<c></c>
+<l>elseif (op == 'connection')</l>
+<l>    * connection(RegionIn, RegionOut)</l>
+<l>    connection (RegionIn, RegionOut)</l>
+<l>    PostDesc := 'connection()'</l>
+<c>    * (Connection.Execute) :contentReference[oaicite:5]{index=5}</c>
+<c></c>
+<l>elseif (op == 'area_to_rectangle')</l>
+<c>    * area_to_rectangle(RegionIn, RegionOut)</c>
+<l>    area_to_rectangle(RegionIn, RegionOut)</l>
+<l>    PostDesc := 'area_to_rectangle()'</l>
+<c>    * (AreaToRectangle.Execute) :contentReference[oaicite:6]{index=6}</c>
+<c></c>
+<l>else</l>
+<l>    copy_obj (RegionIn, RegionOut, 1, -1)</l>
+<l>    PostDescOut := 'noop'</l>
+<l>endif</l>
+<c></c>
+<l>return ()</l>
+</body>
+<docu id="postprocess_region_random">
+<parameters>
+<parameter id="PostDescOut"/>
+<parameter id="R_pred_out"/>
+<parameter id="RegionIn"/>
 </parameters>
 </docu>
 </procedure>

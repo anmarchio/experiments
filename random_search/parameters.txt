@@ -1,3 +1,7 @@
 wdir;images;labels;resultdir;
 D:\evias_expmts;severstal-steel\train_cgp\images;severstal-steel\train_cgp\labels;D:\dev\github\experiments\random_search\results;
 D:\evias_expmts;Pultrusion\resin_cgp\train\images;Pultrusion\resin_cgp\train\labels;D:\dev\github\experiments\random_search\results;
+D:\evias_expmts;MVTecAnomalyDetection\cable_missing_train\images;MVTecAnomalyDetection\cable_missing_train\labels;D:\dev\github\experiments\random_search\results;
+D:\evias_expmts;MVTecAnomalyDetection\tile_crack_train\images;MVTecAnomalyDetection\tile_crack_train\labels;D:\dev\github\experiments\random_search\results;
+D:\evias_expmts;Aircarbon3\20210325_13h25_rov\training\80.jpg_dark_1\images;Aircarbon3\20210325_13h25_rov\training\80.jpg_dark_1\labels;D:\dev\github\experiments\random_search\results;
+D:\evias_expmts;MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\undone_thread_hole_256\training\images;MAIPreform2.0\20170502_Compositence\Spule0-0315_Upside\undone_thread_hole_256\training\labels;D:\dev\github\experiments\random_search\results;
