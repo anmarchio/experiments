@@ -2,8 +2,10 @@
 .idea/*
 out/imgs/*
 out/json/*
+test/*
 test/imgs/fullscale_fibers_sample.jpg
 test/param_tuning/manual_hdev/*.hdev
 test/param_tuning/manual_hdev/*/*.jpg
 test/param_tuning/manual_hdev/*/*.png
+test/cross_application/manual_hdev/*.txt
 venv/*

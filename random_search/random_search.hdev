@@ -27,7 +27,7 @@
 <c></c>
 <c>* ==========================</c>
 <c>* number of random pipelines to test</c>
-<l>MaxTrials := 1000</l>
+<l>MaxTrials := 200</l>
 <c>* max number of filters to chain (1..MaxPipelineLen)</c>
 <l>MaxPipelineLen := 10                 </l>
 <c>* RNG seed for reproducibility</c>
@@ -960,7 +960,7 @@
 <c></c>
 <l>MCC := 0.0</l>
 <l>if (Den &lt;= 0)</l>
-<l>    MCC := -1.0</l>
+<l>    MCC := 0.0</l>
 <l>else</l>
 <l>    *MCC := ((TP * TN) - (FP * FN)) / Den</l>
 <l>    tuple_mult(TP, TN, TP_mult_TN)</l>
@@ -1076,12 +1076,29 @@
 <c></c>
 <c>    </c>
 <l>elseif (op == 'union2')</l>
-<c>    * union2(RegionIn, RegionOut)</c>
-<l>    copy_obj(RegionIn, RegionIn2, 1, 1)</l>
-<l>    union2(RegionIn, RegionIn2, RegionOut)</l>
-<l>    PostDescOut := 'union2()'</l>
-<c>    * (Union2.Execute) :contentReference[oaicite:4]{index=4}</c>
-<c></c>
+<c>    * union two randomly selected single regions (if possible)</c>
+<l>    count_obj(RegionIn, Count)</l>
+<l>    if (Count &gt;= 2)</l>
+<l>        tuple_rand(1, r1)</l>
+<l>        idx1 := 1 + floor(r1*Count)</l>
+<l>        tuple_rand(1, r2)</l>
+<l>        idx2 := 1 + floor(r2*Count)</l>
+<l>        if (idx2 == idx1)</l>
+<l>            idx2 := (idx1 % Count) + 1</l>
+<l>        endif</l>
+<l>        select_obj(RegionIn, RegA, idx1)</l>
+<l>        select_obj(RegionIn, RegB, idx2)</l>
+<l>        union2(RegA, RegB, RegionOut)</l>
+<l>        PostDescOut := 'union2()'</l>
+<l>    elseif (Count == 1)</l>
+<c>        * only one object; union2 degenerates to identity</c>
+<l>        copy_obj(RegionIn, RegionOut, 1, -1)</l>
+<l>        PostDescOut := 'union2(identity)'</l>
+<l>    else</l>
+<c>        * empty input</c>
+<l>        gen_empty_region(RegionOut)</l>
+<l>        PostDescOut := 'union2(empty)'</l>
+<l>    endif</l>
 <l>elseif (op == 'connection')</l>
 <l>    * connection(RegionIn, RegionOut)</l>
 <l>    connection (RegionIn, RegionOut)</l>
