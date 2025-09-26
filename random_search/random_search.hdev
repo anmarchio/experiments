@@ -15,8 +15,26 @@
 <c>*   D:\evias_expmts;severstal-steel\train_cgp\imags;severstal-steel\train_cgp\labels;D:\dev\github\experiments\random_search\results;</c>
 <c>* ------------------------------------------------------------</c>
 <c></c>
+<c>* =========================</c>
+<c>* CONFIG</c>
+<c>* =========================</c>
 <l>ParamFile := 'parameters.txt'</l>
+<c>* following parameters are irrelevant</c>
+<c>* are being filled by reading the parameters</c>
+<l>*ImageDir := ''</l>
+<l>*LabelDir := ''</l>
+<l>*ResultDir := ''</l>
 <c></c>
+<c>* ==========================</c>
+<c>* number of random pipelines to test</c>
+<l>MaxTrials := 1000</l>
+<c>* max number of filters to chain (1..MaxPipelineLen)</c>
+<l>MaxPipelineLen := 10                 </l>
+<c>* RNG seed for reproducibility</c>
+<l>Seed := 42</l>
+<c>* apply a small opening to clean preds (0/1)</c>
+<l>DoOpeningPost := 1</l>
+<l>OpeningRadius := 2</l>
 <l>open_file (ParamFile, 'input', FileHandle)</l>
 <l>Parameters := []</l>
 <l>while (true)</l>
@@ -56,26 +74,6 @@
 <l>if(|ImageDirs| == 0 or |LabelDirs| == 0 or |ImageDirs| != |LabelDirs|)</l>
 <l>    throw('ImageDirs and LabelDirs mismatch!')</l>
 <l>endif</l>
-<c>* =========================</c>
-<c>* CONFIG</c>
-<c>* =========================</c>
-<c>* &lt;- change me</c>
-<l>*ImageDir := ''</l>
-<c>* &lt;- change me (binary GT images; &gt;0 = positive)</c>
-<l>*LabelDir := ''</l>
-<c>* &lt;- change me</c>
-<l>*ResultDir := ''</l>
-<c></c>
-<c>* ==========================</c>
-<c>* number of random pipelines to test</c>
-<l>MaxTrials := 10</l>
-<c>* max number of filters to chain (1..MaxPipelineLen)</c>
-<l>MaxPipelineLen := 5                   </l>
-<c>* RNG seed for reproducibility</c>
-<l>Seed := 42</l>
-<c>* apply a small opening to clean preds (0/1)</c>
-<l>DoOpeningPost := 1</l>
-<l>OpeningRadius := 2</l>
 <c></c>
 <l>for RunIdx := 0 to |ImageDirs| - 1 by 1</l>
 <l>    ImageDir := WDIR + '\\' + ImageDirs[RunIdx]</l>
@@ -121,10 +119,25 @@
 <l>    dev_close_window ()</l>
 <l>    dev_open_window_fit_size(0, 0, IsEOF, IsEOF, -1, -1, WindowHandle)</l>
 <c>    </c>
+<c>    * ========================</c>
+<c>    * Logging</c>
+<c>    * ========================</c>
 <l>    run_text := 'Dataset:' + ImageDirs[RunIdx] + '\n'</l>
 <l>    get_system_time(MSecond1, Second1, Minute1, Hour1, Day1, YDay1, Month1, Year1)</l>
-<l>    run_text := run_text + 'Run Started: ' + Year1 + '-' + Month1 + '-' + YDay1 + ' ' + Hour1 + ':' + Minute1 + ':' + Second1 + '\n'</l>
-<c>        </c>
+<c>    </c>
+<l>    time_started := Year1 + '-' + Month1 + '-' + Day1 + ' ' + Hour1 + ':' + Minute1 + ':' + Second1</l>
+<l>    run_text := run_text + 'Run Started: ' + time_started + '\n'</l>
+<l>    list_of_trial_results := ''</l>
+<c>    </c>
+<l>    ResultDirPath := ResultDir + '\\' + \
+              Year1 + \
+              Month1 + \
+              Day1 + \
+              Hour1 + \
+              Minute1 + \
+              Second1 + \
+              '-randsearch-result.txt'</l>
+<c>    </c>
 <l>    for Trial := 1 to MaxTrials by 1</l>
 <l>        dev_clear_window()</l>
 <l>        trial_text := run_text + 'Trial: ' + Trial + ' / ' + MaxTrials + '\n'</l>
@@ -167,8 +180,17 @@
 <c>            * Segment to region</c>
 <l>            text := trial_text + 'Segment to region ...\n'</l>
 <l>            dev_disp_text (text, 'window', 12, 12, 'black', [], [])</l>
-<l>            segment_to_region (Work, RegionOut, UsedThr, SegDesc)</l>
-<c>    </c>
+<c>            * Safe wrapper for segment_to_region</c>
+<c>            </c>
+<l>            area_center (Work, Area, Row, Col)</l>
+<l>            if (Area == 0)</l>
+<l>                gen_empty_region (RegionOut)</l>
+<l>                UsedThr := -1</l>
+<l>                SegDesc := 'segment_failed'</l>
+<l>            else</l>
+<l>                segment_to_region (Work, RegionOut, UsedThr, SegDesc)</l>
+<l>            endif</l>
+<c>            </c>
 <c>            * Optional post-processing on prediction to reduce noise</c>
 <l>            *if (DoOpeningPost)</l>
 <l>            *    opening_circle (RegionOut, R_pred, OpeningRadius)</l>
@@ -184,7 +206,7 @@
 <c></c>
 <c>            * Compute MCC</c>
 <l>            get_image_size(Img, Width, Height)</l>
-<l>            mcc_region (RegionOut, R_gt, Width, Height, MCC)</l>
+<l>            mcc_region (R_pred, R_gt, Width, Height, MCC)</l>
 <l>            SumMCC := SumMCC + MCC</l>
 <l>        endfor</l>
 <c>    </c>
@@ -206,30 +228,47 @@
                        'black', \
                        [], \
                        [])</l>
+<c>        </c>
+<l>        list_of_trial_results := Trial + ';' + MeanMCC + ';\n' + list_of_trial_results</l>
+<l>        open_file(ResultDirPath, \
+              'output', \
+              FileHandle)</l>
+<l>        fwrite_string(FileHandle, '--- Iterations ---\n' + list_of_trial_results)</l>
+<l>        close_file(FileHandle)</l>
 <l>    endfor</l>
 <c>    </c>
 <c>    * =========================</c>
 <c>    * Report</c>
 <c>    * =========================</c>
 <l>    get_system_time(MSecond, Second, Minute, Hour, Day, YDay, Month, Year)</l>
-<l>    ResultDirPath := ResultDir + '\\' + \
-              Year + \
-              Month + \
-              Day + \
-              Hour + \
-              Minute + \
-              Second + \
-              '-randsearch-result.txt'</l>
-<l>    open_file(ResultDirPath, \
-              'output', \
-              FileHandle)</l>
+<c>    * --- Convert to seconds ---</c>
+<c>    * A rough formula: total seconds = YDay*86400 + Hour*3600 + Min*60 + Sec + MSec/1000</c>
+<c>    </c>
+<l>    StartTotal := (YDay1 * 86400) + (Hour1 * 3600) + (Minute1 * 60) + Second1 + (MSecond1 / 1000.0)</l>
+<l>    EndTotal   := (YDay * 86400) + (Hour * 3600) + (Minute * 60) + Second + (MSecond / 1000.0)</l>
+<c></c>
+<l>    DeltaTime := EndTotal - StartTotal</l>
+<c>    </c>
 <l>    output_string := ['--- Random Search Complete ---\n', \
+                   'Time Started: ' + time_started + '\n', \
+                   'Time Ended  : ' + Year + '-' + Month + '-' + Day + ' ' + Hour + ':' + Minute + ':' + Second + '\n', \
+                   'Delta (sec) : ' + DeltaTime + '\n' + \
+                   'ImageDirs   : ' + ImageDirs[RunIdx] + '\n', \
+                   'LabelDirs   : ' + LabelDirs[RunIdx] + '\n', \
+                   'No. Images  : ' + |ImageFiles|, \
+                   'MaxPipelineLen: ' + MaxPipelineLen + '\n', \
                    'Trials      : ' + MaxTrials + '\n', \
                    'Best Trial  : ' + BestTrialIdx + '\n', \
                    'Best Mean MCC: ' + BestMeanMCC$'.5f' + '\n', \
-                   'Best Config : ' + BestConfigDesc + '\n']</l>
+                   'Best Config : ' + BestConfigDesc + '\n\n', \
+                   '--- Iterations ---\n' + list_of_trial_results]</l>
+<c>    </c>
+<l>    open_file(ResultDirPath, \
+              'output', \
+              FileHandle)</l>
 <l>    fwrite_string(FileHandle, output_string)</l>
 <l>    close_file(FileHandle)</l>
+<c>    </c>
 <c>    * Example: rerun best pipeline on the first image and visualize</c>
 <l>    if (|ImageFiles| &gt; 0)</l>
 <l>        read_image (Img0, ImageFiles[0])</l>
@@ -263,7 +302,6 @@
 <l>        dev_set_color ('red')</l>
 <l>        dev_display (Gt0)</l>
 <l>    endif</l>
-<c></c>
 <l>endfor</l>
 </body>
 <docu id="main">
@@ -973,6 +1011,13 @@
 <c></c>
 <l>PostDescOut := ''</l>
 <c></c>
+<l>try</l>
+<l>    select_obj(RegionIn, ObjectSelected, 0)</l>
+<l>catch (Exception)</l>
+<l>    gen_empty_region (RegionOut)</l>
+<l>    PostDescOut := 'empty_input'</l>
+<l>endtry</l>
+<c></c>
 <l>if (op == 'closing')</l>
 <l>*     closing(RegionIn, RegionOut, radius)</l>
 <l>    tuple_rand(1,r1)</l>
@@ -988,7 +1033,7 @@
 <c>    </c>
 <l>    closing(RegionIn, SE, RegionOut)</l>
 <c>        </c>
-<l>    PostDesc := 'closing(r=' + radius + ')'</l>
+<l>    PostDescOut := 'closing(r=' + radius + ')'</l>
 <c>    * (Closing.Execute) :contentReference[oaicite:0]{index=0}</c>
 <c></c>
 <l>elseif (op == 'dilation1')</l>
@@ -1004,7 +1049,7 @@
 <c>        </c>
 <l>    gen_circle(SE, A, B, radius)</l>
 <l>    dilation1(RegionIn, SE, RegionOut, 1)</l>
-<l>    PostDesc := 'dilation1(r=' + radius + ')'</l>
+<l>    PostDescOut := 'dilation1(r=' + radius + ')'</l>
 <c>    * (Dilation1.Execute) :contentReference[oaicite:1]{index=1}</c>
 <c>    </c>
 <l>elseif (op == 'erosion1')  </l>
@@ -1020,26 +1065,27 @@
 <c>    </c>
 <l>    gen_circle(SE, A, B, radius)</l>
 <l>    erosion1 (RegionIn, SE, RegionOut, 1)</l>
-<l>    PostDesc := 'erosion1(r=' + radius + ')'</l>
+<l>    PostDescOut := 'erosion1(r=' + radius + ')'</l>
 <c>    * (Erosion1.Execute) :contentReference[oaicite:2]{index=2}</c>
 <c>    </c>
 <l>elseif (op == 'union1')</l>
 <l>    *union1(RegionIn, RegionOut)</l>
 <l>    union1 (RegionIn, RegionOut) </l>
-<l>    PostDesc := 'union1()'</l>
+<l>    PostDescOut := 'union1()'</l>
 <c>    * (Union1.Execute) :contentReference[oaicite:3]{index=3}</c>
 <c></c>
 <c>    </c>
 <l>elseif (op == 'union2')</l>
 <c>    * union2(RegionIn, RegionOut)</c>
-<l>    union2(RegionIn, RegionIn, RegionUnion)</l>
-<l>    PostDesc := 'union2()'</l>
+<l>    copy_obj(RegionIn, RegionIn2, 1, 1)</l>
+<l>    union2(RegionIn, RegionIn2, RegionOut)</l>
+<l>    PostDescOut := 'union2()'</l>
 <c>    * (Union2.Execute) :contentReference[oaicite:4]{index=4}</c>
 <c></c>
 <l>elseif (op == 'connection')</l>
 <l>    * connection(RegionIn, RegionOut)</l>
 <l>    connection (RegionIn, RegionOut)</l>
-<l>    PostDesc := 'connection()'</l>
+<l>    PostDescOut := 'connection()'</l>
 <c>    * (Connection.Execute) :contentReference[oaicite:5]{index=5}</c>
 <c></c>
 <l>elseif (op == 'area_to_rectangle')</l>
@@ -1053,7 +1099,7 @@
 <l>        gen_rectangle1(Rectangle, Row11, Column11, Row21, Column21)</l>
 <l>        union2(RegionOut, Rectangle, RegionOut)</l>
 <l>    endfor</l>
-<l>    PostDesc := 'area_to_rectangle()'</l>
+<l>    PostDescOut := 'area_to_rectangle()'</l>
 <c>    * (AreaToRectangle.Execute) :contentReference[oaicite:6]{index=6}</c>
 <c></c>
 <l>else</l>
