@@ -26,7 +26,7 @@ def get_MVTec_AD_Bottle_Broken_Lg_best_pipeline(params, dataset_path=None):
         # Core pipeline
         core_code = (
             "<l>        mean_image(Image, ImageMean, MaskWidth, MaskHeight)</l>\n"
-            "<l>        binary_threshold(ImageMean, Region, Method, LightDark)</l>\n"
+            "<l>        binary_threshold(ImageMean, Region, Method, LightDark, UsedThreshold)</l>\n"
         )
 
         return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

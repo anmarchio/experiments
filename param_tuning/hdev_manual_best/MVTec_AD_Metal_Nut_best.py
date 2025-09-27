@@ -65,7 +65,7 @@ def get_MVTec_AD_Metal_Nut_best_pipeline(params, dataset_path=None):
             "<l>                PixelCount := Histo[0] + Histo[1]</l>\n"
             "<l>                if (PixelCount > 0.6 * WStep * HStep)</l>\n"
             "<l>                    Ratio := Histo[1] / PixelCount</l>\n"
-            "<l>                    if (Ratio < MinRatio)</l>\n"
+            "<l>                    if (Ratio &lt; MinRatio)</l>\n"
             "<l>                        gen_rectangle1 (FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>\n"
             "<l>                        union2 (RelativeRegion, FaultyRegion, RelativeRegion)</l>\n"
             "<l>                    endif</l>\n"

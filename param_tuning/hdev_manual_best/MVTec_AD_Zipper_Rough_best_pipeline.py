@@ -17,14 +17,15 @@ def get_MVTec_AD_Zipper_Rough_best_pipeline(params, dataset_path=None):
 
         # Parameters
         param_lines = (
-                "<l>        FilterType := '" + str(params[0]) + "'</l>\n"
-                                                                "<l>        MaskSize := " + str(params[1]) + "</l>\n"
-                                                                                                             "<c></c>\n"
-                                                                                                             "<l>        A := " + str(
-            params[2]) + "</l>\n"
-                         "<l>        B := " + str(params[3]) + "</l>\n"
-                         "<c></c>\n"
-        )
+                "<l>        FilterType := '" + str(params[0]) + "'</l>\n" + \
+                "<l>        MaskSize := " + str(params[1]) + "</l>\n"
+                "<c></c>\n"
+                "<l>        A := " + str(
+                    params[2]) + "</l>\n"
+                        "<l>        B := " + str(params[3]) + "</l>\n"
+                        "<l>        C := 0.785398</l>\n"                                                               
+                        "<c></c>\n"
+                )
 
         # Core pipeline
         core_code = (
@@ -59,7 +60,8 @@ MVTec_AD_Zipper_Rough_best_pipeline_initial_params = [
     'y',  # FilterType
     7,  # MaskSize
     26,  # A
-    27  # B
+    27,  # B
+    0.785398 # C
 ]
 
 MVTec_AD_Zipper_Rough_best_pipeline_bounds = [
@@ -67,7 +69,8 @@ MVTec_AD_Zipper_Rough_best_pipeline_bounds = [
     [3, 5, 7, 9, 11],  # MaskSize
     [v for v in range(1, 50)],  # A
     [v for v in range(1, 50)],  # B
+    [-1.178097, -0.785398, -0.392699, 0.0, 0.392699, 0.785398, 1.178097]  # C
 ]
 
 MVTec_AD_Zipper_Rough_training_source_path = os.path.join(EVIAS_SRC_PATH,
-                                                           "MVTecAnomalyDetection", "zipper_rough_train")
+                                                          "MVTecAnomalyDetection", "zipper_rough_train")

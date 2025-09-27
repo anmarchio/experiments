@@ -1080,14 +1080,15 @@
 <l>    count_obj(RegionIn, Count)</l>
 <l>    if (Count &gt;= 2)</l>
 <l>        tuple_rand(1, r1)</l>
-<l>        idx1 := 1 + floor(r1*Count)</l>
+<l>        idx1 := int(1 + floor(r1*Count))</l>
 <l>        tuple_rand(1, r2)</l>
-<l>        idx2 := 1 + floor(r2*Count)</l>
+<l>        idx2 := int(1 + floor(r2*Count))</l>
 <l>        if (idx2 == idx1)</l>
-<l>            idx2 := (idx1 % Count) + 1</l>
+<l>            tuple_mod(idx1, Count, Mod)</l>
+<l>            idx2 := Mod + 1</l>
 <l>        endif</l>
-<l>        select_obj(RegionIn, RegA, idx1)</l>
-<l>        select_obj(RegionIn, RegB, idx2)</l>
+<l>        select_obj(RegionIn, RegA, int(idx1))</l>
+<l>        select_obj(RegionIn, RegB, int(idx2))</l>
 <l>        union2(RegA, RegB, RegionOut)</l>
 <l>        PostDescOut := 'union2()'</l>
 <l>    elseif (Count == 1)</l>
