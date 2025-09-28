@@ -5,8 +5,8 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from enum import Enum
 
-from database import Database
-from models import Experiment, Run, Dataset, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
+from .database import Database
+from .models import Experiment, Run, Dataset, Analyzer, AvgOffspringFit, AvgPopulationFit, BestIndividualFit, \
     Individual, Pipeline, Item, Parameter, Node, Grid, Configuration, EvolutionStrategy, HalconFitnessConfiguration, \
     ExceptionLog, Vector, Element, ActiveGridNodes, InputGridNodes, OutputGridNodes, GridNode, GridNodeValue, \
     ConfusionMatrix, Image

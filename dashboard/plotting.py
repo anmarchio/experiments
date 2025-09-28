@@ -94,6 +94,60 @@ def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names, mean_st
         plt.savefig(path)
 
 
+def plot_fitness_per_dataset_with_overlay(title: str, axis_title: str, dataset_names, mean_std_dev_fit_values: [],
+                                            overlay_mean_std_dev_fit_values: [],
+                                            orientation: str = 'h', path="", show_names=True):
+        fig, ax = plt.subplots(figsize=(10, 10))
+        indices = [str(i) for i in range(1, len(np.array(mean_std_dev_fit_values)[:, 0]) + 1)]
+        if orientation == 'v':
+            ax.set_xlabel(axis_title)
+
+            # numeric positions for bars
+            positions = np.arange(len(dataset_names))
+
+            # create labels for datasets
+            if show_names:
+                labels = ['None' if v is None else v for v in dataset_names]
+            else:
+                labels = [str(i) for i in range(1, len(dataset_names) + 1)]
+
+            # plot two bar groups with small offset
+            ax.barh(positions - 0.2,
+                    np.array(mean_std_dev_fit_values)[:, 0],
+                    xerr=np.array(mean_std_dev_fit_values)[:, 1],
+                    height=0.4,
+                    label='Reduced ACSOS')
+
+            ax.barh(positions + 0.2,
+                    np.array(overlay_mean_std_dev_fit_values)[:, 0],
+                    xerr=np.array(overlay_mean_std_dev_fit_values)[:, 1],
+                    height=0.4,
+                    label='Classic CGP')
+
+            # set the y-axis ticks and labels
+            ax.set_yticks(positions)
+            ax.set_yticklabels(labels)
+
+            plt.xticks(np.arange(0.0, 1.0, 0.1))
+            plt.grid(axis='x')
+            plt.legend()
+
+            if path == "":
+                plt.show()
+            else:
+                plt.savefig(path)
+        else:
+            width = 0.35
+            # fig = plt.subplots(figsize=(10, 7))
+            x = np.arange(len(indices))
+            plt.bar(x - width / 2, np.array(mean_std_dev_fit_values)[:, 0], width,
+                    yerr=np.array(mean_std_dev_fit_values)[:, 1], label='Reduced ACSOS')
+            plt.bar(x + width / 2, np.array(overlay_mean_std_dev_fit_values)[:, 0], width,
+                    yerr=np.array(overlay_mean_std_dev_fit_values)[:, 1], label='Classic CGP')
+
+            plt.ylabel(axis_title)
+            plt.xlabel("Dataset ID")
+
 def plot_mean_std_dev_fitness_arrays(title: str, axis_title: str, fitness_charts: [], mean_std_dev_fit_values: [],
                                      path="", show_legend: bool = False):
     fig, ax = plt.subplots()

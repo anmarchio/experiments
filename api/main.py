@@ -1,8 +1,7 @@
 import argparse
 import sys
 
-from importing import import_one, import_many
-
+from .importing import import_one, import_many
 
 def main():
     argParser = argparse.ArgumentParser()

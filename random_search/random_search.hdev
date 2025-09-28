@@ -27,7 +27,7 @@
 <c></c>
 <c>* ==========================</c>
 <c>* number of random pipelines to test</c>
-<l>MaxTrials := 200</l>
+<l>MaxTrials := 150</l>
 <c>* max number of filters to chain (1..MaxPipelineLen)</c>
 <l>MaxPipelineLen := 10                 </l>
 <c>* RNG seed for reproducibility</c>
@@ -229,17 +229,16 @@
                        [], \
                        [])</l>
 <c>        </c>
-<l>        list_of_trial_results := Trial + ';' + MeanMCC + ';\n' + list_of_trial_results</l>
-<l>        open_file(ResultDirPath, \
-              'output', \
-              FileHandle)</l>
-<l>        fwrite_string(FileHandle, '--- Iterations ---\n' + list_of_trial_results)</l>
-<l>        close_file(FileHandle)</l>
+<l>        Line := Trial + ';' + MeanMCC + ';\n'</l>
+<l>        write_to_file (ResultDirPath, Line)</l>
 <l>    endfor</l>
 <c>    </c>
 <c>    * =========================</c>
 <c>    * Report</c>
 <c>    * =========================</c>
+<l>    read_from_file (ResultDirPath, FileContent)</l>
+<l>    list_of_trial_results := Trial + ';' + MeanMCC + ';\n' + FileContent</l>
+<c>    </c>
 <l>    get_system_time(MSecond, Second, Minute, Hour, Day, YDay, Month, Year)</l>
 <c>    * --- Convert to seconds ---</c>
 <c>    * A rough formula: total seconds = YDay*86400 + Hour*3600 + Min*60 + Sec + MSec/1000</c>
@@ -1132,6 +1131,78 @@
 <parameter id="PostDescOut"/>
 <parameter id="RegionIn"/>
 <parameter id="RegionOut"/>
+</parameters>
+</docu>
+</procedure>
+<procedure name="write_to_file">
+<interface>
+<ic>
+<par name="ResultDirPath" base_type="ctrl" dimension="0"/>
+<par name="Line" base_type="ctrl" dimension="0"/>
+</ic>
+</interface>
+<body>
+<l>file_exists(ResultDirPath, FileExists)</l>
+<l>resultFileContent := ''</l>
+<l>if(FileExists)    </l>
+<l>    open_file(ResultDirPath, 'input', FileHandle)</l>
+<l>    while(true)</l>
+<l>        fread_string(FileHandle,InputLine,IsEOF)</l>
+<l>        resultFileContent := resultFileContent + '\n' + InputLine</l>
+<l>        if (IsEOF)</l>
+<l>            break</l>
+<l>        endif</l>
+<l>    endwhile</l>
+<l>    close_file(FileHandle)</l>
+<l>endif</l>
+<c></c>
+<l>open_file(ResultDirPath, \
+          'output', \
+          FileHandle)</l>
+<l>fwrite_string(FileHandle, Line + resultFileContent)</l>
+<l>close_file(FileHandle)</l>
+<c></c>
+<l>return ()</l>
+</body>
+<docu id="write_to_file">
+<parameters>
+<parameter id="Line"/>
+<parameter id="ResultDirPath"/>
+</parameters>
+</docu>
+</procedure>
+<procedure name="read_from_file">
+<interface>
+<ic>
+<par name="ResultDirPath" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="FileContent" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<l>FileContent := ''</l>
+<l>file_exists(ResultDirPath,FileExists)</l>
+<l>if(FileExists == 0)</l>
+<l>    return()</l>
+<l>endif</l>
+<c></c>
+<l>open_file(ResultDirPath, 'input', FileHandle)</l>
+<c></c>
+<l>while(true)</l>
+<l>    fread_string(FileHandle,Line,IsEOF)</l>
+<l>    FileContent := FileContent + '\n' + Line</l>
+<l>    if (IsEOF)</l>
+<l>        break</l>
+<l>    endif</l>
+<l>endwhile</l>
+<l>close_file(FileHandle)</l>
+<l>return ()</l>
+</body>
+<docu id="read_from_file">
+<parameters>
+<parameter id="FileContent"/>
+<parameter id="ResultDirPath"/>
 </parameters>
 </docu>
 </procedure>

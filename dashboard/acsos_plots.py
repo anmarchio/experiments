@@ -23,6 +23,8 @@ def create_fitness_plot():
         show_names=True
     )
 
+    print("Plot saved to scripts/report/fitness_per_dataset.png")
+
     print_fitness_values_in_table(modified_dataset_names, mean_std_dev_fitness, ACSOS_NUMBER_OF_IMAGES, ACSOS_NUMBER_OF_RUNS)
 
 

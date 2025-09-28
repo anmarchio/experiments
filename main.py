@@ -7,6 +7,7 @@ from dashboard.cgp_insights_plot import plot_cgp_insights
 from dashboard.create_analysis_plots import read_database_and_plot_fitness_per_dataset, read_database_and_show_plots, \
     generate_plots_from_json, compute_complexity_and_fitness_correlation, plot_missing_cgp_values
 from dashboard.dashboard import matplot_dashboard, hvplot_test
+from dashboard.disputation_plots import create_fitness_overlay_plot
 from dashboard.plotting import computations_per_computing_unit, plot_sample, plot_fitness_evolution, \
     fancy_mean_plot, entropy_fitness_plot, fitness_boxplots
 from param_tuning.run_param_tuning import run_param_tuning
@@ -24,11 +25,12 @@ def show_program_menu():
     print('8 -- Follow Up Optimization using SA / LS')
     print('9 -- Plot Missing CGP Evolutions')
     print('10 -- Plot CGP Insights')
+    print('11 -- Create Overlay Plot ACSOS vs Classic CGP')
     print('0 -- EXIT')
 
     print("\n")
     selection = input('Selection: ')
-    if 0 < int(selection) < 11:
+    if 0 < int(selection) < 12:
         return int(selection)
     return 0
 
@@ -134,6 +136,14 @@ def main() -> int:
         in separate charts for teaching/visualization
         """
         plot_cgp_insights()
+
+    if selection == 11:
+        """
+        Creates Fitness plots from comparing ACSOS CGP-IP values
+        to values from Classic CGP dep graph
+        on a selected, but smaller number of datasets
+        """
+        create_fitness_overlay_plot()
 
 
 if __name__ == '__main__':

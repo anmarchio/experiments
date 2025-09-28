@@ -4,7 +4,7 @@ import webbrowser
 from datetime import datetime
 from os.path import join as p_join
 import pydot
-
+import argparse
 
 def create_list(path):
     html = '<ul>\n'
@@ -498,9 +498,11 @@ def create_html_of_test_batch(source_path, test_batch_name):
     return html
 
 
-def create_report():
-    results_path = p_join(os.path.curdir, 'results')
-    report_path = p_join(os.path.curdir, 'report')
+def create_report(results_path=None, report_path=None):
+    if results_path is None:
+        results_path = p_join(os.path.curdir, 'results')
+    if report_path is None:
+        report_path = p_join(os.path.curdir, 'report')
 
     os.makedirs(report_path, mode=777, exist_ok=True)
 
@@ -509,4 +511,9 @@ def create_report():
 
 
 if __name__ == '__main__':
-    create_report()
+    parser = argparse.ArgumentParser(description='Generate HTML report from results.')
+    parser.add_argument('--results', type=str, help='Path to the results directory', default=None)
+    parser.add_argument('--report', type=str, help='Path to the report directory', default=None)
+    args = parser.parse_args()
+
+    create_report(results_path=args.results, report_path=args.report)
