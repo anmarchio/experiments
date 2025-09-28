@@ -7,7 +7,7 @@ from dashboard.cgp_insights_plot import plot_cgp_insights
 from dashboard.create_analysis_plots import read_database_and_plot_fitness_per_dataset, read_database_and_show_plots, \
     generate_plots_from_json, compute_complexity_and_fitness_correlation, plot_missing_cgp_values
 from dashboard.dashboard import matplot_dashboard, hvplot_test
-from dashboard.disputation_plots import create_fitness_overlay_plot
+from dashboard.disputation_plots import classic_vs_enhanced_rank_test
 from dashboard.plotting import computations_per_computing_unit, plot_sample, plot_fitness_evolution, \
     fancy_mean_plot, entropy_fitness_plot, fitness_boxplots
 from param_tuning.run_param_tuning import run_param_tuning
@@ -143,7 +143,8 @@ def main() -> int:
         to values from Classic CGP dep graph
         on a selected, but smaller number of datasets
         """
-        create_fitness_overlay_plot()
+        #create_fitness_overlay_plot()
+        classic_vs_enhanced_rank_test()
 
 
 if __name__ == '__main__':

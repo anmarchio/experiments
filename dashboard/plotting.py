@@ -2,6 +2,7 @@ from random import randrange
 
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.stats import wilcoxon
 
 
 def create_boxplot(title, idx, norm_array_dict, save_to):
@@ -367,4 +368,51 @@ def computations_per_computing_unit():
     ax.set_title('Percentage of operations by computing unit')
     ax.legend()
 
+    plt.show()
+
+
+def wilcoxon_signed_rank_test(array_one, array_two):
+    # Example: Replace these with your actual MCC results
+    # Each list should contain results per dataset (means or best values per dataset).
+    # Make sure both have the same length and are paired dataset by dataset.
+    # classic_cgp = np.array([0.12, 0.18, 0.05, 0.10, 0.08, 0.14])  # <-- your values
+    # acsos_cgp = np.array([0.25, 0.22, 0.15, 0.18, 0.20, 0.19])  # <-- your values
+
+    # Run Wilcoxon signed-rank test
+    stat, p_value = wilcoxon(array_one, array_two)
+
+    print("Wilcoxon signed-rank test")
+    print(f"Statistic: {stat}")
+    print(f"P-value: {p_value}")
+
+    # Interpretation
+    alpha = 0.05
+    if p_value < alpha:
+        print("✅ Statistically significant difference found")
+    else:
+        print("❌ No statistically significant difference found")
+
+    # --- Optional: Effect size (Cliff’s Delta) ---
+    def cliffs_delta(x, y):
+        n = len(x) * len(y)
+        greater = sum(xi > yi for xi in x for yi in y)
+        smaller = sum(xi < yi for xi in x for yi in y)
+        delta = (greater - smaller) / n
+        return delta
+
+    delta = cliffs_delta(array_two, array_one)
+    print(f"Cliff’s Delta effect size: {delta:.3f}")
+
+    # --- Optional: Visualization ---
+    plt.figure(figsize=(6, 4))
+    plt.scatter(range(len(array_one)), array_one, color="blue", label="Dataset 1")
+    plt.scatter(range(len(array_two)), array_two, color="red", label="Dataset 2")
+    plt.plot(range(len(array_one)), array_one, color="blue", alpha=0.5)
+    plt.plot(range(len(array_two)), array_two, color="red", alpha=0.5)
+    plt.xlabel("Datasets")
+    plt.ylabel("MCC")
+    plt.title("Comparison MCC per Dataset")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
     plt.show()

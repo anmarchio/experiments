@@ -341,7 +341,35 @@ AND analyzer.run_id == run.run_id;
 
 * Run the pipeline retrieval script using:
   * `python -m pipeline_retrieval.run_pipeline_retrieval.py`
+
 ## Benchmarking Experiment with Open Graph (classic CGP-IP)
+
+For a benchmarking experiment to compare the enhanced CGP-IP approach by Margraf et al., 
+an open graph with dependencies that allow for failing pipelines was applied to the evolutionary search.
+The results were compared to the classic CGP-IP approach using a closed graph with strict dependencies on selected datasets.
+
+### Comparison Chart
+
+As expected, the open graph with dependencies that allow for failing pipelines yields worse results than 
+the classic CGP-IP approach on almost all datasets.
+
+<img src="assets/classic-cgp-vs-cgp-ip.png" alt="clasic-cgp-vs-cgp-ip" width="500"/>
+
+### Statistical Significance
+
+A statistical evaluation using a Wilcoxon signed-rank test was performed to compare the two approaches.
+
+Wilcoxon signed-rank test results:
+* Statistic: 2.5
+* P-value: 1.9073486328125e-05
+* Cliff’s Delta effect size: 0.319
+
+**Conclusion:** 
+
+_The p-value is less than 0.05, indicating a statistically significant difference between the two approaches._
+
+### Tabular Overview
+
 | ID | Dataset                     | Mean  | Std Dev | # Runs | # Imgs |
 |----|-----------------------------|-------|---------|--------|--------|
 | 0  | FabricDefectsAITEX          | 0.151 | 0.025   | 10     | 20     |
@@ -399,4 +427,11 @@ digraph Dependencies {
 }
 ```
 ## Random Search
-tbd
+
+Random search is the most basic optimization algorithm. It randomly samples the search space and evaluates the fitness of each sample. The best sample is then returned as the solution.
+For reasons of completeness and scientific rigor, random search was also applied to a number of selected datasets.
+
+<img src="assets/rand_search_results.png" alt="rand-search-results" width="500"/>
+
+Not surprisingly, random search performs worst on all datasets compared to the evolutionary algorithms and 
+the follow-up optimization using SA/LS.

@@ -1,9 +1,8 @@
 import os
 
-from dashboard.acsos_vars import ACSOS_MEANS, ACSOS_STD_DEV, ACSOS_DATASET_NAMES
-from dashboard.classic_cgp_vars import CLASSIC_CGP_MEANS, CLASSIC_CGP_STD_DEV, CLASSIC_CGP_DATASET_NAMES, \
-    get_acsos_values, get_harmonized_values
-from dashboard.plotting import plot_fitness_per_dataset, plot_fitness_per_dataset_with_overlay
+from dashboard.classic_cgp_vars import CLASSIC_CGP_MEANS, CLASSIC_CGP_STD_DEV, get_harmonized_values
+from dashboard.plotting import plot_fitness_per_dataset, plot_fitness_per_dataset_with_overlay, \
+    wilcoxon_signed_rank_test
 from dashboard.utils import print_fitness_values_in_table
 from settings import WDIR
 
@@ -46,3 +45,10 @@ def create_fitness_overlay_plot():
     print_fitness_values_in_table(modified_dataset_names, overlay_mean_std_dev_fitness,
                                   [""]*len(basic_mean_std_dev_fitness),
                                   [""]*len(basic_mean_std_dev_fitness))
+
+
+def classic_vs_enhanced_rank_test():
+    print("Reading variables ...")
+    reduced_acsos_means, reduced_acsos_std_dev, modified_dataset_names = get_harmonized_values()
+
+    wilcoxon_signed_rank_test(CLASSIC_CGP_MEANS, reduced_acsos_means)
