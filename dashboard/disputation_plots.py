@@ -41,8 +41,8 @@ def create_fitness_overlay_plot():
     print(f"Plot saved to {WDIR}/scripts/report/fitness_per_dataset_overlay.png")
     
     print_fitness_values_in_table(modified_dataset_names, basic_mean_std_dev_fitness,
-                                  [""*len(basic_mean_std_dev_fitness)],
-                                  [""*len(basic_mean_std_dev_fitness)])
+                                  [""]*len(basic_mean_std_dev_fitness),
+                                  [""]*len(basic_mean_std_dev_fitness))
     print_fitness_values_in_table(modified_dataset_names, overlay_mean_std_dev_fitness,
-                                  [""*len(basic_mean_std_dev_fitness)],
-                                  [""*len(basic_mean_std_dev_fitness)])
+                                  [""]*len(basic_mean_std_dev_fitness),
+                                  [""]*len(basic_mean_std_dev_fitness))
