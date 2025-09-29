@@ -361,8 +361,8 @@ A statistical evaluation using a Wilcoxon signed-rank test was performed to comp
 
 Wilcoxon signed-rank test results:
 * Statistic: 2.5
-* P-value: 1.9073486328125e-05
-* Cliff’s Delta effect size: 0.319
+* P-value: 9.5367431640625e-06
+* Cliff’s Delta effect size: 0.315
 
 **Conclusion:** 
 
@@ -372,25 +372,26 @@ _The p-value is less than 0.05, indicating a statistically significant differenc
 
 | ID | Dataset                     | Mean  | Std Dev | # Runs | # Imgs |
 |----|-----------------------------|-------|---------|--------|--------|
-| 0  | FabricDefectsAITEX          | 0.151 | 0.025   | 10     | 20     |
-| 1  | KolektorSDD                 | 0.057 | 0.031   | 10     | 8      |
-| 2  | MVTec_AD_Bottle_Broken_Lg   | 0.323 | 0.024   | 10     | 10     |
-| 3  | MVTec_AD_Bottle_Broken_Sm   | 0.235 | 0.080   | 10     | 11     |
-| 4  | MVTec_AD_Cable_Missing      | 0.505 | 0.146   | 10     | 6      |
-| 5  | MVTec_AD_Capsule            | 0.141 | 0.056   | 10     | 10     |
-| 6  | MVTec_AD_Carpet             | 0.116 | 0.041   | 10     | 10     |
-| 7  | MVTec_AD_Grid_Thread        | 0.275 | 0.189   | 10     | 5      |
-| 8  | MVTec_AD_Hazelnut_Crack     | 0.429 | 0.091   | 10     | 9      |
-| 9  | MVTec_D_Leather             | 0.336 | 0.119   | 10     | 10     |
-| 10 | MVTec_AD_Metal_Nut          | 0.121 | 0.015   | 10     | 11     |
-| 11 | MVTec_AD_Pill_Crack         | 0.326 | 0.219   | 10     | 13     |
-| 12 | MVTec_AD_Tile_Crack         | 0.504 | 0.214   | 10     | 8      |
-| 13 | MVTec_AD_Wood_Scratch       | 0.355 | 0.175   | 10     | 9      |
-| 14 | MVTec_AD_Zipper_Rough       | 0.433 | 0.134   | 10     | 8      |
-| 15 | Pultrusion_Resin            | 0.612 | 0.128   | 10     | 20     |
-| 16 | Pultrusion_Resin_Augmtd     | 0.376 | 0.109   | 10     | 20     |
-| 17 | Pultrusion_Window           | 0.654 | 0.040   | 10     | 20     |
-| 18 | severstal-steel             | 0.183 | 0.073   | 10     | 15     |
+| 1  | KolektorSDD  | 0.057 | 0.031 | 10 | 8 |
+| 2  | MVTec_AD_Bottle_Broken_Lg  | 0.323 | 0.024 | 10 | 10 |
+| 3  | MVTec_AD_Bottle_Broken_Sm  | 0.235 | 0.08 | 10 | 11 |
+| 4  | MVTec_AD_Cable_Missing  | 0.505 | 0.146 | 10 | 6 |
+| 5  | MVTec_AD_Capsule  | 0.141 | 0.056 | 10 | 10 |
+| 6  | MVTec_AD_Carpet  | 0.116 | 0.041 | 10 | 10 |
+| 7  | MVTec_AD_Grid_Thread  | 0.275 | 0.189 | 10 | 5 |
+| 8  | MVTec_AD_Hazelnut_Crack  | 0.42 | 0.089 | 20 | 9 |
+| 9  | MVTec_D_Leather  | 0.336 | 0.119 | 10 | 10 |
+| 10 | MVTec_AD_Metal_Nut  | 0.121 | 0.015 | 10 | 11 |
+| 11 | MVTec_AD_Pill_Crack  | 0.326 | 0.219 | 10 | 13 |
+| 12 | MVTec_AD_Screw_Scratch  | 0.164 | 0.061 | 10 | 12 |
+| 13 | MVTec_AD_Tile_Crack  | 0.504 | 0.214 | 10 | 8 |
+| 14 | MVTec_AD_Wood_Scratch  | 0.355 | 0.175 | 10 | 9 |
+| 15 | MVTec_AD_Zipper_Rough  | 0.433 | 0.134 | 10 | 8 |
+| 16 | Pultrusion_Resin  | 0.612 | 0.128 | 10 | 20 |
+| 17 | Pultrusion_Resin_Augmtd  | 0.376 | 0.109 | 10 | 20 |
+| 18 | Pultrusion_Window  | 0.654 | 0.04 | 10 | 20 |
+| 19 | severstal-steel  | 0.183 | 0.073 | 10 | 15 |
+| 20 | FabricDefectsAITEX  | 0.151 | 0.025 | 10 | 20 |
 
 * Using an open graph with dependencies that allow for failing pipelines
 * Dot graph Definition:

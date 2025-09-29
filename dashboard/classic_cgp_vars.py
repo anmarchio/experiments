@@ -14,6 +14,7 @@ CLASSIC_CGP_DATASET_NAMES = [
     "MVTec_D_Leather",
     "MVTec_AD_Metal_Nut",
     "MVTec_AD_Pill_Crack",
+    "MVTec_AD_Screw_Scratch",
     "MVTec_AD_Tile_Crack",
     "MVTec_AD_Wood_Scratch",
     "MVTec_AD_Zipper_Rough",
@@ -25,12 +26,12 @@ CLASSIC_CGP_DATASET_NAMES = [
 
 CLASSIC_CGP_MEANS = [
     0.151, 0.057, 0.323, 0.235, 0.505, 0.141, 0.116, 0.275, 0.429,
-    0.336, 0.121, 0.326, 0.504, 0.355, 0.433, 0.612, 0.376, 0.654, 0.183
+    0.336, 0.121, 0.326, 0.164, 0.504, 0.355, 0.433, 0.612, 0.376, 0.654, 0.183
 ]
 
 CLASSIC_CGP_STD_DEV = [
     0.025, 0.031, 0.024, 0.080, 0.146, 0.056, 0.041, 0.189, 0.091,
-    0.119, 0.015, 0.219, 0.214, 0.175, 0.134, 0.128, 0.109, 0.040, 0.073
+    0.119, 0.015, 0.219, 0.061, 0.214, 0.175, 0.134, 0.128, 0.109, 0.040, 0.073
 ]
 
 # Mapping from CLASSIC dataset names to ACSOS equivalents
@@ -47,6 +48,7 @@ ACSOS_CLASSIC_MAP = {
     "MVTec_D_Leather": "Leather",
     "MVTec_AD_Metal_Nut": "Metal_Nut",
     "MVTec_AD_Pill_Crack": "Pill_Crack",
+    "MVTec_AD_Screw_Scratch": "Screw_Scratch",
     "MVTec_AD_Tile_Crack": "Tile_Crack",
     "MVTec_AD_Wood_Scratch": "Wood_Scratch",
     "MVTec_AD_Zipper_Rough": "Zipper_Rough",
@@ -74,6 +76,7 @@ def get_harmonized_values():
         raise ValueError("Mismatch in dataset lengths after harmonization.")
 
     return reduced_acsos_mean, reduced_acsos_std_dev, reduced_acsos_dataset_names
+
 
 def get_acsos_values(classic_name):
     """

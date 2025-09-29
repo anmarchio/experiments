@@ -27,7 +27,7 @@
 <c></c>
 <c>* ==========================</c>
 <c>* number of random pipelines to test</c>
-<l>MaxTrials := 150</l>
+<l>MaxTrials := 1000</l>
 <c>* max number of filters to chain (1..MaxPipelineLen)</c>
 <l>MaxPipelineLen := 10                 </l>
 <c>* RNG seed for reproducibility</c>
