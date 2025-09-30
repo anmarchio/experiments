@@ -15,14 +15,9 @@ def get_Pultrusion_Resin_Augmtd_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/Pultrusion/resin_cgp_augmntd/train/images"
 
-    def get_sigma_sobel_binthresh_opening_selectshape_pipeline(params, dataset_path=None):
-        pipeline_name = "Sigma_Sobel_BinaryThreshold_Opening_SelectShape_pipeline"
 
-        if dataset_path is None:
-            dataset_path = "/your/dataset/path"
-
-        # Parameters
-        param_lines = (
+    # Parameters
+    param_lines = (
                 "<l>        MaskHeight := " + str(params[0]) + "</l>\n"
                                                                "<l>        MaskWidth := " + str(params[1]) + "</l>\n"
                                                                                                              "<l>        Sigma := " + str(
@@ -50,8 +45,8 @@ def get_Pultrusion_Resin_Augmtd_best_pipeline(params, dataset_path=None):
                           "<c></c>\n"
         )
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* Branch 1: SigmaImage -> BinaryThreshold</c>\n"
             "<l>        sigma_image(Image, ImageSigma, MaskHeight, MaskWidth, Sigma)</l>\n"
             "<l>        binary_threshold(ImageSigma, Region1, Method1, LightDark1, UsedThreshold)</l>\n"
@@ -73,7 +68,7 @@ def get_Pultrusion_Resin_Augmtd_best_pipeline(params, dataset_path=None):
             "<l>        select_shape(RegionOpened, Region, Features, 'and', Min, Max)</l>\n"
         )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 Pultrusion_Resin_Augmtd_best_pipeline_initial_params = [

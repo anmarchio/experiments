@@ -15,14 +15,9 @@ def get_MVTec_AD_Tile_Crack_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/tile_crack_train/images"
 
-    def get_median_localthresh_closing_pipeline(params, dataset_path=None):
-        pipeline_name = "MedianWeighted_LocalThreshold_Closing_pipeline"
 
-        if dataset_path is None:
-            dataset_path = "/your/dataset/path"
-
-        # Parameters
-        param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
                       "<l>        MaskSizeMedian := " + str(params[1]) + "</l>\n" + \
                       "<c></c>\n" + \
                       "<l>        Method := '" + str(params[2]) + "'</l>\n" + \
@@ -35,8 +30,8 @@ def get_MVTec_AD_Tile_Crack_best_pipeline(params, dataset_path=None):
                       "<l>        C := -1.178097</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* MedianWeighted</c>\n"
             "<l>        median_image(Image, ImageMedian, MaskType, MaskSizeMedian, 'mirrored')</l>\n"
             "<c></c>\n"
@@ -59,7 +54,7 @@ def get_MVTec_AD_Tile_Crack_best_pipeline(params, dataset_path=None):
             "<l>        closing(RegionThresh, StructElement, Region)</l>\n"
         )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Tile_Crack_best_pipeline_initial_params = [

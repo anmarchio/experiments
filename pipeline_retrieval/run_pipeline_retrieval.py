@@ -33,7 +33,7 @@ def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
         if mode == "mean_test" or mode == "best_test":
             # only run the pipeline on its own dataset
             # and let it raise an error
-            regular_dataset = get_dataset_by_pipeline_name(pipeline_name)
+            regular_dataset = pipeline_name
             print(f"Running {pipeline_name} on {regular_dataset}) ...")
             cross_score = run_pipeline_on_dataset(pipeline_name, get_initial_state_by_pipeline_name(pipeline_name),
                                                   regular_dataset)

@@ -15,8 +15,8 @@ def get_MVTec_AD_Hazelnut_Crack_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/hazelnut_crack_train/images"
 
-        # Parameters
-        param_lines = "<l>        MaskHeightSigma := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MaskHeightSigma := " + str(params[0]) + "</l>\n" + \
                       "<l>        MaskWidthSigma := " + str(params[1]) + "</l>\n" + \
                       "<l>        Sigma := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
@@ -27,12 +27,11 @@ def get_MVTec_AD_Hazelnut_Crack_best_pipeline(params, dataset_path=None):
                       "<c></c>\n" + \
                       "<l>        A := " + str(params[7]) + "</l>\n" + \
                       "<l>        B := " + str(params[8]) + "</l>\n" + \
-                      "<l>        C := " + str(params[9]) + "</l>\n" + \
-                      "<l>        StructElementType := '" + str(params[10]) + "'</l>\n" + \
+                      "<l>        C := 0.785398</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<l>        sigma_image(Image, ImageSigma, MaskWidthSigma, MaskHeightSigma, Sigma)</l>\n"
             "<l>        local_threshold(ImageSigma, RegionThresh, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>\n"
             "<l>        area_center(RegionThresh, Area, Row, Column)</l>\n"
@@ -42,7 +41,7 @@ def get_MVTec_AD_Hazelnut_Crack_best_pipeline(params, dataset_path=None):
             "<l>        closing(RegionRect, RectangleStructElement, Region)</l>\n"
         )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 # Initial Parameters
