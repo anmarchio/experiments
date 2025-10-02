@@ -9,7 +9,7 @@ from api.database import Database
 from api.models import Dataset
 from dashboard.plotting import plot_mean_std_dev_fitness_arrays, plot_fitness_per_dataset, create_scatterplot, \
     create_complexity_plot
-from dashboard.utils import read_file_and_return_norm_dict, mean_std_dev_fitness_per_dataset, compute_mean_and_std_dev, \
+from dashboard.utils import read_file_and_return_norm_dict, mean_std_dev_fitness_ci_per_dataset, compute_mean_and_std_dev, \
     extract_dataset_name, get_mean_fitness_per_dataset, print_fitness_values_in_table, data_linking
 from dashboard.vars import COMPLEXITY_METRICS
 from settings import RESULTS_PATH, WDIR
@@ -183,12 +183,14 @@ def read_database_and_show_plots(min_generations, max_generations, grouped_datas
             mean_std_dev_fit_values = compute_mean_and_std_dev(fit_values)
             if show_legend:
                 dataset_name = str(run_ids) + ", " + k
+            plot_file_path = os.path.join("scripts", "report", str(k) + ".png")
+            print("Writing to: ", plot_file_path)
             plot_mean_std_dev_fitness_arrays(
                 k,
                 "Best Individual",
                 fit_values,
                 mean_std_dev_fit_values,
-                path=os.path.join("scripts", "report", str(k) + ".png"),
+                path=plot_file_path,
                 show_legend=show_legend
             )
     """
@@ -234,21 +236,21 @@ def read_database_and_plot_fitness_per_dataset(
 
     list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session(), min_generations,
                                                                        max_generations)
-    dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs = \
-        mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
+    dataset_names, mean_std_dev_fit_ci_per_dataset, number_of_images, number_of_runs = \
+        mean_std_dev_fitness_ci_per_dataset(list_of_runs_fitness)
 
     if create_plot:
         plot_fitness_per_dataset(
             "Fitness per Dataset",
             "Fitness",
             dataset_names,
-            mean_std_dev_fit_per_dataset,
+            mean_std_dev_fit_ci_per_dataset,
             orientation='v',
             path=os.path.join("scripts", "report", "fitness_per_dataset.png"),
             show_names=show_names
         )
 
-    print_fitness_values_in_table(dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs)
+    print_fitness_values_in_table(dataset_names, mean_std_dev_fit_ci_per_dataset, number_of_images, number_of_runs)
 
 
 def plot_missing_cgp_values():

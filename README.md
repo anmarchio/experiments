@@ -13,7 +13,7 @@ This repository contains all scripts that were designed to analyze data from ima
 ## Contents
 
 1. <a href="#setup-and-usage">API Basics for experimental data / Plotting data [ACSOS 2023]</a>
-1. <a href="#follow-up-optimization-using-sa--ls">Dissertation 2024: Optimization using SA / LS Algorithms [Dissertation 2024]</a>
+1. <a href="#follow-up-optimization-using-sa--ls">Dissertation 2024: CGP Results and Optimization using SA / LS Algorithms [Dissertation 2024]</a>
 1. <a href="#complexity-analysis">Complexity Analysis of CGP Pipelines [Dissertation 2024]</a>
 1. <a href="#pipeline-retrieval">Pipeline Retrieval [Arxiv 2025]</a>
 1. <a href="#free-dependencies">Benchmark Experiment with Open Graph (classic CGP-IP)</a>
@@ -30,6 +30,30 @@ This repository contains all scripts that were designed to analyze data from ima
 ### Run Scripts
 
 The repository contains the following function to process experimental data:
+#### Setup Basic Environment
+
+* Create a python virtual environment: `python -m venv <PATH>\venv`
+* Activate the environment: `venv\Scripts\activate.bat`
+* Install the required packages: `python -m pip install -r requirements.txt`
+* Make sure you have `Graphviz` installed and added to your system path: https://graphviz.gitlab.io/download/
+* Make sure you have `SQLite` installed and added to your system path: https://www.sqlite.org/download.html
+* (Optional) Install `HALCON` and add it to your system path: https://www.mvtec.com/products/halcon/
+
+#### Set Environment Variables to your Needs
+
+* Set the Default paths, specifically WDIR as the working directory
+* Open `settings.py` and change the following:
+```python
+"""
+Default Paths
+"""
+WDIR = os.path.join("C:\\", "dev", "github", "experiemnts")
+# Data Source Path for your images and labels 
+EVIAS_SRC = ["C:", "your-data-path"]
+EVIAS_SRC_PATH = os.path.join("C:\\", "your-data-path")
+
+# [...]
+```
 
 #### API for epxperimental database (SQLite)
 
@@ -98,6 +122,51 @@ python scripts\create_report_html.py --report "api\experiments.db" --report "rep
 If running without arguments, it will use the default paths:
 * `results\*` as the location of all input experiments
 * `report\results.html` as the output HTML file
+
+## Dissertation: CGP Analysi and Optimization
+
+* Results from CGP repetitive runs on image datasets:
+
+| ID  | Dataset                     | Mean  | Std Dev | CI 95% | # Runs | # Imgs |
+|----|-----------------------------|-------|---------|--------|--------|--------|
+| 0  | AirCarbon2_t_8.jpg  | 0.035 | 0.002 | 0.003  | 3 | 24 |
+| 1  | AirCarbon3_80.jpg_bright  | 0.04 | 0.005 | 0.004  | 6 | 32 |
+| 2  | AirCarbon3_80.jpg_dark_4  | 0.292 | 0.055 | 0.044  | 6 | 8 |
+| 3  | AirCarbon3_80.jpg_dark_5  | 0.084 | 0.008 | 0.006  | 6 | 16 |
+| 4  | FabricDefectsAITEX  | 0.168 | 0.016 | 0.012  | 7 | 20 |
+| 5  | KolektorSDD  | 0.094 | 0.009 | 0.006  | 9 | 8 |
+| 6  | MVTec_AD_Bottle_Broken_Lg  | 0.347 | 0.012 | 0.013  | 3 | 10 |
+| 7  | MVTec_AD_Bottle_Broken_Sm  | 0.38 | 0.092 | 0.074  | 6 | 11 |
+| 8  | MVTec_AD_Cable_Missing  | 0.886 | 0.042 | 0.041  | 4 | 6 |
+| 9  | MVTec_AD_Capsule  | 0.214 | 0.08 | 0.091  | 3 | 10 |
+| 10  | MVTec_AD_Grid_Thread  | 0.462 | 0.013 | 0.015  | 3 | 10 |
+| 11  | MVTec_AD_Hazelnut_Crack  | 0.508 | 0.05 | 0.057  | 3 | 9 |
+| 12  | MVTec_D_Leather  | 0.444 | 0.061 | 0.049  | 6 | 10 |
+| 13  | MVTec_AD_Metal_Nut  | 0.129 | 0.009 | 0.01   | 3 | 11 |
+| 14  | MVTec_AD_Pill_Crack  | 0.564 | 0.023 | 0.026  | 3 | 13 |
+| 15  | MVTec_AD_Screw_Scratch  | 0.274 | 0.114 | 0.157  | 2 | 12 |
+| 16  | MVTec_AD_Tile_Crack  | 0.643 | 0.034 | 0.023  | 8 | 8 |
+| 17  | MVTec_AD_Transistor_Case  | 0.237 | 0.019 | 0.012  | 10 | 5 |
+| 18  | MVTec_AD_Wood_Scratch  | 0.593 | 0.045 | 0.051  | 3 | 9 |
+| 19  | MVTec_AD_Zipper_Rough  | 0.416 | 0.084 | 0.095  | 3 | 8 |
+| 20  | MT_Blowhole_train  | 0.399 | 0.029 | 0.023  | 6 | 57 |
+| 21  | Pultrusion_Resin  | 0.679 | 0.04 | 0.045  | 3 | 20 |
+| 22  | Pultrusion_Resin_Augmtd  | 0.446 | 0.078 | 0.089  | 3 | 20 |
+| 23  | Pultrusion_Window  | 0.786 | 0.098 | 0.111  | 3 | 20 |
+| 24  | severstal-steel  | 0.267 | 0.046 | 0.028  | 10 | 15 |
+| 25  | MAIPreform2_Spule2-0816_Upside  | 0.348 | 0.094 | 0.047  | 15 | 0 |
+| 26  | MVTec_AD_Toothbrush_Sm  | 0.213 | 0.012 | 0.014  | 3 | 12 |
+| 27  | CF_ReferenceSet  | 0.187 | 0.056 | 0.032  | 12 | 34 |
+| 28  | CF_ReferenceSet_Small_Dark  | 0.191 | 0.037 | 0.033  | 5 | 6 |
+| 29  | AirCarbon3_80.jpg_dark_1  | 0.063 | 0.019 | 0.013  | 8 | 16 |
+| 30  | AirCarbon3_80.jpg_dark_2  | 0.178 | 0.036 | 0.029  | 6 | 0 |
+| 31  | AirCarbon3_80.jpg_dark_3  | 0.161 | 0.022 | 0.015  | 9 | 16 |
+| 32  | MAIPreform2_Spule0-0315_Upside  | 0.637 | 0.002 | 0.003  | 3 | 105 |
+| 33  | MAIPreform2_Spule0-0315_Upside Thread  | 0.195 | 0.079 | 0.047  | 11 | 29 |
+| 34  | MAIPreform2_Spule0-0315_Upside Thread 256  | 0.179 | 0.082 | 0.054  | 9 | 29 |
+| 35  | CF_ReferenceSet_Small_Light  | 0.233 | 0.097 | 0.11   | 3 | 7 |
+| 36  | MVTec_AD_Carpet  | 0.303 | 0.154 | 0.123  | 6 | 10 |
+| 37  | RoadCracks  | 0.275 | 0.071 | 0.044  | 10 | 0 |
 
 ### Follow Up Optimization using SA / LS
 * Further experiments were conducted on selected pipelines generated by CGP

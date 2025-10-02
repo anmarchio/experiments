@@ -17,7 +17,7 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
 
     mean_fitness_and_complexity_per_dataset = {}
 
-    dataset_names, mean_std_dev_fit_per_dataset, number_of_images, _ = mean_std_dev_fitness_per_dataset(list_of_runs_fitness)
+    dataset_names, mean_std_dev_fit_per_dataset, number_of_images, _ = mean_std_dev_fitness_ci_per_dataset(list_of_runs_fitness)
 
     for i in range(len(mean_std_dev_fit_per_dataset)):
         dataset_name = dataset_names[i][1] # name
@@ -41,13 +41,22 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
     return mean_fitness_and_complexity_per_dataset
 
 
-def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_per_dataset: [], number_of_images: [], number_of_runs: []):
-    print("| ID ", "| Dataset ", "| Mean", "| Std Dev |", "| # Runs |", "| # Imgs |")
-    if np.array(mean_std_dev_fit_per_dataset)[:, 0].size != \
-            np.array(mean_std_dev_fit_per_dataset)[:, 1].size != \
+def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_ci_per_dataset: [], number_of_images: [], number_of_runs: []):
+    """
+    ID: Index of dataset
+    Dataset: Name of dataset
+    Mean: Mean fitness value
+    Std Dev: Standard Deviation of fitness value
+    CI: Confidence Interval of fitness value
+    # Runs: Number of runs for this dataset
+    # Imgs: Number of images in this dataset
+    """
+    print("| ID ", "| Dataset ", "| Mean", "| Std Dev |", "| 95% CI |", "| # Runs |", "| # Imgs |")
+    if np.array(mean_std_dev_fit_ci_per_dataset)[:, 0].size != \
+            np.array(mean_std_dev_fit_ci_per_dataset)[:, 1].size != \
             len(dataset_names):
         print("[ERROR] Array Mismatch")
-    for i in range(np.array(mean_std_dev_fit_per_dataset)[:, 0].size):
+    for i in range(np.array(mean_std_dev_fit_ci_per_dataset)[:, 0].size):
         # [:, 0] = mean
         # [:, 1] = std dev
         ds_id = dataset_names[i][0]
@@ -55,8 +64,9 @@ def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_per_datase
         print(
             "| " + str(i),
             " | " + name,
-            " | " + str(round(np.array(mean_std_dev_fit_per_dataset)[:, 0][i], 3)) +
-            " | " + str(round(np.array(mean_std_dev_fit_per_dataset)[:, 1][i], 3)) +
+            " | " + str(round(np.array(mean_std_dev_fit_ci_per_dataset)[:, 0][i], 3)) +
+            " | " + str(round(np.array(mean_std_dev_fit_ci_per_dataset)[:, 1][i], 3)) +
+            " | " + str(round(np.array(mean_std_dev_fit_ci_per_dataset)[:, 2][i], 3)) +
             " | " + str(number_of_runs[i]) +
             " | " + str(number_of_images[i]) +
             " |"
@@ -102,11 +112,13 @@ def compute_mean_and_std_dev(fit_values):
     return mean_std_dev_fit_values
 
 
-def compute_best_mean_and_std_dev(values: []):
+def compute_best_mean_std_dev_and_ci(values: []):
     best_fit_values = [v[-1].best_individual_fitness for v in values]
 
     if len(best_fit_values) > 1:
-        return [statistics.mean(best_fit_values), statistics.stdev(best_fit_values)]
+        # compute mean, std dev and 95% confidence interval
+        return [statistics.mean(best_fit_values), statistics.stdev(best_fit_values),
+                1.96 * (statistics.stdev(best_fit_values) / (len(best_fit_values) ** 0.5))]
     elif len(best_fit_values) == 0:
         return [0.0, 0.0]
     return [best_fit_values[0], 0.0]
@@ -127,11 +139,11 @@ def data_linking(list_of_runs_fitness):
     return linked_list
 
 
-def mean_std_dev_fitness_per_dataset(list_of_runs_fitness):
+def mean_std_dev_fitness_ci_per_dataset(list_of_runs_fitness):
     linked_list_of_runs_fitness = data_linking(list_of_runs_fitness)
 
     dataset_names = []
-    mean_std_dev_fit_per_dataset = []
+    mean_std_dev_ci_fit_per_dataset = []
     number_of_images = []
     number_of_runs = []
 
@@ -150,7 +162,7 @@ def mean_std_dev_fitness_per_dataset(list_of_runs_fitness):
 
         if len(values) > 0:
             # only add values to list if not empty
-            mean_std_dev_fit_per_dataset.append(compute_best_mean_and_std_dev(values))
+            mean_std_dev_ci_fit_per_dataset.append(compute_best_mean_std_dev_and_ci(values))
 
             ids, name = extract_dataset_name(linked_list_of_runs_fitness[k][0]["name"], linked_list_of_runs_fitness[k][0]["source"], indices)
             dataset_names.append([ids, k])
@@ -158,7 +170,7 @@ def mean_std_dev_fitness_per_dataset(list_of_runs_fitness):
             number_of_images.append(linked_list_of_runs_fitness[k][0]["number_of_images"])
             number_of_runs.append(len(values))
 
-    return dataset_names, mean_std_dev_fit_per_dataset, number_of_images, number_of_runs
+    return dataset_names, mean_std_dev_ci_fit_per_dataset, number_of_images, number_of_runs
 
 
 def read_file_and_return_norm_dict(file_name: str) -> {}:

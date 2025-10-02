@@ -7,6 +7,8 @@ from dashboard.acsos_vars import ACSOS_DATASET_NAMES, ACSOS_STD_DEV, ACSOS_MEANS
     ACSOS_NUMBER_OF_RUNS, IMG_HIST_ENTROPY_VALUES, LBL_EDGE_DENSITY_VALUES
 from dashboard.plotting import plot_fitness_per_dataset, create_complexity_plot
 from dashboard.utils import print_fitness_values_in_table
+from param_tuning.utils import check_dir_exists
+from settings import WDIR
 
 
 def create_fitness_plot():
@@ -18,8 +20,8 @@ def create_fitness_plot():
         "Fitness",
         modified_dataset_names,
         mean_std_dev_fitness,
-        orientation='v',
-        path=os.path.join("scripts", "report", "fitness_per_dataset.png"),
+        orientation='r',
+        path=os.path.join(WDIR, "scripts", "report", "fitness_per_dataset.png"),
         show_names=True
     )
 
@@ -29,14 +31,17 @@ def create_fitness_plot():
 
 
 def create_acsos_complexity_plot():
+    plot_path = os.path.join(WDIR, "out", "plots")
+    check_dir_exists(plot_path)
+
     create_complexity_plot(
         "Mean Image JPEG Complexity per Dataset",
         "JPEG Complexity",
         ACSOS_DATASET_NAMES,
         IMG_HIST_ENTROPY_VALUES,
-        path=os.path.join("out", "plots",
+        path=os.path.join(plot_path,
                           datetime.now().strftime('%Y%m%d-%H%M%S') +
-                          "jpeg_complexity_bplot.png")
+                             "jpeg_complexity_bplot.png")
     )
 
     create_complexity_plot(
@@ -44,7 +49,7 @@ def create_acsos_complexity_plot():
         "Edge Density",
         ACSOS_DATASET_NAMES,
         LBL_EDGE_DENSITY_VALUES,
-        path=os.path.join("out", "plots",
+        path=os.path.join(plot_path,
                           datetime.now().strftime('%Y%m%d-%H%M%S') +
                           "lbl_edge_density_bplot.png")
     )

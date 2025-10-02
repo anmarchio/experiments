@@ -48,51 +48,56 @@ def create_complexity_plot(title, metric, keys, x, path=""):
 
 def plot_fitness_per_dataset(title: str, axis_title: str, dataset_names, mean_std_dev_fit_values: [],
                              orientation: str = 'h', path="", show_names=True):
-    fig, ax = plt.subplots(figsize=(10, 10))
-    indices = [str(i) for i in range(1, len(np.array(mean_std_dev_fit_values)[:, 0]) + 1)]
-    if orientation == 'v':
-        # create a new figure
+    fig_width = 10
+    if orientation == 'r':
+        fig_width = 24
+
+    fig, ax = plt.subplots(figsize=(fig_width, 10))
+
+    # prepare values
+    values = np.array(mean_std_dev_fit_values)
+    means = values[:, 0]
+    stds = values[:, 1]
+
+    # dataset indices
+    indices = [str(i) for i in range(1, len(means) + 1)]
+    if show_names and dataset_names is not None:
+        indices = ['None' if v is None else v[1] for v in dataset_names]
+
+    if orientation == 'h':
+        # horizontal bars: datasets on y-axis
+        ax.barh(indices, means, xerr=stds, align='center', height=0.6)
         ax.set_xlabel(axis_title)
-
-        # create labels for datasets (either integers or name strings)
-        if show_names:
-            indices = ['None' if v is None else v[1] for v in dataset_names]
-
-        # plot the data as horizontal bar plots
-        ax.barh(indices,
-                np.array(mean_std_dev_fit_values)[:, 0],
-                align='center',
-                height=0.6,
-                xerr=np.array(mean_std_dev_fit_values)[:, 1],
-                orientation='horizontal')
-
-        # set the y-axis tick labels
+        ax.set_yticks(np.arange(len(indices)))
         ax.set_yticklabels(indices)
-        plt.xticks(np.arange(0.0, 1.0, 0.1))
-        plt.grid(axis='x')
+        ax.grid(axis='x')
 
-        # save the plot to a file, if path is provided
-        if path == "":
-            plt.show()
-        else:
-            plt.savefig(path)
-    else:
-        width = 0.35
-        #fig = plt.subplots(figsize=(10, 7))
-        plt.bar(indices, np.array(mean_std_dev_fit_values)[:, 0], width, yerr=np.array(mean_std_dev_fit_values)[:, 1])
+    elif orientation == 'v':
+        # vertical bars: datasets on x-axis
+        ax.bar(indices, means, yerr=stds, align='center', width=0.6)
+        ax.set_ylabel(axis_title)
+        ax.set_xticks(np.arange(len(indices)))
+        ax.set_xticklabels(indices, rotation=45, ha='right')
+        ax.grid(axis='y')
 
-        plt.ylabel(axis_title)
-        plt.xlabel("Dataset ID")
+    elif orientation == 'r':
+        # rotated: like horizontal, but flipped so datasets on x-axis
+        means = means[::-1]
+        stds = stds[::-1]
+        indices = indices[::-1]
+        ax.bar(indices, means, yerr=stds, align='center', width=0.6)
+        ax.set_xlabel("Dataset")
+        ax.set_ylabel(axis_title)
+        ax.set_xticks(np.arange(len(indices)))
+        ax.set_xticklabels(indices, rotation=90)
+        ax.grid(axis='y')
 
-        plt.yticks(np.arange(0.0, 1.0, 0.1))
-        plt.xticks(np.arange(0, indices, 1))
-        plt.grid(axis='y')
+    ax.set_title(title)
 
-    plt.title(title)
-    if path == "":
+    if path:
+        plt.savefig(path, bbox_inches="tight")
+        #else:
         plt.show()
-    else:
-        plt.savefig(path)
 
 
 def plot_fitness_per_dataset_with_overlay(title: str, axis_title: str, dataset_names, mean_std_dev_fit_values: [],
