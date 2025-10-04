@@ -4,9 +4,10 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Carpet_best_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/MVTecAnomalyDetection/carpet_train/images'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/carpet_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
+<l>dev_update_on()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <c></c>
 <l>for Index := 0 to |ImageFiles| - 1 by 1</l>
@@ -25,13 +26,28 @@
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
 <l>    try</l>
+<l>        MaskSizeGauss := 3</l>
+<c></c>
+<l>        Min := 50</l>
+<l>        Max := 220</l>
+<c></c>
+<l>        FilterType := 'x'</l>
+<l>        MaskSizeSobel := 3</l>
+<c></c>
+<l>        Method := 'smooth_histo'</l>
+<l>        LightDark := 'light'</l>
+<c></c>
+<l>        A := 16</l>
+<l>        B := 13</l>
 <c>        * Branch 1: Threshold → GaussFilter</c>
 <l>        gauss_filter(Image, ImageGauss, MaskSizeGauss)</l>
 <l>        threshold(ImageGauss, RegionThresh, Min, Max)</l>
 <c>        </c>
 <c>        * Branch 2: BinaryThreshold → SobelAmp</c>
 <l>        sobel_amp(Image, ImageAmp, FilterType, MaskSizeSobel)</l>
-<l>        binary_threshold(ImageAmp, RegionBinary, Method, LightDark)</l>
+<l>        abs_image(ImageAmp, ImageAbs)</l>
+<l>        convert_image_type(ImageAbs, ImageConverted, 'byte')</l>
+<l>        binary_threshold(ImageConverted, RegionBinary, Method, LightDark, UsedThreshold)</l>
 <c>        </c>
 <c>        * Merge</c>
 <l>        union2(RegionThresh, RegionBinary, Region)</l>

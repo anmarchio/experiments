@@ -93,9 +93,8 @@ def get_analyzer_id_by_index_in_dataset_dict(dataset_dict: {}, mean_idx: int):
 
 
 def write_hdev_code_to_file(hdev_path: str, hdev_code: str) -> str:
-    f = open(hdev_path, "w")
-    f.write(hdev_code)
-    f.close()
+    with open(hdev_path, "w", encoding="utf-8") as f:
+        f.write(hdev_code)
 
     return hdev_path
 

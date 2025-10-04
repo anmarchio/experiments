@@ -15,8 +15,8 @@ def get_MVTec_AD_Carpet_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/carpet_train/images"
 
-        # Parameters
-        param_lines = "<l>        MaskSizeGauss := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MaskSizeGauss := " + str(params[0]) + "</l>\n" + \
                       "<c></c>\n" + \
                       "<l>        Min := " + str(params[1]) + "</l>\n" + \
                       "<l>        Max := " + str(params[2]) + "</l>\n" + \
@@ -31,26 +31,27 @@ def get_MVTec_AD_Carpet_best_pipeline(params, dataset_path=None):
                       "<l>        B := " + str(params[8]) + "</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
-            "<c>* Branch 1: Threshold → GaussFilter</c>\n"
-            "<l>        gauss_filter(Image, ImageGauss, MaskSizeGauss)</l>\n"
-            "<l>        threshold(ImageGauss, RegionThresh, Min, Max)</l>\n"
-            "<c></c>\n"
-            "<c>* Branch 2: BinaryThreshold → SobelAmp</c>\n"
-            "<l>        sobel_amp(Image, ImageAmp, FilterType, MaskSizeSobel)</l>\n"
-            "<l>        binary_threshold(ImageAmp, RegionBinary, Method, LightDark)</l>\n"
-            "<c></c>\n"
-            "<c>* Merge</c>\n"
-            "<l>        union2(RegionThresh, RegionBinary, Region)</l>\n"
-            "<c></c>\n"
-            "<c>* Opening</c>\n"
-            "<l>        tuple_ceil(A + 1, shape_param0_ceil)</l>\n"
-            "<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)</l>\n"
+    # Core pipeline
+    core_code = "<c>* Branch 1: Threshold → GaussFilter</c>\n" + \
+            "<l>        gauss_filter(Image, ImageGauss, MaskSizeGauss)</l>\n" + \
+            "<l>        threshold(ImageGauss, RegionThresh, Min, Max)</l>\n" + \
+            "<c></c>\n" + \
+            "<c>* Branch 2: BinaryThreshold → SobelAmp</c>\n" + \
+            "<l>        sobel_amp(Image, ImageAmp, FilterType, MaskSizeSobel)</l>\n" + \
+            "<l>        abs_image(ImageAmp, ImageAbs)</l>\n" + \
+            "<l>        convert_image_type(ImageAbs, ImageConverted, 'byte')</l>\n" + \
+            "<l>        binary_threshold(ImageConverted, RegionBinary, Method, LightDark, UsedThreshold)</l>\n" + \
+            "<c></c>\n" + \
+            "<c>* Merge</c>\n" + \
+            "<l>        union2(RegionThresh, RegionBinary, Region)</l>\n" + \
+            "<c></c>\n" + \
+            "<c>* Opening</c>\n" + \
+            "<l>        tuple_ceil(A + 1, shape_param0_ceil)</l>\n" + \
+            "<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)</l>\n" + \
             "<l>        opening(Region, StructElement, Region)</l>\n"
-        )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+
 
 MVTec_AD_Carpet_best_pipeline_initial_params = [
     3,  # MaskSizeGauss
