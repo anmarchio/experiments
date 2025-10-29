@@ -50,39 +50,38 @@
 <c>                * Scale To Gray</c>
 <l>                gen_empty_obj(ScaledImage)</l>
 <l>                min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
-<l>                if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
+<l>                if(MaxGrayVal &lt;= 255 and MinGrayVal &gt;= 0)</l>
+<l>                    copy_image(Image, ImageScaled)</l>
+<l>                else</l>
 <l>                    if(MaxGrayVal - MinGrayVal &gt; 0)</l>
 <l>                        Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
 <l>                    else</l>
-<l>                        Mult := 255.0</l>
+<l>                        Mult := 255.0                </l>
 <l>                    endif</l>
 <l>                    Add := - Mult * MinGrayVal</l>
-<l>                    scale_image(Image, ImageScaled, Mult, Add)</l>
-<l>                else</l>
-<l>                    scale_image(Image, ImageScaled, Mult, Add)                </l>
-<l>                endif</l>
-<c>                </c>
-<c>                * Convert to StandardType (byte)</c>
-<l>                convert_image_type(ScaledImage, Image, 'byte')</l>
+<l>                    scale_image(Image, ImageScaled, Mult, Add)              </l>
+<l>                endif                </l>
+<l>                convert_image_type(ImageScaled, Image, 'byte')</l>
 <l>            endif</l>
 <l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real') </l>
 <c>            * Scale To Gray</c>
 <l>            gen_empty_obj(ScaledImage)</l>
-<l>            min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
-<l>            if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
+<l>            min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>            if(MaxGrayVal &lt;= 255 and MinGrayVal &gt;= 0)</l>
+<l>                copy_image(Image, ImageScaled)</l>
+<l>            else</l>
 <l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>
 <l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
 <l>                else</l>
 <l>                    Mult := 255.0                </l>
 <l>                endif</l>
 <l>                Add := - Mult * MinGrayVal</l>
-<l>                scale_image(Image, ImageScaled, Mult, Add)</l>
-<l>            else</l>
-<l>                scale_image(Image, ImageScaled, Mult, Add)                </l>
+<l>                scale_image(Image, ImageScaled, Mult, Add)              </l>
 <l>            endif                </l>
-<l>            convert_image_type(Image, Image2, 'byte')</l>
+<l>            convert_image_type(ImageScaled, Image, 'byte')</l>
+<l>        else</l>
+<l>            sobel_amp(Image, Image, FilterType, MaskSizeSobel)</l>
 <l>        endif</l>
-<l>        sobel_amp(Image, Image, FilterType, MaskSizeSobel)</l>
 <c>        </c>
 <c>        * CropRectangle (Relative Threshold)</c>
 <l>        abs_image(Image, Image)</l>
@@ -98,7 +97,7 @@
 <l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and Type != 'real')</l>
 <c>            * Scale To Gray            </c>
 <l>            gen_empty_obj(ScaledImage)</l>
-<l>            min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>            min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
 <l>            if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
 <l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>
 <l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>

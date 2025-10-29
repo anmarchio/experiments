@@ -966,7 +966,7 @@
 <l>    tuple_mult(FP, FN, FP_mult_FN)</l>
 <c>        </c>
 <l>    for Idx := 0 to |TP_plus_FN| - 1 by 1</l>
-<l>        numerator := TP_plus_FN[Idx] - FP_mult_FN[Idx]</l>
+<l>        numerator := TP_mult_TN[Idx] - FP_mult_FN[Idx]</l>
 <l>        if(Den[Idx] &gt; 0.0)</l>
 <l>            MCC := MCC + (numerator / Den[Idx])</l>
 <l>        endif</l>
