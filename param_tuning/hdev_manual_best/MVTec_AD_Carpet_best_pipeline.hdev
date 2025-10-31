@@ -106,6 +106,10 @@
 <l>        dev_display(Image)</l>
 <l>        dev_display(Region)</l>
 <l>        *stop()</l>
+<c>         </c>
+<l>        *access_channel(ImageAmp, ImageAmp, 1)</l>
+<l>        *convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
+<l>        *local_threshold(ImageAmp, RegionA, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

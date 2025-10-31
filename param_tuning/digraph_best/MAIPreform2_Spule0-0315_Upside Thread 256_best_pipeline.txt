@@ -1,4 +1,5 @@
 dataset: MAIPreform2_Spule0-0315_Upside Thread 256
+/mnt/sdc1/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training
 
 experiment_id: 186
 run_id: 382

@@ -5,9 +5,14 @@
 <body>
 <l>dataset_name := 'MVTec_AD_Hazelnut_Crack_mean_pipeline'</l>
 <l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/hazelnut_crack_train/images'</l>
+<l>labels_path := 'D:/evias_expmts/MVTecAnomalyDetection/hazelnut_crack_train/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
+<l>dev_update_on()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
+<c></c>
+<l>TotalMCC := 0.0</l>
 <c></c>
 <l>for Index := 0 to |ImageFiles| - 1 by 1</l>
 <l>    file_exists(output_path, dir_exists)</l>
@@ -20,6 +25,7 @@
 <l>        delete_file(out_img_path)</l>
 <l>    endif</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
+<l>    read_image(Label, LabelFiles[Index])</l>
 <l>    get_image_size(Image, Width, Height)</l>
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
@@ -38,19 +44,39 @@
 <l>        A := 17</l>
 <l>        B := 12</l>
 <l>        C := 0.785398</l>
-<l>        StructElementType := 'ellipse'</l>
+<l>        *StructElementType := 'ellipse'</l>
 <c></c>
 <c>        * Pipeline</c>
 <l>        sigma_image(Image, ImageSigma, MaskWidthSigma, MaskHeightSigma, Sigma)</l>
 <c>        </c>
 <l>        local_threshold(ImageSigma, RegionThresh, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
 <c>        </c>
+<c>        * AreaToRectangle</c>
+<c>        * 34 [label="AreaToRectangle\n"]; </c>
 <l>        area_center(RegionThresh, Area, Row, Column)</l>
-<l>        gen_rectangle1(RectangleRegion, Row - Area/2, Column - Area/2, Row + Area/2, Column + Area/2)</l>
-<l>        union2(RegionThresh, RectangleRegion, RegionRect)</l>
+<l>        Num:= | Area |</l>
+<l>        gen_empty_region(Rectangles)</l>
+<l>        for Index1 := 1 to Num by 1</l>
+<l>            select_obj(RegionThresh, obj, Index1)</l>
+<l>            smallest_rectangle1(obj, Row11, Column11, Row21, Column21)</l>
+<l>            gen_rectangle1(Rectangle, Row11, Column11, Row21, Column21)</l>
+<l>            union2(Rectangles, Rectangle, Rectangles)</l>
+<l>        endfor        </l>
+<l>        RegionRect := Rectangles</l>
 <c>        </c>
-<l>        gen_ellipse(RectangleStructElement, 0, 0, C, A, B)</l>
-<l>        closing(RegionRect, RectangleStructElement, Region)    </l>
+<c>        * Closing (Ellipse SE)</c>
+<l>        tuple_max2(A, B, max_rad)</l>
+<l>        phi := C</l>
+<l>        longer := A</l>
+<l>        shorter := B</l>
+<l>        if (shorter &gt; longer)</l>
+<l>            tmp := shorter</l>
+<l>            shorter := longer</l>
+<l>            longer := tmp</l>
+<l>        endif</l>
+<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>
+<l>        gen_ellipse(StructElement2, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
+<l>        closing(RegionRect, StructElement2, Region)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -60,7 +86,74 @@
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
 <l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
 <l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
+<c></c>
+<l>    binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</l>
+<c>    </c>
+<c>    * -- Compute MCC between predicted region and GT region for one image</c>
+<c>    * mcc_region := procedure (PredRegion, GTRegion, Width, Height : MCC :) </c>
+<c>    </c>
+<c>    * Intersection (TP)</c>
+<l>    intersection (Region, LabelRegion, R_tp)</l>
+<l>    union1(R_tp, R_tp)</l>
+<l>    area_center (R_tp, TP, Row, Col)</l>
+<c>    </c>
+<c>    * FP = Pred minus GT</c>
+<l>    difference (Region, LabelRegion, R_fp)</l>
+<l>    union1(R_fp, R_fp)</l>
+<l>    area_center (R_fp, FP, Row, Col)</l>
+<c>    </c>
+<c>    * FN = GT minus Pred</c>
+<l>    difference (LabelRegion, Region, R_fn)</l>
+<l>    union1(R_fn, R_fn)</l>
+<l>    area_center (R_fn, FN, Row, Col)</l>
+<c>    </c>
+<c>    * TN = total - (TP+FP+FN)</c>
+<l>    Total := Width * Height</l>
+<l>    TN := max2(0, Total - (TP + FP + FN))</l>
+<c>    </c>
+<l>    tuple_add(TP, FP, TP_plus_FP)</l>
+<l>    tuple_add(TP, FN, TP_plus_FN)</l>
+<l>    tuple_add(TN, FP, TN_plus_FP)</l>
+<l>    tuple_add(TN, FN, TN_plus_FN)</l>
+<c>    </c>
+<l>    tuple_real(TN_plus_FN, TN_plus_FN)</l>
+<l>    tuple_real(TP_plus_FN, TP_plus_FN)</l>
+<l>    tuple_real(TN_plus_FP, TN_plus_FP)</l>
+<l>    tuple_real(TN_plus_FN, TN_plus_FN)</l>
+<c>    </c>
+<l>    tuple_mult(TP_plus_FP, TP_plus_FN, Prod)</l>
+<l>    tuple_mult(Prod, TN_plus_FP, Prod)</l>
+<l>    tuple_mult(Prod, TN_plus_FN, Prod)</l>
+<l>*    Den := sqrt((TP+FP) * (TP+FN) * (TN+FP) * (TN+FN))</l>
+<c>    </c>
+<l>    tuple_sqrt(Prod, Den)</l>
+<c>    </c>
+<l>    ImageMCC := 0.0</l>
+<l>    if (Den &lt;= 0)</l>
+<l>        ImageMCC := 0.0</l>
+<l>    else</l>
+<l>        *MCC := ((TP * TN) - (FP * FN)) / Den</l>
+<l>        tuple_mult(TP, TN, TP_mult_TN)</l>
+<l>        tuple_mult(FP, FN, FP_mult_FN)</l>
+<c>            </c>
+<l>        numerator := TP_mult_TN - FP_mult_FN</l>
+<l>        if(Den &gt; 0.0)</l>
+<l>            ImageMCC := ImageMCC + (numerator / Den)</l>
+<l>        endif</l>
+<l>        ImageMCC := ImageMCC / |TP_mult_TN|</l>
+<l>    endif</l>
+<c></c>
+<l>    TotalMCC := TotalMCC + ImageMCC</l>
+<l>    dev_display(Region)</l>
+<l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
+<l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
+<l>    wait_seconds(0.5)</l>
 <l>endfor</l>
+<c></c>
+<l>MCC := TotalMCC / |ImageFiles|</l>
+<l>wait_seconds(0.5)</l>
+<l>dev_disp_text(MCC, 'window', 30, 10, 'black', [], [])</l>
+<c></c>
 <l>*exit()</l>
 </body>
 <docu id="main">
