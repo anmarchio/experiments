@@ -44,10 +44,22 @@
 <c>        * KirschAmp</c>
 <l>        kirsch_amp(Image, ImageKirsch)</l>
 <c>        </c>
-<c>        * SobelAmp</c>
+<c>        * SobelAmp        </c>
 <l>        sobel_amp(ImageKirsch, ImageAmp, FilterType, MaskSize)</l>
 <c>        </c>
 <c>        * ZeroCrossing</c>
+<l>        min_max_gray (ImageAmp, ImageAmp, 0, Min, Max, Range)</l>
+<l>        if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
+<l>            if ((Max - Min) &gt; 0)</l>
+<l>                Mult := 255.0 / (Max - Min)</l>
+<l>            else</l>
+<l>                Mult := 255.0</l>
+<l>            endif</l>
+<l>            Add := -Mult * Min</l>
+<l>            scale_image (ImageAmp, ImageAmp, Mult, Add)</l>
+<l>        else</l>
+<l>            scale_image (ImageAmp, ImageAmp, 1, 0)</l>
+<l>        endif</l>
 <l>        zero_crossing(ImageAmp, RegionZero)</l>
 <c>        </c>
 <c>        * Closing (Ellipse SE)</c>

@@ -57,14 +57,25 @@
 <c>        </c>
 <c>        * LocalThreshold</c>
 <l>        access_channel(ImageAmp, ImageAmp, 1)</l>
+<l>        min_max_gray (ImageAmp, ImageAmp, 0, Min, Max, Range)</l>
+<l>        if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
+<l>            if ((Max - Min) &gt; 0)</l>
+<l>                Mult := 255.0 / (Max - Min)</l>
+<l>            else</l>
+<l>                Mult := 255.0</l>
+<l>            endif</l>
+<l>            Add := -Mult * Min</l>
+<l>            scale_image (ImageAmp, ImageAmp, Mult, Add)</l>
+<l>        else</l>
+<l>            scale_image (ImageAmp, ImageAmp, 1, 0)</l>
+<l>        endif</l>
 <l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
 <l>        local_threshold(ImageAmp, RegionThresh, Method, LightDark, ['mask_size','scale'], [MaskSizeThresh, Scale])</l>
 <c>        </c>
 <c>        * Closing (Circle SE)</c>
-<l>        get_image_type(ImageAmp, Type)</l>
-<l>        convert_image_type(RegionThresh, RegionThresh, 'byte')</l>
-<l>        gen_disc_se(SE, Type, A, B, 0)</l>
-<l>        closing(RegionThresh, SE, Region)</l>
+<l>        tuple_ceil(A + 1, shape_param0_ceil)</l>
+<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)</l>
+<l>        closing(RegionThresh, StructElement, Region)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

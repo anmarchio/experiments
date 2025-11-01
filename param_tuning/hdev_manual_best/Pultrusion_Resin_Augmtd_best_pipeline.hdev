@@ -36,11 +36,11 @@
 <l>        MaskWidth := 5</l>
 <l>        Sigma := 145</l>
 <c>        </c>
-<l>        FilterType := 'x_binomial'</l>
-<l>        MaskSizeSobel := 3</l>
-<c>        </c>
 <l>        Method1 := 'max_separability'</l>
 <l>        LightDark1 := 'light'</l>
+<c>        </c>
+<l>        FilterType := 'x_binomial'</l>
+<l>        MaskSizeSobel := 3</l>
 <c>        </c>
 <l>        Method2 := 'smooth_histo'</l>
 <l>        LightDark2 := 'light'</l>
@@ -62,18 +62,31 @@
 <l>        equ_histo_image(Image, ImageEqu)</l>
 <l>        sobel_amp(ImageEqu, ImageAmp, FilterType, MaskSizeSobel)</l>
 <c>        </c>
-<l>        get_image_type(ImageAmp, Type)</l>
-<l>        convert_image_type(ImageAmp, ImageConverted, 'byte')</l>
-<l>        binary_threshold(ImageConverted, Region2, Method2, LightDark2, UsedThreshold)</l>
+<l>        *access_channel(ImageAmp, ImageAmp, 1)</l>
+<l>        min_max_gray (ImageAmp, ImageAmp, 0, Min, Max, Range)</l>
+<l>        if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
+<l>            if ((Max - Min) &gt; 0)</l>
+<l>                Mult := 255.0 / (Max - Min)</l>
+<l>            else</l>
+<l>                Mult := 255.0</l>
+<l>            endif</l>
+<l>            Add := -Mult * Min</l>
+<l>            scale_image (ImageAmp, ImageAmp, Mult, Add)</l>
+<l>        else</l>
+<l>            scale_image (ImageAmp, ImageAmp, 1, 0)</l>
+<l>        endif</l>
+<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
+<l>        binary_threshold(ImageAmp, Region2, Method2, LightDark2, UsedThreshold)</l>
 <c>        </c>
 <c>        * Merge</c>
-<l>        union2(Region1, Region2, RegionUnion)</l>
+<l>        *union2(Region1, Region2, RegionUnion)</l>
 <c>        </c>
 <c>        * Opening (Rectangle SE)</c>
-<l>        opening_rectangle1(RegionUnion, RegionOpened, A, B)</l>
+<l>        gen_rectangle1(SE, 0, 0, A, B)</l>
+<l>        opening(Region1, SE, RegionOpening)</l>
 <c>        </c>
 <c>        * SelectShape</c>
-<l>        select_shape(RegionOpened, Region, Features, 'and', Min, Max)       </l>
+<l>        select_shape(RegionOpening, Region, Features, 'and', Min, Max)       </l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

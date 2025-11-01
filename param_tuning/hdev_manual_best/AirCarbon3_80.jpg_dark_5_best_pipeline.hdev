@@ -45,13 +45,9 @@
 <l>        Scale := 0.3</l>
 <c>        </c>
 <c>        * Pipeline</c>
-<l>        sobel_amp(Image, ImageAmp1, FilterType1, MaskSize1)</l>
+<l>        sobel_amp(Image, ImageAmp, FilterType1, MaskSize1)</l>
 <c>        </c>
-<l>        get_image_type(ImageAmp1, Type)</l>
-<l>        if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>
-<l>            convert_image_type(ImageAmp1, ImageAmp1, 'byte')</l>
-<l>        endif</l>
-<l>        sobel_amp(ImageAmp1, ImageAmp2, FilterType2, MaskSize2)</l>
+<l>        sobel_amp(ImageAmp, ImageAmp2, FilterType2, MaskSize2)</l>
 <c>           </c>
 <l>        access_channel(ImageAmp2, ImageAmp2, 1)</l>
 <l>        convert_image_type(ImageAmp2, ImageAmp2, 'byte')</l>

@@ -8,7 +8,7 @@
 <l>labels_path := 'D:/evias_expmts/Pultrusion/window_cgp/train/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
-<l>dev_update_on()</l>
+<l>dev_update_off()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
 <c></c>
@@ -89,8 +89,7 @@
 <l>            sobel_amp(Image, Image, FilterType, MaskSizeSobel)</l>
 <l>        endif</l>
 <c>        </c>
-<c>        * CropRectangle (Relative Threshold)</c>
-<l>        abs_image(Image, Image)</l>
+<c>        * CropRectangle</c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region)</l>
 <c>        </c>
@@ -101,30 +100,14 @@
 <c>        </c>
 <l>        get_image_type(Image, Type)</l>
 <l>        if(Type != 'byte' and Type != 'uint2' and Type != 'direction' and Type != 'cyclic' and Type != 'real')</l>
-<c>            * Scale To Gray            </c>
-<l>            gen_empty_obj(ScaledImage)</l>
-<l>            min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
-<l>            if(not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
-<l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>
-<l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
-<l>                else</l>
-<l>                    Mult := 255.0</l>
-<l>                endif</l>
-<l>                Add := - Mult * MinGrayVal</l>
-<l>                scale_image(Image, ImageScaled, Mult, Add)</l>
-<l>            else</l>
-<l>                scale_image(Image, ImageScaled, Mult, Add)                </l>
-<l>            endif</l>
-<c>            </c>
-<c>            * Convert to StandardType (byte)</c>
-<l>            convert_image_type(ScaledImage, Image, 'byte')</l>
+<l>            convert_image_type(Image, Image, 'byte')</l>
 <l>        endif</l>
 <l>        fast_threshold(Image, Region, 45, 255, 80)</l>
 <l>        fill_up(Region, Rectangle)</l>
 <c>        </c>
 <l>        gen_empty_obj(FaultyRegion)</l>
 <l>        gen_empty_obj(NewImgReduced)</l>
-<l>        gen_empty_obj(ImagePart)</l>
+<l>        gen_empty_obj(ImgPart)</l>
 <l>        gen_empty_obj(RelativeRegion)</l>
 <c>        </c>
 <l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>
@@ -137,11 +120,12 @@
 <c>        </c>
 <l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>
 <l>        StepW := WStep / 2</l>
-<c>                </c>
+<c>        </c>
+<c>        </c>
 <l>        for ImgWidth := Col1 + 20 to EndW by StepW</l>
 <l>            EndH := Row2 - (HStep / 1.5)            </l>
 <l>            StepH := HStep / 2</l>
-<c>                        </c>
+<c>            </c>
 <l>            if(StepW == 0.0)</l>
 <l>                break</l>
 <l>            endif</l>
@@ -151,9 +135,9 @@
 <l>                    break</l>
 <l>                endif</l>
 <l>                gen_empty_obj(ImagePart)</l>
-<l>                crop_rectangle1(NewImageReduced, ImagePart, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>
+<l>                crop_rectangle1(NewImageReduced, ImgPart, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>
 <c>                </c>
-<l>                gray_histo_range(ImagePart, ImagePart, 0, 255, 2, Histo, BinSize)</l>
+<l>                gray_histo_range(ImgPart, ImgPart, 0, 255, 2, Histo, BinSize)</l>
 <c>                </c>
 <l>                PixelCount := Histo[0] + Histo[1]</l>
 <c>                </c>
@@ -172,19 +156,12 @@
 <l>            endfor</l>
 <l>        endfor</l>
 <c>        </c>
-<l>        count_obj(RelativeRegion, Number)        </l>
-<l>        if(Number == 0)</l>
-<l>            gen_empty_region(Region)</l>
-<l>        else</l>
-<l>            Region := RelativeRegion</l>
-<l>        endif</l>
-<c>        </c>
 <c>        * AreaToRectangle</c>
-<l>        area_center(Region, Area, Row, Column)</l>
+<l>        area_center(RelativeRegion, Area, Row, Column)</l>
 <l>        Num := |Area|</l>
 <l>        gen_empty_region(Rectangles)</l>
 <l>        for Index1 := 1 to Num by 1</l>
-<l>            select_obj(Region, obj, Index1)</l>
+<l>            select_obj(RelativeRegion, obj, Index1)</l>
 <l>            smallest_rectangle1(obj, Row11, Col11, Row21, Col21)</l>
 <l>            gen_rectangle1(Rectangle, Row11, Col11, Row21, Col21)</l>
 <l>            union2(Rectangles, Rectangle, Rectangles)</l>
@@ -200,7 +177,6 @@
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
 <l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
 <l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
-<c></c>
 <c>     </c>
 <l>    binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</l>
 <c>    </c>
