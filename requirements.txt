@@ -6,7 +6,7 @@ lxml
 hvplot
 #keras~=2.6
 keras~=3.4
-#pandas>=2.0
+pandas>=2.0
 tensorboard~=2.15
 tensorflow~=2.7
 scikit-image~=0.19

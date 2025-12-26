@@ -36,3 +36,4 @@ AirCarbon3_80.jpg_dark_3_mean_pipeline;0.3248929904806355645458764915;Pultrusion
 AirCarbon3_80.jpg_dark_3_mean_pipeline;0.3248929904806355645458764915;severstal-steel_mean_pipeline;-0.01891827342296843485615317023;
 AirCarbon3_80.jpg_dark_3_mean_pipeline;0.3248929904806355645458764915;CrackForest_mean_pipeline;-0.01781098639647543376897682034;
 AirCarbon3_80.jpg_dark_3_mean_pipeline;0.3248929904806355645458764915;MVTec_AD_Transistor_mean_pipeline;-0.02124554822726747244560242536;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

@@ -17,7 +17,7 @@ SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "202
 """
 Default Path
 """
-WDIR = os.path.join("D:\\", "dev", "github", "experiments")
+WDIR = os.path.join("D:\\", "dev", "experiments")
 
 # Data Source Path for your images and labels
 EVIAS_SRC = ["D:", "evias_expmts"]
