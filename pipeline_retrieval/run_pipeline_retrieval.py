@@ -17,6 +17,10 @@ def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
     - MANUAL_HDEV_PIPELINES_MEAN
     - MANUAL_HDEV_PIPELINES_BEST
     """
+    print("Cross-apply manual hdev pipelines on all datasets")
+    print("="*20)
+    print("Type of Pipelines (Mode): " + mode)
+
     manual_hdev_path = os.path.join(CROSS_APPLICATION_RESULTS_PATH, "manual_hdev")
     check_dir_exists(CROSS_APPLICATION_RESULTS_PATH)
     check_dir_exists(manual_hdev_path)
@@ -25,7 +29,15 @@ def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
     manual_hdev_pipelines = MANUAL_HDEV_PIPELINES_MEAN
 
     if mode == "best" or mode == "best_test":
+        print("Evaluations: " + str((len(CROSS_APPLICATION_RESULTS_PATH)-1) * (len(MANUAL_HDEV_PIPELINES_BEST)-1)))
+        print("Datasets:\n")
+        print("\n".join(MANUAL_HDEV_PIPELINES_BEST))
         manual_hdev_pipelines = MANUAL_HDEV_PIPELINES_BEST
+    else:
+        print("Evaluations: " + str((len(CROSS_APPLICATION_RESULTS_PATH)-1) * (len(MANUAL_HDEV_PIPELINES_MEAN)-1)))
+        print("Datasets:\n")
+        print("\n".join(MANUAL_HDEV_PIPELINES_MEAN))
+
 
     for pipeline_name in manual_hdev_pipelines:
         write_cross_application_header_to_log(pipeline_name)
