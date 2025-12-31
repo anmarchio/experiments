@@ -18,8 +18,8 @@ def AirCarbon2_t_8_jpg_mean_pipeline(params, dataset_path=None):
     param_lines = "<l>        DiffusionCoefficient := '" + str(params[0]) + "'</l>\n" + \
                   "<l>        Contrast := " + str(params[1]) + "</l>\n" + \
                   "<l>        Theta := " + str(params[2]) + "</l>\n" + \
-                  "<l>        Iterations := '" + str(params[3]) + "'</l>\n" + \
-                  "<l>        MaskWidth := '" + str(params[4]) + "'</l>\n" + \
+                  "<l>        Iterations := " + str(params[3]) + "</l>\n" + \
+                  "<l>        MaskWidth := " + str(params[4]) + "</l>\n" + \
                   "<l>        MaskHeight := " + str(params[5]) + "</l>\n" + \
                   "<l>        StdDevScale := " + str(params[6]) + "</l>\n" + \
                   "<l>        AbsThreshold := " + str(params[7]) + "</l>\n" + \

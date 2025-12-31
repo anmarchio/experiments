@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Carpet_best_pipeline'</l>
-<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/carpet_train/images'</l>
-<l>labels_path := 'D:/evias_expmts/MVTecAnomalyDetection/carpet_train/labels'</l>
+<l>source_path := 'H:/evias_expmts/MVTecAnomalyDetection/carpet_train/images'</l>
+<l>labels_path := 'H:/evias_expmts/MVTecAnomalyDetection/carpet_train/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -30,32 +30,33 @@
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
 <c>    * --------------</c>
-<l>    try</l>
-<l>        MaskSizeGauss := 3</l>
-<c></c>
-<l>        Min := 50</l>
-<l>        Max := 220</l>
-<c></c>
-<l>        FilterType := 'x'</l>
-<l>        MaskSizeSobel := 3</l>
-<c></c>
-<l>        Method := 'smooth_histo'</l>
-<l>        LightDark := 'light'</l>
-<c></c>
-<l>        A := 16</l>
-<l>        B := 13</l>
-<c>        </c>
-<l>        dev_display(Image)</l>
-<c>        * Branch 1: Threshold → GaussFilter</c>
+<l>    try        </l>
 <l>        A := 18</l>
 <l>        B := 3</l>
 <l>        GrayValMax := 40</l>
+<c>        </c>
+<l>        Sigma := 2</l>
+<c>        </c>
+<l>        A2 := 15</l>
+<l>        B2 := 20</l>
+<l>        GrayValMax2 := 2</l>
+<c>        </c>
+<l>        FilterType := 'x'</l>
+<l>        MaskSizeSobel := 7</l>
+<c>        </c>
+<l>        Min := 30</l>
+<l>        Max := 225</l>
+<c>        </c>
+<l>        A3 := 27</l>
+<l>        B3 := 10</l>
+<c>        </c>
+<l>        dev_display(Image)</l>
+<c>        * Branch 1: Threshold → GaussFilter</c>
 <c>        </c>
 <l>        gen_disc_se(SE, 'byte', A, B, GrayValMax)</l>
 <c>        </c>
 <l>        gray_erosion(Image, SE, ImageErosion)</l>
 <c>        </c>
-<l>        Sigma := 2</l>
 <l>        auto_threshold(ImageErosion, AutoThreshRegion, Sigma)</l>
 <c>        </c>
 <l>        connection(AutoThreshRegion, ConnectedRegions)</l>
@@ -65,21 +66,14 @@
 <l>        *stop()</l>
 <c>        </c>
 <c>        * Branch 2: BinaryThreshold → SobelAmp</c>
-<l>        A2 := 15</l>
-<l>        B2 := 20</l>
-<l>        GrayValMax2 := 2</l>
 <c>        </c>
 <l>        gen_disc_se(SE, 'byte', A2, B2, GrayValMax2)</l>
 <c>        </c>
 <l>        gray_erosion(Image, SE, ImageErosion)</l>
 <c>        </c>
-<l>        FilterType := 'x'</l>
-<l>        MaskSizeSobel := 7</l>
 <l>        sobel_amp(Image, ImageAmp, FilterType, MaskSizeSobel)</l>
 <l>        abs_image(ImageAmp, ImageAbs)</l>
 <c>        </c>
-<l>        Min := 30</l>
-<l>        Max := 225</l>
 <l>        threshold(ImageAbs, ThreshRegion, Min, Max)</l>
 <c>        </c>
 <l>        ExpandIter := 1</l>
@@ -99,8 +93,6 @@
 <l>        *stop()</l>
 <c>        </c>
 <c>        * Opening</c>
-<l>        A3 := 27</l>
-<l>        B3 := 10</l>
 <l>        gen_rectangle1(StructRect, 0, 0, A3, B3)</l>
 <l>        opening(Region, StructRect, Region)</l>
 <l>        dev_display(Image)</l>

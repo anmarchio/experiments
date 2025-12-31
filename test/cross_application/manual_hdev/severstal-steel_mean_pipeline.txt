@@ -36,3 +36,6 @@ severstal-steel_mean_pipeline;-0.04381913195335178560044433428;Pultrusion_Resin_
 severstal-steel_mean_pipeline;-0.04381913195335178560044433428;Pultrusion_Window_mean_pipeline;0.01408709241142209930026642265;
 severstal-steel_mean_pipeline;-0.04381913195335178560044433428;CrackForest_mean_pipeline;0.02592164723348433161497234289;
 severstal-steel_mean_pipeline;-0.04381913195335178560044433428;MVTec_AD_Transistor_mean_pipeline;-0.01741868129685480140682669820;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

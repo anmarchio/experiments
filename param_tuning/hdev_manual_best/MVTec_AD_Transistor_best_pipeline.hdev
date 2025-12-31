@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Transistor_best_pipeline'</l>
-<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/transistor_damaged_case_train/images'</l>
-<l>labels_path := 'D:/evias_expmts/MVTecAnomalyDetection/transistor_damaged_case_train/labels'</l>
+<l>source_path := 'H:/evias_expmts/MVTecAnomalyDetection/transistor_damaged_case_train/images'</l>
+<l>labels_path := 'H:/evias_expmts/MVTecAnomalyDetection/transistor_damaged_case_train/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -32,32 +32,129 @@
 <c>    * --------------</c>
 <l>    try        </l>
 <c>        * Parameters</c>
-<l>        MaskWidth := 13</l>
-<l>        MaskHeight := 17</l>
-<l>        Gap := 21</l>
-<l>        Mode := 1</l>
+<l>        Sigma := 0.1</l>
+<l>        Rho := 28</l>
+<l>        Theta := 0.3</l>
+<l>        IterationsCoh := 312</l>
 <c>        </c>
-<l>        FilterType := 'y_binomial'</l>
-<l>        MaskSize := 5</l>
+<l>        FilterType := 'x'</l>
+<l>        MaskSize := 3</l>
 <c>        </c>
 <l>        Method := 'adapted_std_deviation'</l>
-<l>        LightDark := 'dark'</l>
-<l>        MaskSizeThresh := 31</l>
+<l>        LightDark := 'light'</l>
+<l>        MaskSizeThresh := 15</l>
 <l>        Scale := 0.2</l>
+<c>        </c>
+<l>        IterationsErosion := 40</l>
+<l>        A := 24</l>
+<l>        B := 4</l>
+<c>        </c>
+<l>        A2 := 14</l>
+<l>        B2 := 5</l>
+<l>        GrayValueMax2 := 1</l>
+<c>        </c>
+<l>        MinGray := 17</l>
+<l>        MaxGray := 240</l>
+<l>        MinSize := 10000</l>
+<l>        MaxSize := 21000</l>
+<l>        WindowWidth := 210</l>
+<l>        WindowHeight := 300</l>
 <c>        </c>
 <c>        * Pipeline</c>
 <c>        </c>
-<c>        * EliminateMinMax</c>
-<l>        eliminate_min_max(Image, ImageElim, MaskWidth, MaskHeight, Gap, Mode)</l>
-<l>        throw(['Wrong pipeline ...'])</l>
-<c>        * SobelAmp</c>
-<l>        convert_image_type(ImageElim, ImageElim, 'byte')</l>
-<l>        sobel_amp(ImageElim, ImageAmp, FilterType, MaskSize)</l>
+<c>        * Branch 1: CoherenceEnhancing -&gt; SobelAmp</c>
+<l>        coherence_enhancing_diff(Label, ImageCED, Sigma, Rho, Theta, IterationsCoh)</l>
 <c>        </c>
+<c>        * SobelAmp</c>
+<l>        convert_image_type(ImageCED, ImageCED, 'byte')</l>
+<l>        sobel_amp(ImageCED, ImageAmp, FilterType, MaskSize)</l>
+<c>                </c>
 <c>        * LocalThreshold</c>
 <l>        access_channel(ImageAmp, ImageAmp, 1)</l>
 <l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
-<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size','scale'], [MaskSizeThresh, Scale])</l>
+<l>        local_threshold(ImageAmp, RegionErosion, Method, LightDark, ['mask_size','scale'], [MaskSizeThresh, Scale])</l>
+<c>        </c>
+<c>        * Erosion1 (Ellipse SE)</c>
+<l>        tuple_max2(A, B, max_rad)</l>
+<l>        phi := 0</l>
+<l>        longer := A</l>
+<l>        shorter := B</l>
+<l>        if (shorter &gt; longer)</l>
+<l>            tmp := shorter</l>
+<l>            shorter := longer</l>
+<l>            longer := tmp</l>
+<l>        endif</l>
+<l>        phi := 0.0</l>
+<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>
+<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
+<l>        *erosion1(RegionThresh, StructElement, RegionErosion, 1)</l>
+<c>                </c>
+<c>        * Branch 2: GrayClosing -&gt; AreaSizeThresh</c>
+<c>        </c>
+<c>        * GrayClosing</c>
+<l>        get_image_type(Image, Type)</l>
+<l>        gen_disc_se(SE, Type, A2, B2, GrayValueMax2)</l>
+<l>        gray_closing(Image, SE, Image2)</l>
+<c>        </c>
+<c>        * AreaSizeThreshold</c>
+<l>        abs_image(Image, Image2)</l>
+<c>        </c>
+<l>        gen_empty_region(FaultyRegion)</l>
+<l>        gen_empty_region(TempRegion)</l>
+<c>        </c>
+<l>        get_image_size(Image2, Width, Height)</l>
+<c>        </c>
+<l>        I_W := Width / WindowWidth</l>
+<l>        I_H := Height / WindowHeight</l>
+<c>        </c>
+<l>        for i := 0 to I_W by 1</l>
+<c>            </c>
+<l>            for j := 0 to I_H by 1</l>
+<l>                Row1 := j * WindowHeight</l>
+<l>                Col1 := i * WindowHeight</l>
+<l>                Row2 := j * WindowHeight + WindowHeight</l>
+<l>                Col2 := i * WindowHeight + WindowHeight</l>
+<c>                </c>
+<l>                if(Row2 &gt; Height)</l>
+<l>                    Row2 := Height</l>
+<l>                endif</l>
+<c>                </c>
+<l>                if(Col2 &gt; Width)</l>
+<l>                    Col2 := Width</l>
+<l>                endif</l>
+<c>                </c>
+<l>                if(Row1 &gt; Height)</l>
+<l>                    Row1 := Height - 1</l>
+<l>                endif</l>
+<c>                </c>
+<l>                if(Col1 &gt; Width)</l>
+<l>                    Col1 := Width - 1</l>
+<l>                endif</l>
+<c>                </c>
+<l>                crop_rectangle1(Image2, ImagePart, Row1, Col1, Row2, Col2)</l>
+<l>                threshold(ImagePart, Threads, 40, 255)</l>
+<l>                area_center(Threads, AreaSize, Row, Col)</l>
+<c>                </c>
+<l>                if(AreaSize &lt; MaxSize and AreaSize &gt; MinSize)</l>
+<l>                    gen_rectangle1(TempRegion, Row, Col, Row, Col)</l>
+<l>                    union2(TempRegion, FaultyRegion, FaultyRegion)</l>
+<l>                endif</l>
+<c>                </c>
+<l>                smallest_rectangle1(FaultyRegion, Row1, Col1, Row2, Col2)</l>
+<l>                region_features(FaultyRegion, 'area', Value)        </l>
+<l>            endfor</l>
+<l>        endfor</l>
+<c>        </c>
+<l>        count_obj(FaultyRegion, Number)</l>
+<l>        if(Number &gt; 0)</l>
+<l>            Region2 := FaultyRegion</l>
+<l>        else</l>
+<l>            gen_empty_region(Region2)</l>
+<l>        endif</l>
+<c>        </c>
+<c>        * Merge: Union2</c>
+<l>        union2(RegionErosion, Region2, Region)</l>
+<c>        </c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

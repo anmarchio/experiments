@@ -36,3 +36,6 @@ MVTec_AD_Leather_mean_pipeline;0.3248135091109904323672783134;Pultrusion_Window_
 MVTec_AD_Leather_mean_pipeline;0.3248135091109904323672783134;severstal-steel_mean_pipeline;-0.01143820643405691216809051338;
 MVTec_AD_Leather_mean_pipeline;0.3248135091109904323672783134;CrackForest_mean_pipeline;-0.01143820643405691216809051338;
 MVTec_AD_Leather_mean_pipeline;0.3248135091109904323672783134;MVTec_AD_Transistor_mean_pipeline;-0.003942066430981598746721462761;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

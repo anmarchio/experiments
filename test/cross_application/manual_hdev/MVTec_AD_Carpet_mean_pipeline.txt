@@ -35,3 +35,6 @@ MVTec_AD_Carpet_mean_pipeline;-0.003255526815146549274313224356;Pultrusion_Windo
 MVTec_AD_Carpet_mean_pipeline;-0.003255526815146549274313224356;severstal-steel_mean_pipeline;0.03828441943528987606135620918;
 MVTec_AD_Carpet_mean_pipeline;-0.003255526815146549274313224356;CrackForest_mean_pipeline;0.03828441943528987606135620918;
 MVTec_AD_Carpet_mean_pipeline;-0.003255526815146549274313224356;MVTec_AD_Transistor_mean_pipeline;0.03484264828927627168360825077;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

@@ -36,3 +36,6 @@ MVTec_AD_Screw_Scratch_mean_pipeline;-0.0007219631220593391674751748195;Pultrusi
 MVTec_AD_Screw_Scratch_mean_pipeline;-0.0007219631220593391674751748195;severstal-steel_mean_pipeline;0.01873901902385690975812468408;
 MVTec_AD_Screw_Scratch_mean_pipeline;-0.0007219631220593391674751748195;CrackForest_mean_pipeline;0.01249779363029221977215974795;
 MVTec_AD_Screw_Scratch_mean_pipeline;-0.0007219631220593391674751748195;MVTec_AD_Transistor_mean_pipeline;0.02799864999986795913360857385;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

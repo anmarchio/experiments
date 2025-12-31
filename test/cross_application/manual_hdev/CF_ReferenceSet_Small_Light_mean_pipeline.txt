@@ -36,3 +36,6 @@ CF_ReferenceSet_Small_Light_mean_pipeline;0.3174276042638746739097048405;Pultrus
 CF_ReferenceSet_Small_Light_mean_pipeline;0.3174276042638746739097048405;severstal-steel_mean_pipeline;0.04655851356429835856817254250;
 CF_ReferenceSet_Small_Light_mean_pipeline;0.3174276042638746739097048405;CrackForest_mean_pipeline;0.04655851356429835856817254250;
 CF_ReferenceSet_Small_Light_mean_pipeline;0.3174276042638746739097048405;MVTec_AD_Transistor_mean_pipeline;0.04963866275439936422847433607;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

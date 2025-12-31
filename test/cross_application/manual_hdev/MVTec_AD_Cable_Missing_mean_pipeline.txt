@@ -36,3 +36,6 @@ MVTec_AD_Cable_Missing_mean_pipeline;0.8747085611656114140113462656;Pultrusion_W
 MVTec_AD_Cable_Missing_mean_pipeline;0.8747085611656114140113462656;severstal-steel_mean_pipeline;0.05625580838030631834028780882;
 MVTec_AD_Cable_Missing_mean_pipeline;0.8747085611656114140113462656;CrackForest_mean_pipeline;0.05625580838030631834028780882;
 MVTec_AD_Cable_Missing_mean_pipeline;0.8747085611656114140113462656;MVTec_AD_Transistor_mean_pipeline;0.07322733728764942218544340509;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

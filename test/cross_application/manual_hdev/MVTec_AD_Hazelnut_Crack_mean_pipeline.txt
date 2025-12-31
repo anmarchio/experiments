@@ -36,3 +36,6 @@ MVTec_AD_Hazelnut_Crack_mean_pipeline;0.3337795593718855023043650273;Pultrusion_
 MVTec_AD_Hazelnut_Crack_mean_pipeline;0.3337795593718855023043650273;severstal-steel_mean_pipeline;-0.02069163552946090617860573640;
 MVTec_AD_Hazelnut_Crack_mean_pipeline;0.3337795593718855023043650273;CrackForest_mean_pipeline;-0.02069163552946090617860573640;
 MVTec_AD_Hazelnut_Crack_mean_pipeline;0.3337795593718855023043650273;MVTec_AD_Transistor_mean_pipeline;0.002706470179996953248750288103;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

@@ -36,3 +36,6 @@ MT_Blowhole_train_mean_pipeline;0.3391373265006526465169308812;Pultrusion_Window
 MT_Blowhole_train_mean_pipeline;0.3391373265006526465169308812;severstal-steel_mean_pipeline;-0.003846764882272985763576178836;
 MT_Blowhole_train_mean_pipeline;0.3391373265006526465169308812;CrackForest_mean_pipeline;-0.002399756489206949441217138255;
 MT_Blowhole_train_mean_pipeline;0.3391373265006526465169308812;MVTec_AD_Transistor_mean_pipeline;-0.005377615673367362583535446268;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

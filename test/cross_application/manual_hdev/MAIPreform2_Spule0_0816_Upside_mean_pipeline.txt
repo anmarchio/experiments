@@ -36,3 +36,6 @@ MAIPreform2_Spule0_0816_Upside_mean_pipeline;0.3787338310980794203874742345;Pult
 MAIPreform2_Spule0_0816_Upside_mean_pipeline;0.3787338310980794203874742345;severstal-steel_mean_pipeline;0.01382948784963435942439098085;
 MAIPreform2_Spule0_0816_Upside_mean_pipeline;0.3787338310980794203874742345;CrackForest_mean_pipeline;-0.01152797003898599976561461357;
 MAIPreform2_Spule0_0816_Upside_mean_pipeline;0.3787338310980794203874742345;MVTec_AD_Transistor_mean_pipeline;-0.01317689135698620785249462303;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

@@ -36,3 +36,6 @@ MVTec_AD_Tile_Crack_mean_pipeline;0.6742807977100620702771651996;Pultrusion_Wind
 MVTec_AD_Tile_Crack_mean_pipeline;0.6742807977100620702771651996;severstal-steel_mean_pipeline;-0.01545631957948453911502957198;
 MVTec_AD_Tile_Crack_mean_pipeline;0.6742807977100620702771651996;CrackForest_mean_pipeline;-0.01545631957948453911502957198;
 MVTec_AD_Tile_Crack_mean_pipeline;0.6742807977100620702771651996;MVTec_AD_Transistor_mean_pipeline;-0.01075720444775853139637649438;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

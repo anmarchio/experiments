@@ -4,9 +4,9 @@
 <interface/>
 <body>
 <l>dataset_name := 'AirCarbon3_80.jpg_dark_1'</l>
-<l>source_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>
-<l>labels_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/labels'</l>
-<l>out_path := 'C:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
+<l>source_path := 'H:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>
+<l>labels_path := 'H:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/labels'</l>
+<l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -136,7 +136,7 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    stop()</l>
+<l>    *stop()</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>

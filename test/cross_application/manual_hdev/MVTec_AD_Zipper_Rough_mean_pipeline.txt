@@ -36,3 +36,6 @@ MVTec_AD_Zipper_Rough_mean_pipeline;0.1271864620360070002455976639;Pultrusion_Wi
 MVTec_AD_Zipper_Rough_mean_pipeline;0.1271864620360070002455976639;severstal-steel_mean_pipeline;0.1070158143329234426701347214;
 MVTec_AD_Zipper_Rough_mean_pipeline;0.1271864620360070002455976639;CrackForest_mean_pipeline;0.1070158143329234426701347214;
 MVTec_AD_Zipper_Rough_mean_pipeline;0.1271864620360070002455976639;MVTec_AD_Transistor_mean_pipeline;0.1076473099713513304504198585;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

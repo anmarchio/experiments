@@ -38,3 +38,6 @@ AirCarbon3_80.jpg_dark_2_mean_pipeline;0.1411445984693662191254911696;CrackFores
 AirCarbon3_80.jpg_dark_2_mean_pipeline;0.1411445984693662191254911696;MVTec_AD_Transistor_mean_pipeline;0.01529896137476240584516576886;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

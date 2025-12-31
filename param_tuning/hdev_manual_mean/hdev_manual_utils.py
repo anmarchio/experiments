@@ -1,5 +1,5 @@
 from param_tuning.hdev.hdev_templates import HDEV_HEADER, HDEV_TEMPLATE_CODE, HDEV_FOOTER
-from param_tuning.utils import get_evias_experimts_path_for_hdev
+from param_tuning.utils import get_evias_experiments_path_for_hdev
 
 
 def scale_to_gray():
@@ -262,7 +262,7 @@ def get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core
 
     # Dataset name and path
     hdev_code += "<l>dataset_name := '" + pipeline_name + "'</l>\n" + \
-                 "<l>source_path := '" + get_evias_experimts_path_for_hdev() + dataset_path + "'</l>\n" + \
+                 "<l>source_path := '" + get_evias_experiments_path_for_hdev() + dataset_path + "'</l>\n" + \
                  "<l>output_path := dataset_name + '/'</l>\n" + \
                  "<c></c>\n"
 

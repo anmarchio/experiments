@@ -36,3 +36,6 @@ Pultrusion_Resin_Augmtd_mean_pipeline;0.3805887399700282444061882299;Pultrusion_
 Pultrusion_Resin_Augmtd_mean_pipeline;0.3805887399700282444061882299;severstal-steel_mean_pipeline;0.06851965669289117396181301855;
 Pultrusion_Resin_Augmtd_mean_pipeline;0.3805887399700282444061882299;CrackForest_mean_pipeline;0.06505650257064662191805842008;
 Pultrusion_Resin_Augmtd_mean_pipeline;0.3805887399700282444061882299;MVTec_AD_Transistor_mean_pipeline;0.07243945707740630937793158826;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

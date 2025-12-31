@@ -32,6 +32,7 @@ from param_tuning.hdev_manual_mean.AirCarbon3_80_jpg_dark_5_mean import AirCarbo
 from param_tuning.hdev_manual_mean.CrackForest_mean import CrackForest_training_source_path, \
     get_CrackForest_mean_pipeline, \
     CrackForest_mean_pipeline_bounds, CrackForest_mean_pipeline_initial_params
+from param_tuning.hdev_manual_mean.KollektorSSD_mean_pipeline import get_KollektorSSD_mean_pipeline
 from param_tuning.hdev_manual_mean.MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline import \
     MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path, \
     get_MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline, \
@@ -185,6 +186,7 @@ pipelines_mean = {
     "AirCarbon3_80.jpg_dark_3_mean_pipeline": get_AirCarbon3_80_jpg_dark_3_mean_pipeline,
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": get_AirCarbon3_80_jpg_dark_4_mean_pipeline,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": get_AirCarbon3_80_jpg_dark_5_mean_pipeline,
+    "KollektorSSD_mean_pipeline": get_KollektorSSD_mean_pipeline,
     "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline": get_MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline,
     "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline": get_MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline,
     "MAIPreform2_Spule0_0315_Upside_mean_pipeline": get_MAIPreform2_Spule0_0315_Upside_mean_pipeline,

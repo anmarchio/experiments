@@ -36,3 +36,6 @@ MVTec_AD_Toothbrush_Sm_mean_pipeline;0.2656743645903570844014043990;Pultrusion_W
 MVTec_AD_Toothbrush_Sm_mean_pipeline;0.2656743645903570844014043990;severstal-steel_mean_pipeline;0.06514962569819785692110696408;
 MVTec_AD_Toothbrush_Sm_mean_pipeline;0.2656743645903570844014043990;CrackForest_mean_pipeline;0.05956410168645495105002816182;
 MVTec_AD_Toothbrush_Sm_mean_pipeline;0.2656743645903570844014043990;MVTec_AD_Transistor_mean_pipeline;0.01118577115014804740574056540;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

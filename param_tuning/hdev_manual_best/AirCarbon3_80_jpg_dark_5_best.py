@@ -16,43 +16,40 @@ def get_AirCarbon3_80_jpg_dark_5_best_pipeline(params, dataset_path=None):
         # Default dataset path if not provided
         dataset_path = "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_5/images"
 
-        # Parameters
-        param_lines = (
+    # Parameters
+    param_lines = (
                 "<l>        FilterType1 := '" + str(params[0]) + "'</l>\n"
-                                                                 "<l>        MaskSize1 := " + str(params[1]) + "</l>\n"
-                                                                                                               "<c></c>\n"
-                                                                                                               "<l>        FilterType2 := '" + str(
-            params[2]) + "'</l>\n"
-                         "<l>        MaskSize2 := " + str(params[3]) + "</l>\n"
-                                                                       "<c></c>\n"
-                                                                       "<l>        Method := '" + str(
-            params[4]) + "'</l>\n"
-                         "<l>        LightDark := '" + str(params[5]) + "'</l>\n"
-                                                                        "<l>        MaskSizeThreshold := " + str(
-            params[6]) + "</l>\n"
-                         "<l>        Scale := " + str(params[7]) + "</l>\n"
-                                                                   "<c></c>\n"
-        )
+                "<l>        MaskSize1 := " + str(params[1]) + "</l>\n"
+                "<c></c>\n"
+                "<l>        FilterType2 := '" + str(params[2]) + "'</l>\n"
+                "<l>        MaskSize2 := " + str(params[3]) + "</l>\n"
+                "<c></c>\n"
+                "<l>        Method := '" + str(params[4]) + "'</l>\n"
+                "<l>        LightDark := '" + str(params[5]) + "'</l>\n"
+                "<l>        MaskSizeThreshold := " + str(params[6]) + "</l>\n"
+                "<l>        Scale := " + str(params[7]) + "</l>\n"
+                "<c></c>\n"
+    )
 
-        # Core pipeline
-        core_code = (
-            "<c>* First SobelAmp</c>\n"
-            "<l>        sobel_amp(Image, ImageAmp1, FilterType1, MaskSize1)</l>\n"
-            "<c></c>\n"
-            "<c>* Convert type before second SobelAmp</c>\n"
-            "<l>        get_image_type(ImageAmp1, Type)</l>\n"
-            "<l>        if (Type != 'byte' and Type != 'uint2' and Type != 'real')</l>\n"
-            "<l>            convert_image_type(ImageAmp1, ImageAmp1, 'byte')</l>\n"
-            "<l>        endif</l>\n"
-            "<l>        sobel_amp(ImageAmp1, ImageAmp2, FilterType2, MaskSize2)</l>\n"
-            "<c></c>\n"
-            "<c>* LocalThreshold</c>\n"
-            "<l>        access_channel(ImageAmp2, ImageAmp2, 1)</l>\n"
-            "<l>        convert_image_type(ImageAmp2, ImageAmp2, 'byte')</l>\n"
-            "<l>        local_threshold(ImageAmp2, Region, Method, LightDark, ['mask_size','scale'], [MaskSizeThreshold, Scale])</l>\n"
-        )
+    # Core pipeline
+    core_code = (
+            "<c>* First SobelAmp</c>"
+            "<l>        sobel_amp(Image, ImageAmp1, FilterType1, MaskSize1)</l>"
+            "<c></c>"
+            "<c>* Convert type before second SobelAmp</c>"
+            "<l>        get_image_type(ImageAmp1, Type)</l>"
+            "<l>        if (Type != 'byte' and Type != 'uint2' and Type != 'real')</l>"
+            "<l>            convert_image_type(ImageAmp1, ImageAmp1, 'byte')</l>"
+            "<l>        endif</l>"
+            "<l>        sobel_amp(ImageAmp1, ImageAmp2, FilterType2, MaskSize2)</l>"
+            "<c></c>"
+            "<c>* LocalThreshold</c>"
+            "<l>        access_channel(ImageAmp2, ImageAmp2, 1)</l>"
+            "<l>        convert_image_type(ImageAmp2, ImageAmp2, 'byte')</l>"
+            "<l>        local_threshold(ImageAmp2, Region, Method, LightDark, ['mask_size','scale'], [MaskSizeThreshold, Scale])</l>"
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 AirCarbon3_80_jpg_dark_5_best_pipeline_initial_params = [

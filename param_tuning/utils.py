@@ -28,7 +28,7 @@ def raw_source_directory(dataset_source_directory):
     return dataset_source_directory
 
 
-def get_evias_experimts_path_for_hdev():
+def get_evias_experiments_path_for_hdev():
     source_path = ""
     for elmnt in EVIAS_SRC:
         source_path += elmnt + "/"

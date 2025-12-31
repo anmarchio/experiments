@@ -36,3 +36,6 @@ CrackForest_mean_pipeline;0.3056324066072448878487947952;Pultrusion_Resin_mean_p
 CrackForest_mean_pipeline;0.3056324066072448878487947952;Pultrusion_Window_mean_pipeline;-0.01051219693966051084149393772;
 CrackForest_mean_pipeline;0.3056324066072448878487947952;severstal-steel_mean_pipeline;-0.01122156134222300923756538795;
 CrackForest_mean_pipeline;0.3056324066072448878487947952;MVTec_AD_Transistor_mean_pipeline;-0.01134676805319982068816639917;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

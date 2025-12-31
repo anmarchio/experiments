@@ -18,7 +18,7 @@ def get_MVTec_AD_Tile_Crack_best_pipeline(params, dataset_path=None):
 
     # Parameters
     param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
-                      "<l>        MaskSizeMedian := " + str(params[1]) + "</l>\n" + \
+                      "<l>        MaskSize := " + str(params[1]) + "</l>\n" + \
                       "<c></c>\n" + \
                       "<l>        Method := '" + str(params[2]) + "'</l>\n" + \
                       "<l>        LightDark := '" + str(params[3]) + "'</l>\n" + \
@@ -33,10 +33,10 @@ def get_MVTec_AD_Tile_Crack_best_pipeline(params, dataset_path=None):
     # Core pipeline
     core_code = (
             "<c>* MedianWeighted</c>\n"
-            "<l>        median_image(Image, ImageMedian, MaskType, MaskSizeMedian, 'mirrored')</l>\n"
+            "<l>        median_weighted(Image, ImageWMedian, MaskType, MaskSize)</l>\n"
             "<c></c>\n"
             "<c>* LocalThreshold</c>\n"
-            "<l>        local_threshold(ImageMedian, RegionThresh, Method, LightDark, ['mask_size','scale'], [MaskSizeThresh, Scale])</l>\n"
+            "<l>        local_threshold(ImageWMedian, RegionThresh, Method, LightDark, ['mask_size','scale'], [MaskSizeThresh, Scale])</l>\n"
             "<c></c>\n"
             "<c>* Closing (Ellipse SE)</c>\n"
             "<l>        tuple_max2(A, B, max_rad)</l>\n"

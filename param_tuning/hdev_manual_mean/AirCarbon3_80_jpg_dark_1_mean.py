@@ -20,7 +20,7 @@ def get_AirCarbon3_80_jpg_dark_1_mean_pipeline(params, dataset_path=None):
     param_lines = "<l>        Method := '" + str(params[0]) + "'</l>\n" + \
                   "<l>        LightDark := '" + str(params[1]) + "'</l>\n" + \
                   "<l>        MaskSize := " + str(params[2]) + "</l>\n" + \
-                  "<l>        Scale := '" + str(params[3]) + "'</l>\n" \
+                  "<l>        Scale := " + str(params[3]) + "</l>\n" \
                                                              "<c></c>\n"
 
     # Core Pipeline Code
@@ -31,9 +31,6 @@ def get_AirCarbon3_80_jpg_dark_1_mean_pipeline(params, dataset_path=None):
 
 
 AirCarbon3_80_jpg_dark_1_mean_pipeline_initial_params = [
-    'lines',
-    'y',
-    5,
     'adapted_std_deviation',
     'dark',
     15,
@@ -41,9 +38,6 @@ AirCarbon3_80_jpg_dark_1_mean_pipeline_initial_params = [
 ]
 
 AirCarbon3_80_jpg_dark_1_mean_pipeline_bounds = [
-    ['lines'],
-    ['y_binomial', 'x', 'x_binomial', 'y'],
-    [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
     ['adapted_std_deviation'],
     ['light', 'dark'],
     [15, 21, 31],

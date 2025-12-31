@@ -36,3 +36,6 @@ MVTec_AD_Bottle_Broken_Sm_mean_pipeline;0.2302281017098359806865133075;Pultrusio
 MVTec_AD_Bottle_Broken_Sm_mean_pipeline;0.2302281017098359806865133075;severstal-steel_mean_pipeline;0.07313838281674491381799139899;
 MVTec_AD_Bottle_Broken_Sm_mean_pipeline;0.2302281017098359806865133075;CrackForest_mean_pipeline;0.07787682643248779224611775536;
 MVTec_AD_Bottle_Broken_Sm_mean_pipeline;0.2302281017098359806865133075;MVTec_AD_Transistor_mean_pipeline;0.07530008554366000390763069199;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

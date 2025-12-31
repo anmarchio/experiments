@@ -35,6 +35,8 @@ from param_tuning.hdev_manual_best.CrackForest_best import get_CrackForest_best_
     CrackForest_best_pipeline_bounds, CrackForest_best_pipeline_initial_params
 from param_tuning.hdev_manual_best.FabricDefectsAITEX_best import get_FabricDefectsAITEX_best_pipeline, \
     FabricDefectsAITEX_best_pipeline_bounds, FabricDefectsAITEX_best_pipeline_initial_params
+from param_tuning.hdev_manual_best.KollektorSSD_best_pipeline import get_KollektorSSD_best_pipeline, \
+    KollektorSSD_best_pipeline_initial_params, KollektorSSD_best_pipeline_bounds
 from param_tuning.hdev_manual_best.MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline import \
     get_MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline, \
     MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline_bounds, \
@@ -214,13 +216,13 @@ MANUAL_HDEV_PIPELINES_BEST = [
     #"AirCarbon3_80.jpg_dark_3_best_pipeline",
     #"AirCarbon3_80.jpg_dark_4_best_pipeline",
     #"AirCarbon3_80.jpg_dark_5_best_pipeline",
-    #"KolektorSDD_best_pipeline", # <== does not exist
+    'KollektorSSD_best_pipeline',
     #"MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline",
     #"MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline",
     #"MAIPreform2_Spule0_0315_Upside_best_pipeline",
     #"MAIPreform2_Spule0_0816_Upside_best_pipeline",
     #"CF_ReferenceSet_best_pipeline",
-    #"CF_ReferenceSet_Small_Dark_best_pipeline",
+    "CF_ReferenceSet_Small_Dark_best_pipeline",
     #"CF_ReferenceSet_Small_Light_best_pipeline",
     #"FabricDefectsAITEX_best_pipeline",
     #"MT_Blowhole_train_best_pipeline",
@@ -235,7 +237,7 @@ MANUAL_HDEV_PIPELINES_BEST = [
     #"MVTec_AD_Metal_Nut_best_pipeline",
     #"MVTec_AD_Pill_Crack_best_pipeline",
     #"MVTec_AD_Screw_Scratch_best_pipeline",
-    #"MVTec_AD_Tile_Crack_best_pipeline",
+    "MVTec_AD_Tile_Crack_best_pipeline",
     #"MVTec_AD_Toothbrush_Sm_best_pipeline",
     #"MVTec_AD_Wood_Scratch_best_pipeline",
     #"MVTec_AD_Zipper_Rough_best_pipeline",
@@ -243,8 +245,8 @@ MANUAL_HDEV_PIPELINES_BEST = [
     #"Pultrusion_Resin_best_pipeline",
     #"Pultrusion_Window_best_pipeline",
     #"severstal-steel_best_pipeline",
-    #"CrackForest_best_pipeline",
-    #"MVTec_AD_Transistor_best_pipeline"
+    "CrackForest_best_pipeline",
+    "MVTec_AD_Transistor_best_pipeline"
 ]
 
 
@@ -262,6 +264,7 @@ pipelines_best = {
     "AirCarbon3_80.jpg_dark_3_best_pipeline": get_AirCarbon3_80_jpg_dark_3_best_pipeline,
     "AirCarbon3_80.jpg_dark_4_best_pipeline": get_AirCarbon3_80_jpg_dark_4_best_pipeline,
     "AirCarbon3_80.jpg_dark_5_best_pipeline": get_AirCarbon3_80_jpg_dark_5_best_pipeline,
+    "KollektorSSD_best_pipeline" : get_KollektorSSD_best_pipeline,
     "MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline": get_MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline,
     "MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline": get_MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline,
     "MAIPreform2_Spule0_0315_Upside_best_pipeline": get_MAIPreform2_Spule0_0315_Upside_best_pipeline,
@@ -303,6 +306,7 @@ bounds_best = {
     "AirCarbon3_80.jpg_dark_3_best_pipeline": AirCarbon3_80_jpg_dark_3_best_pipeline_bounds,
     "AirCarbon3_80.jpg_dark_4_best_pipeline": AirCarbon3_80_jpg_dark_4_best_pipeline_bounds,
     "AirCarbon3_80.jpg_dark_5_best_pipeline": AirCarbon3_80_jpg_dark_5_best_pipeline_bounds,
+    "KollektorSSD_best_pipeline": KollektorSSD_best_pipeline_bounds,
     "MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline_bounds,
     "MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline_bounds,
     "MAIPreform2_Spule0_0315_Upside_best_pipeline": MAIPreform2_Spule0_0315_Upside_best_pipeline_bounds,
@@ -344,6 +348,7 @@ initial_params_best = {
     "AirCarbon3_80.jpg_dark_3_best_pipeline": AirCarbon3_80_jpg_dark_3_best_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_4_best_pipeline": AirCarbon3_80_jpg_dark_4_best_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_5_best_pipeline": AirCarbon3_80_jpg_dark_5_best_pipeline_initial_params,
+    "KollektorSSD_best_pipeline": KollektorSSD_best_pipeline_initial_params,
     "MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline_initial_params,
     "MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline_initial_params,
     "MAIPreform2_Spule0_0315_Upside_best_pipeline": MAIPreform2_Spule0_0315_Upside_best_pipeline_initial_params,

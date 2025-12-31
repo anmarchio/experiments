@@ -11,7 +11,7 @@ SPECIFIC_SOURCE_PATH = ""
 # SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230329-163243data_arr.json")
 # SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230509-025213data_arr.json")
 # SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230512-151338data_arr.json")
-SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230519-999data_arr_DEBUG.json")
+SAMPLE_IMAGES_DIR_PATH = os.path.join("D:\\", "dev", "experiments", "data", "20230519-999data_arr_DEBUG.json")
 
 
 """
@@ -20,8 +20,8 @@ Default Path
 WDIR = os.path.join("D:\\", "dev", "experiments")
 
 # Data Source Path for your images and labels
-EVIAS_SRC = ["D:", "evias_expmts"]
-EVIAS_SRC_PATH = os.path.join("D:\\", "evias_expmts")
+EVIAS_SRC = ["H:", "evias_expmts"]
+EVIAS_SRC_PATH = os.path.join("H:\\", "evias_expmts")
 
 """
 Output Path for Subsequent Pipeline Optimization (SA, LS)
