@@ -31,7 +31,7 @@ def get_KollektorSSD_best_pipeline(params, dataset_path=None):
                     "<c></c>\n" \
                     "<l>        access_channel(DiffImage, ImageAmp, 1)</l>\n" \
                     "<l>        convert_image_type(DiffImage, DiffImage, 'byte')</l>\n" \
-                    "<l>        local_threshold(DiffImage, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])\n"
+                    "<l>        local_threshold(DiffImage, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
