@@ -39,3 +39,4 @@ CF_ReferenceSet_Small_Light_mean_pipeline;0.3174276042638746739097048405;MVTec_A
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

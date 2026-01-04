@@ -39,3 +39,4 @@ CF_ReferenceSet_mean_pipeline;0.2057514034247991706972193137;MVTec_AD_Transistor
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

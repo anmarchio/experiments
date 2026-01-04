@@ -39,3 +39,4 @@ MT_Blowhole_train_mean_pipeline;0.3391373265006526465169308812;MVTec_AD_Transist
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

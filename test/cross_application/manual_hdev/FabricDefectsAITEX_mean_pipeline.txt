@@ -39,3 +39,4 @@ FabricDefectsAITEX_mean_pipeline;0.09157492173980631067808171366;MVTec_AD_Transi
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

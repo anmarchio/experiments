@@ -39,3 +39,4 @@ severstal-steel_mean_pipeline;-0.04381913195335178560044433428;MVTec_AD_Transist
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

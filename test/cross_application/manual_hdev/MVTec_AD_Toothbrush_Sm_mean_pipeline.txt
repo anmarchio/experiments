@@ -39,3 +39,4 @@ MVTec_AD_Toothbrush_Sm_mean_pipeline;0.2656743645903570844014043990;MVTec_AD_Tra
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

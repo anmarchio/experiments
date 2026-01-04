@@ -39,3 +39,4 @@ CF_ReferenceSet_Small_Dark_mean_pipeline;0.0;MVTec_AD_Transistor_mean_pipeline;0
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

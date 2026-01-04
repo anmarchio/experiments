@@ -39,3 +39,4 @@ MVTec_AD_Grid_Thread_mean_pipeline;0.0;MVTec_AD_Transistor_mean_pipeline;0.0;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

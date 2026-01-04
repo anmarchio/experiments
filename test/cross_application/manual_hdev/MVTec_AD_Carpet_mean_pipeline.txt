@@ -38,3 +38,4 @@ MVTec_AD_Carpet_mean_pipeline;-0.003255526815146549274313224356;MVTec_AD_Transis
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

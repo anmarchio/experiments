@@ -39,3 +39,4 @@ MVTec_AD_Metal_Nut_mean_pipeline;0.05395796434758013590050213588;MVTec_AD_Transi
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

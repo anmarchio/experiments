@@ -39,3 +39,4 @@ MVTec_AD_Hazelnut_Crack_mean_pipeline;0.3337795593718855023043650273;MVTec_AD_Tr
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

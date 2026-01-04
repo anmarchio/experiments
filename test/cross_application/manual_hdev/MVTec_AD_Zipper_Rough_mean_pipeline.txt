@@ -39,3 +39,4 @@ MVTec_AD_Zipper_Rough_mean_pipeline;0.1271864620360070002455976639;MVTec_AD_Tran
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

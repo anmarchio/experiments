@@ -39,3 +39,4 @@ MVTec_AD_Leather_mean_pipeline;0.3248135091109904323672783134;MVTec_AD_Transisto
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

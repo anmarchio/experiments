@@ -39,3 +39,4 @@ MVTec_AD_Cable_Missing_mean_pipeline;0.8747085611656114140113462656;MVTec_AD_Tra
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

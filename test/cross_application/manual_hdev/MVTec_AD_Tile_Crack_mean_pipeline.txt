@@ -39,3 +39,4 @@ MVTec_AD_Tile_Crack_mean_pipeline;0.6742807977100620702771651996;MVTec_AD_Transi
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

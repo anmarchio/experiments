@@ -39,3 +39,4 @@ Pultrusion_Resin_Augmtd_mean_pipeline;0.3805887399700282444061882299;MVTec_AD_Tr
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

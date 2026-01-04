@@ -39,3 +39,4 @@ MVTec_AD_Screw_Scratch_mean_pipeline;-0.0007219631220593391674751748195;MVTec_AD
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

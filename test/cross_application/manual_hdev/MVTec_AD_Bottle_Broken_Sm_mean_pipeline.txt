@@ -39,3 +39,4 @@ MVTec_AD_Bottle_Broken_Sm_mean_pipeline;0.2302281017098359806865133075;MVTec_AD_
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

@@ -17,8 +17,8 @@ def get_AirCarbon3_80_jpg_dark_4_mean_pipeline(params, dataset_path=None):
 
     # Parameters
     # 'lines', 'y', 5, 'adapted_std_deviation', 'dark', 15, 0.3
-    param_lines = "<l>        MaskWidth := '" + str(params[0]) + "'</l>\n" + \
-                  "<l>        MaskHeight := '" + str(params[1]) + "'</l>\n" + \
+    param_lines = "<l>        MaskWidth := " + str(params[0]) + "</l>\n" + \
+                  "<l>        MaskHeight := " + str(params[1]) + "</l>\n" + \
                   "<l>        Gap := " + str(params[2]) + "</l>\n" + \
                   "<l>        Mode := " + str(params[3]) + "</l>\n" + \
                   "<l>        MinGray := " + str(params[4]) + "</l>\n" + \

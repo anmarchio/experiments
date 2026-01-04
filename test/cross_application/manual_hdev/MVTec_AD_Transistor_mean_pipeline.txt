@@ -39,3 +39,4 @@ MVTec_AD_Transistor_mean_pipeline;0.2220751013784522642648953531;CrackForest_mea
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

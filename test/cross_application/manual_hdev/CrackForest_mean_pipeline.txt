@@ -39,3 +39,4 @@ CrackForest_mean_pipeline;0.3056324066072448878487947952;MVTec_AD_Transistor_mea
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
