@@ -22,12 +22,12 @@ def get_MVTec_AD_Capsule_mean_pipeline(params, dataset_path=None):
                   "<l>        High := " + str(params[3]) + "</l>\n" + \
                   "<l>        NonMaximumSuppression := '" + str(params[4]) + "'</l>\n" + \
                   "<l>        FilterType := '" + str(params[5]) + "'</l>\n" + \
-                  "<l>        MaskSize := " + str(params[3]) + "</l>\n" + \
-                  "<l>        MaskWidth := " + str(params[3]) + "</l>\n" + \
-                  "<l>        MaskHeight := " + str(params[3]) + "</l>\n" + \
-                  "<l>        StdDevScale := " + str(params[3]) + "</l>\n" + \
-                  "<l>        AbsThreshold := " + str(params[3]) + "</l>\n" + \
-                  "<l>        LightDark := '" + str(params[5]) + "'</l>\n" + \
+                  "<l>        MaskSize := " + str(params[6]) + "</l>\n" + \
+                  "<l>        MaskWidth := " + str(params[7]) + "</l>\n" + \
+                  "<l>        MaskHeight := " + str(params[8]) + "</l>\n" + \
+                  "<l>        StdDevScale := " + str(params[9]) + "</l>\n" + \
+                  "<l>        AbsThreshold := " + str(params[10]) + "</l>\n" + \
+                  "<l>        LightDark := '" + str(params[11]) + "'</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
@@ -47,18 +47,18 @@ def get_MVTec_AD_Capsule_mean_pipeline(params, dataset_path=None):
 
 
 MVTec_AD_Capsule_mean_pipeline_initial_params = [
-    'canny',
-    1.1,
-    5,
-    25,
-    'nms',
-    'y',
-    7,
-    23,
-    25,
-    -0.09999993,
-    19,
-    'not_equal'
+    'canny', # Filter
+    1.1, # Alpha
+    5, # Low
+    25, # High
+    'nms', # NonMaximumSuppression
+    'y', # FilterType
+    7, # MaskSize
+    23, # MaskWidth
+    25, # MaskHeight
+    -0.09999993, # StdDevScale
+    19, # AbsThreshold
+    'not_equal' # LightDark
 
 ]
 

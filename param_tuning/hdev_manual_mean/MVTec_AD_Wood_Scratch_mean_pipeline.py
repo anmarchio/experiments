@@ -35,8 +35,6 @@ def get_MVTec_AD_Wood_Scratch_mean_pipeline(params, dataset_path=None):
                 "<c>        </c>\n" + \
                 "<l>        gauss_filter(Image, Image, MaskSize1)</l>\n" + \
                 "<c>        </c>\n" + \
-                get_var_threshold_code() + \
-                "<c>        </c>\n" + \
                 "<c>        * SobelAmp</c>\n" + \
                 sobel_check_filter_type() + \
                 "<l>        sobel_amp(Image, Image, FilterType, MaskSize2)</l>\n" \

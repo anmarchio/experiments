@@ -13,9 +13,9 @@ def scale_to_gray():
                     "<l>                Mult := 255.0</l>\n" + \
                     "<l>            endif</l>\n" + \
                     "<l>            Add := - Mult * MinGrayVal</l>\n" + \
-                    "<l>            scale_image(Image, ImageScaled, Mult, Add)</l>\n" + \
+                    "<l>            scale_image(Image, ScaledImage, Mult, Add)</l>\n" + \
                     "<l>        else</l>\n" + \
-                    "<l>            scale_image(Image, ImageScaled, Mult, Add)    </l>\n" + \
+                    "<l>            scale_image(Image, ScaledImage, 1, 0)</l>\n" + \
                     "<l>       endif</l>\n"
     return scale_to_gray
 
@@ -44,6 +44,7 @@ def get_var_threshold_code():
                          "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and " \
                          "Type != 'real')</l>\n" + \
                          scale_to_gray() + \
+                         "<l>            StandardType := 'byte'</l>\n" + \
                          "<l>            convert_image_type(ScaledImage, Image, 'byte')</l>\n" + \
                          "<l>            var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, " \
                          "AbsThreshold, LightDark)</l>\n" + \

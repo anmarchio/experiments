@@ -31,18 +31,29 @@ def get_Pultrusion_Resin_mean_pipeline(params, dataset_path=None):
     # Core Pipeline Code
     core_code = "<c>        * CropSmallestRectangle</c>\n" + \
                 convert_margin_to_int() + \
+                "<c>        </c>\n" + \
+                "<l>        get_image_size(Image, Width, Height)</l>\n" + \
+                "<l>        Width := Width / 2</l>\n" + \
+                "<l>        Height := Height / 2</l>\n" + \
+                "<c>        </c>\n" + \
+                "<l>        if(Width >= Radius)</l>\n" + \
+                "<l>            radius := Radius</l>\n" + \
+                "<l>        else</l>\n" + \
+                "<l>            radius := Height - 1</l>\n" + \
+                "<l>        endif</l>\n" + \
+                "<c>        </c>\n" + \
                 "<l>        median_image(Image, Image, MaskType, Radius, Margin)</l>\n" + \
                 "<c>        </c>\n" + \
                 "<c>        * SobelAmp</c>\n" + \
-                "<l>        get_image_type(Image2, Type)</l>\n" + \
+                "<l>        get_image_type(Image, Type)</l>\n" + \
                 "<l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>\n" + \
                 "<l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>\n" + \
-                "<l>                convert_image_type(Image2, Image2, 'byte')</l>\n" + \
+                "<l>                convert_image_type(Image, Image, 'byte')</l>\n" + \
                 "<l>            endif</l>\n" + \
                 "<l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" + \
-                "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n" + \
+                "<l>            convert_image_type(Image, Image, 'byte')</l>\n" + \
                 "<l>        endif</l>\n" + \
-                "<l>        sobel_amp(Image2, Image, FilterType, MaskSize)</l>\n" + \
+                "<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
                 "<c>        </c>\n" + \
                 area_size_threshold() + \
                 "<c>        </c>\n"
