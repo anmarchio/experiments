@@ -16,8 +16,8 @@ def get_MVTec_AD_Wood_Scratch_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/wood_scratch_train/images"
 
-        # Parameters
-        param_lines = (
+    # Parameters
+    param_lines = (
                 "<l>        MaskType := '" + str(params[0]) + "'</l>\n"
                                                               "<l>        MaskSizeMedian := " + str(
             params[1]) + "</l>\n"
@@ -35,10 +35,10 @@ def get_MVTec_AD_Wood_Scratch_best_pipeline(params, dataset_path=None):
                          "<c></c>\n"
                          "<l>        A := " + str(params[8]) + "</l>\n"
                                                                "<c></c>\n"
-        )
+    )
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* MedianWeighted</c>\n"
             "<l>        median_weighted(Image, ImageWeighted, MaskType, MaskSizeMedian)</l>\n"
             "<c></c>\n"
@@ -54,9 +54,9 @@ def get_MVTec_AD_Wood_Scratch_best_pipeline(params, dataset_path=None):
             "<l>        tuple_ceil(A + 1, shape_param0_ceil)</l>\n"
             "<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)</l>\n"
             "<l>        closing(Region, StructElement, Region)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Wood_Scratch_best_pipeline_initial_params = [

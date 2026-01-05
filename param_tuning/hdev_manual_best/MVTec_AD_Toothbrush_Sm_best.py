@@ -15,8 +15,8 @@ def get_MVTec_AD_Toothbrush_Sm_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/toothbrush_small_train/images"
 
-        # Parameters
-        param_lines = (
+    # Parameters
+    param_lines = (
                 "<l>        FilterType := '" + str(params[0]) + "'</l>\n"
                                                                 "<l>        MaskSize := " + str(params[1]) + "</l>\n"
                                                                                                              "<c></c>\n"
@@ -31,8 +31,8 @@ def get_MVTec_AD_Toothbrush_Sm_best_pipeline(params, dataset_path=None):
                          "<c></c>\n"
         )
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* SobelAmp</c>\n"
             "<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>\n"
             "<c></c>\n"
@@ -69,9 +69,9 @@ def get_MVTec_AD_Toothbrush_Sm_best_pipeline(params, dataset_path=None):
             "<l>            union2(Rectangles, Rectangle, Rectangles)</l>\n"
             "<l>        endfor</l>\n"
             "<l>        Region := Rectangles</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Toothbrush_Sm_best_pipeline_initial_params = [

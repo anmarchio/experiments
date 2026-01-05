@@ -15,8 +15,8 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline(params, dataset_path
     if dataset_path is None:
         dataset_path = "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole/training/images"
 
-        # Parameters
-        param_lines = "<l>        MinRatio := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MinRatio := " + str(params[0]) + "</l>\n" + \
                       "<l>        MaskHeight := " + str(params[1]) + "</l>\n" + \
                       "<l>        MaskWidth := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
@@ -25,8 +25,8 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline(params, dataset_path
                       "<l>        GrayValueMax := " + str(params[5]) + "</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* CropRectangle (center crop)</c>\n"
             "<l>        get_image_size(Image, Width, Height)</l>\n"
             "<l>        Row1 := Height/2 - MaskHeight/2</l>\n"
@@ -41,7 +41,7 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline(params, dataset_path
             "<l>        gray_closing(ImageCrop, SE, Region)</l>\n"
         )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline_initial_params = [

@@ -16,8 +16,8 @@ def get_MVTec_AD_Cable_Missing_best_pipeline(params, dataset_path=None):
         # Default dataset path for MVTec AD Cable Missing
         dataset_path = "/MVTecAnomalyDetection/cable_missing_train/images"
 
-        # Parameters
-        param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
                       "<l>        Radius := " + str(params[1]) + "</l>\n" + \
                       "<l>        Margin := '" + str(params[2]) + "'</l>\n" + \
                       "<c></c>\n" + \
@@ -33,8 +33,8 @@ def get_MVTec_AD_Cable_Missing_best_pipeline(params, dataset_path=None):
                       "<l>        C := 0.392699</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<l>        median_image(Image, ImageMedian, MaskType, Radius, Margin)</l>\n"
             "<l>        binary_threshold(ImageMedian, RegionBinary, Method, LightDark)</l>\n"
             "<l>        select_shape(RegionBinary, RegionSelected, Features, 'and', Min, Max)</l>\n"
@@ -43,7 +43,7 @@ def get_MVTec_AD_Cable_Missing_best_pipeline(params, dataset_path=None):
             "<l>        connection(RegionClosed, Region, Neighborhood)</l>\n"
         )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Cable_Missing_best_pipeline_initial_params = [

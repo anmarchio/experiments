@@ -16,8 +16,8 @@ def get_MVTec_AD_Grid_Thread_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/grid_thread_train/images"
 
-        # Parameters
-        param_lines = "<l>        MaskHeightBinomial := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MaskHeightBinomial := " + str(params[0]) + "</l>\n" + \
                       "<l>        MaskWidthBinomial := " + str(params[1]) + "</l>\n" + \
                       "<c></c>\n" + \
                       "<l>        MinRatio := " + str(params[2]) + "</l>\n" + \
@@ -25,8 +25,8 @@ def get_MVTec_AD_Grid_Thread_best_pipeline(params, dataset_path=None):
                       "<l>        MaskWidthCrop := " + str(params[4]) + "</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<l>        binomial_filter(Image, ImageBinomial, MaskWidthBinomial, MaskHeightBinomial)</l>\n"
             "<c></c>\n"
             "<c>        * CropRectangle (Relative Threshold)</c>\n"
@@ -66,9 +66,9 @@ def get_MVTec_AD_Grid_Thread_best_pipeline(params, dataset_path=None):
             "<l>            endfor</l>\n"
             "<l>        endfor</l>\n"
             "<l>        Region := RelativeRegion</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 MVTec_AD_Grid_Thread_best_pipeline_initial_params = [
     27,  # MaskHeightBinomial

@@ -15,8 +15,8 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline(params, dataset_
     if dataset_path is None:
         dataset_path = "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images"
 
-        # Parameters
-        param_lines = "<l>        Channel := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        Channel := " + str(params[0]) + "</l>\n" + \
                       "<l>        Threshold := " + str(params[1]) + "</l>\n" + \
                       "<l>        Sign := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
@@ -25,8 +25,8 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline(params, dataset_
                       "<l>        GrayValueMax := " + str(params[5]) + "</l>\n" + \
                       "<c></c>\n"
 
-        # Core Pipeline
-        core_code = (
+    # Core Pipeline
+    core_code = (
             "<c>* ThresholdAccessChannel</c>\n"
             "<l>        abs_image(Image, ImageB)</l>\n"
             "<l>        count_channels(ImageB, NumChannels)</l>\n"
@@ -43,7 +43,7 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline(params, dataset_
             "<l>        gray_closing(RegionB, SE, Region)</l>\n"
         )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline_initial_params = [

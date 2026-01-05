@@ -15,8 +15,8 @@ def get_MAIPreform2_Spule0_0816_Upside_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MAIPreform2.0/20170502_Compositence/Spule2-0816_Upside/undone/durchlauf1/training/images"
 
-        # Parameters
-        param_lines = "<l>        Sigma := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        Sigma := " + str(params[0]) + "</l>\n" + \
                       "<l>        Rho := " + str(params[1]) + "</l>\n" + \
                       "<l>        Theta := " + str(params[2]) + "</l>\n" + \
                       "<l>        Iterations := " + str(params[3]) + "</l>\n" + \
@@ -26,8 +26,8 @@ def get_MAIPreform2_Spule0_0816_Upside_best_pipeline(params, dataset_path=None):
                       "<l>        MaskWidth := " + str(params[6]) + "</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline (updated with corrected HDevelop code)
-        core_code = (
+    # Core pipeline (updated with corrected HDevelop code)
+    core_code = (
             "<c>* Coherence Enhancing Diffusion</c>\n"
             "<l>        coherence_enhancing_diff(Image, Image, Sigma, Rho, Theta, Iterations)</l>\n"
             "<c></c>\n"
@@ -86,7 +86,7 @@ def get_MAIPreform2_Spule0_0816_Upside_best_pipeline(params, dataset_path=None):
             "<l>        Region := RelativeRegion</l>\n"
         )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MAIPreform2_Spule0_0816_Upside_best_pipeline_initial_params = [

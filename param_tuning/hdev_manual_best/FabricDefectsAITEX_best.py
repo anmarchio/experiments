@@ -15,8 +15,8 @@ def get_FabricDefectsAITEX_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/FabricDefectsAITEX/train/images"
 
-        # Parameters
-        param_lines = "<l>        MaskWidthEMM := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MaskWidthEMM := " + str(params[0]) + "</l>\n" + \
                       "<l>        MaskHeightEMM := " + str(params[1]) + "</l>\n" + \
                       "<l>        Gap := " + str(params[2]) + "</l>\n" + \
                       "<l>        Mode := " + str(params[3]) + "</l>\n" + \
@@ -27,11 +27,11 @@ def get_FabricDefectsAITEX_best_pipeline(params, dataset_path=None):
                       "<l>        LightDark := '" + str(params[8]) + "'</l>\n" + \
                       "<c></c>\n"
 
-        # Core Pipeline Code
-        core_code = "<l>        eliminate_min_max(Image, ReducedImage, MaskWidthEMM, MaskHeightEMM, Gap, Mode)</l>\n" \
+    # Core Pipeline Code
+    core_code = "<l>        eliminate_min_max(Image, ReducedImage, MaskWidthEMM, MaskHeightEMM, Gap, Mode)</l>\n" \
                     "<l>        var_threshold(ReducedImage, Region, MaskWidthVT, MaskHeightVT, StdDevScale, AbsThreshold, LightDark)</l>\n"
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 FabricDefectsAITEX_best_pipeline_initial_params = [

@@ -40,7 +40,7 @@ KollektorSSD_best_pipeline_initial_params = [
     0.4,  # Sigma
     2,  # Rho
     0.3,  # Theta
-    230,  # Iterations
+    23,  # Iterations 230
     'adapted_std_deviation',  # Method
     'dark',  # LightDark
     31,  # MaskSize

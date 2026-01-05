@@ -15,21 +15,21 @@ def get_MVTec_AD_Bottle_Broken_Lg_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/bottle_broken_large_train/images"
 
-        # Parameters
-        param_lines = "<l>        MaskWidth := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MaskWidth := " + str(params[0]) + "</l>\n" + \
                       "<l>        MaskHeight := " + str(params[1]) + "</l>\n" + \
                       "<c></c>\n" + \
                       "<l>        Method := '" + str(params[2]) + "'</l>\n" + \
                       "<l>        LightDark := '" + str(params[3]) + "'</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<l>        mean_image(Image, ImageMean, MaskWidth, MaskHeight)</l>\n"
             "<l>        binary_threshold(ImageMean, Region, Method, LightDark, UsedThreshold)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Bottle_Broken_Lg_best_pipeline_initial_params = [

@@ -16,8 +16,8 @@ def get_Pultrusion_Resin_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/Pultrusion/resin_cgp/train/images"
 
-        # Parameters
-        param_lines = (
+    # Parameters
+    param_lines = (
                 "<l>        FilterType := '" + str(params[0]) + "'</l>\n"
                                                                 "<l>        MaskSize := " + str(params[1]) + "</l>\n"
                                                                                                              "<c></c>\n"
@@ -34,10 +34,10 @@ def get_Pultrusion_Resin_best_pipeline(params, dataset_path=None):
                                                                                                              "<l>        B := " + str(
             params[8]) + "</l>\n"
                          "<c></c>\n"
-        )
+    )
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* Branch 1: SobelAmp -> ZeroCrossing -> SelectShape</c>\n"
             "<l>        sobel_amp(Image, ImageAmp, FilterType, MaskSize)</l>\n"
             "<l>        zero_crossing(ImageAmp, RegionZero)</l>\n"
@@ -62,9 +62,9 @@ def get_Pultrusion_Resin_best_pipeline(params, dataset_path=None):
             "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n"
             "<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n"
             "<l>        opening(RegionUnion, StructElement, Region)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 Pultrusion_Resin_best_pipeline_initial_params = [

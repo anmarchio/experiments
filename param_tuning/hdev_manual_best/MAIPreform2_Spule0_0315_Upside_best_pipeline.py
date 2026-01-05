@@ -15,8 +15,8 @@ def get_MAIPreform2_Spule0_0315_Upside_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone/training/images"
 
-        # Parameters
-        param_lines = "<l>        A1 := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        A1 := " + str(params[0]) + "</l>\n" + \
                       "<l>        B1 := " + str(params[1]) + "</l>\n" + \
                       "<l>        GrayValueMax1 := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
@@ -31,8 +31,8 @@ def get_MAIPreform2_Spule0_0315_Upside_best_pipeline(params, dataset_path=None):
                       "<l>        B3 := " + str(params[9]) + "</l>\n" + \
                       "<c></c>\n"
 
-        # Core Pipeline
-        core_code = "<c>* Branch 1: GrayClosing -> Threshold</c>\n" \
+    # Core Pipeline
+    core_code = "<c>* Branch 1: GrayClosing -> Threshold</c>\n" \
                     "<l>        get_image_type(Image, Type1)</l>\n" \
                     "<l>        gen_disc_se(SE1, Type1, A1, B1, GrayValueMax1)</l>\n" \
                     "<l>        gray_closing(Image, SE1, ImageClosing)</l>\n" \
@@ -50,7 +50,7 @@ def get_MAIPreform2_Spule0_0315_Upside_best_pipeline(params, dataset_path=None):
                     "<c>* Opening</c>\n" \
                     "<l>        opening_rectangle1(Region, Region, A3, B3)</l>\n"
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 # Initial Parameters

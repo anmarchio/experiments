@@ -15,8 +15,8 @@ def get_MVTec_AD_Capsule_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/capsule_crack_train/images"
 
-        # Parameters
-        param_lines = "<l>        Filter := '" + str(params[0]) + "'</l>\n" + \
+    # Parameters
+    param_lines = "<l>        Filter := '" + str(params[0]) + "'</l>\n" + \
                       "<l>        Alpha := " + str(params[1]) + "</l>\n" + \
                       "<l>        Low := " + str(params[2]) + "</l>\n" + \
                       "<l>        High := " + str(params[3]) + "</l>\n" + \
@@ -36,8 +36,8 @@ def get_MVTec_AD_Capsule_best_pipeline(params, dataset_path=None):
                       "<l>        C := 0.392699</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<l>        edges_image(Image, ImageEdges, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>\n"
             "<l>        sobel_amp(ImageEdges, ImageAmp, FilterType, MaskSize)</l>\n"
             "<c>        * VarThreshold</c>\n"
@@ -48,9 +48,9 @@ def get_MVTec_AD_Capsule_best_pipeline(params, dataset_path=None):
             "<l>        tuple_ceil(A + 1, shape_param0_ceil)</l>\n"
             "<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)</l>\n"
             "<l>        closing(Region, StructElement, Region)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Capsule_best_pipeline_initial_params = [

@@ -16,8 +16,8 @@ def get_MVTec_AD_Metal_Nut_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/metal_nut_color_train/images"
 
-        # Parameters
-        param_lines = "<l>        A1 := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        A1 := " + str(params[0]) + "</l>\n" + \
                       "<l>        B1 := " + str(params[1]) + "</l>\n" + \
                       "<l>        GrayValueMax := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
@@ -30,8 +30,8 @@ def get_MVTec_AD_Metal_Nut_best_pipeline(params, dataset_path=None):
                       "<l>        C := 1.178097</l>" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* GrayDilation</c>\n"
             "<l>        get_image_type(Image, Type)</l>\n"
             "<l>        gen_disc_se(SE1, Type, A1, B1, GrayValueMax)</l>\n"
@@ -78,9 +78,9 @@ def get_MVTec_AD_Metal_Nut_best_pipeline(params, dataset_path=None):
             "<c>        * Closing</c>\n"
             "<l>        gen_rectangle2(RectangleStructElement, 0, 0, C, A2, B2)</l>\n"
             "<l>        closing(RegionCrop, RectangleStructElement, Region)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Metal_Nut_best_pipeline_initial_params = [

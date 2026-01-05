@@ -15,8 +15,8 @@ def get_MVTec_AD_Bottle_Broken_Sm_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/bottle_broken_small_train/images"
 
-        # Parameters
-        param_lines = "<l>        MinGray := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MinGray := " + str(params[0]) + "</l>\n" + \
                       "<l>        MaxGray := " + str(params[1]) + "</l>\n" + \
                       "<c></c>\n" + \
                       "<l>        FilterType := '" + str(params[2]) + "'</l>\n" + \
@@ -27,8 +27,8 @@ def get_MVTec_AD_Bottle_Broken_Sm_best_pipeline(params, dataset_path=None):
                       "<l>        B := " + str(params[6]) + "</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* CropSmallestRectangle</c>\n"
             "<l>        threshold(Image, RegionRect, MinGray, MaxGray)</l>\n"
             "<l>        smallest_rectangle1(RegionRect, Row1, Column1, Row2, Column2)</l>\n"
@@ -54,9 +54,9 @@ def get_MVTec_AD_Bottle_Broken_Sm_best_pipeline(params, dataset_path=None):
             "<l>        dilation1(RegionZero, SE, RegionDilation, Iterations)</l>\n"
             "<c></c>\n"
             "<l>        union1(RegionDilation, Region)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Bottle_Broken_Sm_best_pipeline_initial_params = [

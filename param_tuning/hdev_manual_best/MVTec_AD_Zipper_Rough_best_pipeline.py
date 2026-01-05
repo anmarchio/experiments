@@ -15,8 +15,8 @@ def get_MVTec_AD_Zipper_Rough_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/zipper_rough_train/images"
 
-        # Parameters
-        param_lines = (
+    # Parameters
+    param_lines = (
                 "<l>        FilterType := '" + str(params[0]) + "'</l>\n" + \
                 "<l>        MaskSize := " + str(params[1]) + "</l>\n"
                 "<c></c>\n"
@@ -25,10 +25,10 @@ def get_MVTec_AD_Zipper_Rough_best_pipeline(params, dataset_path=None):
                         "<l>        B := " + str(params[3]) + "</l>\n"
                         "<l>        C := 0.785398</l>\n"                                                               
                         "<c></c>\n"
-                )
+        )
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* KirschAmp</c>\n"
             "<l>        kirsch_amp(Image, ImageKirsch)</l>\n"
             "<c></c>\n"
@@ -51,9 +51,9 @@ def get_MVTec_AD_Zipper_Rough_best_pipeline(params, dataset_path=None):
             "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n"
             "<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n"
             "<l>        closing(RegionZero, StructElement, Region)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Zipper_Rough_best_pipeline_initial_params = [

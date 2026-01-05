@@ -15,8 +15,8 @@ def get_MT_Blowhole_train_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/Magnetic-Tile-Defect/MT_Blowhole_train/images"
 
-        # Parameters
-        param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
                       "<l>        Radius := " + str(params[1]) + "</l>\n" + \
                       "<l>        Margin := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
@@ -26,13 +26,13 @@ def get_MT_Blowhole_train_best_pipeline(params, dataset_path=None):
                       "<l>        Scale := " + str(params[6]) + "</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<l>        median_image(Image, ImageMedian, MaskType, Radius, Margin)</l>\n"
             "<l>        local_threshold(ImageMedian, Region, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MT_Blowhole_train_best_pipeline_initial_params = [

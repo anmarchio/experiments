@@ -16,8 +16,8 @@ def get_Pultrusion_Window_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/Pultrusion/window_cgp/train/images"
 
-        # Parameters
-        param_lines = (
+    # Parameters
+    param_lines = (
                 "<l>        MinGray := " + str(params[0]) + "</l>\n"
                                                             "<l>        MaxGray := " + str(params[1]) + "</l>\n"
                                                                                                         "<c></c>\n"
@@ -31,10 +31,10 @@ def get_Pultrusion_Window_best_pipeline(params, dataset_path=None):
                                                                         "<l>        MaskWidth := " + str(
             params[6]) + "</l>\n"
                          "<c></c>\n"
-        )
+    )
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* CropSmallestRectangle</c>\n"
             "<l>        threshold(Image, Region, MinGray, MaxGray)</l>\n"
             "<l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>\n"
@@ -119,9 +119,9 @@ def get_Pultrusion_Window_best_pipeline(params, dataset_path=None):
             "<l>        area_center(Region, Area, Row, Column)</l>\n"
             "<l>        gen_rectangle1(RectangleRegion, Row - Area/2, Column - Area/2, Row + Area/2, Column + Area/2)</l>\n"
             "<l>        union2(Region, RectangleRegion, Region)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 Pultrusion_Window_best_pipeline_initial_params = [
     21,  # MinGray

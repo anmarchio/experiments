@@ -16,8 +16,8 @@ def get_CF_ReferenceSet_Small_Light_best_pipeline(params, dataset_path=None):
         # Default dataset path for CF_ReferenceSet_Small_Light
         dataset_path = "/Aircarbon2/CF_ReferenceSet_Small_Light/images"
 
-        # Parameters
-        param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
+    # Parameters
+    param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
                       "<l>        MaskSizeMedian := " + str(params[1]) + "</l>\n" + \
                       "<l>        FilterType := '" + str(params[2]) + "'</l>\n" + \
                       "<l>        MaskSizeSobel := " + str(params[3]) + "</l>\n" + \
@@ -30,8 +30,8 @@ def get_CF_ReferenceSet_Small_Light_best_pipeline(params, dataset_path=None):
                       "<l>        C := 0.785398</l>\n" + \
                       "<c></c>\n"
 
-        # Core Pipeline Code
-        core_code = "<l>        median_weighted(Image, ImageMedian, MaskType, MaskSizeMedian)</l>\n" \
+    # Core Pipeline Code
+    core_code = "<l>        median_weighted(Image, ImageMedian, MaskType, MaskSizeMedian)</l>\n" \
                     "<l>        sobel_amp(ImageMedian, ImageSobel, FilterType, MaskSizeSobel)</l>\n" \
                     "<l>        local_threshold(ImageSobel, Region, Method, LightDark, MaskSizeThresh, Scale)</l>\n" \
                     "<c>* Closing</c>" \
@@ -39,7 +39,7 @@ def get_CF_ReferenceSet_Small_Light_best_pipeline(params, dataset_path=None):
                     "<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)</l>\n" \
                     "<l>        closing(Region, StructElement, Region)</l>\n\n"
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 CF_ReferenceSet_Small_Light_best_pipeline_initial_params = [

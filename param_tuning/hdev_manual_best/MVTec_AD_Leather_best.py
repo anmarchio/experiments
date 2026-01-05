@@ -15,8 +15,8 @@ def get_MVTec_AD_Leather_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/leather_train/images"
 
-        # Parameters
-        param_lines = "<l>        A := " + str(params[0]) + "</l>\n" + \
+    # Parameters
+    param_lines = "<l>        A := " + str(params[0]) + "</l>\n" + \
                       "<l>        B := " + str(params[1]) + "</l>\n" + \
                       "<l>        GrayValueMax := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
@@ -26,8 +26,8 @@ def get_MVTec_AD_Leather_best_pipeline(params, dataset_path=None):
                       "<l>        Scale := " + str(params[6]) + "</l>\n" + \
                       "<c></c>\n"
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* GrayErosion</c>\n"
             "<l>        get_image_type(Image, Type)</l>\n"
             "<l>        gen_disc_se(SE, Type, A, B, GrayValueMax)</l>\n"
@@ -40,9 +40,9 @@ def get_MVTec_AD_Leather_best_pipeline(params, dataset_path=None):
             "<l>        area_center(RegionThresh, Area, Row, Column)</l>\n"
             "<l>        gen_rectangle1(RectangleRegion, Row - Area/2, Column - Area/2, Row + Area/2, Column + Area/2)</l>\n"
             "<l>        union2(RegionThresh, RectangleRegion, Region)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MVTec_AD_Leather_best_pipeline_initial_params = [

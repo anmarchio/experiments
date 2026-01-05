@@ -15,8 +15,8 @@ def get_severstal_steel_best_pipeline(params, dataset_path=None):
     if dataset_path is None:
         dataset_path = "/severstal-steel/train_cgp/images"
 
-        # Parameters
-        param_lines = (
+    # Parameters
+    param_lines = (
                 "<l>        Filter := '" + str(params[0]) + "'</l>\n"
                                                             "<l>        Alpha := " + str(params[1]) + "</l>\n"
                                                                                                       "<l>        Low := " + str(
@@ -33,10 +33,10 @@ def get_severstal_steel_best_pipeline(params, dataset_path=None):
                          "<l>        A := " + str(params[8]) + "</l>\n"
                                                                "<l>        B := " + str(params[9]) + "</l>\n"
                                                                                                      "<c></c>\n"
-        )
+    )
 
-        # Core pipeline
-        core_code = (
+    # Core pipeline
+    core_code = (
             "<c>* EdgesImage</c>\n"
             "<l>        edges_image(Image, ImageEdges, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>\n"
             "<c></c>\n"
@@ -56,9 +56,9 @@ def get_severstal_steel_best_pipeline(params, dataset_path=None):
             "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n"
             "<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n"
             "<l>        dilation1(RegionThresh, StructElement, Region, Iterations)</l>\n"
-        )
+    )
 
-        return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 severstal_steel_best_pipeline_initial_params = [

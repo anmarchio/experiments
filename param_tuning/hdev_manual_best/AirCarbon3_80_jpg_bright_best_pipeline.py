@@ -53,7 +53,7 @@ AirCarbon3_80_jpg_bright_best_pipeline_initial_params = [
     0.1,
     2,
     0.1,
-    328,
+    10, # 328
     'y_binomial',
     7,
     'adapted_std_deviation',
