@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'AirCarbon2_t_8.jpg'</l>
-<l>source_path := 'H:/evias_expmts/Aircarbon2/Blende5_6_1800mA_rov/training/t_8.jpg/images'</l>
-<l>labels_path := 'H:/evias_expmts/Aircarbon2/Blende5_6_1800mA_rov/training/t_8.jpg/labels'</l>
+<l>source_path := 'I:/evias_expmts/Aircarbon2/Blende5_6_1800mA_rov/training/t_8.jpg/images'</l>
+<l>labels_path := 'I:/evias_expmts/Aircarbon2/Blende5_6_1800mA_rov/training/t_8.jpg/labels'</l>
 <l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>

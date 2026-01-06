@@ -5,7 +5,7 @@ AirCarbon3_80.jpg_dark_4_mean_pipeline
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, scale_to_gray
 from settings import EVIAS_SRC_PATH
 
 
@@ -27,7 +27,15 @@ def get_AirCarbon3_80_jpg_dark_4_mean_pipeline(params, dataset_path=None):
                                                              "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<l>        eliminate_min_max(Image, Image, MaskWidth, MaskHeight, Gap, Mode)</l>\n" \
+    core_code = "<l>        eliminate_min_max(Image, Image, MaskWidth, MaskHeight, Gap, Mode)</l>\n" + \
+                "<c></c>\n" + \
+                "<l>        get_image_type(Image, Type)</l>\n" + \
+                "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" + \
+                scale_to_gray() + \
+                "<l>            convert_image_type(ImageScaled, Image, 'byte')</l>\n" + \
+                "<l>        endif</l>\n" + \
+                "<c></c>\n" + \
+                "<l>        tuple_max2(MinGray + MaxGrayOffset, 255, MaxGrayOffset)</l>\n" + \
                 "<l>        fast_threshold(Image, Region, MinGray, MaxGrayOffset, MinSize)</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

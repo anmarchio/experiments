@@ -25,7 +25,8 @@ def get_MVTec_AD_Bottle_Broken_Lg_mean_pipeline(params, dataset_path=None):
 
     # Core Pipeline Code
     core_code = "<c>        * SmoothImage</c>\n" \
-                "<l>        smooth_image(Image, ImageSmooth, 'deriche2', 0.5)</l>\n" + get_crop_rectangle_code()
+                "<l>        smooth_image(Image, ImageSmooth, 'deriche2', 0.5)</l>\n" + \
+                get_crop_rectangle_code()
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

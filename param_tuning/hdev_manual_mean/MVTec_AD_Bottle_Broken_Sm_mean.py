@@ -5,7 +5,8 @@ MVTec_AD_Bottle_Broken_Sm_mean_pipeline
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, get_ellipse_struct_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, get_ellipse_struct_code, \
+    scale_to_gray
 from settings import EVIAS_SRC_PATH
 
 
@@ -30,6 +31,14 @@ def get_MVTec_AD_Bottle_Broken_Sm_mean_pipeline(params, dataset_path=None):
                 "<l>        roberts(Image, Image, FilterType)</l>\n" + \
                 "<c></c>\n" + \
                 "<c>        * FastThreshold</c>\n" + \
+                "<c></c>\n" + \
+                "<l>        get_image_type(Image, Type)</l>\n" + \
+                "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" + \
+                scale_to_gray() + \
+                "<l>            convert_image_type(ImageScaled, Image, 'byte')</l>\n" + \
+                "<l>        endif</l>\n" + \
+                "<c></c>\n" + \
+                "<l>        tuple_max2(MinGray + MaxGrayOffset, 255, MaxGrayOffset)</l>\n" + \
                 "<l>        fast_threshold(Image, Region, MinGray, MaxGrayOffset, MinSize)</l>\n" + \
                 "<c></c>\n" + \
                 "<l>        * Closing</l>\n"

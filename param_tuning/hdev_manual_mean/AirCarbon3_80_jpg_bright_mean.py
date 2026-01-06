@@ -31,10 +31,12 @@ def get_AirCarbon3_80_jpg_bright_mean_pipeline(params, dataset_path=None):
                 "<c></c>\n" \
                 "<l>        access_channel(ImageAmp, ImageAmp, 1)</l>\n" + \
                 "<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>\n" + \
+                "<c></c>\n" \
                 "<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], " \
                 "[MaskSizeLT, Scale])</l>\n" + \
                 "<c></c>\n" \
-                "<l>        connection(Region, Region)</l>\n"
+                "<l>        connection(Region, Region)</l>\n" \
+                "<l>        union1(Region, Region)</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
@@ -44,7 +46,7 @@ AirCarbon3_80_jpg_bright_mean_pipeline_initial_params = [
     'y',
     5,
     'adapted_std_deviation',
-    'dark',
+    'light',
     15,
     0.2
 ]

@@ -5,7 +5,7 @@ CF_ReferenceSet_Small_Dark_mean_pipeline.py
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, scale_to_gray
 from settings import EVIAS_SRC_PATH
 
 
@@ -23,8 +23,12 @@ def get_CF_ReferenceSet_Small_Dark_mean_pipeline(params, dataset_path=None):
 
     # Core Pipeline Code
     core_code = "<l>        bandpass_image(Image, Image, FilterType1)</l>\n" \
+                "<c>        </c>\n" \
+                "<l>        convert_image_type(Image, Image, 'byte')</l>\n" \
                 "<l>        sobel_amp(Image, Image, FilterType2, MaskSize)</l>\n" \
-                "<l>        zero_crossing(Image, Region)</l>\n"
+                "<c>        </c>\n" + \
+                scale_to_gray() + \
+                "<l>        zero_crossing(ScaledImage, Region)</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

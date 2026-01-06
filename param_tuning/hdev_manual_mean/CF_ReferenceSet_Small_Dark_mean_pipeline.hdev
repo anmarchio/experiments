@@ -4,22 +4,20 @@
 <interface/>
 <body>
 <l>dataset_name := 'CF_ReferenceSet_Small_Dark_mean_pipeline'</l>
-<l>source_path := 'C:/evias_expmts/Aircarbon2/CF_ReferenceSet_Small_Dark/images'</l>
-<l>output_path := dataset_name + '/'</l>
+<l>source_path := 'I:/evias_expmts/Aircarbon2/CF_ReferenceSet_Small_Dark/images'</l>
+<l>labels_path := 'I:/evias_expmts/Aircarbon2/CF_ReferenceSet_Small_Dark/labels'</l>
+<l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual/' + dataset_name + '/'</l>
 <c></c>
+<l>dev_update_on()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
+<l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
 <c></c>
-<l>for Index := 0 to |ImageFiles| - 1 by 1</l>
-<l>    file_exists(output_path, dir_exists)</l>
-<l>    if(dir_exists == 0)</l>
-<l>        make_dir(output_path)</l>
-<l>    endif</l>
-<l>    out_img_path := output_path + Index + '.png'</l>
-<l>    file_exists(out_img_path, exists)</l>
-<l>    if(exists)</l>
-<l>        delete_file(out_img_path)</l>
-<l>    endif</l>
+<l>TotalMCC := 0.0</l>
+<c></c>
+<l>for Index := 1 to |ImageFiles| - 1 by 1</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
+<l>    read_image(Label, LabelFiles[Index])</l>
+<c>    </c>
 <l>    get_image_size(Image, Width, Height)</l>
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
@@ -32,9 +30,23 @@
 <c>        </c>
 <l>        bandpass_image(Image, Image, FilterType1)</l>
 <c>        </c>
-<l>        sobel_amp(Image, Image, FilterType2, MaskSize)</l>
+<l>        convert_image_type(Image, Image, 'byte')</l>
+<l>        sobel_amp(Image, ImageAmp, FilterType2, MaskSize)</l>
 <c>    </c>
-<l>        zero_crossing(Image, Region)</l>
+<c>        * ZeroCrossing</c>
+<l>        min_max_gray (ImageAmp, ImageAmp, 0, Min, Max, Range)</l>
+<l>        if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
+<l>            if ((Max - Min) &gt; 0)</l>
+<l>                Mult := 255.0 / (Max - Min)</l>
+<l>            else</l>
+<l>                Mult := 255.0</l>
+<l>            endif</l>
+<l>            Add := -Mult * Min</l>
+<l>            scale_image (ImageAmp, ImageAmp, Mult, Add)</l>
+<l>        else</l>
+<l>            scale_image (ImageAmp, ImageAmp, 1, 0)</l>
+<l>        endif</l>
+<l>        zero_crossing(ImageAmp, Region)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -43,9 +55,76 @@
 <c>    * --------------</c>
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
 <l>    paint_region(Region, ImageResult, ImageResult, 255, 'margin')</l>
-<l>    out_img_path := output_path + Index</l>
-<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>    out_img_path := out_path + Index</l>
+<l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
+<c>     </c>
+<l>    binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</l>
+<c>    </c>
+<c>    * -- Compute MCC between predicted region and GT region for one image</c>
+<c>    * mcc_region := procedure (PredRegion, GTRegion, Width, Height : MCC :) </c>
+<c>    </c>
+<c>    * Intersection (TP)</c>
+<l>    intersection (Region, LabelRegion, R_tp)</l>
+<l>    union1(R_tp, R_tp)</l>
+<l>    area_center (R_tp, TP, Row, Col)</l>
+<c>    </c>
+<c>    * FP = Pred minus GT</c>
+<l>    difference (Region, LabelRegion, R_fp)</l>
+<l>    union1(R_fp, R_fp)</l>
+<l>    area_center (R_fp, FP, Row, Col)</l>
+<c>    </c>
+<c>    * FN = GT minus Pred</c>
+<l>    difference (LabelRegion, Region, R_fn)</l>
+<l>    union1(R_fn, R_fn)</l>
+<l>    area_center (R_fn, FN, Row, Col)</l>
+<c>    </c>
+<c>    * TN = total - (TP+FP+FN)</c>
+<l>    Total := Width * Height</l>
+<l>    TN := max2(0, Total - (TP + FP + FN))</l>
+<c>    </c>
+<l>    tuple_add(TP, FP, TP_plus_FP)</l>
+<l>    tuple_add(TP, FN, TP_plus_FN)</l>
+<l>    tuple_add(TN, FP, TN_plus_FP)</l>
+<l>    tuple_add(TN, FN, TN_plus_FN)</l>
+<c>    </c>
+<l>    tuple_real(TN_plus_FN, TN_plus_FN)</l>
+<l>    tuple_real(TP_plus_FN, TP_plus_FN)</l>
+<l>    tuple_real(TN_plus_FP, TN_plus_FP)</l>
+<l>    tuple_real(TN_plus_FN, TN_plus_FN)</l>
+<c>    </c>
+<l>    tuple_mult(TP_plus_FP, TP_plus_FN, Prod)</l>
+<l>    tuple_mult(Prod, TN_plus_FP, Prod)</l>
+<l>    tuple_mult(Prod, TN_plus_FN, Prod)</l>
+<l>*    Den := sqrt((TP+FP) * (TP+FN) * (TN+FP) * (TN+FN))</l>
+<c>    </c>
+<l>    tuple_sqrt(Prod, Den)</l>
+<c>    </c>
+<l>    ImageMCC := 0.0</l>
+<l>    if (Den &lt;= 0)</l>
+<l>        ImageMCC := 0.0</l>
+<l>    else</l>
+<l>        *MCC := ((TP * TN) - (FP * FN)) / Den</l>
+<l>        tuple_mult(TP, TN, TP_mult_TN)</l>
+<l>        tuple_mult(FP, FN, FP_mult_FN)</l>
+<c>            </c>
+<l>        numerator := TP_mult_TN - FP_mult_FN</l>
+<l>        if(Den &gt; 0.0)</l>
+<l>            ImageMCC := ImageMCC + (numerator / Den)</l>
+<l>        endif</l>
+<l>        ImageMCC := ImageMCC / |TP_mult_TN|</l>
+<l>    endif</l>
+<c></c>
+<l>    TotalMCC := TotalMCC + ImageMCC</l>
+<l>    dev_display(Region)</l>
+<l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
+<l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
+<l>    *stop()</l>
 <l>endfor</l>
+<c></c>
+<l>MCC := TotalMCC / |ImageFiles|</l>
+<l>wait_seconds(0.5)</l>
+<l>dev_disp_text(MCC, 'window', 30, 10, 'black', [], [])</l>
+<c></c>
 <l>*exit()</l>
 </body>
 <docu id="main">

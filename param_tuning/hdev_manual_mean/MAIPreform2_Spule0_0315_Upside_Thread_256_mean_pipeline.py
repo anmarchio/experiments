@@ -26,7 +26,7 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline(params, dataset_
 
     # Core Pipeline Code
     core_code = "<c>        * Anisotrophic Diffusion</c>\n" \
-                "<l>        anisotropic_diffusion(Image, Image, 'weickert', 5, 1, 10)</l>\n" \
+                "<l>        anisotropic_diffusion(Image, Image, DiffusionCoefficient, Contrast, Theta, Iterations)</l>\n" \
                 "<c>        </c>\n" \
                 "<c>        * ThresholdAccessChannel</c>\n" \
                 "<c>        </c>\n" \
@@ -50,7 +50,7 @@ MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_initial_params = [
     1,
     100,
     1,
-    4
+    9
 ]
 
 MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_bounds = [

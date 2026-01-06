@@ -5,7 +5,7 @@ CF_ReferenceSet_Small_Light_mean_pipeline.py
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, get_var_threshold_code
 from settings import EVIAS_SRC_PATH
 
 
@@ -25,7 +25,7 @@ def get_CF_ReferenceSet_Small_Light_mean_pipeline(params, dataset_path=None):
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<l>        var_threshold(Image, Region, MaskWidth, MaskHeight, StdDevScale, AbsThreshold, LightDark)</l>\n"
+    core_code = get_var_threshold_code()
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

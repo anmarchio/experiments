@@ -24,6 +24,25 @@ def get_AirCarbon3_80_jpg_dark_2_mean_pipeline(params, dataset_path=None):
 
     # Core Pipeline Code
     core_code = "<l>        roberts(Image, ImageRoberts, FilterType)</l>\n" \
+                "<c>        </c>\n" \
+                "<l>        get_image_type(ImageRoberts, Type)</l>\n" \
+                "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" \
+                "<c>            * Scale To Gray</c>\n" \
+                "<l>            gen_empty_obj(ScaledImage)</l>\n" \
+                "<l>            min_max_gray(ImageOpening, ImageOpening, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>\n" \
+                "<l>            if(MaxGrayVal &lt;= 255 and MinGrayVal &gt;= 0)</l>\n" \
+                "<l>                copy_image(ImageOpening, ImageScaled)</l>\n" \
+                "<l>            else</l>\n" \
+                "<l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>\n" \
+                "<l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>\n" \
+                "<l>                else</l>\n" \
+                "<l>                    Mult := 255.0                </l>\n" \
+                "<l>                endif</l>\n" \
+                "<l>                Add := - Mult * MinGrayVal</l>\n" \
+                "<l>                scale_image(ImageOpening, ImageScaled, Mult, Add)</l>\n" \
+                "<l>            endif                </l>\n" \
+                "<l>            convert_image_type(ImageScaled, ImageRoberts, 'byte')</l>\n" \
+                "<l>        endif                </l>\n" \
                 "<l>        threshold(Image, Region, Min, Max)</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

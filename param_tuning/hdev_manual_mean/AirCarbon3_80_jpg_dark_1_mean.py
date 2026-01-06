@@ -32,7 +32,7 @@ def get_AirCarbon3_80_jpg_dark_1_mean_pipeline(params, dataset_path=None):
 
 AirCarbon3_80_jpg_dark_1_mean_pipeline_initial_params = [
     'adapted_std_deviation',
-    'dark',
+    'light',
     15,
     0.2
 ]

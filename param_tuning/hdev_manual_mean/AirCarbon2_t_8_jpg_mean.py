@@ -42,7 +42,7 @@ AirCarbon2_t_8_jpg_mean_pipeline_initial_params = [
     3,
     29,
     9,
-    0.9000002,
+    0.900002,
     11,
     'light'
 ]
