@@ -41,6 +41,7 @@ def get_MVTec_AD_Transistor_mean_pipeline(params, dataset_path = None):
                  "<c>        * -------</c>\n" + \
                  "<c>        * RegionGrowing</c>\n" + \
                  "<l>        regiongrowing(Image, Region2, RasterHeight, RasterWidth, Tolerance, MinRegionSize)</l>\n" + \
+                 "<l>        connection(Region2, Region2)</l>\n" + \
                  "<c></c>\n" + \
                  "<c>        * Union2 (Path 1 > Path 2)</c>\n" + \
                  "<l>        union1(Region2, Region2)</l>\n" + \

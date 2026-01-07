@@ -73,6 +73,7 @@
 <c>        </c>
 <c>        * CloseEdges</c>
 <c>        * 54 [label="CloseEdges\nMinAmplitude=79"];</c>
+<l>        convert_image_type(Image1, Image1, 'byte')</l>
 <l>        close_edges(Region2, Image1, Region, MinAmplitude)</l>
 <c>        </c>
 <c>        * Closing</c>

@@ -26,17 +26,36 @@ def get_MVTec_AD_Leather_mean_pipeline(params, dataset_path=None):
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<c>        * GrayClosing</c>\n" \
+    core_code = "<c>        * Path 1</c>\n" \
+                "<c>        * SobalAmp</c>\n" \
                 "<l>        get_image_type(Image, Type)</l>\n" + \
-                "<l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>\n" + \
-                "<l>        gray_closing(Image, StructElement, Image)</l>\n" + \
-                "<c></c>\n" + \
-                "<c>        * Apply StructElement Ellipse to Closing</c>\n" + \
-                "<l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, " \
-                "Scale])</l>\n" + \
-                "<c></c>\n" + \
-                get_area_to_rectangle() + \
+                "<l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>\n" + \
+                "<l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>\n" + \
+                "<l>                convert_image_type(Image, Image, 'byte')</l>\n" + \
+                "<l>            endif</l>\n" + \
+                "<l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" + \
+                "<l>            convert_image_type(Image, Image, 'byte')</l>\n" + \
+                "<l>        endif</l>\n" + \
+                "<l>        sobel_amp(Image, Image1, FilterType, MaskSize)</l>\n" + \
+                "<c>        </c>\n" + \
+                "<c>        * Path 2</c>\n" \
+                "<c>        * SigmaImage</c>\n" \
+                "<l>        sigma_image(Image, Image2, MaskHeight, MaskWidth, Sigma)</l>\n" + \
+                "<c>        </c>\n" + \
+                "<c>        * Local Threshold</c>\n" \
+                "<l>        local_threshold(Image2, Region2, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>\n" + \
+                "<c>        </c>\n" + \
+                "<c>        * Merge</c>\n" \
+                "<c>        * CloseEdges</c>\n" \
+                "<l>        convert_image_type(Image1, Image1, 'byte')</l>\n" + \
+                "<l>        close_edges(Region2, Image1, Region, MinAmplitude)</l>\n" + \
+                "<c>        </c>\n" + \
+                "<c>        * Closing</c>\n" + \
+                "<l>        gen_rectangle1(RectangleStructElement, 0, 0, A, B)</l>\n" + \
+                "<l>        closing(Region, RectangleStructElement, Region) </l>\n" + \
                 "<c></c>\n"
+
+    raise ValueError("!!!NOT matching with ground truth MCC, FIX !!!")
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

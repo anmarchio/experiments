@@ -47,3 +47,4 @@ Pipeline; OriginalScore; CrossApplication; CrossScore;
 CF_ReferenceSet_Small_Light_mean_pipeline;-0.009781093286669762976851042879;AirCarbon2_t_8.jpg_mean_pipeline;-0.009737348964506891431532150306;
 CF_ReferenceSet_Small_Light_mean_pipeline;-0.009781093286669762976851042879;AirCarbon3_80.jpg_bright_mean_pipeline;-0.009737348964506891431532150306;
 CF_ReferenceSet_Small_Light_mean_pipeline;-0.009781093286669762976851042879;AirCarbon3_80.jpg_dark_1_mean_pipeline;-0.009781093286669762976851042879;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

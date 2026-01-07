@@ -16,37 +16,54 @@ def get_severstal_steel_mean_pipeline(params, dataset_path=None):
         dataset_path = "/severstal-steel/train_cgp/images"
 
     # Parameters
-    param_lines = "<l>        MaskHeightBF := " + str(params[0]) + "</l>\n" + \
-                  "<l>        MaskWidthBF := " + str(params[1]) + "</l>\n" + \
-                  "<l>        MaskHeight := " + str(params[2]) + "</l>\n" + \
-                  "<l>        MaskWidth := " + str(params[3]) + "</l>\n" + \
-                  "<l>        StdDevScale := " + str(params[4]) + "</l>\n" + \
-                  "<l>        AbsThreshold := " + str(params[5]) + "</l>\n" + \
-                  "<l>        LightDark := '" + str(params[6]) + "'</l>\n" + \
+    param_lines = "<l>        Filter := " + str(params[0]) + "</l>\n" + \
+                  "<l>        Alpha := " + str(params[1]) + "</l>\n" + \
+                  "<l>        Low := " + str(params[2]) + "</l>\n" + \
+                  "<l>        High := " + str(params[3]) + "</l>\n" + \
+                  "<l>        NonMaximumSuppression := " + str(params[4]) + "</l>\n" + \
+                  "<l>        Min := " + str(params[5]) + "</l>\n" + \
+                  "<l>        Max := " + str(params[6]) + "</l>\n" + \
+                  "<l>        Iterations := " + str(params[7]) + "</l>\n" + \
+                  "<l>        A := " + str(params[8]) + "</l>\n" + \
+                  "<l>        B := '" + str(params[9]) + "'</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<c>        * BinomialFilter</c>\n" \
-                "<l>        binomial_filter(Image, Image, MaskWidthBF, MaskHeightBF)</l>\n" + \
+    core_code = "<c>        * EdgesImage</c>\n" \
+                "<l>        edges_image(Image, ImageEdges, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>\n" + \
                 "<c></c>\n" + \
-                "<c>        * VarThreshold</c>\n" + \
-                get_var_threshold_code() + \
+                "<c>        * Threshold</c>\n" + \
+                "<l>        threshold(ImageEdges, RegionThresh, Min, Max)</l>\n" + \
                 "<c></c>\n" + \
-                "<c>        * Union1</c>\n" + \
-                "<l>        union1(Region, Region)</l>\n" + \
+                "<c>        * Dilation1 (Ellipse SE)</c>\n" + \
+                "<l>        tuple_max2(A, B, max_rad)</l>\n" + \
+                "<l>        phi := 0.0</l>\n" + \
+                "<l>        longer := A</l>\n" + \
+                "<l>        shorter := B</l>\n" + \
+                "<l>        if (shorter > longer)</l>\n" + \
+                "<l>            tmp := shorter</l>\n" + \
+                "<l>            shorter := longer</l>\n" + \
+                "<l>            longer := tmp</l>\n" + \
+                "<l>        endif</l>\n" + \
+                "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n" + \
+                "<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n" + \
+                "<l>        dilation1(RegionThresh, StructElement, Region, Iterations)</l>\n" + \
                 "<c></c>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 severstal_steel_mean_pipeline_initial_params = [
-    17,
+    'canny',
+    1.2,
     5,
-    29,
-    23,
-    0.2000001,
-    13,
-    'not_equal'
+    20,
+    'nms',
+    65,
+    240,
+    1,
+    18,
+    18
 ]
 
 severstal_steel_bounds = [

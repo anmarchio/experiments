@@ -37,6 +37,13 @@ def get_MVTec_AD_Carpet_mean_pipeline(params, dataset_path=None):
                 "<l>        edges_image(Image, Image, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>\n" + \
                 "<c></c>\n" + \
                 "<c>        * SobelAmp</c>\n" + \
+                "<l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>\n" + \
+                "<l>            if(Type != 'byte' and Type != 'uint2' and Type != 'real')</l>\n" + \
+                "<l>                convert_image_type(Image, Image, 'byte')</l>\n" + \
+                "<l>            endif</l>\n" + \
+                "<l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" + \
+                "<l>            convert_image_type(Image, Image, 'byte')</l>\n" + \
+                "<l>        endif</l>\n" + \
                 "<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
                 "<c></c>\n" + \
                 "<c>        * AutoThreshold  </c>\n" + \

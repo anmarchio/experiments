@@ -88,3 +88,4 @@ AirCarbon2_t_8.jpg_mean_pipeline;0.0;Pultrusion_Window_mean_pipeline;-0.00611088
 AirCarbon2_t_8.jpg_mean_pipeline;0.0;severstal-steel_mean_pipeline;-0.006319844014366199857496935311;
 AirCarbon2_t_8.jpg_mean_pipeline;0.0;CrackForest_mean_pipeline;-0.007346843104171877085660926308;
 AirCarbon2_t_8.jpg_mean_pipeline;0.0;MVTec_AD_Transistor_mean_pipeline;-0.0005440406525161478013227794399;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

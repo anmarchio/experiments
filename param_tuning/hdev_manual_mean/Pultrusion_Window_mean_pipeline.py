@@ -6,7 +6,7 @@ MVTec_AD_Pultrusion_Window_mean_pipeline
 import os
 
 from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, convert_margin_to_int, \
-    sobel_check_filter_type, area_size_threshold
+    sobel_check_filter_type, area_size_threshold, get_crop_rectangle_code
 from settings import EVIAS_SRC_PATH
 
 
@@ -29,23 +29,14 @@ def get_Pultrusion_Window_mean_pipeline(params, dataset_path=None):
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<c>        * MedianImage</c>\n" + \
-                convert_margin_to_int() + \
-                "<l>        get_image_size(Image, Width2, Height2)</l>\n" + \
-                "<l>        Width2 := Width2 / 2</l>\n" + \
-                "<l>        Height2 := Height2 / 2</l>\n" + \
-                "<l>        if(Width2 >= Radius)</l>\n" + \
-                "<l>            radius := Radius</l>\n" + \
-                "<l>        else</l>\n" + \
-                "<l>            radius := Height2 - 1</l>\n" + \
-                "<l>        endif</l>\n" + \
-                "<c>        </c>\n" + \
-                "<l>        median_image(Image, Image, MaskType, radius, Margin)</l>\n" + \
+    core_code = "<c>        * CropSmallestRetangle</c>\n" + \
+                get_crop_rectangle_code() + \
                 "<c>        </c>\n" + \
                 "<c>        * SobelAmp</c>\n" + \
                 sobel_check_filter_type() + \
                 "<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
                 "<c>        </c>\n" + \
+                "<c>        * Crop Rectangle</c>\n" + \
                 area_size_threshold()
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

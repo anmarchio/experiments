@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'MAIPreform2_Spule0-0315_Upside_Thread_256_mean_pipeline'</l>
-<l>source_path := 'D:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images'</l>
-<l>labels_path := 'D:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/labels'</l>
+<l>source_path := 'I:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images'</l>
+<l>labels_path := 'I:/evias_expmts/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -153,7 +153,7 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    wait_seconds(0.5)</l>
+<l>    *wait_seconds(0.5)</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>

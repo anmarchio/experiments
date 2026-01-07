@@ -31,7 +31,7 @@ def get_MVTec_AD_Hazelnut_Crack_mean_pipeline(params, dataset_path=None):
                 "<l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>\n" + \
                 "<l>        gray_closing(Image, StructElement, Image)</l>\n" + \
                 "<c></c>\n" + \
-                "<c>        * Apply StructElement Ellipse to Closing</c>\n" + \
+                "<c>        * LocalThreshold</c>\n" + \
                 "<l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, " \
                 "Scale])</l>\n" + \
                 "<c></c>\n" + \
