@@ -38,6 +38,7 @@ def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
         print("Datasets:\n")
         print("\n".join(MANUAL_HDEV_PIPELINES_MEAN))
 
+    cross_scores = [['from', 'applied on', 'original_score', 'cross_score']]
 
     for pipeline_name in manual_hdev_pipelines:
         write_cross_application_header_to_log(pipeline_name)
@@ -49,6 +50,11 @@ def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
             print(f"Running {pipeline_name} on {regular_dataset}) ...")
             cross_score = run_pipeline_on_dataset(pipeline_name, get_initial_state_by_pipeline_name(pipeline_name),
                                                   regular_dataset)
+            # Save score in list
+            if type(cross_score) is not float:
+                cross_scores.append([pipeline_name, 'same', cross_score, 'same'])
+            else:
+                cross_scores.append([pipeline_name, 'same', f"{cross_score:.4f}", 'same'])
             continue
 
         try:
@@ -61,14 +67,30 @@ def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
                     cross_score = run_pipeline_on_dataset(pipeline_name, graph, cross_dataset)
                     write_cross_application_log(pipeline_name,
                                                 f"{pipeline_name};{original_score};{cross_dataset};{cross_score};\n")
+                    # Save score in list
+                    cross_scores.append([pipeline_name, cross_dataset, f"{original_score:.4f}", f"{cross_score:.4f}"])
                 except Exception as e:
                     print(f"Error running cross dataset {cross_dataset} for pipeline {pipeline_name}: {e}")
                     write_cross_application_log(pipeline_name, f"ERROR: {e};\n")
+                    # Save score in list
+                    cross_scores.append([pipeline_name, regular_dataset, f"{original_score:.4f}", f"FAILED: {e}"])
 
         except Exception as e:
             print(f"Error running pipeline {pipeline_name}: {e}")
             write_cross_application_log(pipeline_name, f"FAILED: {e};\n")
+            # write error to list
+            cross_scores.append([pipeline_name, f"FAILED: {e}", '--', '--'])
             continue
+
+    for idx, row in enumerate(cross_scores):
+        # header
+        if idx == 0:
+            print("| " + " | ".join(row) + " |")
+            print("|" + "|".join(" --- " for _ in row) + "|")
+            continue
+
+        # data rows
+        print("| " + " | ".join(map(str, row)) + " |")
 
 
 def main():

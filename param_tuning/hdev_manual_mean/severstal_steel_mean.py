@@ -16,16 +16,16 @@ def get_severstal_steel_mean_pipeline(params, dataset_path=None):
         dataset_path = "/severstal-steel/train_cgp/images"
 
     # Parameters
-    param_lines = "<l>        Filter := " + str(params[0]) + "</l>\n" + \
+    param_lines = "<l>        Filter := '" + str(params[0]) + "'</l>\n" + \
                   "<l>        Alpha := " + str(params[1]) + "</l>\n" + \
                   "<l>        Low := " + str(params[2]) + "</l>\n" + \
                   "<l>        High := " + str(params[3]) + "</l>\n" + \
-                  "<l>        NonMaximumSuppression := " + str(params[4]) + "</l>\n" + \
+                  "<l>        NonMaximumSuppression := '" + str(params[4]) + "'</l>\n" + \
                   "<l>        Min := " + str(params[5]) + "</l>\n" + \
                   "<l>        Max := " + str(params[6]) + "</l>\n" + \
                   "<l>        Iterations := " + str(params[7]) + "</l>\n" + \
                   "<l>        A := " + str(params[8]) + "</l>\n" + \
-                  "<l>        B := '" + str(params[9]) + "'</l>\n" + \
+                  "<l>        B := " + str(params[9]) + "</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code

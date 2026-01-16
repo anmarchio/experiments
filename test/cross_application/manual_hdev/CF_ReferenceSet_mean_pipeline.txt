@@ -82,3 +82,10 @@ CF_ReferenceSet_mean_pipeline;0.005876432262190194793923049075;severstal-steel_m
 CF_ReferenceSet_mean_pipeline;0.005876432262190194793923049075;CrackForest_mean_pipeline;0.007256499338751832051083202272;
 CF_ReferenceSet_mean_pipeline;0.005876432262190194793923049075;MVTec_AD_Transistor_mean_pipeline;0.005876432262190194793923049075;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

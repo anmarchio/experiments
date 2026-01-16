@@ -17,15 +17,13 @@ def get_Pultrusion_Window_mean_pipeline(params, dataset_path=None):
         dataset_path = "/Pultrusion/window_cgp/train/images"
 
     # Parameters
-    param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
-                  "<l>        Radius := " + str(params[1]) + "</l>\n" + \
-                  "<l>        Margin := '" + str(params[2]) + "'</l>\n" + \
-                  "<l>        FilterType := '" + str(params[3]) + "'</l>\n" + \
-                  "<l>        MaskSize := " + str(params[4]) + "</l>\n" + \
-                  "<l>        MinSize := " + str(params[5]) + "</l>\n" + \
-                  "<l>        MaxSize := " + str(params[6]) + "</l>\n" + \
-                  "<l>        WindowWidth := " + str(params[7]) + "</l>\n" + \
-                  "<l>        WindowHeight := " + str(params[8]) + "</l>\n" + \
+    param_lines = "<l>        MinGray := " + str(params[0]) + "</l>\n" + \
+                  "<l>        MaxGray := " + str(params[1]) + "</l>\n" + \
+                  "<l>        FilterType := '" + str(params[2]) + "'</l>\n" + \
+                  "<l>        MaskSize := " + str(params[3]) + "</l>\n" + \
+                  "<l>        MinRatio := " + str(params[4]) + "</l>\n" + \
+                  "<l>        MaskHeight := " + str(params[5]) + "</l>\n" + \
+                  "<l>        MaskWidth := " + str(params[6]) + "</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
@@ -37,34 +35,30 @@ def get_Pultrusion_Window_mean_pipeline(params, dataset_path=None):
                 "<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
                 "<c>        </c>\n" + \
                 "<c>        * Crop Rectangle</c>\n" + \
-                area_size_threshold()
+                get_crop_rectangle_code()
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 Pultrusion_Window_mean_pipeline_initial_params = [
-    'circle',
-    47,
-    'TwoTen',
-    'y',
-    7,
-    10000,
-    21000,
-    200,
-    220
+    21, # MinGray
+    255, # MaxGray
+    'y', # FilterType
+    3, # MaskSize
+    0.0399999991059303, # MinRatio
+    27, # MaskHeight
+    29 # MaskWidth
 ]
 
 Pultrusion_Window_mean_pipeline_bounds = [
-    ['circle', 'square'],  # MaskType
-    [1, 101],  # Radius
-    ['cyclic', 'continued', 'Zero', 'Thirty', 'Sixty', 'Ninety', 'OneTwenty', 'OneFifty', 'OneEighty', 'TwoTen',
-     'TwoForty', 'TwoFiftyFive'],  # Margin
-    ['y', 'y_binomial', 'x', 'x_binomial'],
-    [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
-    [v for v in range(9000, 10999, 1000)],
-    [v for v in range(18000, 21999, 1000)],
-    [v for v in range(160, 320, 10)],
-    [v for v in range(160, 320, 10)]
+    [v for v in range(1, 255, 1)], # MinGray
+    [v for v in range(1, 255, 1)], # MaxGray
+    ['y', 'y_binomial', 'x', 'x_binomial'], # FilterType
+    [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39], # MaskSize
+    # [v for v in range(0.01, 1.0, 0.01)], # MinRatio
+    [i / 100.0 for i in range(1, 101)], # MinRatio
+    [v for v in range(1, 255, 1)], # MaskHeight
+    [v for v in range(1, 255, 1)] # MaskWidth
 ]
 
 Pultrusion_Window_training_source_path = os.path.join(EVIAS_SRC_PATH,

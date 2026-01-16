@@ -82,3 +82,10 @@ MAIPreform2_Spule0_0816_Upside_mean_pipeline;-0.01701235148661312371543014513;se
 MAIPreform2_Spule0_0816_Upside_mean_pipeline;-0.01701235148661312371543014513;CrackForest_mean_pipeline;-0.01459870479966911732182168246;
 MAIPreform2_Spule0_0816_Upside_mean_pipeline;-0.01701235148661312371543014513;MVTec_AD_Transistor_mean_pipeline;-0.01701235148661312371543014513;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

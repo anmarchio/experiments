@@ -83,3 +83,10 @@ MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;0.0;severstal-steel_mean_pip
 MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;0.0;CrackForest_mean_pipeline;0.0;
 MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline;0.0;MVTec_AD_Transistor_mean_pipeline;0.0;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;

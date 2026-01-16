@@ -88,3 +88,11 @@ AirCarbon3_80.jpg_dark_1_mean_pipeline;-0.005392585335121021333676600180;severst
 AirCarbon3_80.jpg_dark_1_mean_pipeline;-0.005392585335121021333676600180;CrackForest_mean_pipeline;0.01854416898226554519375392855;
 AirCarbon3_80.jpg_dark_1_mean_pipeline;-0.005392585335121021333676600180;MVTec_AD_Transistor_mean_pipeline;0.01770556210117357401270132070;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
