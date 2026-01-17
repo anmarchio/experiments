@@ -40,6 +40,8 @@
 <c>        * VarThreshold        </c>
 <l>        get_image_type(Image, Type)        </l>
 <l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and Type != 'real')</l>
+<c>            * Scale To Gray</c>
+<l>            gen_empty_obj(ScaledImage)</l>
 <l>            min_max_gray(Image, Image, 0, Min, Max, Range)</l>
 <l>            if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
 <l>                if ((Max - Min) &gt; 0)</l>

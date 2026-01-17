@@ -27,6 +27,7 @@
 <c>        </c>
 <l>        convert_image_type(Image, Image, 'int2')</l>
 <c>        * ZeroCrossing</c>
+<l>        gen_empty_obj(ScaledImage)</l>
 <l>        min_max_gray (Image, Image, 0, Min, Max, Range)</l>
 <l>        if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
 <l>            if ((Max - Min) &gt; 0)</l>

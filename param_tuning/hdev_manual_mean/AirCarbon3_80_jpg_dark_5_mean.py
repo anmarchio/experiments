@@ -27,7 +27,9 @@ def get_AirCarbon3_80_jpg_dark_5_mean_pipeline(params, dataset_path=None):
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = get_var_threshold_code() + \
+    core_code = "<l>sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
+                "<c>        </c>\n" + \
+                get_var_threshold_code() + \
                 "<c>        </c>\n" + \
                 "<l>        union1(Region, Region)</l>\n"
 

@@ -19,6 +19,7 @@ def get_KollektorSSD_mean_pipeline(params, dataset_path = None):
     param_lines = ""
 
     core_code = "<l>        equ_histo_image(Image, Image)</l>\n" + \
+                "<l>        convert_image_type(Image, Image, 'int2')</l>\n" +\
                 "<c>        </c>\n" + \
                 scale_to_gray() + \
                 "<l>        zero_crossing(ScaledImage, Region)</l>\n"
