@@ -132,10 +132,6 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_MEAN = [
-    "KollektorSSD_mean_pipeline"
-]
-
-MANUAL_HDEV_PIPELINES_MEAN_TEMP = [
     "AirCarbon2_t_8.jpg_mean_pipeline",
     "AirCarbon3_80.jpg_bright_mean_pipeline",
     "AirCarbon3_80.jpg_dark_1_mean_pipeline",
