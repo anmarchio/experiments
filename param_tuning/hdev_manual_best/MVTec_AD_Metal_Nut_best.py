@@ -27,7 +27,7 @@ def get_MVTec_AD_Metal_Nut_best_pipeline(params, dataset_path=None):
                       "<c></c>\n" + \
                       "<l>        A2 := " + str(params[6]) + "</l>\n" + \
                       "<l>        B2 := " + str(params[7]) + "</l>\n" + \
-                      "<l>        C := 1.178097</l>" + \
+                      "<l>        C := -0.785398</l>" + \
                       "<c></c>\n"
 
     # Core pipeline

@@ -36,11 +36,11 @@
 <l>        MaskWidth := 5</l>
 <l>        Sigma := 145</l>
 <c>        </c>
-<l>        Method1 := 'max_separability'</l>
-<l>        LightDark1 := 'light'</l>
-<c>        </c>
 <l>        FilterType := 'x_binomial'</l>
 <l>        MaskSizeSobel := 3</l>
+<c>        </c>
+<l>        Method1 := 'max_separability'</l>
+<l>        LightDark1 := 'light'</l>
 <c>        </c>
 <l>        Method2 := 'smooth_histo'</l>
 <l>        LightDark2 := 'light'</l>

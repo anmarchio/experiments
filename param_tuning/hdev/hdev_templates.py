@@ -9,8 +9,15 @@ HDEV_TEMPLATE_CODE = "<l>dev_update_off()</l>\n" \
                      "<c></c>\n" \
                      "<l>for Index := 0 to |ImageFiles| - 1 by 1</l>\n" \
                      "<l>    file_exists(output_path, dir_exists)</l>\n" \
+                     "<c></c>\n" \
                      "<l>    if(dir_exists == 0)</l>\n" \
                      "<l>        make_dir(output_path)</l>\n" \
+                     "<l>    else</l>\n" \
+                     "<c>        * Delete all files in output path if folder exists</c>\n" \
+                     "<l>        list_files(output_path, 'files', FileList)</l>\n" \
+                     "<l>        for j := 0 to |FileList| - 1 by 1</l>\n" \
+                     "<l>            delete_file(FileList[j])</l>\n" \
+                     "<l>        endfor</l>\n" \
                      "<l>    endif</l>\n" \
                      "<c></c>\n" \
                      "<c>    * Remove the extension using regex</c>\n" \
@@ -44,7 +51,7 @@ HDEV_FOOTER = "<l>    catch (Exception)</l>\n" \
               "<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>\n" \
               "<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>\n" \
               "<l>endfor</l>\n" \
-              "<l>exit()</l>\n" \
+              "<l>*exit()</l>\n" \
               "</body>\n" \
               "<docu id=\"main\">\n" \
               "<parameters/>\n" \

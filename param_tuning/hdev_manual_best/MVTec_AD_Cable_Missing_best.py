@@ -19,7 +19,7 @@ def get_MVTec_AD_Cable_Missing_best_pipeline(params, dataset_path=None):
     # Parameters
     param_lines = "<l>        MaskType := '" + str(params[0]) + "'</l>\n" + \
                       "<l>        Radius := " + str(params[1]) + "</l>\n" + \
-                      "<l>        Margin := '" + str(params[2]) + "'</l>\n" + \
+                      "<l>        Margin := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
                       "<l>        Method := '" + str(params[3]) + "'</l>\n" + \
                       "<l>        LightDark := '" + str(params[4]) + "'</l>\n" + \
@@ -36,11 +36,15 @@ def get_MVTec_AD_Cable_Missing_best_pipeline(params, dataset_path=None):
     # Core pipeline
     core_code = (
             "<l>        median_image(Image, ImageMedian, MaskType, Radius, Margin)</l>\n"
-            "<l>        binary_threshold(ImageMedian, RegionBinary, Method, LightDark)</l>\n"
+            "<c></c>\n"
+            "<l>        binary_threshold(ImageMedian, RegionBinary, Method, LightDark, UsedThreshold)</l>\n"
+            "<c></c>\n"
             "<l>        select_shape(RegionBinary, RegionSelected, Features, 'and', Min, Max)</l>\n"
+            "<c></c>\n"
             "<l>        gen_rectangle2(RectangleStructElement, 0, 0, C, A, B)</l>\n"
             "<l>        closing(RegionSelected, RectangleStructElement, RegionClosed)</l>\n"
-            "<l>        connection(RegionClosed, Region, Neighborhood)</l>\n"
+            "<c></c>\n"
+            "<l>        connection(RegionClosed, Region)</l>\n"
         )
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
@@ -49,12 +53,12 @@ def get_MVTec_AD_Cable_Missing_best_pipeline(params, dataset_path=None):
 MVTec_AD_Cable_Missing_best_pipeline_initial_params = [
     'circle',  # MaskType
     54,  # Radius
-    'Ninety',  # Margin
+    90,  # Margin
     'smooth_histo',  # Method
     'dark',  # LightDark
     45,  # Min
     99999,  # Max
-    'dist_best',  # Features
+    'dist_mean',  # Features
     4,  # A
     15  # B
 ]
@@ -62,7 +66,7 @@ MVTec_AD_Cable_Missing_best_pipeline_initial_params = [
 MVTec_AD_Cable_Missing_best_pipeline_bounds = [
     ['circle', 'square', 'mask'],                 # MaskType
     [v for v in range(1, 200)],                   # Radius
-    ['Ninety', 'zero', 'mirrored', 'constant'],   # Margin
+    ['\'mirrored\'', '\'cyclic\'', '\'continued\'', 0, 30, 60, 90, 120, 150, 180, 210, 240, 255],   # Margin
     ['smooth_histo', 'max_separability', 'entropy', 'otsu'],  # Method
     ['dark', 'light'],                            # LightDark
     [v for v in range(0, 500)],                   # Min

@@ -16,52 +16,75 @@ def get_MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline(params, dataset_
         dataset_path = "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images"
 
     # Parameters
-    param_lines = "<l>        Channel := " + str(params[0]) + "</l>\n" + \
-                      "<l>        Threshold := " + str(params[1]) + "</l>\n" + \
-                      "<l>        Sign := " + str(params[2]) + "</l>\n" + \
+    param_lines = "<l>          A1 := " + str(params[0]) + "</l>\n" + \
+                      "<l>          B1 := " + str(params[1]) + "</l>\n" + \
+                      "<l>          GrayValueMax1 := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
-                      "<l>        A := " + str(params[3]) + "</l>\n" + \
-                      "<l>        B := " + str(params[4]) + "</l>\n" + \
-                      "<l>        GrayValueMax := " + str(params[5]) + "</l>\n" + \
+                      "<l>          Min := " + str(params[3]) + "</l>\n" + \
+                      "<l>          Max := " + str(params[4]) + "</l>\n" + \
+                      "<c></c>\n" + \
+                      "<l>          A2 := " + str(params[5]) + "</l>\n" + \
+                      "<l>          B2 := " + str(params[6]) + "</l>\n" + \
+                      "<l>          GrayValueMax2 := " + str(params[7]) + "</l>\n" + \
+                      "<c></c>\n" + \
+                      "<l>          A3 := " + str(params[8]) + "</l>\n" + \
+                      "<l>          B3 := " + str(params[9]) + "</l>\n" + \
                       "<c></c>\n"
 
     # Core Pipeline
-    core_code = (
-            "<c>* ThresholdAccessChannel</c>\n"
-            "<l>        abs_image(Image, ImageB)</l>\n"
-            "<l>        count_channels(ImageB, NumChannels)</l>\n"
-            "<l>        if (NumChannels == 3)</l>\n"
-            "<l>            access_channel(ImageB, ImageB, Channel)</l>\n"
-            "<l>            threshold(ImageB, RegionB, Threshold, 255)</l>\n"
-            "<l>        else</l>\n"
-            "<l>            threshold(ImageB, RegionB, Threshold, 255)</l>\n"
-            "<l>        endif</l>\n"
-            "<c></c>\n"
-            "<c>* GrayClosing</c>\n"
-            "<l>        get_image_type(ImageB, Type)</l>\n"
-            "<l>        gen_disc_se(SE, Type, A, B, GrayValueMax)</l>\n"
-            "<l>        gray_closing(RegionB, SE, Region)</l>\n"
-        )
+    core_code = "<c>* BRANCH 1</c>\n" \
+           "<c>* GrayClosing</c>\n" \
+           "<l>gen_disc_se(SE1, 'byte', A1, B1, GrayValueMax1)</l>\n" \
+           "<l>gray_closing(Image, SE1, ImageClosing)</l>\n" \
+           "\n" \
+           "<c>* Threshold</c>\n" \
+           "<l>threshold(ImageClosing, RegionThresh, Min, Max)</l>\n" \
+           "\n" \
+           "<c>* --------</c>\n" \
+           "<c>* Branch 2</c>\n" \
+           "<c>* Gray Dilation</c>\n" \
+           "<l>gen_disc_se(SE2, 'byte', A2, B2, GrayValueMax2)</l>\n" \
+           "<l>gray_dilation(Image, SE2, ImageDilation)</l>\n" \
+           "\n" \
+           "<c>* Zero Crossing</c>\n" \
+           "<l>convert_image_type(ImageDilation, ImageDilation, 'int2')</l>\n" \
+           "<l>zero_crossing(ImageDilation, RegionCrossing)</l>\n" \
+           "\n" \
+           "<c>* --------</c>\n" \
+           "<c>* Merge</c>\n" \
+           "<l>union2(RegionThresh, RegionCrossing, RegionUnion)</l>\n" \
+           "\n" \
+           "<c>* Opening</c>\n" \
+           "<l>gen_rectangle1(SE3, 0, 0, A3, B3)</l>\n" \
+           "<l>opening(RegionUnion, SE3, Region)</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 
 
 MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline_initial_params = [
-    1,  # Channel
-    41,  # Threshold
-    -1,  # Sign (kept for compatibility, even if not directly used now)
-    28,  # A
-    27,  # B
-    40  # GrayValueMax
+    11, # A1
+    25, # B1
+    5, # GrayValueMax1
+    10, # Min
+    200, # Max
+    4, # A2
+    12, # B2
+    10, # GrayValueMax2
+    26, # A3
+    21 # B3
 ]
 
 MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline_bounds = [
-    [0, 1, 2, 3],  # Channel (assuming up to 4 channels)
-    [v for v in range(0, 255)],  # Threshold
-    [-1, 0, 1],  # Sign (even if unused here)
-    [v for v in range(1, 100)],  # A
-    [v for v in range(1, 100)],  # B
-    [v for v in range(0, 255)]  # GrayValueMax
+    [v for v in range(1, 100)],  # A1
+    [v for v in range(1, 100)],  # B1
+    [v for v in range(0, 255)],  # GrayValueMax1
+    [v for v in range(0, 255)],  # Min
+    [v for v in range(0, 255)],  # Max
+    [v for v in range(1, 100)],  # A2
+    [v for v in range(1, 100)],  # B2
+    [v for v in range(0, 255)],  # GrayValueMax2
+    [v for v in range(1, 100)],  # A3
+    [v for v in range(1, 100)]  # B3
 ]
 
 MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path = os.path.join(EVIAS_SRC_PATH,

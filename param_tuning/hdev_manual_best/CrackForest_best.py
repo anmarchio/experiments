@@ -18,14 +18,22 @@ def get_CrackForest_best_pipeline(params, dataset_path=None):
         dataset_path = "/CrackForest/images"
 
     # Parameters
-    param_lines = "<l>        Method := '" + str(params[0]) + "'</l>\n" + \
-                  "<l>        LightDark := '" + str(params[1]) + "'</l>\n" + \
-                  "<l>        MaskSize := " + str(params[2]) + "</l>\n" + \
-                  "<l>        Scale := " + str(params[3]) + "</l>\n" + \
+    param_lines = "<l>        A := " + str(params[0]) + "</l>\n" + \
+                  "<l>        B := " + str(params[1]) + "</l>\n" + \
+                  "<l>        GrayValueMax := " + str(params[2]) + "</l>\n" + \
+                  "<c></c>\n" + \
+                  "<l>        Method := '" + str(params[3]) + "'</l>\n" + \
+                  "<l>        LightDark := '" + str(params[4]) + "'</l>\n" + \
+                  "<l>        MaskSize := " + str(params[5]) + "</l>\n" + \
+                  "<l>        Scale := " + str(params[6]) + "</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<c>        * LocalThreshold</c>\n" \
+    core_code = "<c>        * GrayOpening</c>\n" \
+                "<l>        gen_disc_se(SE, 'byte', A, B, GrayValueMax)</l>\n" \
+                "<l>        gray_opening(Image, SE, Image)</l>\n" \
+                "<c>        </c>\n" \
+                "<c>        * LocalThreshold</c>\n" \
                 "<l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])  </l>\n" \
                 "<c>        </c>\n"
 
@@ -33,6 +41,9 @@ def get_CrackForest_best_pipeline(params, dataset_path=None):
 
 
 CrackForest_best_pipeline_initial_params = [
+    30,
+    11,
+    30,
     'adapted_std_deviation',
     'dark',
     21,
@@ -40,6 +51,9 @@ CrackForest_best_pipeline_initial_params = [
 ]
 
 CrackForest_best_pipeline_bounds = [
+    [v for v in range(1, 50)],  # A
+    [v for v in range(1, 50)],  # B
+    [v for v in range(0, 255)],  # GrayValueMax
     ['adapted_std_deviation'],
     ['dark', 'light'],
     [15, 21, 31],

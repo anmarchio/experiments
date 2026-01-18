@@ -209,14 +209,14 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_BEST = [
-    "AirCarbon2_t_8.jpg_best_pipeline",
-    "AirCarbon3_80.jpg_bright_best_pipeline",
-    "AirCarbon3_80.jpg_dark_1_best_pipeline",
-    "AirCarbon3_80.jpg_dark_2_best_pipeline",
-    "AirCarbon3_80.jpg_dark_3_best_pipeline",
-    "AirCarbon3_80.jpg_dark _4_best_pipeline",
-    "AirCarbon3_80.jpg_dark_5_best_pipeline",
-    'KollektorSSD_best_pipeline',
+    #"AirCarbon2_t_8.jpg_best_pipeline",
+    #"AirCarbon3_80.jpg_bright_best_pipeline",
+    #"AirCarbon3_80.jpg_dark_1_best_pipeline",
+    #"AirCarbon3_80.jpg_dark_2_best_pipeline",
+    #"AirCarbon3_80.jpg_dark_3_best_pipeline",
+    #"AirCarbon3_80.jpg_dark _4_best_pipeline",
+    #"AirCarbon3_80.jpg_dark_5_best_pipeline",
+    #'KollektorSSD_best_pipeline',
     "MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline",
     "MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline",
     "MAIPreform2_Spule0_0315_Upside_best_pipeline",

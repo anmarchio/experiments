@@ -36,10 +36,8 @@ def get_MVTec_AD_Leather_best_pipeline(params, dataset_path=None):
             "<c>* LocalThreshold</c>\n"
             "<l>        local_threshold(ImageEroded, RegionThresh, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>\n"
             "<c></c>\n"
-            "<c>* AreaToRectangle</c>\n"
-            "<l>        area_center(RegionThresh, Area, Row, Column)</l>\n"
-            "<l>        gen_rectangle1(RectangleRegion, Row - Area/2, Column - Area/2, Row + Area/2, Column + Area/2)</l>\n"
-            "<l>        union2(RegionThresh, RectangleRegion, Region)</l>\n"
+            + get_area_to_rectangle +
+            "<l>        Region := Rectangles</l>\n"
     )
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
