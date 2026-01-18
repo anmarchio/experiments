@@ -59,7 +59,7 @@ def get_Pultrusion_Resin_Augmtd_best_pipeline(params, dataset_path=None):
             "<l>        binary_threshold(ImageConverted, Region2, Method2, LightDark2, UsedThreshold)</l>\n"
             "<c></c>\n"
             "<c>* Merge</c>\n"
-            "<c>        union2(Region1, Region2, RegionUnion)</c>\n"
+            "<l>union2(Region1, Region2, RegionUnion)</l>\n"
             "<c></c>\n"
             "<c>* Opening (Rectangle SE)</c>\n"
             "<l>        gen_rectangle1(SE, 0, 0, A, B)</l>\n"

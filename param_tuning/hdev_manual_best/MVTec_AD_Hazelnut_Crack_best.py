@@ -45,7 +45,7 @@ def get_MVTec_AD_Hazelnut_Crack_best_pipeline(params, dataset_path=None):
             "<l>        phi := C</l>\n"
             "<l>        longer := A</l>\n"
             "<l>        shorter := B</l>\n"
-            "<l>        if (shorter > longer)</l>\n"
+            "<l>        if (shorter &gt; longer)</l>\n"
             "<l>                tmp := shorter</l>\n"
             "<l>                shorter := longer</l>\n"
             "<l>                longer := tmp</l>\n"

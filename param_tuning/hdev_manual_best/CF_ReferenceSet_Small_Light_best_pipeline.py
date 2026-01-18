@@ -33,7 +33,8 @@ def get_CF_ReferenceSet_Small_Light_best_pipeline(params, dataset_path=None):
     # Core Pipeline Code
     core_code = "<l>        median_weighted(Image, ImageMedian, MaskType, MaskSizeMedian)</l>\n" \
                     "<l>        sobel_amp(ImageMedian, ImageSobel, FilterType, MaskSizeSobel)</l>\n" \
-                    "<l>        local_threshold(ImageSobel, Region, Method, LightDark, MaskSizeThresh, Scale)</l>\n" \
+                    "<l>        convert_image_type(ImageSobel, ImageSobel, 'byte')</l>\n" \
+                    "<l>        local_threshold(ImageSobel, Region, Method, LightDark, ['mask_size', 'scale' ], [MaskSizeThresh, Scale])</l>\n" \
                     "<c></c>" \
                     "<l>        get_image_type(ImageSobel, Type)</l>\n" \
                     "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" \

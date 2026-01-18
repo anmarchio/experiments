@@ -25,7 +25,7 @@ def get_MAIPreform2_Spule0_0315_Upside_best_pipeline(params, dataset_path=None):
                       "<c></c>\n" + \
                       "<l>        A2 := " + str(params[5]) + "</l>\n" + \
                       "<l>        B2 := " + str(params[6]) + "</l>\n" + \
-                      "<l>        C := 0.785398</l>\n" + \
+                      "<l>        C2 := 0.785398</l>\n" + \
                       "<c></c>\n"
 
     # Core Pipeline
