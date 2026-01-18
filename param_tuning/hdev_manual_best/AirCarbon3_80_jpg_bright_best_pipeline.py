@@ -26,12 +26,7 @@ def get_AirCarbon3_80_jpg_bright_best_pipeline(params, dataset_path=None):
                   "<l>        LightDark := '" + str(params[7]) + "'</l>\n" + \
                   "<l>        MaskSizeLT := " + str(params[8]) + "</l>\n" + \
                   "<l>        Scale := " + str(params[9]) + "</l>\n\n"
-    """
-        access_channel(ImageAmp, ImageAmp, 1)
-        convert_image_type(ImageAmp, ImageAmp, 'byte')
 
-        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeLT, Scale])
-    """
     # Core Pipeline Code
     core_code = "<l>        coherence_enhancing_diff(Image, Image, Sigma, Rho, Theta, Iterations)</l>\n" \
                 "<c></c>\n" \

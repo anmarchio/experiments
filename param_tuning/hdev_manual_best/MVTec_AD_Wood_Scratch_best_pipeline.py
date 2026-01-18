@@ -46,6 +46,7 @@ def get_MVTec_AD_Wood_Scratch_best_pipeline(params, dataset_path=None):
             "<c>* LocalThreshold</c>\n"
             "<c>        *access_channel(Image, Image, 1)</c>\n"
             + scale_to_gray() +
+            "<l>        convert_image_type(ScaledImage, ScaledImage, 'byte')</l>\n"
             "<l>        local_threshold(ScaledImage, Region, Method, LightDark, ['mask_size','scale'], [MaskSizeThresh, Scale])</l>\n"
             "<c></c>\n"
             "<c>* Closing (Circle SE)</c>\n"

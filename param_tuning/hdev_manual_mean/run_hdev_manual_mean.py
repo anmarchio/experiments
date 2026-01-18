@@ -208,14 +208,14 @@ pipelines_mean = {
     "MVTec_AD_Screw_Scratch_mean_pipeline": get_MVTec_AD_Screw_Scratch_mean_pipeline,
     "MVTec_AD_Tile_Crack_mean_pipeline": get_MVTec_AD_Tile_Crack_mean_pipeline,
     "MVTec_AD_Toothbrush_Sm_mean_pipeline": get_MVTec_AD_Toothbrush_Sm_mean_pipeline,
-    "MVTec_AD_Wood_Scratch_mean_pipeline": get_MVTec_AD_Wood_Scratch_mean_pipeline, # <= Scale To Gray / Mult empty
+    "MVTec_AD_Wood_Scratch_mean_pipeline": get_MVTec_AD_Wood_Scratch_mean_pipeline,
     "MVTec_AD_Zipper_Rough_mean_pipeline": get_MVTec_AD_Zipper_Rough_mean_pipeline,
     "Pultrusion_Resin_Augmtd_mean_pipeline": get_Pultrusion_Resin_Augmtd_mean_pipeline,
-    "Pultrusion_Resin_mean_pipeline": get_Pultrusion_Resin_mean_pipeline, # sobel_amp Image2 not initilaized
+    "Pultrusion_Resin_mean_pipeline": get_Pultrusion_Resin_mean_pipeline,
     "Pultrusion_Window_mean_pipeline": get_Pultrusion_Window_mean_pipeline,
     "severstal-steel_mean_pipeline": get_severstal_steel_mean_pipeline,
-    "MVTec_AD_Transistor_mean_pipeline": get_MVTec_AD_Transistor_mean_pipeline,
-    "CrackForest_mean_pipeline": get_CrackForest_mean_pipeline,
+    "MVTec_AD_Transistor_mean_pipeline": get_MVTec_AD_Transistor_mean_pipeline, # <= missing follow-up
+    "CrackForest_mean_pipeline": get_CrackForest_mean_pipeline, # <= missing follow-up
 }
 
 bounds_mean = {

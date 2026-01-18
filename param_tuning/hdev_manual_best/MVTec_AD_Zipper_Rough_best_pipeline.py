@@ -32,7 +32,7 @@ def get_MVTec_AD_Zipper_Rough_best_pipeline(params, dataset_path=None):
             "<l>        kirsch_amp(Image, ImageKirsch)</l>\n"
             "<c></c>\n"
             "<c>* SobelAmp</c>\n"
-            "<l>        sobel_amp(ImageKirsch, ImageAmp, FilterType, MaskSize)</l>\n"
+            "<l>        sobel_amp(ImageKirsch, Image, FilterType, MaskSize)</l>\n"
             "<c></c>\n"
             "<c>* ZeroCrossing</c>\n"
             + scale_to_gray() +

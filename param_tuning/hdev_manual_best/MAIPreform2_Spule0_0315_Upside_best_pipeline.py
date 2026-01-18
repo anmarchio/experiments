@@ -21,7 +21,7 @@ def get_MAIPreform2_Spule0_0315_Upside_best_pipeline(params, dataset_path=None):
                       "<l>        GrayValueMax1 := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
                       "<l>        Method := '" + str(params[3]) + "'</l>\n" + \
-                      "<l>        LightDark ':= " + str(params[4]) + "'</l>\n" + \
+                      "<l>        LightDark := '" + str(params[4]) + "'</l>\n" + \
                       "<c></c>\n" + \
                       "<l>        A2 := " + str(params[5]) + "</l>\n" + \
                       "<l>        B2 := " + str(params[6]) + "</l>\n" + \
@@ -42,8 +42,8 @@ def get_MAIPreform2_Spule0_0315_Upside_best_pipeline(params, dataset_path=None):
             "<c>* StructElementType Ellipse</c>\n" \
             "<c>* using A, B and C as shape_params</c>\n" \
             "<l>tuple_max2(A2, B2, max_rad)</l>\n" \
-            "<l>longer := A</l>\n" \
-            "<l>shorter := B</l>\n" \
+            "<l>longer := A2</l>\n" \
+            "<l>shorter := B2</l>\n" \
             "<l>if (shorter > longer)</l>\n" \
             "<l>    tmp := shorter</l>\n" \
             "<l>    shorter := longer</l>\n" \
