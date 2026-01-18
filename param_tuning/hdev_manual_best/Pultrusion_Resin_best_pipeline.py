@@ -44,7 +44,7 @@ def get_Pultrusion_Resin_best_pipeline(params, dataset_path=None):
             "<l>        binary_threshold(Image, RegionBin, Method, LightDark, UsedThreshold)</l>\n"
             "<c></c>\n"
             "<c>* Merge</c>\n"
-            "<c>        union2(RegionShape, RegionBin, RegionUnion)</c>\n"
+            "<l>        union2(RegionShape, RegionBin, RegionUnion)</l>\n"
             "<c></c>\n"
             "<c>* Opening (Ellipse SE)</c>\n"
             "<l>        tuple_max2(A, B, max_rad)</l>\n"
