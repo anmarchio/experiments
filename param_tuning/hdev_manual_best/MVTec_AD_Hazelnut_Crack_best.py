@@ -34,7 +34,7 @@ def get_MVTec_AD_Hazelnut_Crack_best_pipeline(params, dataset_path=None):
     core_code = (
             "<l>        sigma_image(Image, ImageSigma, MaskWidthSigma, MaskHeightSigma, Sigma)</l>\n"
             "<c>        </c>\n"
-            "<l>        local_threshold(ImageSigma, RegionThresh, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>\n"
+            "<l>        local_threshold(ImageSigma, Region, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>\n"
             "<c>        </c>\n"
             "<c>        * AreaToRectangle</c>\n"
             + get_area_to_rectangle() +
