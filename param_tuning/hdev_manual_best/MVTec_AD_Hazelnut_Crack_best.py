@@ -40,7 +40,7 @@ def get_MVTec_AD_Hazelnut_Crack_best_pipeline(params, dataset_path=None):
             + get_area_to_rectangle() +
             "<l>        RegionRect := Rectangles</l>\n"
             "<c>        </c>\n"
-            "<c>        * Closing (Ellipse SE)</l>\n"
+            "<c>        * Closing (Ellipse SE)</c>\n"
             "<l>        tuple_max2(A, B, max_rad)</l>\n"
             "<l>        phi := C</l>\n"
             "<l>        longer := A</l>\n"
