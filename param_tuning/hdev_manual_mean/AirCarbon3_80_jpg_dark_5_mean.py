@@ -10,11 +10,11 @@ from settings import EVIAS_SRC_PATH
 
 
 def get_AirCarbon3_80_jpg_dark_5_mean_pipeline(params, dataset_path=None):
-    pipeline_name = "AirCarbon3_80.jpg_mean_5_best_pipeline"
+    pipeline_name = "AirCarbon3_80.jpg_dark_5_mean_pipeline"
 
     if dataset_path is None:
         # Default dataset path if not provided
-        dataset_path = "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_5/images"
+        dataset_path = "Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_5/images"
 
     # Parameters
     param_lines = "<l>        FilterType := '" + str(params[0]) + "'</l>\n" + \

@@ -12,14 +12,14 @@ This repository contains all scripts that were designed to analyze data from ima
 
 ## Contents
 
-1. <a href="#setup-and-usage">API Basics for experimental data / Plotting data [ACSOS 2023]</a>
+1. <a href="#api-docs-for-experimental-data-and-plotting">API Docs for Experimental Data and Plotting [ACSOS2023]</a>
 1. <a href="#follow-up-optimization-using-sa--ls">Dissertation 2024: CGP Results and Optimization using SA / LS Algorithms [Dissertation 2024]</a>
 1. <a href="#complexity-analysis">Complexity Analysis of CGP Pipelines [Dissertation 2024]</a>
 1. <a href="#pipeline-retrieval">Pipeline Retrieval [Arxiv 2025]</a>
 1. <a href="#free-dependencies">Benchmark Experiment with Open Graph (classic CGP-IP)</a>
 1. <a href="#random-search">Random Search on HDev</a>
 
-## Setup and Usage
+## API Docs for Experimental Data and Plotting
 
 ### Quick Start
 
@@ -123,7 +123,7 @@ If running without arguments, it will use the default paths:
 * `results\*` as the location of all input experiments
 * `report\results.html` as the output HTML file
 
-## Dissertation: CGP Analysi and Optimization
+## Dissertation: CGP Analysis and Optimization
 
 * Results from CGP repetitive runs on image datasets:
 
