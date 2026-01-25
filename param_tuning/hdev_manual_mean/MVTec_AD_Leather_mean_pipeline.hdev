@@ -6,11 +6,23 @@
 <l>dataset_name := 'MVTec_AD_Leather_mean_pipeline'</l>
 <l>source_path := 'I:/evias_expmts/MVTecAnomalyDetection/leather_train/images'</l>
 <l>labels_path := 'I:/evias_expmts/MVTecAnomalyDetection/leather_train/labels'</l>
-<l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
+<l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_mean/' + dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
+<c></c>
+<l>file_exists(out_path, dir_exists)</l>
+<c></c>
+<l>if(dir_exists == 0)</l>
+<l>    make_dir(out_path)</l>
+<l>else</l>
+<c>    * Delete all files in output path if folder exists</c>
+<l>    list_files(out_path, 'files', FileList)</l>
+<l>    for j := 0 to |FileList| - 1 by 1</l>
+<l>        delete_file(FileList[j])</l>
+<l>    endfor</l>
+<l>endif</l>
 <c></c>
 <l>TotalMCC := 0.0</l>
 <c></c>
@@ -90,7 +102,7 @@
 <c>    * --------------</c>
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
 <l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
-<l>    * write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
 <c></c>
 <l>    binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</l>
 <c>    </c>
