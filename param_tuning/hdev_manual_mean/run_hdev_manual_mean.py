@@ -131,20 +131,11 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
     severstal_steel_bounds
 from settings import PARAM_TUNING_HDEV_MANUAL
 
-MANUAL_HDEV_PIPELINES_MEAN = [
-    #"AirCarbon3_80.jpg_dark_5_mean_pipeline",
-    #"KollektorSSD_mean_pipeline",
-    #"MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
-    #"MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
-    #"CF_ReferenceSet_Small_Dark_mean_pipeline",
-    #"MVTec_AD_Bottle_Broken_Lg_mean_pipeline",
-    #"MVTec_AD_Grid_Thread_mean_pipeline",
-    #"MVTec_AD_Leather_mean_pipeline",
-    #"MVTec_AD_Wood_Scratch_mean_pipeline",
-    "Pultrusion_Resin_mean_pipeline"
-]
+#MANUAL_HDEV_PIPELINES_MEAN = [
+#    "Pultrusion_Resin_mean_pipeline"
+#]
 
-MANUAL_HDEV_PIPELINES_MEAN_TMP = [
+MANUAL_HDEV_PIPELINES_MEAN = [
     "AirCarbon2_t_8.jpg_mean_pipeline",
     "AirCarbon3_80.jpg_bright_mean_pipeline",
     "AirCarbon3_80.jpg_dark_1_mean_pipeline",

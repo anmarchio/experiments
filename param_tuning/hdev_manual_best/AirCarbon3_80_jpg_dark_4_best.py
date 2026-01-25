@@ -25,12 +25,14 @@ def get_AirCarbon3_80_jpg_dark_4_best_pipeline(params, dataset_path=None):
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<l>        fast_threshold(Image, Region, MinGray, MaxGrayOffset, MinSize)</l>\n" \
-                "<c></c>\n" \
-                "<c>* GrayErosion with Disc SE</c>\n" \
+    core_code = "<c></c>\n" \
+                "<c>        * GrayErosion with Disc SE</c>\n" \
                 "<l>        get_image_type(Image, Type)</l>\n" \
                 "<l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>\n" \
-                "<l>        gray_erosion(Image, StructElement, Image)</l>\n"
+                "<l>        gray_erosion(Image, StructElement, Image)</l>\n" \
+                "<c></c>\n" \
+                "<c>        * Fast Threshold</c>\n" \
+                "<l>        fast_threshold(Image, Region, MinGray, MaxGrayOffset, MinSize)</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

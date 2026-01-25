@@ -19,9 +19,9 @@ def get_AirCarbon3_80_jpg_dark_1_best_pipeline(params, dataset_path=None):
     # 'lines', 'y', 5, 'adapted_std_deviation', 'dark', 15, 0.3
     param_lines = "<l>        Filter := '" + str(params[0]) + "'</l>\n" + \
                   "<l>        Alpha := " + str(params[1]) + "</l>\n" + \
-                  "<l>        NonMaximumSuppression := '" + str(params[2]) + "'</l>\n" \
-                  "<l>        Low := " + str(params[3]) + "</l>\n" + \
-                  "<l>        High := " + str(params[4]) + "</l>\n" + \
+                  "<l>        Low := " + str(params[2]) + "</l>\n" + \
+                  "<l>        High := " + str(params[3]) + "</l>\n" + \
+                  "<l>        NonMaximumSuppression := '" + str(params[4]) + "'</l>\n" \
                   "<c></c>\n" + \
                   "<l>        FilterTypeSA := '" + str(params[5]) + "'</l>\n" + \
                   "<l>        MaskSizeSA := " + str(params[6]) + "</l>\n" + \
@@ -42,7 +42,7 @@ def get_AirCarbon3_80_jpg_dark_1_best_pipeline(params, dataset_path=None):
                 "<c>* ThresholdAccessChannel</c>\n" \
                 "<l>abs_image(Image, Image)</l>\n" + \
                 "<c></c>\n" \
-                "<l>count_channels(Image, NumChannels)\n" + \
+                "<l>count_channels(Image, NumChannels)</l>\n" + \
                 "<l>if(NumChannels == 3)</l>\n" \
                 "<l>   access_channel(Image, Image, Channel)</l>\n" \
                 "<l>   threshold(Image, Region, Threshold, 255)</l>\n" \
@@ -64,7 +64,7 @@ AirCarbon3_80_jpg_dark_1_best_pipeline_initial_params = [
     0.8,
     30,
     45,
-    'nms'
+    'nms',
     'x',
     5,
     1,

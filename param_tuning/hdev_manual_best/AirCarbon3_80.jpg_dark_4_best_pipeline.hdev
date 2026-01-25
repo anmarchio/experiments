@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'AirCarbon3_80.jpg_dark_4'</l>
-<l>source_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/images'</l>
-<l>labels_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/labels'</l>
+<l>source_path := 'I:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/images'</l>
+<l>labels_path := 'I:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -42,11 +42,14 @@
 <l>        B := 18</l>
 <l>        GrayValueMax := 20</l>
 <c>        </c>
+<c>        * Pipeline</c>
+<c>        </c>
+<c>        * GrayErosion</c>
 <l>        get_image_type(Image, Type)        </l>
 <l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>
 <l>        gray_dilation(Image, StructElement, ImageDilation)</l>
 <c>        </c>
-<c>        * Pipeline</c>
+<c>        * Fast Threshold</c>
 <l>        fast_threshold(ImageDilation, Region, MinGray, MaxGrayOffset, MinSize)        </l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
