@@ -4,7 +4,7 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Grid_Thread_best_pipeline'</l>
-<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/images'</l>
+<l>source_path := 'I:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -41,7 +41,7 @@
 <c>        </c>
 <c>        * Ensure single channel</c>
 <l>        count_channels (ImageBinomial, NumChannels)</l>
-<l>        if (NumChannels > 1)</l>
+<l>        if (NumChannels &gt; 1)</l>
 <l>            access_channel (ImageBinomial, ImageBinomial, 1)</l>
 <l>        endif</l>
 <c>        </c>

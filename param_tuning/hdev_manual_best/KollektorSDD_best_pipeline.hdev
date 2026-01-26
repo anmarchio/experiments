@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'KollektorSSD_best_pipeline'</l>
-<l>source_path := 'H:/evias_expmts/KolektorSDD/kos10/images'</l>
-<l>labels_path := 'H:/evias_expmts/KolektorSDD/kos10/labels'</l>
+<l>source_path := 'I:/evias_expmts/KolektorSDD/kos10/images'</l>
+<l>labels_path := 'I:/evias_expmts/KolektorSDD/kos10/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -59,7 +59,7 @@
 <l>    out_img_path := output_path + Index</l>
 <l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
 <c></c>
-<l>binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</l>
+<l>     binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</l>
 <c>    </c>
 <c>    * -- Compute MCC between predicted region and GT region for one image</c>
 <c>    * mcc_region := procedure (PredRegion, GTRegion, Width, Height : MCC :) </c>

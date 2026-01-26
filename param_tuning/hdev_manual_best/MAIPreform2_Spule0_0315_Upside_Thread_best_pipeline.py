@@ -10,7 +10,7 @@ from settings import EVIAS_SRC_PATH
 
 
 def get_MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline(params, dataset_path=None):
-    pipeline_name = "MAIPreform2_Spule0-0315_Upside_Thread_best_pipeline"
+    pipeline_name = "MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline"
 
     if dataset_path is None:
         dataset_path = "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole/training/images"

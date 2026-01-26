@@ -27,18 +27,16 @@ def get_MVTec_AD_Leather_best_pipeline(params, dataset_path=None):
                       "<c></c>\n"
 
     # Core pipeline
-    core_code = (
-            "<c>* GrayErosion</c>\n"
-            "<l>        get_image_type(Image, Type)</l>\n"
-            "<l>        gen_disc_se(SE, Type, A, B, GrayValueMax)</l>\n"
-            "<l>        gray_erosion(Image, SE, ImageEroded)</l>\n"
-            "<c></c>\n"
-            "<c>* LocalThreshold</c>\n"
-            "<l>        local_threshold(ImageEroded, RegionThresh, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>\n"
-            "<c></c>\n"
-            + get_area_to_rectangle +
+    core_code = "<c>* GrayErosion</c>\n" \
+            "<l>        get_image_type(Image, Type)</l>\n" \
+            "<l>        gen_disc_se(SE, Type, A, B, GrayValueMax)</l>\n" \
+            "<l>        gray_erosion(Image, SE, ImageEroded)</l>\n" \
+            "<c></c>\n" \
+            "<c>* LocalThreshold</c>\n" \
+            "<l>        local_threshold(ImageEroded, Region, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>\n" \
+            "<c></c>\n" \
+            + get_area_to_rectangle() + \
             "<l>        Region := Rectangles</l>\n"
-    )
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

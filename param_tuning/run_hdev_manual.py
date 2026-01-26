@@ -193,7 +193,7 @@ dataset_paths = {
     "AirCarbon3_80.jpg_dark_3_best_pipeline": "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_3/images",
     "AirCarbon3_80.jpg_dark_4_best_pipeline": "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/images",
     "AirCarbon3_80.jpg_dark_5_best_pipeline": "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_5/images",
-    "KollektorSSD_best_pipeline": "/KollektorSDD/kos10/images",
+    "KollektorSSD_best_pipeline": "/KolektorSDD/kos10/images",
     "MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline": "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole_256/training/images",
     "MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline": "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone_thread_hole/training/images",
     "MAIPreform2_Spule0_0315_Upside_best_pipeline": "/MAIPreform2.0/20170502_Compositence/Spule0-0315_Upside/undone/training/images",

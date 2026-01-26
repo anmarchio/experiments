@@ -208,22 +208,12 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
     severstal_steel_bounds
 from settings import PARAM_TUNING_HDEV_MANUAL
 
-MANUAL_HDEV_PIPELINES_BEST = [
-    #"AirCarbon3_80.jpg_dark_1_best_pipeline",
-    "AirCarbon3_80.jpg_dark_4_best_pipeline",
-    #'KollektorSSD_best_pipeline',
-    #"MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline",
-    #"MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline",
-    #"MVTec_AD_Bottle_Broken_Sm_best_pipeline",
-    #"MVTec_AD_Carpet_best_pipeline",
-    #"MVTec_AD_Grid_Thread_best_pipeline",
-    #"MVTec_AD_Leather_best_pipeline",
-    #"MVTec_AD_Wood_Scratch_best_pipeline",
-    #"MVTec_AD_Zipper_Rough_best_pipeline",
-    #"Pultrusion_Window_best_pipeline"
-    ]
+#MANUAL_HDEV_PIPELINES_BEST = [
+#    "MVTec_AD_Bottle_Broken_Sm_best_pipeline", # <-- very low MCC
+#    "Pultrusion_Window_best_pipeline" # <-- very low MCC
+#    ]
 
-MANUAL_HDEV_PIPELINES_BEST_TEMP = [
+MANUAL_HDEV_PIPELINES_BEST = [
     "AirCarbon2_t_8.jpg_best_pipeline",
     "AirCarbon3_80.jpg_bright_best_pipeline",
     "AirCarbon3_80.jpg_dark_1_best_pipeline",
