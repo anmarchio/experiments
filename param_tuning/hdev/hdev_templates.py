@@ -51,7 +51,7 @@ HDEV_FOOTER = "<l>    catch (Exception)</l>\n" \
               "<l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>\n" \
               "<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>\n" \
               "<l>endfor</l>\n" \
-              "<l>*exit()</l>\n" \
+              "<l>exit()</l>\n" \
               "</body>\n" \
               "<docu id=\"main\">\n" \
               "<parameters/>\n" \
