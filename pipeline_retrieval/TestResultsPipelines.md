@@ -47,14 +47,14 @@
 |---------------------------------------------------------| --- | --- | --- |
 | AirCarbon2_t_8.jpg_best_pipeline                        | same | 0.1762332189283834659309492534 | same |
 | AirCarbon3_80.jpg_bright_best_pipeline                  | same | 0.05430956423523617352944428218 | same |
-| **AirCarbon3_80.jpg_dark_1_best_pipeline**              | same | ([], [], 0.0) | same |
+| AirCarbon3_80.jpg_dark_1_best_pipeline                  | same | 0.05546620363657827731869779454 | same |
 | AirCarbon3_80.jpg_dark_2_best_pipeline                  | same | 0.3512769998471783283907377300 | same |
 | AirCarbon3_80.jpg_dark_3_best_pipeline                  | same | 0.08570264959424133018901420102 | same |
-| AirCarbon3_80.jpg_dark _4_best_pipeline                 | same | 0.0000 | same |
+| AirCarbon3_80.jpg_dark_4_best_pipeline                  | same | 0.4651982828588983988558455808 | same |
 | AirCarbon3_80.jpg_dark_5_best_pipeline                  | same | 0.06838219839494030662724481542 | same |
-| KollektorSSD_best_pipeline                              | same | ([], [], 0.0) | same |
-| MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline | same | 0.0000 | same |
-| MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline     | same | 0.0000 | same |
+| KollektorSSD_best_pipeline                              | same | 0.2016243558416790369304204931 | same |
+| MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline | same | 0.4329131455373794411357598836 | same |
+| MAIPreform2_Spule0_0315_Upside_Thread_best_pipeline     | same | 0.5075128848458688124112909171 | same |
 | MAIPreform2_Spule0_0315_Upside_best_pipeline            | same | 0.6484941480446190150920738495 | same |
 | MAIPreform2_Spule0_0816_Upside_best_pipeline            | same | 0.1069205600721308426171290818 | same |
 | CF_ReferenceSet_best_pipeline                           | same | 0.2057514034247991706972193137 | same |
@@ -66,17 +66,17 @@
 | **MVTec_AD_Bottle_Broken_Sm_best_pipeline**             | same | 0.0000 | same |
 | MVTec_AD_Cable_Missing_best_pipeline                    | same | 0.9481434912767013318372955231 | same |
 | MVTec_AD_Capsule_best_pipeline                          | same | 0.07176610464983920534414767015 | same |
-| MVTec_AD_Carpet_best_pipeline                           | same | ([], [], 0.0) | same |
-| MVTec_AD_Grid_Thread_best_pipeline                      | same | 0.0000 | same |
+| MVTec_AD_Carpet_best_pipeline                           | same | 0.4786517591027912879436505007 | same |
+| MVTec_AD_Grid_Thread_best_pipeline                      | same | 0.01892484333522859433874006074 | same |
 | MVTec_AD_Hazelnut_Crack_best_pipeline                   | same | 0.6822767936557288609987448514 | same |
-| MVTec_AD_Leather_best_pipeline                          | same | ([], [], 0.0) | same |
+| MVTec_AD_Leather_best_pipeline                          | same | 0.2002200180715622454994318617 | same |
 | MVTec_AD_Metal_Nut_best_pipeline                        | same | 0.08020711965589251603222191243 | same |
 | MVTec_AD_Pill_Crack_best_pipeline                       | same | -0.02766594112388158549272289765 | same |
 | MVTec_AD_Screw_Scratch_best_pipeline                    | same | 0.3503623739344092039119828454 | same |
 | MVTec_AD_Tile_Crack_best_pipeline                       | same | 0.7485651000870120201049979136 | same |
 | MVTec_AD_Toothbrush_Sm_best_pipeline                    | same | 0.3035113445199360864056427281 | same |
-| MVTec_AD_Wood_Scratch_best_pipeline                     | same | 0.0000 | same |
-| MVTec_AD_Zipper_Rough_best_pipeline                     | same | 0.0000 | same |
+| MVTec_AD_Wood_Scratch_best_pipeline                     | same | 0.5474215639870619476411703761 | same |
+| MVTec_AD_Zipper_Rough_best_pipeline                     | same | 0.4415793761806794888860035938 | same |
 | Pultrusion_Resin_Augmtd_best_pipeline                   | same | 0.4364503158193897718928589149 | same |
 | Pultrusion_Resin_best_pipeline                          | same | 0.3268817841139233931270266377 | same |
 | **Pultrusion_Window_best_pipeline**                     | same | 0.0000 | same |
