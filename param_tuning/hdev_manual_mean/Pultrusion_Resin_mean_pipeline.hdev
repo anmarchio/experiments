@@ -30,8 +30,8 @@
 <l>        FilterType := 'y'</l>
 <l>        MaskSize := 7</l>
 <c>        </c>
-<l>        *MinGray := 18</l>
-<l>        *MaxGray := 243</l>
+<l>        MinGray := 18</l>
+<l>        MaxGray := 243</l>
 <l>        MinSize := 10000</l>
 <l>        MaxSize := 21000</l>
 <l>        WindowWidth := 200</l>
@@ -91,17 +91,67 @@
 <c>        * SobelAmp</c>
 <c>        * 13 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
 <c>        * Convert image if required</c>
-<l>        convert_image_type(Image, Conv_out, 'real')</l>
+<c>        * SobelAmp with scaling/conversion</c>
+<l>        get_image_type(Image, Type)</l>
+<l>        if (FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>
+<l>            if (Type != 'byte' and Type != 'int2' and Type != 'real')</l>
+<l>                gen_empty_obj(ScaledImage)</l>
+<l>                min_max_gray(Image, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>                if (not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
+<l>                    if (MaxGrayVal - MinGrayVal &gt; 0)</l>
+<l>                        Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
+<l>                    else</l>
+<l>                        Mult := 255.0</l>
+<l>                    endif</l>
+<l>                    Add := - Mult * MinGrayVal</l>
+<l>                    scale_image(Image, ImageScaled, Mult, Add)</l>
+<l>                else</l>
+<l>                    scale_image(Image, ImageScaled, Mult, Add)</l>
+<l>                endif</l>
+<l>                convert_image_type(ScaledImage, Image2, 'byte')</l>
+<l>            endif</l>
+<l>        elseif (Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>
+<l>            gen_empty_obj(ScaledImage)</l>
+<l>            min_max_gray(Image, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>            if (not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
+<l>                if (MaxGrayVal - MinGrayVal &gt; 0)</l>
+<l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
+<l>                else</l>
+<l>                    Mult := 255.0</l>
+<l>                endif</l>
+<l>                Add := - Mult * MinGrayVal</l>
+<l>                scale_image(Image, ImageScaled, Mult, Add)</l>
+<l>            else</l>
+<l>                scale_image(Image, ImageScaled, Mult, Add)</l>
+<l>            endif</l>
+<l>            convert_image_type(Image, Image2, 'byte')</l>
+<l>        endif</l>
 <c>        </c>
 <c>        * Apply Sobel Y with mask size 3</c>
-<l>        sobel_amp(Conv_out, Image, FilterType, MaskSize)</l>
+<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>
 <c>        </c>
+<c>         * Scale To Gray</c>
+<l>        gen_empty_obj(ScaledImage)</l>
+<l>        min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>        if (not( (255 &gt;= MaxGrayVal) and (MinGrayVal &gt;= 0) ))</l>
+<l>            if(MaxGrayVal - MinGrayVal &gt; 0)</l>
+<l>                Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
+<l>            else</l>
+<l>                Mult := 255.0</l>
+<l>            endif</l>
+<l>            Add := - Mult * MinGrayVal</l>
+<l>            scale_image(Image, ScaledImage, Mult, Add)</l>
+<l>        else</l>
+<l>            scale_image(Image, ScaledImage, 1, 0)</l>
+<l>       endif</l>
+<l>       Image := ScaledImage</l>
+<c>       </c>
 <c>        * AreaSizeThreshold</c>
 <c>        * 83 [label="AreaSizeThreshold\nMinGray=18\n MaxGray=243\n MinSize=10000\n MaxSize=21000\n WindowWidth=200\n WindowHeight=220"];</c>
 <c></c>
 <c>        * AreaSizeThreshold</c>
-<l>        MinGray := 20</l>
-<l>        MaxGray := 255</l>
+<l>        *MinGray := 20</l>
+<l>        *MaxGray := 255</l>
 <c>        </c>
 <l>        abs_image(Image, Image)</l>
 <c>        </c>
@@ -138,7 +188,7 @@
 <l>                endif</l>
 <c>        </c>
 <l>                crop_rectangle1(Image, ImagePart, Row1, Col1, Row2, Col2)</l>
-<l>                threshold(ImagePart, Threads, 40, 255)</l>
+<l>                threshold(ImagePart, Threads, MinGray, MaxGray)</l>
 <l>                area_center(Threads, AreaSize, Row, Col)</l>
 <c>        </c>
 <l>                if (AreaSize &lt; MaxSize and AreaSize &gt; MinSize)</l>
@@ -229,7 +279,7 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    *wait_seconds(0.5)</l>
+<l>    wait_seconds(0.5)</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>

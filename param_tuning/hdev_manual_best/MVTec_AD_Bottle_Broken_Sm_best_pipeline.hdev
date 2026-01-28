@@ -51,7 +51,21 @@
 <c>        </c>
 <l>        sobel_amp(ImageCrop, ImageAmp, FilterType, MaskSize)</l>
 <c>        </c>
-<l>        convert_image_type(ImageAmp, ImageAmp, 'int2')</l>
+<c>        * Scale To Gray</c>
+<l>            gen_empty_obj(ScaledImage)</l>
+<l>            min_max_gray(ImageAmp, ImageAmp, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>            if(MaxGrayVal &lt;= 255 and MinGrayVal &gt;= 0)</l>
+<l>                copy_image(ImageAmp, ImageScaled)</l>
+<l>            else</l>
+<l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>
+<l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
+<l>                else</l>
+<l>                    Mult := 255.0                </l>
+<l>                endif</l>
+<l>                Add := - Mult * MinGrayVal</l>
+<l>                scale_image(ImageAmp, ImageScaled, Mult, Add)</l>
+<l>            endif                </l>
+<l>            convert_image_type(ImageScaled, ImageAmp, 'int2')</l>
 <l>        zero_crossing(ImageAmp, RegionZero)</l>
 <c>        </c>
 <c>        * StructElementType Ellipse"</c>

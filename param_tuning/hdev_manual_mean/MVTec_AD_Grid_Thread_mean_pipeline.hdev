@@ -8,7 +8,7 @@
 <l>labels_path := 'I:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/labels'</l>
 <l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_mean/' + dataset_name + '/'</l>
 <c></c>
-<l>dev_update_on()</l>
+<l>dev_update_off()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
 <c></c>
@@ -75,7 +75,7 @@
 <c>        * -------</c>
 <c>        * CropRectangle</c>
 <c>        * 20 [label="CropRectangle\nMinRatio=0,0399999991059303\n MaskHeight=13\n MaskWidth=19"];</c>
-<c>                </c>
+<c>        </c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region1)</l>
 <c>        </c>
@@ -152,7 +152,7 @@
 <c>        * ------</c>
 <c>        * SobelAmp  </c>
 <c>        * 19 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
-<l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>
+<l>        sobel_amp(Image, Image2, FilterType, MaskSize)</l>
 <c>        </c>
 <c>        * AutoThreshold</c>
 <c>        * 22 [label="AutoThreshold\nSigma=0,5"];           </c>
@@ -161,6 +161,7 @@
 <l>            convert_image_type(Image2, Image2, 'byte')</l>
 <l>        endif</l>
 <l>        auto_threshold(Image2, Region2, Sigma)</l>
+<l>        gen_empty_region(Region2)</l>
 <c>        </c>
 <c>        * Union2 (Path 1 &gt; Path 2)</c>
 <c>        * 36 [label="Union2\n"];</c>
