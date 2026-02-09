@@ -20,8 +20,8 @@ Default Path
 WDIR = os.path.join("D:\\", "dev", "experiments")
 
 # Data Source Path for your images and labels
-EVIAS_SRC = ["I:", "evias_expmts"]
-EVIAS_SRC_PATH = os.path.join("I:\\", "evias_expmts")
+EVIAS_SRC = ["D:", "evias_expmts"]
+EVIAS_SRC_PATH = os.path.join("D:\\", "evias_expmts")
 
 """
 Output Path for Subsequent Pipeline Optimization (SA, LS)
