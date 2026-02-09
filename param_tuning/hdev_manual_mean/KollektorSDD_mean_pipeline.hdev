@@ -27,6 +27,7 @@
 <c>        </c>
 <l>        convert_image_type(Image, Image, 'int2')</l>
 <c>        * ZeroCrossing</c>
+<l>        gen_empty_obj(ScaledImage)</l>
 <l>        min_max_gray (Image, Image, 0, Min, Max, Range)</l>
 <l>        if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
 <l>            if ((Max - Min) &gt; 0)</l>
@@ -111,7 +112,7 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    wait_seconds(0.5)</l>
+<l>    *wait_seconds(0.5)</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>

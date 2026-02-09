@@ -13,6 +13,7 @@
 <l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
 <c></c>
 <l>TotalMCC := 0.0</l>
+<l>MCC_Vals[0] := 0.0</l>
 <c></c>
 <l>for Index := 1 to |ImageFiles| - 1 by 1</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
@@ -35,7 +36,26 @@
 <l>        anisotropic_diffusion(Image, Image, DiffusionCoefficient, Contrast, Theta, Iterations)</l>
 <c>        </c>
 <c>        * BinaryThreshold</c>
-<l>        binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>
+<l>        abs_image(Image, Image)</l>
+<l>        get_image_type(Image, Type)</l>
+<l>        if((Type # 'byte') and (Type # 'uint2') and (Type # 'real')) </l>
+<l>            min_max_gray(Image, Image, 0, Min, Max, Range)</l>
+<l>            if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
+<l>                if ((Max - Min) &gt; 0)</l>
+<l>                    Mult := 255.0 / (Max - Min)</l>
+<l>                else</l>
+<l>                    Mult := 255.0</l>
+<l>                endif</l>
+<l>                Add := -Mult * Min</l>
+<l>                scale_image(Image, Image, Mult, Add)</l>
+<l>            else</l>
+<l>                scale_image(Image, Image, 1, 0)</l>
+<l>            endif</l>
+<l>            convert_image_type(Image, Image, 'byte')</l>
+<l>            binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>
+<l>        else            </l>
+<l>            binary_threshold(Image, Region, Method, LightDark, UsedThreshold)</l>
+<l>        endif</l>
 <c>        </c>
 <c>        * Connection        </c>
 <l>        connection(Region, Region)</l>
@@ -106,6 +126,12 @@
 <l>    endif</l>
 <c></c>
 <l>    TotalMCC := TotalMCC + ImageMCC</l>
+<c>    </c>
+<l>    if(|MCC_Vals| == 1)</l>
+<l>        MCC_Vals[0] := ImageMCC</l>
+<l>    endif</l>
+<l>    tuple_concat(MCC_Vals, ImageMCC, MCC_Vals)</l>
+<c>    </c>
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>

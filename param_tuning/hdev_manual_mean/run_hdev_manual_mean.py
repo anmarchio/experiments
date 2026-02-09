@@ -32,7 +32,8 @@ from param_tuning.hdev_manual_mean.AirCarbon3_80_jpg_dark_5_mean import AirCarbo
 from param_tuning.hdev_manual_mean.CrackForest_mean import CrackForest_training_source_path, \
     get_CrackForest_mean_pipeline, \
     CrackForest_mean_pipeline_bounds, CrackForest_mean_pipeline_initial_params
-from param_tuning.hdev_manual_mean.KollektorSSD_mean_pipeline import get_KollektorSSD_mean_pipeline
+from param_tuning.hdev_manual_mean.KollektorSSD_mean_pipeline import get_KollektorSSD_mean_pipeline, \
+    KollektorSSD_mean_pipeline_bounds, KollektorSSD_mean_pipeline_initial_params
 from param_tuning.hdev_manual_mean.MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline import \
     MAIPreform2_Spule0_0315_Upside_Thread_256_training_source_path, \
     get_MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline, \
@@ -130,6 +131,10 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
     severstal_steel_bounds
 from settings import PARAM_TUNING_HDEV_MANUAL
 
+#MANUAL_HDEV_PIPELINES_MEAN = [
+#    "Pultrusion_Resin_mean_pipeline"
+#]
+
 MANUAL_HDEV_PIPELINES_MEAN = [
     "AirCarbon2_t_8.jpg_mean_pipeline",
     "AirCarbon3_80.jpg_bright_mean_pipeline",
@@ -138,7 +143,7 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     "AirCarbon3_80.jpg_dark_3_mean_pipeline",
     "AirCarbon3_80.jpg_dark_4_mean_pipeline",
     "AirCarbon3_80.jpg_dark_5_mean_pipeline",
-    "KolektorSDD_mean_pipeline",
+    "KollektorSSD_mean_pipeline",
     "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline",
     "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline",
     "MAIPreform2_Spule0_0315_Upside_mean_pipeline",
@@ -171,13 +176,11 @@ MANUAL_HDEV_PIPELINES_MEAN = [
     "MVTec_AD_Transistor_mean_pipeline"  # <=== Missing Follow-Up
 ]
 
-
 """
 =============================
 DICTS for mean pipelines, bounds, source_paths
 =============================
 """
-
 pipelines_mean = {
     "AirCarbon2_t_8.jpg_mean_pipeline": AirCarbon2_t_8_jpg_mean_pipeline,
     "AirCarbon3_80.jpg_bright_mean_pipeline": get_AirCarbon3_80_jpg_bright_mean_pipeline,
@@ -209,14 +212,14 @@ pipelines_mean = {
     "MVTec_AD_Screw_Scratch_mean_pipeline": get_MVTec_AD_Screw_Scratch_mean_pipeline,
     "MVTec_AD_Tile_Crack_mean_pipeline": get_MVTec_AD_Tile_Crack_mean_pipeline,
     "MVTec_AD_Toothbrush_Sm_mean_pipeline": get_MVTec_AD_Toothbrush_Sm_mean_pipeline,
-    "MVTec_AD_Wood_Scratch_mean_pipeline": get_MVTec_AD_Wood_Scratch_mean_pipeline, # <= Scale To Gray / Mult empty
+    "MVTec_AD_Wood_Scratch_mean_pipeline": get_MVTec_AD_Wood_Scratch_mean_pipeline,
     "MVTec_AD_Zipper_Rough_mean_pipeline": get_MVTec_AD_Zipper_Rough_mean_pipeline,
     "Pultrusion_Resin_Augmtd_mean_pipeline": get_Pultrusion_Resin_Augmtd_mean_pipeline,
-    "Pultrusion_Resin_mean_pipeline": get_Pultrusion_Resin_mean_pipeline, # sobel_amp Image2 not initilaized
+    "Pultrusion_Resin_mean_pipeline": get_Pultrusion_Resin_mean_pipeline,
     "Pultrusion_Window_mean_pipeline": get_Pultrusion_Window_mean_pipeline,
     "severstal-steel_mean_pipeline": get_severstal_steel_mean_pipeline,
-    "MVTec_AD_Transistor_mean_pipeline": get_MVTec_AD_Transistor_mean_pipeline,
-    "CrackForest_mean_pipeline": get_CrackForest_mean_pipeline,
+    "MVTec_AD_Transistor_mean_pipeline": get_MVTec_AD_Transistor_mean_pipeline, # <= missing follow-up
+    "CrackForest_mean_pipeline": get_CrackForest_mean_pipeline, # <= missing follow-up
 }
 
 bounds_mean = {
@@ -227,6 +230,7 @@ bounds_mean = {
     "AirCarbon3_80.jpg_dark_3_mean_pipeline": AirCarbon3_80_jpg_dark_3_mean_pipeline_bounds,
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": AirCarbon3_80_jpg_dark_4_mean_pipeline_bounds,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": AirCarbon3_80_jpg_dark_5_mean_pipeline_bounds,
+    "KollektorSSD_mean_pipeline": KollektorSSD_mean_pipeline_bounds,
     "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_bounds,
     "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline_bounds,
     "MAIPreform2_Spule0_0315_Upside_mean_pipeline": MAIPreform2_Spule0_0315_Upside_mean_pipeline_bounds,
@@ -267,6 +271,7 @@ initial_params_mean = {
     "AirCarbon3_80.jpg_dark_3_mean_pipeline": AirCarbon3_80_jpg_dark_3_mean_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_4_mean_pipeline": AirCarbon3_80_jpg_dark_4_mean_pipeline_initial_params,
     "AirCarbon3_80.jpg_dark_5_mean_pipeline": AirCarbon3_80_jpg_dark_5_mean_pipeline_initial_params,
+    "KollektorSSD_mean_pipeline": KollektorSSD_mean_pipeline_initial_params,
     "MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_256_mean_pipeline_initial_params,
     "MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline": MAIPreform2_Spule0_0315_Upside_Thread_mean_pipeline_initial_params,
     "MAIPreform2_Spule0_0315_Upside_mean_pipeline": MAIPreform2_Spule0_0315_Upside_mean_pipeline_initial_params,

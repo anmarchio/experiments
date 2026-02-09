@@ -32,7 +32,7 @@ def get_AirCarbon3_80_jpg_dark_4_mean_pipeline(params, dataset_path=None):
                 "<l>        get_image_type(Image, Type)</l>\n" + \
                 "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" + \
                 scale_to_gray() + \
-                "<l>            convert_image_type(ImageScaled, Image, 'byte')</l>\n" + \
+                "<l>            convert_image_type(ScaledImage, Image, 'byte')</l>\n" + \
                 "<l>        endif</l>\n" + \
                 "<c></c>\n" + \
                 "<l>        tuple_max2(MinGray + MaxGrayOffset, 255, MaxGrayOffset)</l>\n" + \

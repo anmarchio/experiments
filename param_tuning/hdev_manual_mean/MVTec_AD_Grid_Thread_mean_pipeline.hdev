@@ -3,18 +3,37 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dataset_name := 'MVTec_AD_Grid_Thread_best_pipeline'</l>
+<l>dataset_name := 'MVTec_AD_Grid_Thread_mean_pipeline'</l>
 <l>source_path := 'I:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/images'</l>
 <l>labels_path := 'I:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/labels'</l>
-<l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
+<l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_mean/' + dataset_name + '/'</l>
 <c></c>
-<l>dev_update_on()</l>
+<l>dev_update_off()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
+<c></c>
+<l>file_exists(out_path, dir_exists)</l>
+<c></c>
+<l>if(dir_exists == 0)</l>
+<l>    make_dir(out_path)</l>
+<l>else</l>
+<c>    * Delete all files in output path if folder exists</c>
+<l>    list_files(out_path, 'files', FileList)</l>
+<l>    for j := 0 to |FileList| - 1 by 1</l>
+<l>        delete_file(FileList[j])</l>
+<l>    endfor</l>
+<l>endif</l>
 <c></c>
 <l>TotalMCC := 0.0</l>
 <c></c>
 <l>for Index := 1 to |ImageFiles| - 1 by 1</l>
+<c>    * Remove the extension using regex</c>
+<l>    tuple_split (ImageFiles[Index], '/', filepath)</l>
+<l>    filename_with_extension := filepath[|filepath| - 1]</l>
+<l>    tuple_regexp_replace (filename_with_extension, '\\.[a-zA-Z0-9]+$', '', filename)</l>
+<c></c>
+<l>    out_img_path := out_path + filename + '.png'</l>
+<c>    </c>
 <l>    read_image(Image, ImageFiles[Index])</l>
 <l>    read_image(Label, LabelFiles[Index])</l>
 <c>    </c>
@@ -56,7 +75,7 @@
 <c>        * -------</c>
 <c>        * CropRectangle</c>
 <c>        * 20 [label="CropRectangle\nMinRatio=0,0399999991059303\n MaskHeight=13\n MaskWidth=19"];</c>
-<c>                </c>
+<c>        </c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
 <l>        gen_empty_region(Region1)</l>
 <c>        </c>
@@ -133,7 +152,7 @@
 <c>        * ------</c>
 <c>        * SobelAmp  </c>
 <c>        * 19 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
-<l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>
+<l>        sobel_amp(Image, Image2, FilterType, MaskSize)</l>
 <c>        </c>
 <c>        * AutoThreshold</c>
 <c>        * 22 [label="AutoThreshold\nSigma=0,5"];           </c>
@@ -142,6 +161,7 @@
 <l>            convert_image_type(Image2, Image2, 'byte')</l>
 <l>        endif</l>
 <l>        auto_threshold(Image2, Region2, Sigma)</l>
+<l>        gen_empty_region(Region2)</l>
 <c>        </c>
 <c>        * Union2 (Path 1 &gt; Path 2)</c>
 <c>        * 36 [label="Union2\n"];</c>
@@ -185,7 +205,7 @@
 <c>    * --------------</c>
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
 <l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
-<l>    * write_image(ImageResult, 'png', 0, out_img_path)</l>
+<l>    write_image(ImageResult, 'png', 0, out_img_path)</l>
 <c></c>
 <l>    binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</l>
 <c>    </c>

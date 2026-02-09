@@ -5,7 +5,8 @@ MVTec_AD_Bottle_Broken_Sm_best_pipeline
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, get_ellipse_struct_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, get_ellipse_struct_code, \
+    scale_to_gray
 from settings import EVIAS_SRC_PATH
 
 
@@ -29,15 +30,18 @@ def get_MVTec_AD_Bottle_Broken_Sm_best_pipeline(params, dataset_path=None):
 
     # Core pipeline
     core_code = (
-            "<c>* CropSmallestRectangle</c>\n"
+            "<c>        * CropSmallestRectangle</c>\n"
             "<l>        threshold(Image, RegionRect, MinGray, MaxGray)</l>\n"
             "<l>        smallest_rectangle1(RegionRect, Row1, Column1, Row2, Column2)</l>\n"
             "<l>        crop_rectangle1(Image, ImageCrop, Row1, Column1, Row2, Column2)</l>\n"
             "<c></c>\n"
-            "<l>        sobel_amp(ImageCrop, ImageAmp, FilterType, MaskSize)</l>\n"
-            "<l>        zero_crossing(ImageAmp, RegionZero)</l>\n"
+            "<l>        sobel_amp(ImageCrop, Image, FilterType, MaskSize)</l>\n"
+            + scale_to_gray() +
             "<c></c>\n"
-            "<c>* StructElementType Ellipse using A, B</c>\n"
+            "<l>        convert_image_type(ImageScaled, ImageAmp, 'int2')</l>\n"
+            "<l>        zero_crossing(Image, RegionZero)</l>\n"
+            "<c></c>\n"
+            "<c>        * StructElementType Ellipse using A, B</c>\n"
             "<l>        tuple_max2(A, B, max_rad)</l>\n"
             "<l>        longer := A</l>\n"
             "<l>        shorter := B</l>\n"
@@ -50,7 +54,7 @@ def get_MVTec_AD_Bottle_Broken_Sm_best_pipeline(params, dataset_path=None):
             "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n"
             "<l>        gen_ellipse(SE, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n"
             "<c></c>\n"
-            "<c>* Apply StructElement Ellipse to Dilation1</c>\n"
+            "<c>        * Apply StructElement Ellipse to Dilation1</c>\n"
             "<l>        dilation1(RegionZero, SE, RegionDilation, Iterations)</l>\n"
             "<c></c>\n"
             "<l>        union1(RegionDilation, Region)</l>\n"

@@ -208,6 +208,11 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
     severstal_steel_bounds
 from settings import PARAM_TUNING_HDEV_MANUAL
 
+#MANUAL_HDEV_PIPELINES_BEST = [
+#    "MVTec_AD_Bottle_Broken_Sm_best_pipeline", # <-- very low MCC
+#    "Pultrusion_Window_best_pipeline" # <-- very low MCC
+#    ]
+
 MANUAL_HDEV_PIPELINES_BEST = [
     "AirCarbon2_t_8.jpg_best_pipeline",
     "AirCarbon3_80.jpg_bright_best_pipeline",

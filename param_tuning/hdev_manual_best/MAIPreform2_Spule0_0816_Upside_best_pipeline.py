@@ -93,7 +93,7 @@ MAIPreform2_Spule0_0816_Upside_best_pipeline_initial_params = [
     0.8,   # Sigma
     19,    # Rho
     0.2,   # Theta
-    100,   # Iterations
+    10,   # Iterations (!) Orignally: 100
     0.06,  # MinRatio
     7,     # MaskHeight
     9      # MaskWidth

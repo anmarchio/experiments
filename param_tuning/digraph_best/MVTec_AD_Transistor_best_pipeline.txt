@@ -1,26 +1,26 @@
 dataset: MVTec_AD_Transistor
 
-experiment_id: 40
-run_id: 82
-fit_values: [0.121948023672402]
-pipeline_id: 82
+experiment_id: 4
+run_id: 1
+fit_values: [0.27300355917722]
+pipeline_id: 
 
 digraph:
 digraph Pipeline { 
-rankdir = "RL";94 [label="Union2\n"];
-65 [label="Erosion1\nIterations=40\n StructElement=Ellipse\n A=24\n B=4"];
-20 [label="AreaSizeThreshold\nMinGray=17\n MaxGray=240\n MinSize=10000\n MaxSize=21000\n WindowWidth=210\n WindowHeight=300"];
-24 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=15\n Scale=0,2"];
-4 [label="GrayClosing\nStructElement=Circle\n A=14\n B=5\n GrayValueMax=1"];
-18 [label="SobelAmp\nFilterType=x\n MaskSize=3"];
+rankdir = "RL";98 [label="SelectShape\nMin=87\n Max=99999\n Features=width"];
+67 [label="Closing\nA=16\n B=18\n C=0,392699\n StructElementType=Rectangle"];
+48 [label="HistoToThresh\nSigma=4"];
+37 [label="Connection\nNeighborhood=4"];
+2 [label="EdgesImage\nFilter=canny\n Alpha=1,1\n Low=5\n High=10\n NonMaximumSuppression=nms"];
+23 [label="RegionGrowing\nRasterHeight=21\n RasterWidth=19\n Tolerance=7\n MinRegionSize=1"];
 _1 [label="HalconInputNode\nProgramInputIdentifier=-1"];
-7 [label="CoherenceEnhancingDiff\nSigma=0,1\n Rho=28\n Theta=0,3\n Iterations=312"];
-94 -> 65 [];
-94 -> 20 [];
-65 -> 24 [];
-20 -> 4 [];
-24 -> 18 [];
-4 -> _1 [];
-18 -> 7 [];
+7 [label="CropSmallestRectangle\nMinGray=18\n MaxGray=255"];
+98 -> 67 [];
+67 -> 48 [];
+48 -> 37 [];
+48 -> 2 [];
+37 -> 23 [];
+2 -> _1 [];
+23 -> 7 [];
 7 -> _1 [];
 }

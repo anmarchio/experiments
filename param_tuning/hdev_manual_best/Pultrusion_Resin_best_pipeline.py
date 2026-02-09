@@ -6,7 +6,7 @@ MVTec_AD_Pultrusion_Resin_best_pipeline
 import os
 
 from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, get_crop_rectangle_code, \
-    area_size_threshold, convert_margin_to_int
+    area_size_threshold, convert_margin_to_int, get_area_to_rectangle, scale_to_gray
 from settings import EVIAS_SRC_PATH
 
 
@@ -19,22 +19,19 @@ def get_Pultrusion_Resin_best_pipeline(params, dataset_path=None):
     # Parameters
     param_lines = (
                 "<l>        FilterType := '" + str(params[0]) + "'</l>\n"
-                                                                "<l>        MaskSize := " + str(params[1]) + "</l>\n"
-                                                                                                             "<c></c>\n"
-                                                                                                             "<l>        Method := '" + str(
-            params[2]) + "'</l>\n"
-                         "<l>        LightDark := '" + str(params[3]) + "'</l>\n"
-                                                                        "<c></c>\n"
-                                                                        "<l>        Min := " + str(params[4]) + "</l>\n"
-                                                                                                                "<l>        Max := " + str(
-            params[5]) + "</l>\n"
-                         "<l>        Features := '" + str(params[6]) + "'</l>\n"
-                                                                       "<c></c>\n"
-                                                                       "<l>        A := " + str(params[7]) + "</l>\n"
-                                                                                                             "<l>        B := " + str(
-            params[8]) + "</l>\n"
-                         "<c></c>\n"
-    )
+                "<l>        MaskSize := " + str(params[1]) + "</l>\n"
+                "<c></c>\n"
+                "<l>        Method := '" + str(params[2]) + "'</l>\n"
+                "<l>        LightDark := '" + str(params[3]) + "'</l>\n"
+                "<c></c>\n"
+                "<l>        Min := " + str(params[4]) + "</l>\n"
+                "<l>        Max := " + str(params[5]) + "</l>\n"
+                "<l>        Features := '" + str(params[6]) + "'</l>\n"
+                "<c></c>\n"
+                "<l>        A := " + str(params[7]) + "</l>\n"
+                "<l>        B := " + str(params[8]) + "</l>\n"
+                "<c></c>\n"
+            )
 
     # Core pipeline
     core_code = (

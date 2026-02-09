@@ -5,7 +5,7 @@ MVTec_AD_Zipper_Rough_best_pipeline
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, scale_to_gray
 from settings import EVIAS_SRC_PATH
 
 
@@ -20,12 +20,11 @@ def get_MVTec_AD_Zipper_Rough_best_pipeline(params, dataset_path=None):
                 "<l>        FilterType := '" + str(params[0]) + "'</l>\n" + \
                 "<l>        MaskSize := " + str(params[1]) + "</l>\n"
                 "<c></c>\n"
-                "<l>        A := " + str(
-                    params[2]) + "</l>\n"
-                        "<l>        B := " + str(params[3]) + "</l>\n"
-                        "<l>        C := 0.785398</l>\n"                                                               
-                        "<c></c>\n"
-        )
+                "<l>        A := " + str(params[2]) + "</l>\n"
+                "<l>        B := " + str(params[3]) + "</l>\n"
+                "<l>        C := 0.785398</l>\n"                                                               
+                "<c></c>\n"
+            )
 
     # Core pipeline
     core_code = (
@@ -33,10 +32,11 @@ def get_MVTec_AD_Zipper_Rough_best_pipeline(params, dataset_path=None):
             "<l>        kirsch_amp(Image, ImageKirsch)</l>\n"
             "<c></c>\n"
             "<c>* SobelAmp</c>\n"
-            "<l>        sobel_amp(ImageKirsch, ImageAmp, FilterType, MaskSize)</l>\n"
+            "<l>        sobel_amp(ImageKirsch, Image, FilterType, MaskSize)</l>\n"
             "<c></c>\n"
             "<c>* ZeroCrossing</c>\n"
-            "<l>        zero_crossing(ImageAmp, RegionZero)</l>\n"
+            + scale_to_gray() +
+            "<l>        zero_crossing(ScaledImage, RegionZero)</l>\n"
             "<c></c>\n"
             "<c>* Closing (Ellipse SE)</c>\n"
             "<l>        tuple_max2(A, B, max_rad)</l>\n"

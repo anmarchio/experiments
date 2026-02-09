@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'Pultrusion_Window_best_pipeline'</l>
-<l>source_path := 'D:/evias_expmts/Pultrusion/window_cgp/train/images'</l>
-<l>labels_path := 'D:/evias_expmts/Pultrusion/window_cgp/train/labels'</l>
+<l>source_path := 'I:/evias_expmts/Pultrusion/window_cgp/train/images'</l>
+<l>labels_path := 'I:/evias_expmts/Pultrusion/window_cgp/train/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_off()</l>

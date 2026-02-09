@@ -29,9 +29,9 @@ def get_AirCarbon3_80_jpg_dark_2_mean_pipeline(params, dataset_path=None):
                 "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" \
                 "<c>            * Scale To Gray</c>\n" \
                 "<l>            gen_empty_obj(ScaledImage)</l>\n" \
-                "<l>            min_max_gray(ImageOpening, ImageOpening, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>\n" \
+                "<l>            min_max_gray(ImageRoberts, ImageRoberts, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>\n" \
                 "<l>            if(MaxGrayVal &lt;= 255 and MinGrayVal &gt;= 0)</l>\n" \
-                "<l>                copy_image(ImageOpening, ImageScaled)</l>\n" \
+                "<l>                copy_image(ImageRoberts, ScaledImage)</l>\n" \
                 "<l>            else</l>\n" \
                 "<l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>\n" \
                 "<l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>\n" \
@@ -39,9 +39,9 @@ def get_AirCarbon3_80_jpg_dark_2_mean_pipeline(params, dataset_path=None):
                 "<l>                    Mult := 255.0                </l>\n" \
                 "<l>                endif</l>\n" \
                 "<l>                Add := - Mult * MinGrayVal</l>\n" \
-                "<l>                scale_image(ImageOpening, ImageScaled, Mult, Add)</l>\n" \
+                "<l>                scale_image(ImageRoberts, ScaledImage, Mult, Add)</l>\n" \
                 "<l>            endif                </l>\n" \
-                "<l>            convert_image_type(ImageScaled, ImageRoberts, 'byte')</l>\n" \
+                "<l>            convert_image_type(ScaledImage, ImageRoberts, 'byte')</l>\n" \
                 "<l>        endif                </l>\n" \
                 "<l>        threshold(Image, Region, Min, Max)</l>\n"
 

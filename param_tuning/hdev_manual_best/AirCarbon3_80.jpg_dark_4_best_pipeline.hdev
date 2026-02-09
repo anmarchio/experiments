@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'AirCarbon3_80.jpg_dark_4'</l>
-<l>source_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/images'</l>
-<l>labels_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/labels'</l>
+<l>source_path := 'I:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/images'</l>
+<l>labels_path := 'I:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_4/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -14,17 +14,29 @@
 <c></c>
 <l>TotalMCC := 0.0</l>
 <c></c>
+<l>file_exists(output_path, dir_exists)</l>
+<c></c>
+<l>if(dir_exists == 0)</l>
+<l>    make_dir(output_path)</l>
+<l>else</l>
+<c>    * Delete all files in output path if folder exists</c>
+<l>    list_files(output_path, 'files', FileList)</l>
+<l>    for j := 0 to |FileList| - 1 by 1</l>
+<l>        delete_file(FileList[j])</l>
+<l>    endfor</l>
+<l>endif</l>
+<c></c>
 <l>for Index := 0 to |ImageFiles| - 1 by 1</l>
-<l>    file_exists(output_path, dir_exists)</l>
-<l>    if(dir_exists == 0)</l>
-<l>        make_dir(output_path)</l>
-<l>    endif</l>
-<l>    out_img_path := output_path + Index + '.png'</l>
+<c>    * Remove the extension using regex</c>
+<l>    tuple_split (ImageFiles[Index], '/', filepath)</l>
+<l>    filename_with_extension := filepath[|filepath| - 1]</l>
+<l>    tuple_regexp_replace (filename_with_extension, '\\.[a-zA-Z0-9]+$', '', filename)</l>
+<c></c>
+<l>    out_img_path := output_path + filename + '.png'</l>
 <l>    file_exists(out_img_path, exists)</l>
 <l>    if(exists)</l>
 <l>        delete_file(out_img_path)</l>
 <l>    endif</l>
-<c></c>
 <l>    read_image(Image, ImageFiles[Index])</l>
 <l>    read_image(Label, LabelFiles[Index])</l>
 <c>    </c>
@@ -42,11 +54,14 @@
 <l>        B := 18</l>
 <l>        GrayValueMax := 20</l>
 <c>        </c>
+<c>        * Pipeline</c>
+<c>        </c>
+<c>        * GrayDilation</c>
 <l>        get_image_type(Image, Type)        </l>
 <l>        gen_disc_se(StructElement, Type, A, B, GrayValueMax)</l>
 <l>        gray_dilation(Image, StructElement, ImageDilation)</l>
 <c>        </c>
-<c>        * Pipeline</c>
+<c>        * Fast Threshold</c>
 <l>        fast_threshold(ImageDilation, Region, MinGray, MaxGrayOffset, MinSize)        </l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
@@ -57,8 +72,8 @@
 <l>    gen_image_const(ImageResult, 'byte', Width, Height)</l>
 <l>    paint_region(Region, ImageResult, ImageResult, 255, 'margin')</l>
 <l>    out_img_path := output_path + Index</l>
-<c>    *write_image(ImageResult, 'png', 0, out_img_path) binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</c>
-<c>    </c>
+<l>    write_image(ImageResult, 'png', 0, out_img_path) </l>
+<c>     </c>
 <l>    binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</l>
 <c>    * -- Compute MCC between predicted region and GT region for one image</c>
 <c>    * mcc_region := procedure (PredRegion, GTRegion, Width, Height : MCC :) </c>

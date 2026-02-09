@@ -35,14 +35,12 @@
 <c>        </c>
 <c>        * CropSmallestRectangle</c>
 <c>        * CropSmallestRectangle\nMinGray=21\n MaxGray=255"</c>
-<c>                </c>
 <l>        threshold(Image, Region, MinGray, MaxGray)</l>
 <l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
 <l>        crop_rectangle1(Image, Image2, Row1, Column1, Row2, Column2)</l>
 <c></c>
 <c>        * SobelAmp</c>
 <c>        * 13 [label="SobelAmp\nFilterType=y\n MaskSize=7"];</c>
-<c>        </c>
 <l>        get_image_type(Image2, Type)</l>
 <l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>
 <l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>
@@ -81,7 +79,7 @@
 <l>            endif                </l>
 <l>            convert_image_type(Image2, Image2, 'byte')</l>
 <l>        endif</l>
-<l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>
+<l>        sobel_amp(Image2, Image, FilterType, MaskSize)</l>
 <c>        </c>
 <c>        * CropRectangle</c>
 <c>        * Output: RelativeRegion</c>
@@ -141,11 +139,7 @@
 <l>        endfor</l>
 <c>        </c>
 <l>        Region := RelativeRegion</l>
-<c>        </c>
-<c>        * AreaToRectangle</c>
-<l>        area_center(Region, Area, Row, Column)</l>
-<l>        gen_rectangle1(RectangleRegion, Row - Area/2, Column - Area/2, Row + Area/2, Column + Area/2)</l>
-<l>        union2(Region, RectangleRegion, Region)      </l>
+<c>            </c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

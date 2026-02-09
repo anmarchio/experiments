@@ -16,26 +16,24 @@ def get_MVTec_AD_Carpet_best_pipeline(params, dataset_path=None):
         dataset_path = "/MVTecAnomalyDetection/carpet_train/images"
 
     # Parameters
-    param_lines = "<l>        MaskSizeGauss := " + str(params[0]) + "</l>\n" + \
+    param_lines = "<l>        A := " + str(params[0]) + "</l>\n" + \
+                      "<l>        B := " + str(params[1]) + "</l>\n" + \
+                      "<l>        GrayValMax := " + str(params[2]) + "</l>\n" + \
                       "<c></c>\n" + \
-                      "<l>        A := " + str(params[1]) + "</l>\n" + \
-                      "<l>        B := " + str(params[2]) + "</l>\n" + \
-                      "<l>        GrayValMax := " + str(params[3]) + "</l>\n" + \
+                      "<l>        Sigma := " + str(params[3]) + "</l>\n" + \
                       "<c></c>\n" + \
-                      "<l>        Sigma := '" + str(params[4]) + "'</l>\n" + \
+                      "<l>        A2 := " + str(params[4]) + "</l>\n" + \
+                      "<l>        B2 := " + str(params[5]) + "</l>\n" + \
+                      "<l>        GrayValMax2 := " + str(params[6]) + "</l>\n" + \
                       "<c></c>\n" + \
-                      "<l>        A2 := " + str(params[5]) + "</l>\n" + \
-                      "<l>        B2 := " + str(params[6]) + "</l>\n" + \
-                      "<l>        GrayValMax2 := " + str(params[7]) + "</l>\n" + \
+                      "<l>        FilterType := '" + str(params[7]) + "'</l>\n" + \
+                      "<l>        MaskSizeSobel := " + str(params[8]) + "</l>\n" + \
                       "<c></c>\n" + \
-                      "<l>        FilterType := '" + str(params[8]) + "'</l>\n" + \
-                      "<l>        MaskSizeSobel := '" + str(params[9]) + "'</l>\n" + \
+                      "<l>        Min := " + str(params[9]) + "</l>\n" + \
+                      "<l>        Max := " + str(params[10]) + "</l>\n" + \
                       "<c></c>\n" + \
-                      "<l>        Min := " + str(params[10]) + "</l>\n" + \
-                      "<l>        Max := " + str(params[11]) + "</l>\n" + \
-                      "<c></c>\n" + \
-                      "<l>        A3 := " + str(params[12]) + "</l>\n" + \
-                      "<l>        B3 := " + str(params[13]) + "</l>\n" + \
+                      "<l>        A3 := " + str(params[11]) + "</l>\n" + \
+                      "<l>        B3 := " + str(params[12]) + "</l>\n" + \
                       "<c></c>\n"
 
     # Core pipeline

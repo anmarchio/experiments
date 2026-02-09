@@ -33,12 +33,26 @@ def get_MVTec_AD_Hazelnut_Crack_best_pipeline(params, dataset_path=None):
     # Core pipeline
     core_code = (
             "<l>        sigma_image(Image, ImageSigma, MaskWidthSigma, MaskHeightSigma, Sigma)</l>\n"
-            "<l>        local_threshold(ImageSigma, RegionThresh, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>\n"
-            "<l>        area_center(RegionThresh, Area, Row, Column)</l>\n"
-            "<l>        gen_rectangle1(RectangleRegion, Row - Area/2, Column - Area/2, Row + Area/2, Column + Area/2)</l>\n"
-            "<l>        union2(RegionThresh, RectangleRegion, RegionRect)</l>\n"
-            "<l>        gen_ellipse(RectangleStructElement, 0, 0, C, A, B)</l>\n"
-            "<l>        closing(RegionRect, RectangleStructElement, Region)</l>\n"
+            "<c>        </c>\n"
+            "<l>        local_threshold(ImageSigma, Region, Method, LightDark, ['mask_size','scale'], [MaskSize, Scale])</l>\n"
+            "<c>        </c>\n"
+            "<c>        * AreaToRectangle</c>\n"
+            + get_area_to_rectangle() +
+            "<l>        RegionRect := Rectangles</l>\n"
+            "<c>        </c>\n"
+            "<c>        * Closing (Ellipse SE)</c>\n"
+            "<l>        tuple_max2(A, B, max_rad)</l>\n"
+            "<l>        phi := C</l>\n"
+            "<l>        longer := A</l>\n"
+            "<l>        shorter := B</l>\n"
+            "<l>        if (shorter &gt; longer)</l>\n"
+            "<l>                tmp := shorter</l>\n"
+            "<l>                shorter := longer</l>\n"
+            "<l>                longer := tmp</l>\n"
+            "<l>        endif</l>\n"
+            "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n"
+            "<l>        gen_ellipse(StructElement2, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n"
+            "<l>        closing(RegionRect, StructElement2, Region)</l>\n"
         )
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

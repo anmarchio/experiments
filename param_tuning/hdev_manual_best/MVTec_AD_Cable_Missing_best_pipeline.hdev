@@ -18,6 +18,12 @@
 <l>    file_exists(output_path, dir_exists)</l>
 <l>    if(dir_exists == 0)</l>
 <l>        make_dir(output_path)</l>
+<l>    else</l>
+<c>        * Delete all files in output path</c>
+<l>        list_files(output_path, 'files', FileList)</l>
+<l>        for j := 0 to |FileList| - 1 by 1</l>
+<l>            delete_file(FileList[j])</l>
+<l>        endfor</l>
 <l>    endif</l>
 <l>    out_img_path := output_path + Index + '.png'</l>
 <l>    file_exists(out_img_path, exists)</l>
@@ -46,7 +52,7 @@
 <l>        A := 4</l>
 <l>        B := 15</l>
 <l>        C := 0.392699</l>
-<l>        StructElementType := 'rectangle'</l>
+<l>        * StructElementType := 'rectangle'</l>
 <c>        </c>
 <c>        * Pipeline</c>
 <l>        median_image(Image, ImageMedian, MaskType, Radius, Margin)</l>

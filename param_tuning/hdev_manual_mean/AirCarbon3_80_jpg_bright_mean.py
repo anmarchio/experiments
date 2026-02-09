@@ -48,7 +48,7 @@ AirCarbon3_80_jpg_bright_mean_pipeline_initial_params = [
     'adapted_std_deviation',
     'light',
     15,
-    0.2
+    0.3
 ]
 
 AirCarbon3_80_jpg_bright_mean_pipeline_bounds = [

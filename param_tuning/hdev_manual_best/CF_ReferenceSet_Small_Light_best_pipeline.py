@@ -5,7 +5,7 @@ CF_ReferenceSet_Small_Light_mean_pipeline.py
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, scale_to_gray
 from settings import EVIAS_SRC_PATH
 
 
@@ -33,8 +33,16 @@ def get_CF_ReferenceSet_Small_Light_best_pipeline(params, dataset_path=None):
     # Core Pipeline Code
     core_code = "<l>        median_weighted(Image, ImageMedian, MaskType, MaskSizeMedian)</l>\n" \
                     "<l>        sobel_amp(ImageMedian, ImageSobel, FilterType, MaskSizeSobel)</l>\n" \
-                    "<l>        local_threshold(ImageSobel, Region, Method, LightDark, MaskSizeThresh, Scale)</l>\n" \
-                    "<c>* Closing</c>" \
+                    "<l>        convert_image_type(ImageSobel, ImageSobel, 'byte')</l>\n" \
+                    "<l>        local_threshold(ImageSobel, Region, Method, LightDark, ['mask_size', 'scale' ], [MaskSizeThresh, Scale])</l>\n" \
+                    "<c></c>" \
+                    "<l>        get_image_type(ImageSobel, Type)</l>\n" \
+                    "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" \
+                    + scale_to_gray() + \
+                    "<l>        convert_image_type(ImageScaled, ImageSobel, 'byte')</l>\n" \
+                    "<l>        endif</l>\n" \
+                    "<c>        </c>" \
+                    "<c>        * Closing</c>" \
                     "<l>        tuple_ceil(A + 1, shape_param0_ceil)</l>\n" \
                     "<l>        gen_circle(StructElement, shape_param0_ceil, shape_param0_ceil, A)</l>\n" \
                     "<l>        closing(Region, StructElement, Region)</l>\n\n"

@@ -10,11 +10,11 @@ from settings import EVIAS_SRC_PATH
 
 
 def get_AirCarbon3_80_jpg_dark_5_mean_pipeline(params, dataset_path=None):
-    pipeline_name = "AirCarbon3_80.jpg_mean_5_best_pipeline"
+    pipeline_name = "AirCarbon3_80.jpg_dark_5_mean_pipeline"
 
     if dataset_path is None:
         # Default dataset path if not provided
-        dataset_path = "/Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_5/images"
+        dataset_path = "Aircarbon3/20210325_13h25_rov/training/80.jpg_dark_5/images"
 
     # Parameters
     param_lines = "<l>        FilterType := '" + str(params[0]) + "'</l>\n" + \
@@ -27,7 +27,9 @@ def get_AirCarbon3_80_jpg_dark_5_mean_pipeline(params, dataset_path=None):
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = get_var_threshold_code() + \
+    core_code = "<l>sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
+                "<c>        </c>\n" + \
+                get_var_threshold_code() + \
                 "<c>        </c>\n" + \
                 "<l>        union1(Region, Region)</l>\n"
 

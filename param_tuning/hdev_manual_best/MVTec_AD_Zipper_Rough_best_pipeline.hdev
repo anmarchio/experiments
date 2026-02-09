@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Zipper_Rough_best_pipeline'</l>
-<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/zipper_rough_train/images'</l>
-<l>labels_path := 'D:/evias_expmts/MVTecAnomalyDetection/zipper_rough_train/labels'</l>
+<l>source_path := 'I:/evias_expmts/MVTecAnomalyDetection/zipper_rough_train/images'</l>
+<l>labels_path := 'I:/evias_expmts/MVTecAnomalyDetection/zipper_rough_train/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -146,7 +146,7 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    wait_seconds(0.5)</l>
+<l>    *wait_seconds(0.5)</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>

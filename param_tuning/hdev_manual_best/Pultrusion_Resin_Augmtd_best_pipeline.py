@@ -5,7 +5,7 @@ MVTec_AD_Pultrusion_Resin_Augmtd_best_pipeline
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, scale_to_gray
 from settings import EVIAS_SRC_PATH
 
 
@@ -59,9 +59,10 @@ def get_Pultrusion_Resin_Augmtd_best_pipeline(params, dataset_path=None):
             "<l>        binary_threshold(ImageConverted, Region2, Method2, LightDark2, UsedThreshold)</l>\n"
             "<c></c>\n"
             "<c>* Merge</c>\n"
-            "<l>        union2(Region1, Region2, RegionUnion)</l>\n"
+            "<l>union2(Region1, Region2, RegionUnion)</l>\n"
             "<c></c>\n"
             "<c>* Opening (Rectangle SE)</c>\n"
+            "<l>        gen_rectangle1(SE, 0, 0, A, B)</l>\n"
             "<l>        opening_rectangle1(RegionUnion, RegionOpened, A, B)</l>\n"
             "<c></c>\n"
             "<c>* SelectShape</c>\n"

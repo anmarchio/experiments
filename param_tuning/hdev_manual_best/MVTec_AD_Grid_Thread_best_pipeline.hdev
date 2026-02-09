@@ -4,7 +4,7 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Grid_Thread_best_pipeline'</l>
-<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/images'</l>
+<l>source_path := 'I:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/images'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
@@ -41,7 +41,7 @@
 <c>        </c>
 <c>        * Ensure single channel</c>
 <l>        count_channels (ImageBinomial, NumChannels)</l>
-<l>        if (NumChannels > 1)</l>
+<l>        if (NumChannels &gt; 1)</l>
 <l>            access_channel (ImageBinomial, ImageBinomial, 1)</l>
 <l>        endif</l>
 <c>        </c>
@@ -80,10 +80,10 @@
 <c>                </c>
 <l>                PixelCount := Histo[0] + Histo[1]</l>
 <c>                </c>
-<l>                if (PixelCount > 0.6 * WStep * HStep)</l>
+<l>                if (PixelCount &gt; 0.6 * WStep * HStep)</l>
 <l>                    Ratio := Histo[1] / PixelCount</l>
 <c>                    </c>
-<l>                    if (Ratio < MinRatio)</l>
+<l>                    if (Ratio &lt; MinRatio)</l>
 <l>                        gen_rectangle1 (FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>
 <l>                        union2 (RelativeRegion, FaultyRegion, RelativeRegion)</l>
 <l>                    endif</l>

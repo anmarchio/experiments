@@ -37,6 +37,7 @@ def get_MVTec_AD_Pill_Crack_best_pipeline(params, dataset_path=None):
             "<l>        gray_erosion(Image, SE1, ImageEroded)</l>\n"
             "<c></c>\n"
             "<c>* CropRectangle (Relative Threshold)</c>\n"
+            "<l>        tuple_real(MinRatio, MinRatio)</l>\n"
             "<l>        gen_empty_obj (RelativeRegion)</l>\n"
             "<l>        count_channels (ImageEroded, NumChannels)</l>\n"
             "<l>        if (NumChannels > 1)</l>\n"

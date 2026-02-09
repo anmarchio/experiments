@@ -11,7 +11,7 @@ from settings import EVIAS_SRC_PATH
 
 
 def get_MVTec_AD_Grid_Thread_best_pipeline(params, dataset_path=None):
-    pipeline_name = "MVTec_AD_Grid_best_pipeline"
+    pipeline_name = "MVTec_AD_Grid_Thread_best_pipeline"
 
     if dataset_path is None:
         dataset_path = "/MVTecAnomalyDetection/grid_thread_train/images"
