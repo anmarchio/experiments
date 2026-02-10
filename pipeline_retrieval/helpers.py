@@ -2,6 +2,7 @@ import os
 import sys
 import time
 from dataclasses import dataclass, field
+from datetime import timedelta, datetime
 from typing import Optional
 
 
@@ -81,6 +82,7 @@ class GlobalRunsEtaTracker:
     overwrite_line: bool = False  # set True if you prefer updating one line
 
     start_time: float = field(default_factory=time.perf_counter)
+    start_timestamp: datetime = datetime.now()
     runs_done: int = 0
     _run_start: Optional[float] = None
     _avg_run_sec: Optional[float] = None
@@ -111,16 +113,21 @@ class GlobalRunsEtaTracker:
     def print_status(self, last_run_sec: Optional[float] = None) -> None:
         elapsed = time.perf_counter() - self.start_time
         bar = _render_progress_bar(self.runs_done, self.total_runs, width=self.bar_width)
-
         remaining_runs = max(0, self.total_runs - self.runs_done)
+
         if self._avg_run_sec is None:
             eta_txt = "ETA=--"
             avg_txt = "avg/run=--"
+            st_txt = "ST: "
+            etc_txt = "ETC: "
         else:
             eta_txt = f"ETA={_format_seconds(remaining_runs * self._avg_run_sec)}"
             avg_txt = f"avg/run={_format_seconds(self._avg_run_sec)}"
+            st_txt = f"ST: {self.start_timestamp}"
+            est_time_of_completion = datetime.now() + timedelta(seconds=remaining_runs * self._avg_run_sec)
+            etc_txt = f"ETC: {est_time_of_completion}"
 
-        parts = [f"{self.label}", bar, f"elapsed={_format_seconds(elapsed)}", avg_txt, eta_txt]
+        parts = [f"{self.label}", bar, f"elapsed={_format_seconds(elapsed)}", avg_txt, eta_txt, st_txt, etc_txt]
         if last_run_sec is not None:
             parts.append(f"last={_format_seconds(last_run_sec)}")
 

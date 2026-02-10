@@ -119,3 +119,4 @@ AirCarbon2_t_8.jpg_mean_pipeline;([], [], 0.0);AirCarbon3_80.jpg_bright_mean_pip
 ERROR: unsupported format string passed to tuple.__format__;
 FAILED: unsupported format string passed to tuple.__format__;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
