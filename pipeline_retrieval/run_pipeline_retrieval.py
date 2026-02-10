@@ -2,11 +2,12 @@ import os
 
 from param_tuning.hdev_manual_best.run_hdev_manual_best import MANUAL_HDEV_PIPELINES_BEST
 from param_tuning.hdev_manual_mean.run_hdev_manual_mean import MANUAL_HDEV_PIPELINES_MEAN
-from param_tuning.run_hdev_manual import get_initial_state_by_pipeline_name, get_dataset_by_pipeline_name
+from param_tuning.run_hdev_manual import get_initial_state_by_pipeline_name
 from param_tuning.utils import check_dir_exists
 from pipeline_retrieval.cross_application_on_all_datasets import (run_pipeline_on_dataset,
                                                                   write_cross_application_header_to_log,
                                                                   write_cross_application_log)
+from pipeline_retrieval.helpers import create_global_tracker
 from settings import CROSS_APPLICATION_RESULTS_PATH
 
 
@@ -40,6 +41,8 @@ def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
 
     cross_scores = [['from', 'applied on', 'original_score', 'cross_score']]
 
+    global_tracker = create_global_tracker(mode, manual_hdev_pipelines)
+
     for pipeline_name in manual_hdev_pipelines:
         write_cross_application_header_to_log(pipeline_name)
 
@@ -47,33 +50,60 @@ def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
             # only run the pipeline on its own dataset
             # and let it raise an error
             regular_dataset = pipeline_name
-            print(f"Running {pipeline_name} on {regular_dataset}) ...")
-            cross_score = run_pipeline_on_dataset(pipeline_name, get_initial_state_by_pipeline_name(pipeline_name),
-                                                  regular_dataset)
+            print(f"Running {pipeline_name} on {regular_dataset} ...")
+
+            # compute the complexity of tests
+            # print number of runs and time estimation
+            # update time estimation after every run
+            global_tracker.start_run()
+            # run pipeline on dataset, but do not process cross_score
+            cross_score = run_pipeline_on_dataset(
+                pipeline_name,
+                get_initial_state_by_pipeline_name(pipeline_name),
+                regular_dataset
+            )
+            global_tracker.end_run()
+
             # Save score in list
             if type(cross_score) is not float:
                 cross_scores.append([pipeline_name, 'same', cross_score, 'same'])
             else:
                 cross_scores.append([pipeline_name, 'same', f"{cross_score:.4f}", 'same'])
+
             continue
 
         try:
+            # Actually run the pipeline on all cross datasets
             graph = get_initial_state_by_pipeline_name(pipeline_name)
+
+            global_tracker.start_run()
             original_score = run_pipeline_on_dataset(pipeline_name, graph)
+            global_tracker.end_run()
 
             # pick cross-datasets minus the current
             for cross_dataset in [key for key in manual_hdev_pipelines if key != pipeline_name]:
                 try:
+                    global_tracker.start_run()
                     cross_score = run_pipeline_on_dataset(pipeline_name, graph, cross_dataset)
+                    global_tracker.end_run()
+
+                    write_cross_application_log(
+                        pipeline_name,
+                        f"{pipeline_name};{original_score};{cross_dataset};{cross_score};\n"
+                    )
+
                     write_cross_application_log(pipeline_name,
                                                 f"{pipeline_name};{original_score};{cross_dataset};{cross_score};\n")
                     # Save score in list
                     cross_scores.append([pipeline_name, cross_dataset, f"{original_score:.4f}", f"{cross_score:.4f}"])
+
                 except Exception as e:
-                    print(f"Error running cross dataset {cross_dataset} for pipeline {pipeline_name}: {e}")
+                    # Even failed runs took time; you probably still want to close the run.
+                    global_tracker.end_run()
+                    print(f"Error running cross dataset {cross_dataset} on pipeline {pipeline_name}: {e}")
                     write_cross_application_log(pipeline_name, f"ERROR: {e};\n")
                     # Save score in list
-                    cross_scores.append([pipeline_name, regular_dataset, f"{original_score:.4f}", f"FAILED: {e}"])
+                    cross_scores.append([pipeline_name, cross_dataset, f"{original_score:.4f}", f"FAILED: {e}"])
 
         except Exception as e:
             print(f"Error running pipeline {pipeline_name}: {e}")

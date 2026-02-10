@@ -56,3 +56,7 @@ Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+<<<<<<< HEAD
+=======
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+>>>>>>> 280e3cbab587cfe5a9197022fd80a758a6c1960c

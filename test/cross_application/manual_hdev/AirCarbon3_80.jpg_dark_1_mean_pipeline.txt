@@ -106,3 +106,11 @@ Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pipeline; OriginalScore; CrossApplication; CrossScore;
+<<<<<<< HEAD
+=======
+AirCarbon3_80.jpg_dark_1_mean_pipeline;([], [], 0.0);AirCarbon2_t_8.jpg_mean_pipeline;([], [], 0.0);
+AirCarbon3_80.jpg_dark_1_mean_pipeline;([], [], 0.0);AirCarbon2_t_8.jpg_mean_pipeline;([], [], 0.0);
+ERROR: unsupported format string passed to tuple.__format__;
+FAILED: unsupported format string passed to tuple.__format__;
+Pipeline; OriginalScore; CrossApplication; CrossScore;
+>>>>>>> 280e3cbab587cfe5a9197022fd80a758a6c1960c
