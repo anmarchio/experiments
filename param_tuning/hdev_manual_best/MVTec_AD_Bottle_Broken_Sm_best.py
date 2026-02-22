@@ -38,7 +38,7 @@ def get_MVTec_AD_Bottle_Broken_Sm_best_pipeline(params, dataset_path=None):
             "<l>        sobel_amp(ImageCrop, Image, FilterType, MaskSize)</l>\n"
             + scale_to_gray() +
             "<c></c>\n"
-            "<l>        convert_image_type(ImageScaled, ImageAmp, 'int2')</l>\n"
+            "<l>        convert_image_type(ScaledImage, ImageAmp, 'int2')</l>\n"
             "<l>        zero_crossing(Image, RegionZero)</l>\n"
             "<c></c>\n"
             "<c>        * StructElementType Ellipse using A, B</c>\n"
