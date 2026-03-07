@@ -66,6 +66,7 @@ def get_MVTec_AD_Grid_Thread_best_pipeline(params, dataset_path=None):
             "<l>            endfor</l>\n"
             "<l>        endfor</l>\n"
             "<l>        Region := RelativeRegion</l>\n"
+            "<l>        stop()</l>\n"
     )
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

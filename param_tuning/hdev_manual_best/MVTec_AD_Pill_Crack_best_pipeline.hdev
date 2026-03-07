@@ -50,7 +50,7 @@
 <c>        * GrayErosion</c>
 <l>        get_image_type(Image, Type)</l>
 <l>        gen_disc_se(SE1, Type, A1, B1, GrayValueMax)</l>
-<l>        gray_erosion(Image, SE1, ImageEroded)</l>
+<l>        gray_erosion(Image, SE1, Image)</l>
 <c>        </c>
 <c>        * CropRectangle</c>
 <c>        * 88 [label="CropRectangle\nMinRatio=0,109999999403954\n MaskHeight=29\n MaskWidth=29"];</c>
