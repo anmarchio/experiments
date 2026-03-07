@@ -132,7 +132,7 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 #MANUAL_HDEV_PIPELINES_MEAN = [
-#    "Pultrusion_Resin_mean_pipeline"
+#    "Pultrusion_Window_mean_pipeline"
 #]
 
 MANUAL_HDEV_PIPELINES_MEAN = [

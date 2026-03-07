@@ -5,8 +5,7 @@ MVTec_AD_Pultrusion_Window_best_pipeline
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, convert_margin_to_int, \
-    sobel_check_filter_type, area_size_threshold
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, get_area_to_rectangle
 from settings import EVIAS_SRC_PATH
 
 
@@ -19,26 +18,23 @@ def get_Pultrusion_Window_best_pipeline(params, dataset_path=None):
     # Parameters
     param_lines = (
                 "<l>        MinGray := " + str(params[0]) + "</l>\n"
-                                                            "<l>        MaxGray := " + str(params[1]) + "</l>\n"
-                                                                                                        "<c></c>\n"
-                                                                                                        "<l>        FilterType := '" + str(
-            params[2]) + "'</l>\n"
-                         "<l>        MaskSize := " + str(params[3]) + "</l>\n"
-                                                                      "<c></c>\n"
-                                                                      "<l>        MinRatio := " + str(
-            params[4]) + "</l>\n"
-                         "<l>        MaskHeight := " + str(params[5]) + "</l>\n"
-                                                                        "<l>        MaskWidth := " + str(
-            params[6]) + "</l>\n"
-                         "<c></c>\n"
+                "<l>        MaxGray := " + str(params[1]) + "</l>\n"
+                "<c></c>\n"
+                "<l>        FilterType := '" + str(params[2]) + "'</l>\n"
+                "<l>        MaskSize := " + str(params[3]) + "</l>\n"
+                "<c></c>\n"
+                "<l>        MinRatio := " + str(params[4]) + "</l>\n"
+                "<l>        MaskHeight := " + str(params[5]) + "</l>\n"
+                "<l>        MaskWidth := " + str(params[6]) + "</l>\n"
+                "<c></c>\n"
     )
 
     # Core pipeline
     core_code = (
             "<c>* CropSmallestRectangle</c>\n"
-            "<l>        threshold(Image, Region, MinGray, MaxGray)</l>\n"
-            "<l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>\n"
-            "<l>        crop_rectangle1(Image, Image2, Row1, Column1, Row2, Column2)</l>\n"
+            "<l>        threshold(Image, RegionRect, MinGray, MaxGray)</l>\n"
+            "<l>        smallest_rectangle1(RegionRect, CropRow1, CropCol1, CropRow2, CropCol2)</l>\n"
+            "<l>        crop_rectangle1(Image, Image2, CropRow1, CropCol1, CropRow2, CropCol2)</l>\n"
             "<c></c>\n"
             "<c>* SobelAmp with scaling/conversion</c>\n"
             "<l>        get_image_type(Image2, Type)</l>\n"
@@ -76,6 +72,9 @@ def get_Pultrusion_Window_best_pipeline(params, dataset_path=None):
             "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n"
             "<l>        endif</l>\n"
             "<l>        sobel_amp(Image2, Image2, FilterType, MaskSize)</l>\n"
+            "<c>        </c>\n"
+            "<l>        scale_image(Image2, Image2, 1, 128)</l>\n"
+            "<l>        convert_image_type(Image2, Image, 'byte')</l>\n"
             "<c></c>\n"
             "<c>* CropRectangle (Relative Threshold)</c>\n"
             "<l>        gen_empty_obj(RelativeRegion)</l>\n"
@@ -91,10 +90,10 @@ def get_Pultrusion_Window_best_pipeline(params, dataset_path=None):
             "<l>        fill_up(Region, Rectangle)</l>\n"
             "<l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>\n"
             "<l>        reduce_domain(Image, Rectangle, NewImgReduced)</l>\n"
-            "<l>        region_features(Rectangle, 'width', Width)</l>\n"
-            "<l>        region_features(Rectangle, 'height', Height)</l>\n"
-            "<l>        WStep := Width / MaskWidth</l>\n"
-            "<l>        HStep := Height / MaskHeight</l>\n"
+            "<l>        region_features(Rectangle, 'width', RegWidth)</l>\n"
+            "<l>        region_features(Rectangle, 'height', RegHeight)</l>\n"
+            "<l>        WStep := RegWidth / MaskWidth</l>\n"
+            "<l>        HStep := RegHeight / MaskHeight</l>\n"
             "<l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>\n"
             "<l>        StepW := WStep / 2</l>\n"
             "<l>        for ImgWidth := Col1 + 20 to EndW by StepW</l>\n"
@@ -114,11 +113,11 @@ def get_Pultrusion_Window_best_pipeline(params, dataset_path=None):
             "<l>            endfor</l>\n"
             "<l>        endfor</l>\n"
             "<l>        Region := RelativeRegion</l>\n"
+            "<c></c>\n" +
+            get_area_to_rectangle() +
             "<c></c>\n"
-            "<c>* AreaToRectangle</c>\n"
-            "<l>        area_center(Region, Area, Row, Column)</l>\n"
-            "<l>        gen_rectangle1(RectangleRegion, Row - Area/2, Column - Area/2, Row + Area/2, Column + Area/2)</l>\n"
-            "<l>        union2(Region, RectangleRegion, Region)</l>\n"
+            "<l>        Region := Rectangles</l>\n"
+            "<l>        move_region(Region, Region, CropRow1, CropCol1)</l>\n"
     )
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

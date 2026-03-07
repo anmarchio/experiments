@@ -27,15 +27,21 @@ def get_Pultrusion_Window_mean_pipeline(params, dataset_path=None):
                   "<c></c>\n"
 
     # Core Pipeline Code
-    core_code = "<c>        * CropSmallestRetangle</c>\n" + \
-                get_crop_rectangle_code() + \
+    core_code = "<c>* CropSmallestRectangle</c>\n" + \
+                "<l>        threshold(Image, RegionRect, MinGray, MaxGray)</l>\n" + \
+                "<l>        smallest_rectangle1(RegionRect, CropRow1, CropCol1, CropRow2, CropCol2)</l>\n" + \
+                "<l>        crop_rectangle1(Image, Image, CropRow1, CropCol1, CropRow2, CropCol2)</l>\n" + \
+                "<c></c>\n" + \
                 "<c>        </c>\n" + \
                 "<c>        * SobelAmp</c>\n" + \
                 sobel_check_filter_type() + \
-                "<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
+                "<l>        sobel_amp(Image, Image2, FilterType, MaskSize)</l>\n" + \
+                "<l>        scale_image(Image2, Image2, 1, 128)</l>\n" + \
+                "<l>        convert_image_type(Image2, Image, 'byte')</l>\n" + \
                 "<c>        </c>\n" + \
                 "<c>        * Crop Rectangle</c>\n" + \
-                get_crop_rectangle_code()
+                get_crop_rectangle_code() + \
+                "<l>        move_region(Region, Region, CropRow1, CropCol1)</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

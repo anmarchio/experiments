@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'Pultrusion_Window_best_pipeline'</l>
-<l>source_path := 'I:/evias_expmts/Pultrusion/window_cgp/train/images'</l>
-<l>labels_path := 'I:/evias_expmts/Pultrusion/window_cgp/train/labels'</l>
+<l>source_path := 'D:/evias_expmts/Pultrusion/window_cgp/train/images'</l>
+<l>labels_path := 'D:/evias_expmts/Pultrusion/window_cgp/train/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_off()</l>
@@ -13,6 +13,7 @@
 <l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
 <c></c>
 <l>TotalMCC := 0.0</l>
+<l>ImgMCCs := ''</l>
 <c></c>
 <l>for Index := 0 to |ImageFiles| - 1 by 1</l>
 <l>    file_exists(output_path, dir_exists)</l>
@@ -25,7 +26,6 @@
 <l>        delete_file(out_img_path)</l>
 <l>    endif</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
-<l>    read_image(Label, LabelFiles[Index])</l>
 <l>    get_image_size(Image, Width, Height)</l>
 <c>    * --------------</c>
 <c>    * CGP Code Block</c>
@@ -46,48 +46,48 @@
 <c>        </c>
 <c>        * CropSmallestRectangle</c>
 <l>        threshold(Image, RegionRect, MinGray, MaxGray)</l>
-<l>        smallest_rectangle1(RegionRect, Row1, Col1, Row2, Col2)</l>
-<l>        crop_rectangle1(Image, ImageCropSmall, Row1, Col1, Row2, Col2)</l>
+<l>        smallest_rectangle1(RegionRect, CropRow1, CropCol1, CropRow2, CropCol2)</l>
+<l>        crop_rectangle1(Image, Image2, CropRow1, CropCol1, CropRow2, CropCol2)</l>
 <c>        </c>
-<c>        * SobelAmp        </c>
-<l>        get_image_type(Image, Type)</l>
-<l>        if(FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>
-<l>            if(Type != 'byte' and Type != 'int2' and Type != 'real')</l>
-<c>                * Scale To Gray</c>
+<c>        * SobelAmp with scaling/conversion</c>
+<l>        get_image_type(Image2, Type)</l>
+<l>        if (FilterType == 'x_binomial' or FilterType == 'y_binomial')</l>
+<l>            if (Type != 'byte' and Type != 'int2' and Type != 'real')</l>
 <l>                gen_empty_obj(ScaledImage)</l>
-<l>                min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
-<l>                if(MaxGrayVal &lt;= 255 and MinGrayVal &gt;= 0)</l>
-<l>                    copy_image(Image, ImageScaled)</l>
-<l>                else</l>
-<l>                    if(MaxGrayVal - MinGrayVal &gt; 0)</l>
+<l>                min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>                if (not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
+<l>                    if (MaxGrayVal - MinGrayVal &gt; 0)</l>
 <l>                        Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
 <l>                    else</l>
-<l>                        Mult := 255.0                </l>
+<l>                        Mult := 255.0</l>
 <l>                    endif</l>
 <l>                    Add := - Mult * MinGrayVal</l>
-<l>                    scale_image(Image, ImageScaled, Mult, Add)              </l>
-<l>                endif                </l>
-<l>                convert_image_type(ImageScaled, Image, 'byte')</l>
+<l>                    scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>                else</l>
+<l>                    scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>                endif</l>
+<l>                convert_image_type(ScaledImage, Image2, 'byte')</l>
 <l>            endif</l>
-<l>        elseif(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real') </l>
-<c>            * Scale To Gray</c>
+<l>        elseif (Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>
 <l>            gen_empty_obj(ScaledImage)</l>
-<l>            min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
-<l>            if(MaxGrayVal &lt;= 255 and MinGrayVal &gt;= 0)</l>
-<l>                copy_image(Image, ImageScaled)</l>
-<l>            else</l>
-<l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>
+<l>            min_max_gray(Image2, Image2, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>            if (not(MinGrayVal &lt;= 255 and MaxGrayVal &gt;= 0))</l>
+<l>                if (MaxGrayVal - MinGrayVal &gt; 0)</l>
 <l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
 <l>                else</l>
-<l>                    Mult := 255.0                </l>
+<l>                    Mult := 255.0</l>
 <l>                endif</l>
 <l>                Add := - Mult * MinGrayVal</l>
-<l>                scale_image(Image, ImageScaled, Mult, Add)              </l>
-<l>            endif                </l>
-<l>            convert_image_type(ImageScaled, Image, 'byte')</l>
-<l>        else</l>
-<l>            sobel_amp(Image, Image, FilterType, MaskSizeSobel)</l>
+<l>                scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>            else</l>
+<l>                scale_image(Image2, ImageScaled, Mult, Add)</l>
+<l>            endif</l>
+<l>            convert_image_type(Image2, Image2, 'byte')</l>
 <l>        endif</l>
+<l>        sobel_amp(Image2, Image2, FilterType, MaskSizeSobel)</l>
+<c>        </c>
+<l>        scale_image(Image2, Image2, 1, 128)</l>
+<l>        convert_image_type(Image2, Image, 'byte')</l>
 <c>        </c>
 <c>        * CropRectangle</c>
 <l>        tuple_real(MinRatio, MinRatio)</l>
@@ -106,8 +106,8 @@
 <l>        fill_up(Region, Rectangle)</l>
 <c>        </c>
 <l>        gen_empty_obj(FaultyRegion)</l>
-<l>        gen_empty_obj(NewImgReduced)</l>
-<l>        gen_empty_obj(ImgPart)</l>
+<l>        gen_empty_obj(NewImageReduced)</l>
+<l>        gen_empty_obj(ImagePart)</l>
 <l>        gen_empty_obj(RelativeRegion)</l>
 <c>        </c>
 <l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>
@@ -166,8 +166,9 @@
 <l>            gen_rectangle1(Rectangle, Row11, Col11, Row21, Col21)</l>
 <l>            union2(Rectangles, Rectangle, Rectangles)</l>
 <l>        endfor</l>
-<l>        Region := Rectangles</l>
-<c></c>
+<l>        Region := Rectangles        </l>
+<l>        move_region(Region, Region, CropRow1, CropCol1)</l>
+<c>        </c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -178,6 +179,7 @@
 <l>    paint_region(Region, ImageResult, ImageResult, 255, 'fill')</l>
 <l>    *write_image(ImageResult, 'png', 0, out_img_path)</l>
 <c>     </c>
+<l>    read_image(Label, LabelFiles[Index])</l>
 <l>    binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)</l>
 <c>    </c>
 <c>    * -- Compute MCC between predicted region and GT region for one image</c>
@@ -233,7 +235,8 @@
 <l>        endif</l>
 <l>        ImageMCC := ImageMCC / |TP_mult_TN|</l>
 <l>    endif</l>
-<c></c>
+<c>    </c>
+<l>    ImgMCCs := ImgMCCs + ';' + ImageMCC </l>
 <l>    TotalMCC := TotalMCC + ImageMCC</l>
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>

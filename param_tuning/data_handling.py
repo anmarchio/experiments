@@ -112,6 +112,33 @@ def load_images_from_folder(folder):
             images.append(binary_array.flatten())
     return np.array(images)
 
+from skimage.filters import threshold_otsu
+
+def _to_single_channel(img):
+    img = np.asarray(img)
+    if img.ndim == 3:
+        img = img[..., 0]
+    return img
+
+def _halcon_like_binary_threshold_light(img):
+    """
+    Approximate HALCON:
+    binary_threshold(Image, Region, 'max_separability', 'light', UsedThreshold)
+
+    Returns a binary mask where the lighter class is foreground.
+    """
+    img = _to_single_channel(img)
+
+    # If image is constant, Otsu may fail or be meaningless
+    img_min = np.min(img)
+    img_max = np.max(img)
+
+    if img_max == img_min:
+        # Constant image: no meaningful foreground
+        return np.zeros_like(img, dtype=np.uint8)
+
+    thr = threshold_otsu(img)
+    return (img > thr).astype(np.uint8)
 
 def calculate_metrics(ground_truth_path, prediction_path):
     # Load images from both folders
