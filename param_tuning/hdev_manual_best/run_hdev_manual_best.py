@@ -213,9 +213,8 @@ MANUAL_HDEV_PIPELINES_BEST = [
     #"MT_Blowhole_train_best_pipeline",
     #"MVTec_AD_Bottle_Broken_Sm_best_pipeline",
     #"MVTec_AD_Capsule_best_pipeline",
-    #"MVTec_AD_Grid_Thread_best_pipeline",
+    "MVTec_AD_Grid_Thread_best_pipeline",
     #"MVTec_AD_Leather_best_pipeline",
-    "MVTec_AD_Pill_Crack_best_pipeline",
     #"Pultrusion_Resin_best_pipeline"
 ]
 
