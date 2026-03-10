@@ -47,9 +47,13 @@
 <c>        </c>
 <c>        * Pipeline</c>
 <c>        </c>
+<l>        crop_rectangle1(Image, Image, 0, 0, Height, 235)</l>
+<c>        </c>
 <c>        * Branch 1: SobelAmp -&gt; ZeroCrossing -&gt; SelectShape</c>
 <l>        sobel_amp(Image, ImageAmp, FilterType, MaskSize)</l>
+<c>        </c>
 <l>        zero_crossing(ImageAmp, RegionZero)</l>
+<c>        </c>
 <l>        select_shape(RegionZero, RegionShape, Features, 'and', Min, Max)</l>
 <c>        </c>
 <c>        * Branch 2: BinaryThreshold</c>
@@ -57,7 +61,7 @@
 <c>        </c>
 <c>        * Merge</c>
 <l>        union2(RegionShape, RegionBin, RegionUnion)</l>
-<c>        </c>
+<c>                </c>
 <c>        * Opening (Ellipse SE)</c>
 <l>        tuple_max2(A, B, max_rad)</l>
 <l>        phi := 0.0</l>
@@ -71,6 +75,15 @@
 <l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>
 <l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
 <l>        opening(RegionUnion, StructElement, Region)</l>
+<c>        </c>
+<l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
+<l>        gen_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
+<c>        </c>
+<l>        dev_display(Image)</l>
+<l>        dev_display(Region)</l>
+<l>        wait_seconds(1)</l>
+<l>        dev_display(Label)</l>
+<l>        wait_seconds(1)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

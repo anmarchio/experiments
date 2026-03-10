@@ -35,9 +35,14 @@ def get_Pultrusion_Resin_best_pipeline(params, dataset_path=None):
 
     # Core pipeline
     core_code = (
+            "<c>        </c>\n"
+            "<l>        crop_rectangle1(Image, Image, 0, 0, Height, 235)</l>\n"
+            "<c>        </c>\n"
             "<c>* Branch 1: SobelAmp -> ZeroCrossing -> SelectShape</c>\n"
             "<l>        sobel_amp(Image, ImageAmp, FilterType, MaskSize)</l>\n"
+            "<c>        </c>\n"
             "<l>        zero_crossing(ImageAmp, RegionZero)</l>\n"
+            "<c>        </c>\n"
             "<l>        select_shape(RegionZero, RegionShape, Features, 'and', Min, Max)</l>\n"
             "<c></c>\n"
             "<c>* Branch 2: BinaryThreshold</c>\n"
@@ -59,6 +64,9 @@ def get_Pultrusion_Resin_best_pipeline(params, dataset_path=None):
             "<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>\n"
             "<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>\n"
             "<l>        opening(RegionUnion, StructElement, Region)</l>\n"
+            "<c>        </c>\n"
+            "<l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>\n"
+            "<l>        gen_rectangle1(Region, Row1, Column1, Row2, Column2)</l>\n"
     )
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
