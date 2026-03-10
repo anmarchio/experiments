@@ -39,7 +39,7 @@ def get_MVTec_AD_Capsule_best_pipeline(params, dataset_path=None):
     # Core pipeline
     core_code = (
             "<l>        edges_image(Image, ImageEdges, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>\n"
-            "<l>        sobel_amp(ImageEdges, ImageAmp, FilterType, MaskSize)</l>\n"
+            "<l>        sobel_amp(ImageEdges, Image, FilterType, MaskSize)</l>\n"
             + get_var_threshold_code() +
             "<l>        gen_circle(RectangleStructElement, 0, 0, A)</l>\n"
             "<c>        </c>\n"

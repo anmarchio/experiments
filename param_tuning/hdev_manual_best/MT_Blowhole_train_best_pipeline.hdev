@@ -43,9 +43,81 @@
 <l>        Scale := 0.3</l>
 <c>        </c>
 <c>        * Pipeline</c>
-<l>        median_image(Image, ImageMedian, MaskType, Radius, Margin)</l>
+<l>        get_image_size (Image, Width, Height)</l>
+<l>        Width := Width / 2</l>
+<l>        Height := Height / 2</l>
 <c>        </c>
-<l>        local_threshold(ImageMedian, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
+<l>        if (Width &gt;= Radius)</l>
+<l>            radius := Radius</l>
+<l>        else</l>
+<l>            radius := Width - 1</l>
+<l>        endif</l>
+<c>        </c>
+<l>        if (Height &gt;= Radius)</l>
+<l>            radius := Radius</l>
+<l>        else</l>
+<l>            radius := Height - 1</l>
+<l>        endif</l>
+<c>        </c>
+<l>        margin := Margin</l>
+<l>        if (margin == 0 or margin &gt; 3)</l>
+<l>            margin := margin</l>
+<l>        endif</l>
+<c>        </c>
+<l>        median_image (Image, Image, MaskType, radius, margin)</l>
+<c>        </c>
+<l>        *local_threshold(ImageMedian, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
+<c>         * --- Determine image type and channel count ---</c>
+<l>        get_image_type (Image, Img_type)</l>
+<l>        count_channels (Image, Channel_count)</l>
+<c>        </c>
+<c>        * --- Strict condition: wrong type AND single channel ---</c>
+<l>        if ((Img_type # 'byte') and (Img_type # 'uint2') and (Img_type # 'direction') \
+            and (Img_type # 'cyclic') and (Img_type # 'real') \
+            and (Channel_count == 1))</l>
+<c>        </c>
+<c>            * Convert to standard image type</c>
+<l>            convert_image_type (Image, Conv_out, 'byte')</l>
+<c>        </c>
+<c>            * Ensure single channel</c>
+<l>            count_channels (Conv_out, Channel_count_tmp)</l>
+<l>            if (Channel_count_tmp &gt; 1)</l>
+<l>                access_channel (Conv_out, Single_out, 1)</l>
+<l>            else</l>
+<l>                Single_out := Conv_out</l>
+<l>            endif</l>
+<c>        </c>
+<c>            * Actual operator</c>
+<l>            local_threshold (Single_out, Region, Method, LightDark, \
+                             ['mask_size','scale'], [MaskSize, Scale])</l>
+<c>        </c>
+<c>        * --- Less strict condition: wrong type but channel ok ---</c>
+<l>        elseif ((Img_type # 'byte') and (Img_type # 'uint2') and (Img_type # 'direction') \
+                and (Img_type # 'cyclic') and (Img_type # 'real'))</l>
+<c>        </c>
+<l>            local_threshold (Conv_out, Region, Method, LightDark, \
+                             ['mask_size','scale'], [MaskSize, Scale])</l>
+<c>        </c>
+<c>        * --- Multi-channel case ---</c>
+<l>        elseif (Channel_count # 1)</l>
+<c>        </c>
+<l>            count_channels (Image, Channel_count_tmp)</l>
+<l>            if (Channel_count_tmp &gt; 1)</l>
+<l>                access_channel (Image, Single_out_alt, 1)</l>
+<l>            else</l>
+<l>                Single_out_alt := Image</l>
+<l>            endif</l>
+<c>        </c>
+<l>            local_threshold (Single_out_alt, Region, Method, LightDark, \
+                             ['mask_size','scale'], [MaskSize, Scale])</l>
+<c>        </c>
+<c>        * --- Already suitable ---</c>
+<l>        else</l>
+<c>        </c>
+<l>            local_threshold (Image, Region, Method, LightDark, \
+                             ['mask_size','scale'], [MaskSize, Scale])</l>
+<c>        </c>
+<l>        endif</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
