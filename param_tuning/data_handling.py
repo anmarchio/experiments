@@ -4,6 +4,7 @@ from decimal import Decimal
 
 import cv2
 import numpy as np
+from PIL import Image
 # from skimage.feature import graycomatrix, graycoprops
 from skimage.feature.texture import graycomatrix, graycoprops
 from skimage.io import imread
@@ -96,51 +97,98 @@ def load_data(train_images: [], train_labels: [], mask_as_gray=True, default_siz
     return np.array(images), np.array(labels)
 
 
-from PIL import Image
-
-
 def load_images_from_folder(folder):
     images = []
-    for filename in os.listdir(folder):
-        if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg'):
-            img = Image.open(os.path.join(folder, filename)).convert('L')
-            img = img.resize(size=(IMG_SIZE, IMG_SIZE), resample=None)
+    filenames = []
+
+    for filename in sorted(os.listdir(folder)):
+        if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+            path = os.path.join(folder, filename)
+            img = Image.open(path).convert('L')
             img_array = np.array(img)
 
-            # Convert the image to a binary array (0 for black, 1 for white)
+            # same simple binary logic as before
             binary_array = np.where(img_array > 0, 1, 0)
-            images.append(binary_array.flatten())
-    return np.array(images)
 
-from skimage.filters import threshold_otsu
+            images.append(binary_array)
+            filenames.append(filename)
 
-def _to_single_channel(img):
-    img = np.asarray(img)
-    if img.ndim == 3:
-        img = img[..., 0]
-    return img
+    return images, filenames
 
-def _halcon_like_binary_threshold_light(img):
-    """
-    Approximate HALCON:
-    binary_threshold(Image, Region, 'max_separability', 'light', UsedThreshold)
 
-    Returns a binary mask where the lighter class is foreground.
-    """
-    img = _to_single_channel(img)
+def mcc_from_counts(tp, fp, tn, fn):
+    tp = float(tp)
+    fp = float(fp)
+    tn = float(tn)
+    fn = float(fn)
 
-    # If image is constant, Otsu may fail or be meaningless
-    img_min = np.min(img)
-    img_max = np.max(img)
+    denom = (tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)
+    if denom <= 0:
+        return 0.0
 
-    if img_max == img_min:
-        # Constant image: no meaningful foreground
-        return np.zeros_like(img, dtype=np.uint8)
+    return ((tp * tn) - (fp * fn)) / np.sqrt(denom)
 
-    thr = threshold_otsu(img)
-    return (img > thr).astype(np.uint8)
 
 def calculate_metrics(ground_truth_path, prediction_path):
+    gt_images, gt_names = load_images_from_folder(ground_truth_path)
+    pred_images, pred_names = load_images_from_folder(prediction_path)
+
+    if gt_names != pred_names:
+        raise ValueError(f"Filename mismatch:\nGT:   {gt_names}\nPRED: {pred_names}")
+
+    image_mccs = []
+    tp_total = fp_total = tn_total = fn_total = 0
+
+    for gt, pred, name in zip(gt_images, pred_images, gt_names):
+        if gt.shape != pred.shape:
+            raise ValueError(f"Shape mismatch for {name}: GT {gt.shape}, PRED {pred.shape}")
+
+        tp = np.sum((gt > 0) & (pred > 0))
+        fp = np.sum((gt == 0) & (pred > 0))
+        tn = np.sum((gt == 0) & (pred == 0))
+        fn = np.sum((gt > 0) & (pred == 0))
+
+        tp_total += tp
+        fp_total += fp
+        tn_total += tn
+        fn_total += fn
+
+        image_mcc = mcc_from_counts(tp, fp, tn, fn)
+        image_mccs.append(image_mcc)
+
+    mean_image_mcc = float(np.mean(image_mccs)) if image_mccs else 0.0
+
+    denom_total = (tp_total + fp_total) * (tp_total + fn_total) * (tn_total + fp_total) * (tn_total + fn_total)
+    global_mcc = 0.0 if denom_total <= 0 else ((tp_total * tn_total) - (fp_total * fn_total)) / np.sqrt(denom_total)
+
+    accuracy = 0.0
+    acc_sum = float(tp_total + tn_total + fp_total + fn_total)
+    if acc_sum > 0:
+        accuracy = float(tp_total + tn_total) / acc_sum
+
+    # Compute F1-score
+    precision = tp_total / (tp_total + fp_total) if (tp_total + fp_total) != 0 else 0.0
+    recall = tp_total / (tp_total + fn_total) if (tp_total + fn_total) != 0 else 0.0
+    f1 = (2 * precision * recall) / (precision + recall) if (precision + recall) != 0 else 0.0
+    # Compute IoU
+    iou = tp_total / (tp_total + fp_total + fn_total) if (tp_total + fp_total + fn_total) != 0 else 0.0
+
+    scores = {
+        "tp": tp_total,
+        "tn": tn_total,
+        "fp": fp_total,
+        "fn": fn_total,
+        "precision": precision,
+        "recall": recall,
+        "mcc_global": float(global_mcc),  # your old Python style
+        "mcc": mean_image_mcc,  # closest to HALCON
+        "f1": f1,
+        "jaccard": iou,
+        "accuracy": accuracy
+    }
+
+
+def calculate_metrics_depr(ground_truth_path, prediction_path):
     # Load images from both folders
     ground_truth_images = load_images_from_folder(ground_truth_path)
     prediction_images = load_images_from_folder(prediction_path)
