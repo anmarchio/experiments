@@ -59,6 +59,7 @@ def get_MVTec_AD_Grid_Thread_mean_pipeline(params, dataset_path=None):
                  "<l>            convert_image_type(Image2, Image2, 'byte')</l>\n" + \
                  "<l>        endif</l>\n" + \
                  "<l>        auto_threshold(Image2, Region2, Sigma)</l>\n" + \
+                 "<l>        gen_empty_region(Region2)</l>\n" + \
                  "<c></c>\n" + \
                  "<c>        * Union2 (Path 1 > Path 2)</c>\n" + \
                  "<l>        union2(Region1, Region2, Region)</l>\n" + \

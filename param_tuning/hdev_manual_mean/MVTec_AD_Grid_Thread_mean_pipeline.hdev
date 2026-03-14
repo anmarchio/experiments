@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Grid_Thread_mean_pipeline'</l>
-<l>source_path := 'I:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/images'</l>
-<l>labels_path := 'I:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/labels'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/images'</l>
+<l>labels_path := 'D:/evias_expmts/MVTecAnomalyDetection/grid_thread_train/labels'</l>
 <l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_mean/' + dataset_name + '/'</l>
 <c></c>
 <l>dev_update_off()</l>
@@ -196,7 +196,8 @@
 <c>        * 91 [label="Closing\nA=27\n B=7\n C=0,392699\n StructElementType=Rectangle"];</c>
 <c>        </c>
 <l>        gen_rectangle1(RectangleStructElement, 0, 0, A_2, B_2)</l>
-<l>        closing(Region, RectangleStructElement, Region) </l>
+<l>        closing(Region, RectangleStructElement, Region)</l>
+<c>        </c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

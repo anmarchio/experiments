@@ -114,7 +114,7 @@ def get_crop_rectangle_code():
                           "<l>        fill_up(Region, Rectangle)</l>\n" \
                           "<c></c>\n" \
                           "<l>        gen_empty_obj(FaultyRegion)</l>\n" \
-                          "<l>        gen_empty_obj(NewImgReduced)</l>\n" \
+                          "<l>        gen_empty_obj(NewImageReduced)</l>\n" \
                           "<l>        gen_empty_obj(ImgPart)</l>\n" \
                           "<l>        gen_empty_obj(RelativeRegion)</l>\n" \
                           "<c></c>\n" \

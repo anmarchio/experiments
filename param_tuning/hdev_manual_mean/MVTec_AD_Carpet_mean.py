@@ -72,8 +72,8 @@ def get_MVTec_AD_Carpet_mean_pipeline(params, dataset_path=None):
 MVTec_AD_Carpet_mean_pipeline_initial_params = [
     'canny',
     0.5,
-    30,
-    45,
+    7, # 30
+    149, # 45
     'nms',
     'y_binomial',
     7,
@@ -84,7 +84,6 @@ MVTec_AD_Carpet_mean_pipeline_initial_params = [
     6,
     5,
     49
-
 ]
 
 MVTec_AD_Carpet_mean_pipeline_bounds = [

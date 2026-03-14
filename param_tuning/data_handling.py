@@ -187,6 +187,8 @@ def calculate_metrics(ground_truth_path, prediction_path):
         "accuracy": accuracy
     }
 
+    return scores
+
 
 def calculate_metrics_depr(ground_truth_path, prediction_path):
     # Load images from both folders

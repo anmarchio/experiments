@@ -29,7 +29,7 @@ def get_MVTec_AD_Zipper_Rough_mean_pipeline(params, dataset_path=None):
     # Core Pipeline Code
     core_code = "<c>        * GaussFilter</c>\n" + \
                 "<c>        </c>\n" + \
-                "<c>       gauss_filter(Image, Image, MaskSize1)</c>\n" + \
+                "<l>        gauss_filter(Image, Image, MaskSize1)</l>\n" + \
                 "<c>        </c>\n" + \
                 "<c>        * LocalThreshold</c>\n" + \
                 "<l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>\n" \
