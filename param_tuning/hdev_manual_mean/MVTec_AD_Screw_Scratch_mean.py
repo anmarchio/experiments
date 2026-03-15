@@ -120,7 +120,6 @@ def get_MVTec_AD_Screw_Scratch_mean_pipeline(params, dataset_path=None):
                 "<c>        </c>\n" \
                 "<l>        union2(Region, Region2, Region)</l>\n" \
                 "<l>        opening(Region, StructElement, Region)</l>\n" \
-                "<l>        stop()</l>\n" \
                 "<c>        </c>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

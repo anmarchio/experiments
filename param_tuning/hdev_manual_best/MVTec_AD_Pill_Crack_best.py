@@ -85,7 +85,6 @@ def get_MVTec_AD_Pill_Crack_best_pipeline(params, dataset_path=None):
             "<l>        get_image_type(Image, Type)</l>"
             "<l>        gen_disc_se(StructElement, Type, A2, B2, C)</l>"        
             "<l>        closing(Region, StructElement, Region)</l>"
-            "<l>        stop()</l>\n"
     )
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)

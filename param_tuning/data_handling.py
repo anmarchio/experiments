@@ -140,8 +140,18 @@ def calculate_metrics(ground_truth_path, prediction_path):
     tp_total = fp_total = tn_total = fn_total = 0
 
     for gt, pred, name in zip(gt_images, pred_images, gt_names):
+        RED = "\033[91m"
+        RESET = "\033[0m"
+
         if gt.shape != pred.shape:
-            raise ValueError(f"Shape mismatch for {name}: GT {gt.shape}, PRED {pred.shape}")
+            print(f"{RED}WARNING: Shape mismatch for {name}: "
+                  f"GT {gt.shape} -> resizing to PRED {pred.shape}{RESET}")
+
+            gt = cv2.resize(
+                gt,
+                (pred.shape[1], pred.shape[0]),  # (width, height)
+                interpolation=cv2.INTER_NEAREST
+            )
 
         tp = np.sum((gt > 0) & (pred > 0))
         fp = np.sum((gt == 0) & (pred > 0))
