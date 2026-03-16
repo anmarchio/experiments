@@ -32,11 +32,14 @@ def get_MVTec_AD_Hazelnut_Crack_mean_pipeline(params, dataset_path=None):
                 "<l>        gray_closing(Image, StructElement, Image)</l>\n" + \
                 "<c></c>\n" + \
                 "<c>        * LocalThreshold</c>\n" + \
+                "<l>        access_channel(Image, Image, 1)</l>\n" + \
+                "<l>        convert_image_type(Image, Image, 'byte')</l>\n" + \
                 "<l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, " \
                 "Scale])</l>\n" + \
                 "<c></c>\n" + \
                 get_area_to_rectangle() + \
-                "<c></c>\n"
+                "<c></c>\n" + \
+                "<l>        Region := Rectangles</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

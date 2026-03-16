@@ -343,15 +343,15 @@ def area_size_threshold():
                                "<l>        gen_empty_region(TempRegion)</l>\n" + \
                                "<l>        get_image_size(Image, Width, Height)</l>\n" + \
                                "<c>        </c>\n" + \
-                               "<l>        I_W := Width / WindowWidth</l>\n" + \
-                               "<l>        I_H := Height / WindowHeight</l>\n" + \
+                               "<l>        I_W := int(Width / WindowWidth)</l>\n" + \
+                               "<l>        I_H := int(Height / WindowHeight)</l>\n" + \
                                "<c>        </c>\n" + \
                                "<l>        for i := 0 to I_W by 1</l>\n" + \
                                "<l>            for j := 0 to I_H by 1</l>\n" + \
                                "<l>                Row1 := j * WindowHeight</l>\n" + \
-                               "<l>                Col1 := i * WindowHeight</l>\n" + \
+                               "<l>                Col1 := i * WindowWidth</l>\n" + \
                                "<l>                Row2 := j * WindowHeight + WindowHeight</l>\n" + \
-                               "<l>                Col2 := i * WindowHeight + WindowHeight</l>\n" + \
+                               "<l>                Col2 := Col1 + WindowWidth</l>\n" + \
                                "<c>        </c>\n" + \
                                "<l>                if(Row2 &gt; Height)</l>\n" + \
                                "<l>                    Row2 := Height</l>\n" + \
@@ -369,6 +369,29 @@ def area_size_threshold():
                                "<l>                endif</l>\n" + \
                                "<c>        </c>\n" + \
                                "<l>                crop_rectangle1(Image, ImagePart, Row1, Col1, Row2, Col2)</l>\n" + \
+                               "<l>                threshold(ImagePart, Threads, MinGray, MaxGray)</l>\n" + \
+                               "<l>                union1(Threads, ThreadsUnion)</l>\n" + \
+                               "<l>                area_center(ThreadsUnion, AreaSize, Row, Col)</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>                if (AreaSize &lt; MaxSize and AreaSize &gt; MinSize)</l>\n" + \
+                               "<l>                    gen_rectangle1(TempRegion, Row1, Col1, Row2, Col2)</l>\n" + \
+                               "<l>                    union2(TempRegion, FaultyRegion, FaultyRegion)</l>\n" + \
+                               "<l>                endif</l>\n" + \
+                               "<l>            endfor</l>\n" + \
+                               "<l>        endfor</l>\n" + \
+                               "<c>        </c>\n" + \
+                               "<l>        count_obj(FaultyRegion, Number)</l>\n" + \
+                               "<l>        if(Number > 0)</l>\n" + \
+                               "<l>            Region := FaultyRegion</l>\n" + \
+                               "<l>        else</l>\n" + \
+                               "<l>            gen_empty_region(Region)</l>\n" + \
+                               "<l>        endif</l>\n" + \
+                               "<c>        </c>\n"
+
+    return ares_size_threshold_code
+
+"""
+    "<l>                crop_rectangle1(Image, ImagePart, Row1, Col1, Row2, Col2)</l>\n" + \
                                "<l>                threshold(ImagePart, Threads, 40, 255)</l>\n" + \
                                "<l>                area_center(Threads, AreaSize, Row, Col)</l>\n" + \
                                "<c>        </c>\n" + \
@@ -381,12 +404,4 @@ def area_size_threshold():
                                "<l>                region_features(FaultyRegion, 'area', Value)</l>\n" + \
                                "<l>            endfor</l>\n" + \
                                "<l>        endfor</l>\n" + \
-                               "<c>        </c>\n" + \
-                               "<l>        count_obj(FaultyRegion, Number)</l>\n" + \
-                               "<l>        if(Number > 0)</l>\n" + \
-                               "<l>            Region := FaultyRegion</l>\n" + \
-                               "<l>        else</l>\n" + \
-                               "<l>            gen_empty_region(Region)</l>\n" + \
-                               "<l>        endif</l>\n" + \
-                               "<c>        </c>\n"
-    return ares_size_threshold_code
+    """

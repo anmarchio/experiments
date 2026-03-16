@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'Pultrusion_Resin_mean_pipeline'</l>
-<l>source_path := 'I:/evias_expmts/Pultrusion/resin_cgp/train/images'</l>
-<l>labels_path := 'I:/evias_expmts/Pultrusion/resin_cgp/train/labels'</l>
+<l>source_path := 'D:/evias_expmts/Pultrusion/resin_cgp/train/images'</l>
+<l>labels_path := 'D:/evias_expmts/Pultrusion/resin_cgp/train/labels'</l>
 <l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -130,6 +130,9 @@
 <c>        * Apply Sobel Y with mask size 3</c>
 <l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>
 <c>        </c>
+<l>        scale_image(Image, Image, 1, 128)</l>
+<l>        convert_image_type(Image, Image, 'byte')</l>
+<c>        </c>
 <c>         * Scale To Gray</c>
 <l>        gen_empty_obj(ScaledImage)</l>
 <l>        min_max_gray(Image, Image, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
@@ -160,17 +163,27 @@
 <c>        </c>
 <l>        get_image_size(Image, Width, Height)</l>
 <c>        </c>
-<l>        I_W := Width / WindowWidth</l>
-<l>        I_H := Height / WindowHeight</l>
+<l>        *I_W := Width / WindowWidth</l>
+<l>        *I_H := Height / WindowHeight</l>
+<c>        </c>
+<l>        *for i := 0 to I_W by 1</l>
+<l>        *    for j := 0 to I_H by 1</l>
+<c>        </c>
+<l>        *        Row1 := j * WindowHeight</l>
+<l>        *        Col1 := i * WindowHeight</l>
+<l>        *        Row2 := j * WindowHeight + WindowHeight</l>
+<l>        *        Col2 := i * WindowHeight + WindowHeight</l>
+<l>        I_W := int(Width / WindowWidth)</l>
+<l>        I_H := int(Height / WindowHeight)</l>
 <c>        </c>
 <l>        for i := 0 to I_W by 1</l>
 <l>            for j := 0 to I_H by 1</l>
 <c>        </c>
 <l>                Row1 := j * WindowHeight</l>
-<l>                Col1 := i * WindowHeight</l>
-<l>                Row2 := j * WindowHeight + WindowHeight</l>
-<l>                Col2 := i * WindowHeight + WindowHeight</l>
-<c>        </c>
+<l>                Col1 := i * WindowWidth</l>
+<l>                Row2 := Row1 + WindowHeight</l>
+<l>                Col2 := Col1 + WindowWidth</l>
+<c>                </c>
 <l>                if (Row2 &gt; Height)</l>
 <l>                    Row2 := Height</l>
 <l>                endif</l>
@@ -187,18 +200,26 @@
 <l>                    Col1 := Width - 1</l>
 <l>                endif</l>
 <c>        </c>
+<l>                *crop_rectangle1(Image, ImagePart, Row1, Col1, Row2, Col2)</l>
+<l>                *threshold(ImagePart, Threads, MinGray, MaxGray)</l>
+<l>                *area_center(Threads, AreaSize, Row, Col)</l>
+<c>        </c>
+<l>                *if (AreaSize &lt; MaxSize and AreaSize &gt; MinSize)</l>
+<l>                *    gen_rectangle1(TempRegion, Row1, Col1, Row2, Col2)</l>
+<l>                *    union2(TempRegion, FaultyRegion, FaultyRegion)</l>
+<l>                *endif</l>
+<c>        </c>
+<l>                *smallest_rectangle1(FaultyRegion, Row1, Col1, Row2, Col2)</l>
+<l>                *region_features(FaultyRegion, 'area', Value)</l>
 <l>                crop_rectangle1(Image, ImagePart, Row1, Col1, Row2, Col2)</l>
 <l>                threshold(ImagePart, Threads, MinGray, MaxGray)</l>
-<l>                area_center(Threads, AreaSize, Row, Col)</l>
-<c>        </c>
+<l>                union1(Threads, ThreadsUnion)</l>
+<l>                area_center(ThreadsUnion, AreaSize, Row, Col)</l>
+<c>                </c>
 <l>                if (AreaSize &lt; MaxSize and AreaSize &gt; MinSize)</l>
 <l>                    gen_rectangle1(TempRegion, Row1, Col1, Row2, Col2)</l>
 <l>                    union2(TempRegion, FaultyRegion, FaultyRegion)</l>
 <l>                endif</l>
-<c>        </c>
-<l>                smallest_rectangle1(FaultyRegion, Row1, Col1, Row2, Col2)</l>
-<l>                region_features(FaultyRegion, 'area', Value)</l>
-<c>        </c>
 <l>            endfor</l>
 <l>        endfor</l>
 <c>        </c>
@@ -279,7 +300,7 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    wait_seconds(0.5)</l>
+<l>    *wait_seconds(0.5)</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>

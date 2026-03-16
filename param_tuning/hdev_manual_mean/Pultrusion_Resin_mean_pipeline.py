@@ -22,10 +22,12 @@ def get_Pultrusion_Resin_mean_pipeline(params, dataset_path=None):
                   "<l>        Margin := '" + str(params[2]) + "'</l>\n" + \
                   "<l>        FilterType := '" + str(params[3]) + "'</l>\n" + \
                   "<l>        MaskSize := " + str(params[4]) + "</l>\n" + \
-                  "<l>        MinSize := " + str(params[5]) + "</l>\n" + \
-                  "<l>        MaxSize := " + str(params[6]) + "</l>\n" + \
-                  "<l>        WindowWidth := " + str(params[7]) + "</l>\n" + \
-                  "<l>        WindowHeight := " + str(params[8]) + "</l>\n" + \
+                  "<l>        MinGray := " + str(params[5]) + "</l>\n" + \
+                  "<l>        MaxGray := " + str(params[6]) + "</l>\n" + \
+                  "<l>        MinSize := " + str(params[7]) + "</l>\n" + \
+                  "<l>        MaxSize := " + str(params[8]) + "</l>\n" + \
+                  "<l>        WindowWidth := " + str(params[9]) + "</l>\n" + \
+                  "<l>        WindowHeight := " + str(params[10]) + "</l>\n" + \
                   "<c></c>\n"
 
     # Core Pipeline Code
@@ -55,6 +57,10 @@ def get_Pultrusion_Resin_mean_pipeline(params, dataset_path=None):
                 "<l>        endif</l>\n" + \
                 "<l>        sobel_amp(Image, Image, FilterType, MaskSize)</l>\n" + \
                 "<c>        </c>\n" + \
+                "<l>        scale_image(Image, Image, 1, 128)</l>\n" + \
+                "<l>        convert_image_type(Image, Image, 'byte')</l>\n" + \
+                "<c>        </c>\n" + \
+                "<c>        </c>\n" + \
                 area_size_threshold() + \
                 "<c>        </c>\n"
 
@@ -67,6 +73,8 @@ Pultrusion_Resin_mean_pipeline_initial_params = [
     'TwoTen',
     'y',
     7,
+    18,
+    234,
     10000,
     21000,
     200,
@@ -80,6 +88,8 @@ Pultrusion_Resin_mean_pipeline_bounds = [
      'TwoForty', 'TwoFiftyFive'],  # Margin
     ['y', 'y_binomial', 'x', 'x_binomial'],
     [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39],
+    [v for v in range(1, 255, 1)],
+    [v for v in range(1, 255, 1)],
     [v for v in range(9000, 10999, 1000)],
     [v for v in range(18000, 21999, 1000)],
     [v for v in range(160, 320, 10)],

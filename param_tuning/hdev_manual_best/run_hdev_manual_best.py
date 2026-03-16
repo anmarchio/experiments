@@ -209,14 +209,6 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 #MANUAL_HDEV_PIPELINES_BEST = [
-#    "CF_ReferenceSet_Small_Light_best_pipeline", (x)
-#    "MT_Blowhole_train_best_pipeline", (x)
-#    "MVTec_AD_Bottle_Broken_Sm_best_pipeline",
-#    "MVTec_AD_Capsule_best_pipeline", (x)
-#    "MVTec_AD_Grid_Thread_best_pipeline", (x)
-#    "MVTec_AD_Leather_best_pipeline",
-#    "Pultrusion_Resin_best_pipeline"
-#    "MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline",
 #]
 
 MANUAL_HDEV_PIPELINES_BEST = [

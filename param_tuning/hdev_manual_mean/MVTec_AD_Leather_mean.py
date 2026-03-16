@@ -44,6 +44,9 @@ def get_MVTec_AD_Leather_mean_pipeline(params, dataset_path=None):
                 "<l>        endif</l>\n" + \
                 "<l>        sobel_amp(Image, Image1, FilterType, MaskSize)</l>\n" + \
                 "<c>        </c>\n" + \
+                "<l>        scale_image(Image1, Image1, 1, 128)</l>\n" + \
+                "<l>        convert_image_type(Image1, Image1, 'byte')</l>\n" + \
+                "<c>        </c>\n" + \
                 "<c>        * Path 2</c>\n" \
                 "<c>        * SigmaImage</c>\n" \
                 "<l>        sigma_image(Image, Image2, MaskHeight, MaskWidth, Sigma)</l>\n" + \
@@ -59,7 +62,8 @@ def get_MVTec_AD_Leather_mean_pipeline(params, dataset_path=None):
                 "<c>        * Closing</c>\n" + \
                 "<l>        gen_rectangle1(RectangleStructElement, 0, 0, A, B)</l>\n" + \
                 "<l>        closing(Region, RectangleStructElement, Region) </l>\n" + \
-                "<c></c>\n"
+                "<c></c>\n" + \
+                "<l>        stop()</l>\n"
 
     #raise ValueError("!!!NOT matching with ground truth MCC, FIX !!!")
 

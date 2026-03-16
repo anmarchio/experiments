@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Hazelnut_Crack_mean_pipeline'</l>
-<l>source_path := 'I:/evias_expmts/MVTecAnomalyDetection/hazelnut_crack_train/images'</l>
-<l>labels_path := 'I:/evias_expmts/MVTecAnomalyDetection/hazelnut_crack_train/labels'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/hazelnut_crack_train/images'</l>
+<l>labels_path := 'D:/evias_expmts/MVTecAnomalyDetection/hazelnut_crack_train/labels'</l>
 <l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -45,7 +45,8 @@
 <c>        * Apply StructElement Ellipse to Closing</c>
 <c>        * LocalThreshold</c>
 <c>        * 27 [label="LocalThreshold\nMethod=adapted_std_deviation\n LightDark=light\n MaskSize=21\n Scale=0,5"];</c>
-<c>        </c>
+<l>        access_channel(Image, Image, 1)</l>
+<l>        convert_image_type(Image, Image, 'byte')</l>
 <l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>
 <c></c>
 <c>        * AreaToRectangle</c>
@@ -60,7 +61,6 @@
 <l>            union2(Rectangles, Rectangle, Rectangles)</l>
 <l>        endfor        </l>
 <l>        Region := Rectangles</l>
-<c>    </c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
