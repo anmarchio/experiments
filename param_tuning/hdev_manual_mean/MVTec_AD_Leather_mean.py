@@ -62,8 +62,7 @@ def get_MVTec_AD_Leather_mean_pipeline(params, dataset_path=None):
                 "<c>        * Closing</c>\n" + \
                 "<l>        gen_rectangle1(RectangleStructElement, 0, 0, A, B)</l>\n" + \
                 "<l>        closing(Region, RectangleStructElement, Region) </l>\n" + \
-                "<c></c>\n" + \
-                "<l>        stop()</l>\n"
+                "<c></c>\n"
 
     #raise ValueError("!!!NOT matching with ground truth MCC, FIX !!!")
 
