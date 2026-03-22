@@ -4,8 +4,8 @@
 <interface/>
 <body>
 <l>dataset_name := 'severstal-steel_mean_pipeline'</l>
-<l>source_path := 'I:/evias_expmts/severstal-steel/train_cgp/images'</l>
-<l>labels_path := 'I:/evias_expmts/severstal-steel/train_cgp/labels'</l>
+<l>source_path := 'D:/evias_expmts/severstal-steel/train_cgp/images'</l>
+<l>labels_path := 'D:/evias_expmts/severstal-steel/train_cgp/labels'</l>
 <l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -24,40 +24,52 @@
 <c>    * --------------</c>
 <l>    try        </l>
 <c>        * Parameters</c>
-<l>        Filter := 'canny'</l>
-<l>        Alpha := 1.2</l>
-<l>        Low := 5</l>
-<l>        High := 20</l>
-<l>        NonMaximumSuppression := 'nms'</l>
+<l>        MaskHeight := 17</l>
+<l>        MaskWidth := 5</l>
 <c>        </c>
-<l>        Min := 65</l>
-<l>        Max := 240</l>
+<l>        MaskWidth2 := 29</l>
+<l>        MaskHeight2 := 23</l>
+<c>        * Reduced mask size</c>
+<c>        * to reduce the MCC to 0.21</c>
+<l>        *MaskWidth2 := 5</l>
+<l>        *MaskHeight2 := 5</l>
 <c>        </c>
-<l>        Iterations := 1</l>
-<l>        A := 18</l>
-<l>        B := 18</l>
+<c>        * regular values</c>
+<l>        StdDevScale := 0.2000001</l>
+<l>        AbsThreshold := 13</l>
+<l>        LightDark := 'not_equal'</l>
 <c>        </c>
 <c>        * Pipeline</c>
 <c>        </c>
-<c>        * EdgesImage</c>
-<l>        edges_image(Image, ImageEdges, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
+<c>        * Binomial Filter</c>
+<l>        binomial_filter(Image, Image, MaskHeight, MaskWidth)</l>
 <c>        </c>
-<c>        * Threshold</c>
-<l>        threshold(ImageEdges, RegionThresh, Min, Max)</l>
+<c>        * VarThreshold</c>
+<l>        get_image_type(Image, Type)</l>
 <c>        </c>
-<c>        * Dilation1 (Ellipse SE)</c>
-<l>        tuple_max2(A, B, max_rad)</l>
-<l>        phi := 0.0</l>
-<l>        longer := A</l>
-<l>        shorter := B</l>
-<l>        if (shorter &gt; longer)</l>
-<l>            tmp := shorter</l>
-<l>            shorter := longer</l>
-<l>            longer := tmp</l>
+<l>        if(Type != 'byte' and Type != 'int2' and Type != 'int4' and Type != 'uint2' and Type != 'real')</l>
+<l>            min_max_gray(Image, Image, 0, Min, Max, Range)</l>
+<l>            if (not( (255 &gt;= Max) and (Min &gt;= 0) ) )</l>
+<l>                if ((Max - Min) &gt; 0)</l>
+<l>                    Mult := 255.0 / (Max - Min)</l>
+<l>                else</l>
+<l>                    Mult := 255.0</l>
+<l>                endif</l>
+<l>                Add := -Mult * Min</l>
+<l>                scale_image(Image, Image, Mult, Add)</l>
+<l>            else</l>
+<l>                scale_image(Image, Image, 1, 0)</l>
+<l>            endif</l>
+<c>            </c>
+<l>            StandardType := 'byte'</l>
+<l>            convert_image_type(Image, Image, 'byte')</l>
+<l>            var_threshold(Image, Region, MaskWidth2, MaskHeight2, StdDevScale, AbsThreshold, LightDark)    </l>
+<l>        else </l>
+<l>            var_threshold(Image, Region, MaskWidth2, MaskHeight2, StdDevScale, AbsThreshold, LightDark)    </l>
 <l>        endif</l>
-<l>        tuple_ceil(max_rad + 1, max_rad_ceil)</l>
-<l>        gen_ellipse(StructElement, max_rad_ceil, max_rad_ceil, phi, longer, shorter)</l>
-<l>        dilation1(RegionThresh, StructElement, Region, Iterations)        </l>
+<c>        </c>
+<c>        * Union1</c>
+<l>        union1(Region, Region)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -132,7 +144,6 @@
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>
-<l>wait_seconds(0.5)</l>
 <l>dev_disp_text(MCC, 'window', 30, 10, 'black', [], [])</l>
 <c></c>
 <l>*exit()</l>

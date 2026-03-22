@@ -118,9 +118,9 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
 MANUAL_HDEV_PIPELINES_MEAN = [
     #"AirCarbon3_80.jpg_bright_mean_pipeline",
     #"AirCarbon3_80.jpg_dark_2_mean_pipeline",
-    "MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
+    #"MVTec_AD_Bottle_Broken_Sm_mean_pipeline",
     #"MVTec_AD_Metal_Nut_mean_pipeline",
-    #"severstal-steel_mean_pipeline",
+    "severstal-steel_mean_pipeline",
 ]
 
 MANUAL_HDEV_PIPELINES_MEAN_TMP = [
