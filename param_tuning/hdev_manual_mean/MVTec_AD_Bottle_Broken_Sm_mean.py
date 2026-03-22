@@ -35,18 +35,19 @@ def get_MVTec_AD_Bottle_Broken_Sm_mean_pipeline(params, dataset_path=None):
                 "<l>        get_image_type(Image, Type)</l>\n" + \
                 "<l>        if(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real')</l>\n" + \
                 scale_to_gray() + \
-                "<l>            convert_image_type(ImageScaled, Image, 'byte')</l>\n" + \
+                "<l>            convert_image_type(ScaledImage, Image, 'byte')</l>\n" + \
                 "<l>        endif</l>\n" + \
                 "<c></c>\n" + \
                 "<l>        tuple_max2(MinGray + MaxGrayOffset, 255, MaxGrayOffset)</l>\n" + \
                 "<l>        fast_threshold(Image, Region, MinGray, MaxGrayOffset, MinSize)</l>\n" + \
                 "<c></c>\n" + \
-                "<l>        * Closing</l>\n"
+                "<c>        * Closing</c>\n"
 
     core_code += get_ellipse_struct_code(params[4], params[5], params[6])
 
-    core_code += "<l>        * Connection</l>\n" + \
-                 "<l>        connection(Region, Region)</l>\n"
+    core_code += ("<l>        closing(Region, StructElement, RegionClosing)</l>\n" +
+                  "<l>        * Connection</l>\n" +
+                  "<l>        connection(RegionClosing, Region)</l>\n")
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

@@ -49,6 +49,9 @@ def get_MVTec_AD_Metal_Nut_mean_pipeline(params, dataset_path=None):
                 "<l>            convert_image_type(Image1, Image1, 'byte')</l>\n" \
                 "<l>        endif</l>\n" \
                 "<l>        sobel_amp(Image1, Image1, FilterType, MaskSize)</l>\n" \
+                "<c>        </c>\n" + \
+                "<l>        scale_image(Image1, Image1, 1, 128)</l>\n" + \
+                "<l>        convert_image_type(Image1, Image1, 'int2')</l>\n" + \
                 "<c>        </c>\n" \
                 "<c>        * ZeroCrossing</c>\n" \
                 "<c>        * ---</c>\n" \

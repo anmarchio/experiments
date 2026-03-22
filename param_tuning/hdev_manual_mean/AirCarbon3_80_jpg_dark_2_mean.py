@@ -43,7 +43,7 @@ def get_AirCarbon3_80_jpg_dark_2_mean_pipeline(params, dataset_path=None):
                 "<l>            endif                </l>\n" \
                 "<l>            convert_image_type(ScaledImage, ImageRoberts, 'byte')</l>\n" \
                 "<l>        endif                </l>\n" \
-                "<l>        threshold(Image, Region, Min, Max)</l>\n"
+                "<l>        threshold (Image, Region, Min, min2(255, Min + Max))</l>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
 

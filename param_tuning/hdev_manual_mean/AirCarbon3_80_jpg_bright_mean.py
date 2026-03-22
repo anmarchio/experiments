@@ -30,6 +30,8 @@ def get_AirCarbon3_80_jpg_bright_mean_pipeline(params, dataset_path=None):
                 "<l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n" + \
                 "<c></c>\n" \
                 "<l>        access_channel(ImageAmp, ImageAmp, 1)</l>\n" + \
+                "<c>        </c>\n" + \
+                "<l>        scale_image(ImageAmp, ImageAmp, 1, 128)</l>\n" + \
                 "<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>\n" + \
                 "<c></c>\n" \
                 "<l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], " \
