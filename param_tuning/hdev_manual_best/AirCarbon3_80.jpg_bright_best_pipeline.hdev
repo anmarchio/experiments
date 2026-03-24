@@ -4,13 +4,15 @@
 <interface/>
 <body>
 <l>dataset_name := 'AirCarbon3_80.jpg_bright_mean_pipeline'</l>
-<l>source_path := 'H:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>
-<l>labels_path := 'H:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/labels'</l>
+<l>source_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>
+<l>labels_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/labels'</l>
 <l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
 <c></c>
-<l>dev_update_on()</l>
+<l>dev_update_off()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
+<c></c>
+<l>TotalMCC := 0.0</l>
 <c></c>
 <l>for Index := 1 to |ImageFiles| - 1 by 1</l>
 <l>    read_image(Image, ImageFiles[Index])</l>
@@ -24,7 +26,8 @@
 <l>        Sigma := 0.1</l>
 <l>        Rho := 2</l>
 <l>        Theta := 0.1</l>
-<l>        Iterations := 328</l>
+<l>        *Iterations := 328</l>
+<l>        Iterations := 100</l>
 <c>        </c>
 <l>        FilterTypeSA := 'y'</l>
 <l>        MaskSizeSA := 5</l>
@@ -38,7 +41,7 @@
 <c>        </c>
 <l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>
 <c>        </c>
-<l>        access_channel(ImageAmp, ImageAmp, 1)</l>
+<l>        scale_image(ImageAmp, ImageAmp, 1, 128)</l>
 <l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
 <c>        </c>
 <l>        local_threshold(ImageAmp, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeLT, Scale])</l>
@@ -119,10 +122,12 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    stop()</l>
+<l>    *wait_seconds(0.5)</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>
+<l>dev_disp_text(MCC, 'window', 30, 10, 'black', [], [])</l>
+<c>    </c>
 <l>*exit()</l>
 </body>
 <docu id="main">

@@ -4,11 +4,11 @@
 <interface/>
 <body>
 <l>dataset_name := 'AirCarbon3_80.jpg_dark_1'</l>
-<l>source_path := 'H:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>
-<l>labels_path := 'H:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/labels'</l>
+<l>source_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/images'</l>
+<l>labels_path := 'D:/evias_expmts/Aircarbon3/20210325_13h25_rov/training/80.jpg_bright/labels'</l>
 <l>out_path := 'D:/dev/experiments/param_tuning/hdev_manual_best/' + dataset_name + '/'</l>
 <c></c>
-<l>dev_update_on()</l>
+<l>dev_update_off()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
 <c></c>
@@ -42,6 +42,8 @@
 <l>        edges_image(Image, ImaAmp, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
 <c>        </c>
 <l>        sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>
+<l>        scale_image(ImageAmp, ImageAmp, 1, 128)</l>
+<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
 <c>        </c>
 <c>        * ThresholdAccessChannel        </c>
 <l>        abs_image(Image, Image)</l>
@@ -140,6 +142,7 @@
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>
+<l>dev_disp_text(MCC, 'window', 30, 10, 'black', [], [])</l>
 <c></c>
 <l>*exit()</l>
 </body>

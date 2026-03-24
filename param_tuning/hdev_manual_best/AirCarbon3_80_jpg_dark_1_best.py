@@ -37,7 +37,10 @@ def get_AirCarbon3_80_jpg_dark_1_best_pipeline(params, dataset_path=None):
     # Core Pipeline Code
     core_code = "<l>edges_image(Image, ImaAmp, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>\n" \
                 "<c></c>\n" \
-                "<l>sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n" + \
+                "<l>sobel_amp(Image, ImageAmp, FilterTypeSA, MaskSizeSA)</l>\n" \
+                "<c></c>\n" \
+                "<l>scale_image(ImageAmp, ImageAmp, 1, 128)</l>\n" \
+                "<l>convert_image_type(ImageAmp, ImageAmp, 'byte')</l>\n" \
                 "<c></c>\n" \
                 "<c>* ThresholdAccessChannel</c>\n" \
                 "<l>abs_image(Image, Image)</l>\n" + \

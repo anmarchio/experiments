@@ -47,8 +47,14 @@
 <c>        * Pipeline</c>
 <l>        sobel_amp(Image, ImageAmp, FilterType1, MaskSize1)</l>
 <c>        </c>
+<l>        scale_image(ImageAmp, ImageAmp, 1, 128)</l>
+<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
+<c>        </c>
 <l>        sobel_amp(ImageAmp, ImageAmp2, FilterType2, MaskSize2)</l>
 <c>           </c>
+<l>        scale_image(ImageAmp2, ImageAmp2, 1, 128)</l>
+<l>        convert_image_type(ImageAmp2, ImageAmp2, 'byte')</l>
+<c>        </c>
 <l>        access_channel(ImageAmp2, ImageAmp2, 1)</l>
 <l>        convert_image_type(ImageAmp2, ImageAmp2, 'byte')</l>
 <l>        local_threshold(ImageAmp2, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSizeThreshold, Scale])</l>
@@ -123,11 +129,11 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    wait_seconds(0.5)</l>
+<l>    *wait_seconds(0.5)</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>
-<l>wait_seconds(0.5)</l>
+<l>*wait_seconds(0.5)</l>
 <l>dev_disp_text(MCC, 'window', 30, 10, 'black', [], [])</l>
 <c></c>
 <l>*exit()</l>

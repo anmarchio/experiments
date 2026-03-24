@@ -52,6 +52,9 @@
 <c>        * Branch 1: SobelAmp -&gt; ZeroCrossing -&gt; SelectShape</c>
 <l>        sobel_amp(Image, ImageAmp, FilterType, MaskSize)</l>
 <c>        </c>
+<l>        scale_image(ImageAmp, ImageAmp, 1, 128)</l>
+<l>        convert_image_type(ImageAmp, ImageAmp, 'int2')</l>
+<c>        </c>
 <l>        zero_crossing(ImageAmp, RegionZero)</l>
 <c>        </c>
 <l>        select_shape(RegionZero, RegionShape, Features, 'and', Min, Max)</l>
@@ -79,11 +82,11 @@
 <l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
 <l>        gen_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
 <c>        </c>
-<l>        dev_display(Image)</l>
-<l>        dev_display(Region)</l>
-<l>        wait_seconds(1)</l>
-<l>        dev_display(Label)</l>
-<l>        wait_seconds(1)</l>
+<l>        *dev_display(Image)</l>
+<l>        *dev_display(Region)</l>
+<l>        *wait_seconds(1)</l>
+<l>        *dev_display(Label)</l>
+<l>        *wait_seconds(1)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -154,7 +157,7 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    wait_seconds(0.5)</l>
+<l>    *wait_seconds(0.5)</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>

@@ -53,7 +53,12 @@
 <l>        StructElementType := 'Rectangle'</l>
 <c>        </c>
 <l>        edges_image(Image, Image, ImaDir, Filter, Alpha, NonMaximumSuppression, Low, High)</l>
+<c>        </c>
 <l>        sobel_amp(Image, ImageAmp, FilterType, MaskSize)</l>
+<c>        </c>
+<l>        scale_image(ImageAmp, ImageAmp, 1, 128)</l>
+<l>        convert_image_type(ImageAmp, ImageAmp, 'byte')</l>
+<c>        </c>
 <l>        threshold(ImageAmp, Region, Min, Max)</l>
 <c>        </c>
 <c>        * Closing</c>
@@ -128,11 +133,11 @@
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>
-<l>    stop()</l>
+<l>    * wait_seconds(0.5)</l>
 <l>endfor</l>
 <c></c>
 <l>MCC := TotalMCC / |ImageFiles|</l>
-<c></c>
+<l>dev_disp_text(MCC, 'window', 30, 10, 'black', [], [])</l>
 <l>*exit()</l>
 </body>
 <docu id="main">
