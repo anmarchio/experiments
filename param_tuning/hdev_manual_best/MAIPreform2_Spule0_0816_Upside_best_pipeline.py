@@ -74,7 +74,7 @@ def get_MAIPreform2_Spule0_0816_Upside_best_pipeline(params, dataset_path=None):
             "<l>                PixelCount := Histo[0] + Histo[1]</l>\n"
             "<c></c>\n"
             "<l>                if (PixelCount &gt; 0.6 * WStep * HStep)</l>\n"
-            "<l>                    Ratio := Histo[1] / PixelCount</l>\n"
+            "<l>                    Ratio := Histo[1] / (PixelCount * 1.0)</l>\n"
             "<c></c>\n"
             "<l>                    if (Ratio &lt; MinRatio)</l>\n"
             "<l>                        gen_rectangle1(FaultyRegion, ImgHeight, ImgWidth, ImgHeight + HStep, ImgWidth + WStep)</l>\n"
@@ -83,7 +83,12 @@ def get_MAIPreform2_Spule0_0816_Upside_best_pipeline(params, dataset_path=None):
             "<l>                endif</l>\n"
             "<l>            endfor</l>\n"
             "<l>        endfor</l>\n"
-            "<l>        Region := RelativeRegion</l>\n"
+            "<c>        </c>\n"
+            "<l>        gen_empty_region(Region)</l>\n"
+            "<l>        count_obj(RelativeRegion, Number)</l>\n"
+            "<l>        if(Number &lt; 0)</l>\n"
+            "<l>            Region := RelativeRegion</l>\n"
+            "<l>        endif</l>\n"
         )
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
