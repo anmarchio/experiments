@@ -4,11 +4,11 @@
 <interface/>
 <body>
 <l>dataset_name := 'MVTec_AD_Transistor_best_pipeline'</l>
-<l>source_path := 'I:/evias_expmts/MVTecAnomalyDetection/transistor_damaged_case_train/images'</l>
-<l>labels_path := 'I:/evias_expmts/MVTecAnomalyDetection/transistor_damaged_case_train/labels'</l>
+<l>source_path := 'D:/evias_expmts/MVTecAnomalyDetection/transistor_damaged_case_train/images'</l>
+<l>labels_path := 'D:/evias_expmts/MVTecAnomalyDetection/transistor_damaged_case_train/labels'</l>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
-<l>dev_update_on()</l>
+<l>dev_update_off()</l>
 <l>list_image_files(source_path, 'default', [], ImageFiles)</l>
 <l>list_image_files(labels_path, 'default', [], LabelFiles)</l>
 <c></c>
@@ -77,12 +77,12 @@
 <c>        </c>
 <c>        * --- Branch B: HistoToThresh -&gt; Connection -&gt; RegionGrowing -&gt; CropSmallestRectangle</c>
 <c>        * CropSmallestRectangle</c>
-<l>        threshold(Image, Region, MinGray, MaxGray)</l>
-<l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
+<l>        threshold(ImageEdges, Region1, MinGray, MaxGray)</l>
+<l>        smallest_rectangle1(Region1, Row1, Column1, Row2, Column2)</l>
 <l>        crop_rectangle1(Image, Image2, Row1, Column1, Row2, Column2)</l>
 <c>        </c>
 <c>        * Connection</c>
-<l>        connection(Region, ConnectedRegions)</l>
+<l>        connection(Region1, Region1)</l>
 <c>        </c>
 <c>        * HistoToThresh</c>
 <l>        Image := ImageEdges</l>
@@ -99,18 +99,18 @@
 <l>            OutputVariableName := RegionUnion</l>
 <l>        endif</l>
 <l>        histo_to_thresh(AbsoluteHisto, Sigma, MinThresh, MaxThresh)</l>
-<l>        threshold(Image, Region, MinThresh, MaxThresh)</l>
+<l>        threshold(Image, Region2, MinThresh, MaxThresh)</l>
 <c>        </c>
 <c>        * --- Merge</c>
-<l>        union2(Image, ConnectedRegions, RegionUnion)</l>
+<l>        union2(Region2, Region1, Region)</l>
 <c>        </c>
 <c>        * --- Post: Closing -&gt; SelectShape</c>
 <c>        * Rectangle struct element, rotated by Phi, half-lengths A and B</c>
 <l>        gen_rectangle2(StructElement, 0, 0, Phi, A, B)</l>
-<l>        closing(Region, StructElement, RegionClosed)</l>
+<l>        closing(Region, StructElement, Region)</l>
 <c>        </c>
 <c>        * Select Shape</c>
-<l>        select_shape(RegionClosed, Region, Features, 'and', MinWidth, MaxWidth)                </l>
+<l>        select_shape(Region, Region, Features, 'and', MinWidth, MaxWidth)                </l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

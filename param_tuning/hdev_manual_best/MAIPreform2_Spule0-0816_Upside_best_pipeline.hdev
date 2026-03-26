@@ -37,6 +37,7 @@
 <l>        Rho := 19</l>
 <l>        Theta := 0.2</l>
 <l>        Iterations := 100</l>
+<l>        Iterations := 1</l>
 <c></c>
 <l>        MinRatio := 0.06</l>
 <l>        MaskHeight := 7</l>
