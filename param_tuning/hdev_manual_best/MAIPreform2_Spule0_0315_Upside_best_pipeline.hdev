@@ -51,6 +51,7 @@
 <l>        A2 := 26</l>
 <l>        B2 := 26</l>
 <l>        C := 0.785398</l>
+<c>        </c>
 <c>        * GrayOpening -&gt; Binary Threshold</c>
 <l>        get_image_type(Image, Type1)</l>
 <l>        tuple_ceil(A1, A1)</l>

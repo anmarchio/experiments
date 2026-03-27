@@ -36,7 +36,7 @@
 <l>        Sigma := 0.8</l>
 <l>        Rho := 19</l>
 <l>        Theta := 0.2</l>
-<l>        Iterations := 100</l>
+<l>        *Iterations := 100</l>
 <l>        Iterations := 1</l>
 <c></c>
 <l>        MinRatio := 0.06</l>
@@ -99,7 +99,12 @@
 <l>                endif</l>
 <l>            endfor</l>
 <l>        endfor</l>
-<l>        Region := RelativeRegion</l>
+<c>        </c>
+<l>        gen_empty_region(Region)</l>
+<l>        count_obj(RelativeRegion, Number)</l>
+<l>        if(Number &gt; 0)</l>
+<l>            Region := RelativeRegion</l>
+<l>        endif</l>
 <c>        * ----- END (Relative Threshold) ------</c>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>

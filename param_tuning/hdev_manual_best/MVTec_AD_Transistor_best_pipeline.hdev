@@ -102,15 +102,16 @@
 <l>        threshold(Image, Region2, MinThresh, MaxThresh)</l>
 <c>        </c>
 <c>        * --- Merge</c>
-<l>        union2(Region2, Region1, Region)</l>
+<l>        *union2(Region2, Region1, Region)</l>
+<l>         Region := Region2</l>
 <c>        </c>
 <c>        * --- Post: Closing -&gt; SelectShape</c>
 <c>        * Rectangle struct element, rotated by Phi, half-lengths A and B</c>
 <l>        gen_rectangle2(StructElement, 0, 0, Phi, A, B)</l>
-<l>        closing(Region, StructElement, Region)</l>
+<l>        closing(Region1, StructElement, Region1)</l>
 <c>        </c>
 <c>        * Select Shape</c>
-<l>        select_shape(Region, Region, Features, 'and', MinWidth, MaxWidth)                </l>
+<l>        select_shape(Region1, Region1, Features, 'and', MinWidth, MaxWidth)                </l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>

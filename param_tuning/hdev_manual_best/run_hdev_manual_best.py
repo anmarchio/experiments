@@ -213,10 +213,9 @@ MANUAL_HDEV_PIPELINES_BEST = [
     "AirCarbon3_80.jpg_dark_1_best_pipeline", # <== scale
     "AirCarbon3_80.jpg_dark_3_best_pipeline", # <== scale
     "AirCarbon3_80.jpg_dark_5_best_pipeline", # <== scale
-    "MAIPreform2_Spule0_0816_Upside_best_pipeline",
-    "Pultr"
-    "usion_Resin_best_pipeline",
-    "MVTec_AD_Transistor_best_pipeline"
+    "MAIPreform2_Spule0_0816_Upside_best_pipeline", # <== relativeregion, floating point (1.0)
+    "Pultrusion_Resin_best_pipeline",
+    "MVTec_AD_Transistor_best_pipeline" # <== neutralize union2
 ]
 
 MANUAL_HDEV_PIPELINES_BEST_TMP = [
