@@ -209,16 +209,6 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_m
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 MANUAL_HDEV_PIPELINES_BEST = [
-#    "AirCarbon3_80.jpg_bright_best_pipeline", # <== scale
-#    "AirCarbon3_80.jpg_dark_1_best_pipeline", # <== scale
-#    "AirCarbon3_80.jpg_dark_3_best_pipeline", # <== scale
-#    "AirCarbon3_80.jpg_dark_5_best_pipeline", # <== scale
-    "MAIPreform2_Spule0_0816_Upside_best_pipeline", # <== relativeregion, floating point (1.0)
-    "Pultrusion_Resin_best_pipeline",
-#    "MVTec_AD_Transistor_best_pipeline" # <== neutralize union2
-]
-
-MANUAL_HDEV_PIPELINES_BEST_TMP = [
     "AirCarbon2_t_8.jpg_best_pipeline",
     "AirCarbon3_80.jpg_bright_best_pipeline",
     "AirCarbon3_80.jpg_dark_1_best_pipeline",
