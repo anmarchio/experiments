@@ -6,6 +6,10 @@
 <l>dataset_name := 'Pultrusion_Resin_best_pipeline'</l>
 <l>source_path := 'D:/evias_expmts/Pultrusion/resin_cgp/train/images'</l>
 <l>labels_path := 'D:/evias_expmts/Pultrusion/resin_cgp/train/labels'</l>
+<c></c>
+<l>*source_path := 'D:/evias_expmts/Pultrusion/resin_cgp/train/images_test'</l>
+<l>*labels_path := 'D:/evias_expmts/Pultrusion/resin_cgp/train/labels_test'</l>
+<c></c>
 <l>output_path := dataset_name + '/'</l>
 <c></c>
 <l>dev_update_on()</l>
@@ -45,16 +49,21 @@
 <l>        A := 16</l>
 <l>        B := 29</l>
 <c>        </c>
+<l>        dev_set_draw('margin')</l>
+<l>        dev_set_color('red')</l>
+<l>        dev_display(Image)</l>
 <c>        * Pipeline</c>
 <c>        </c>
-<l>        crop_rectangle1(Image, Image, 0, 0, Height, 235)</l>
+<l>        if(Width == 300)</l>
+<l>            crop_rectangle1(Image, Image, 0, 0, Height, 235)</l>
+<l>        endif</l>
 <c>        </c>
 <c>        * Branch 1: SobelAmp -&gt; ZeroCrossing -&gt; SelectShape</c>
 <l>        sobel_amp(Image, ImageAmp, FilterType, MaskSize)</l>
 <c>        </c>
 <l>        scale_image(ImageAmp, ImageAmp, 1, 128)</l>
 <l>        convert_image_type(ImageAmp, ImageAmp, 'int2')</l>
-<c>        </c>
+<c>                </c>
 <l>        zero_crossing(ImageAmp, RegionZero)</l>
 <c>        </c>
 <l>        LowerThres := Min</l>
@@ -64,16 +73,15 @@
 <l>            LowerThres := LowerThres / 100 * 30</l>
 <l>        endif</l>
 <l>        select_shape(RegionZero, RegionShape, Features, 'and', LowerThres, Max)</l>
-<c>        </c>
+<c>                </c>
 <c>        * Branch 2: BinaryThreshold</c>
-<c>        * Binary Threshold</c>
-<l>        get_image_type(Image, Type)</l>
-<l>        if(Type != 'byte' and Type != 'int2' and Type != 'uint2' and Type != 'real') </l>
+<l>        get_image_type(Image, Img_type)</l>
+<l>        if ((Img_type != 'byte') and (Img_type != 'uint2') and (Img_type != 'real'))</l>
 <c>            * Scale To Gray</c>
 <l>            gen_empty_obj(ImageScaled)</l>
-<l>            min_max_gray(Image, ImageThresh, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
+<l>            min_max_gray(Image, ImageScaled, 0, MinGrayVal, MaxGrayVal, GrayRange)</l>
 <l>            if(MaxGrayVal &lt;= 255 and MinGrayVal &gt;= 0)</l>
-<l>                copy_image(ImageThresh, ImageScaled)</l>
+<l>                copy_image(ImageScaled, ImageScaled)</l>
 <l>            else</l>
 <l>                if(MaxGrayVal - MinGrayVal &gt; 0)</l>
 <l>                    Mult := 255.0 / (MaxGrayVal - MinGrayVal)</l>
@@ -81,15 +89,34 @@
 <l>                    Mult := 255.0                </l>
 <l>                endif</l>
 <l>                Add := - Mult * MinGrayVal</l>
-<l>                scale_image(ImageThresh, ImageScaled, Mult, Add)</l>
+<l>                scale_image(ImageScaled, ImageScaled, Mult, Add)</l>
 <l>            endif                </l>
-<l>            convert_image_type(ImageScaled, ImageThresh, 'byte')</l>
+<l>            convert_image_type(ImageScaled, Conv_out, 'byte')</l>
+<l>            binary_threshold(ImageScaled, RegionBin, Method, LightDark, Usedthreshold)</l>
+<l>        else        </l>
+<l>            binary_threshold(Image, RegionBin, Method, LightDark, Usedthreshold)</l>
 <l>        endif</l>
-<l>        binary_threshold(Image, RegionBin, Method, LightDark, UsedThreshold)</l>
+<c>        </c>
+<c>        * Get median histogram value</c>
+<l>        gen_rectangle1(PlainRect, 0, 0, Height, Width)</l>
+<l>        gray_histo(PlainRect, Image, AbsoluteHisto, RelativeHisto)</l>
+<l>        tuple_mean(AbsoluteHisto, MeanHist)</l>
+<l>        tuple_median(AbsoluteHisto, MedianHist)</l>
+<l>        if(MedianHist &lt; 178 and MedianHist &gt; 176)</l>
+<c>            * If image is dark, apply this threshold</c>
+<l>            threshold (Image, RegionBin, 70, 120)</l>
+<l>        elseif(MedianHist &gt; 60 and MedianHist &lt; 65) </l>
+<l>            gen_circle(Circle, 5, 5, 2)</l>
+<l>            closing(RegionBin, Circle, RegionClosing)</l>
+<l>            connection(RegionClosing, ConnectedRegions)</l>
+<l>            select_shape(ConnectedRegions, Shape1, 'area', 'and', 2000, 10000)</l>
+<l>            select_shape(ConnectedRegions, Shape2, 'area', 'and', 20000, 30000)</l>
+<l>            union2(Shape1, Shape2, RegionBin)</l>
+<l>        endif</l>
 <c>        </c>
 <c>        * Merge</c>
 <l>        union2(RegionShape, RegionBin, RegionUnion)</l>
-<c>                </c>
+<c>        </c>
 <c>        * Opening (Ellipse SE)</c>
 <l>        tuple_max2(A, B, max_rad)</l>
 <l>        phi := 0.0</l>
@@ -107,11 +134,12 @@
 <l>        smallest_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
 <l>        gen_rectangle1(Region, Row1, Column1, Row2, Column2)</l>
 <c>        </c>
-<l>        *dev_display(Image)</l>
-<l>        *dev_display(Region)</l>
-<l>        *wait_seconds(1)</l>
-<l>        *dev_display(Label)</l>
-<l>        *wait_seconds(1)</l>
+<l>        dev_display(Image)</l>
+<l>        dev_display(Region)</l>
+<l>        binary_threshold(Label, LabelRegion, 'max_separability', 'light', UsedThreshold)        </l>
+<l>        dev_set_color('green')</l>
+<l>        dev_display(LabelRegion)</l>
+<l>        wait_seconds(0.5)</l>
 <l>    catch (Exception)</l>
 <l>        gen_empty_region(Region)</l>
 <l>    endtry</l>
@@ -179,6 +207,7 @@
 <l>    endif</l>
 <c></c>
 <l>    TotalMCC := TotalMCC + ImageMCC</l>
+<c></c>
 <l>    dev_display(Region)</l>
 <l>    dev_disp_text(ImageMCC, 'window', 10, 10, 'red', [], [])</l>
 <l>    dev_disp_text(TotalMCC, 'window', 30, 10, 'black', [], [])</l>

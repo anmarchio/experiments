@@ -168,7 +168,18 @@ def calculate_metrics(ground_truth_path, prediction_path):
 
     mean_image_mcc = float(np.mean(image_mccs)) if image_mccs else 0.0
 
-    denom_total = (tp_total + fp_total) * (tp_total + fn_total) * (tn_total + fp_total) * (tn_total + fn_total)
+    tp = float(tp_total)
+    fp = float(fp_total)
+    tn = float(tn_total)
+    fn = float(fn_total)
+
+    denom_total = (tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)
+
+    if denom_total > 0:
+        mcc = (tp * tn - fp * fn) / np.sqrt(denom_total)
+    else:
+        mcc = 0.0
+
     global_mcc = 0.0 if denom_total <= 0 else ((tp_total * tn_total) - (fp_total * fn_total)) / np.sqrt(denom_total)
 
     accuracy = 0.0

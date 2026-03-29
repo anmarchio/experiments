@@ -5,7 +5,7 @@ MAIPreform2_Spule0-0315_Upside_best_pipeline.py
 """
 import os
 
-from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code, get_crop_rectangle_code
+from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipeline_code
 from settings import EVIAS_SRC_PATH
 
 
@@ -54,10 +54,10 @@ def get_MAIPreform2_Spule0_0816_Upside_best_pipeline(params, dataset_path=None):
             "<l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>\n"
             "<l>        reduce_domain(Image, Rectangle, NewImgReduced)</l>\n"
             "<c></c>\n"
-            "<l>        region_features(Rectangle, 'width', Width)</l>\n"
-            "<l>        region_features(Rectangle, 'height', Height)</l>\n"
-            "<l>        WStep := Width / MaskWidth</l>\n"
-            "<l>        HStep := Height / MaskHeight</l>\n"
+            "<l>        region_features(Rectangle, 'width', RectWidth)</l>\n"
+            "<l>        region_features(Rectangle, 'height', RectHeight)</l>\n"
+            "<l>        WStep := RectWidth / MaskWidth</l>\n"
+            "<l>        HStep := RectHeight / MaskHeight</l>\n"
             "<c></c>\n"
             "<l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>\n"
             "<l>        StepW := WStep / 2</l>\n"
@@ -86,7 +86,7 @@ def get_MAIPreform2_Spule0_0816_Upside_best_pipeline(params, dataset_path=None):
             "<c>        </c>\n"
             "<l>        gen_empty_region(Region)</l>\n"
             "<l>        count_obj(RelativeRegion, Number)</l>\n"
-            "<l>        if(Number &lt; 0)</l>\n"
+            "<l>        if(Number &gt; 0)</l>\n"
             "<l>            Region := RelativeRegion</l>\n"
             "<l>        endif</l>\n"
         )

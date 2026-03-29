@@ -70,10 +70,10 @@
 <l>        smallest_rectangle1(Rectangle, Row1, Col1, Row2, Col2)</l>
 <l>        reduce_domain(Image, Rectangle, NewImgReduced)</l>
 <c></c>
-<l>        region_features(Rectangle, 'width', Width)</l>
-<l>        region_features(Rectangle, 'height', Height)</l>
-<l>        WStep := Width / MaskWidth</l>
-<l>        HStep := Height / MaskHeight</l>
+<l>        region_features(Rectangle, 'width', RectWidth)</l>
+<l>        region_features(Rectangle, 'height', RectHeight)</l>
+<l>        WStep := RectWidth / MaskWidth</l>
+<l>        HStep := RectHeight / MaskHeight</l>
 <c></c>
 <l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>
 <l>        StepW := WStep / 2</l>
