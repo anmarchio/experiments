@@ -9,7 +9,7 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def get_FabricDefectsAITEX_mean_pipeline(params, dataset_path=None):
+def get_FabricDefectsAITEX_mean_pipeline(params, dataset_path=None, cross_name=None):
     pipeline_name = "FabricDefectsAITEX_mean_pipeline"
 
     if dataset_path is None:
@@ -45,7 +45,7 @@ def get_FabricDefectsAITEX_mean_pipeline(params, dataset_path=None):
                 "<c>        * Apply StructElement Ellipse to Closing</c>\n" + \
                 "<l>        closing(Regions, StructElement, RegionClosing)</l>\n"
 
-    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name)
 
 
 FabricDefectsAITEX_mean_pipeline_initial_params = [

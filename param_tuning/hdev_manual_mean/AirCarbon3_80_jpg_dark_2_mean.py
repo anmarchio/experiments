@@ -9,7 +9,7 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def get_AirCarbon3_80_jpg_dark_2_mean_pipeline(params, dataset_path=None):
+def get_AirCarbon3_80_jpg_dark_2_mean_pipeline(params, dataset_path=None, cross_name=None):
     pipeline_name = "AirCarbon3_80.jpg_dark_2_mean_pipeline"
     if dataset_path is None:
         # Default dataset path
@@ -45,7 +45,7 @@ def get_AirCarbon3_80_jpg_dark_2_mean_pipeline(params, dataset_path=None):
                 "<l>        endif                </l>\n" \
                 "<l>        threshold (Image, Region, Min, min2(255, Min + Max))</l>\n"
 
-    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name)
 
 
 AirCarbon3_80_jpg_dark_2_mean_pipeline_initial_params = [

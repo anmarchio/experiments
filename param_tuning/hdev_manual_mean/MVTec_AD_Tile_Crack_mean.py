@@ -9,7 +9,7 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def get_MVTec_AD_Tile_Crack_mean_pipeline(params, dataset_path=None):
+def get_MVTec_AD_Tile_Crack_mean_pipeline(params, dataset_path=None, cross_name=None):
     pipeline_name = "MVTec_AD_Tile_Crack_mean_pipeline"
 
     if dataset_path is None:
@@ -47,7 +47,7 @@ def get_MVTec_AD_Tile_Crack_mean_pipeline(params, dataset_path=None):
                 "<l>        erosion1(Region, RectangleStructElement2, Region, Iterations2)</l>\n" \
                 "<c>        </c>\n"
 
-    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name)
 
 
 MVTec_AD_Tile_Crack_mean_pipeline_initial_params = [
