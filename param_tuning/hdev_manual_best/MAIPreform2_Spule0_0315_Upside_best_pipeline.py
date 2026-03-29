@@ -9,7 +9,7 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def get_MAIPreform2_Spule0_0315_Upside_best_pipeline(params, dataset_path=None):
+def get_MAIPreform2_Spule0_0315_Upside_best_pipeline(params, dataset_path=None, cross_name=None):
     pipeline_name = "MAIPreform2_Spule0_0315_Upside_best_pipeline"
 
     if dataset_path is None:
@@ -55,7 +55,7 @@ def get_MAIPreform2_Spule0_0315_Upside_best_pipeline(params, dataset_path=None):
             "<c>* Apply StructElement Ellipse to Closing</c>\n" \
             "<l>closing(Region, StructElement, Region)</l>\n"
 
-    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name)
 
 
 # Initial Parameters

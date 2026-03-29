@@ -9,7 +9,7 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def get_KollektorSSD_best_pipeline(params, dataset_path=None):
+def get_KollektorSSD_best_pipeline(params, dataset_path=None, cross_name=None):
     pipeline_name = "KollektorSSD_best_pipeline"
 
     if dataset_path is None:
@@ -33,7 +33,7 @@ def get_KollektorSSD_best_pipeline(params, dataset_path=None):
                     "<l>        convert_image_type(DiffImage, DiffImage, 'byte')</l>\n" \
                     "<l>        local_threshold(DiffImage, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])</l>\n"
 
-    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name)
 
 
 KollektorSSD_best_pipeline_initial_params = [

@@ -9,7 +9,7 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def get_FabricDefectsAITEX_best_pipeline(params, dataset_path=None):
+def get_FabricDefectsAITEX_best_pipeline(params, dataset_path=None, cross_name=None):
     pipeline_name = "FabricDefectsAITEX_best_pipeline"
 
     if dataset_path is None:
@@ -31,7 +31,7 @@ def get_FabricDefectsAITEX_best_pipeline(params, dataset_path=None):
     core_code = "<l>        eliminate_min_max(Image, ReducedImage, MaskWidthEMM, MaskHeightEMM, Gap, Mode)</l>\n" \
                     "<l>        var_threshold(ReducedImage, Region, MaskWidthVT, MaskHeightVT, StdDevScale, AbsThreshold, LightDark)</l>\n"
 
-    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name)
 
 
 FabricDefectsAITEX_best_pipeline_initial_params = [

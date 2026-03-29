@@ -16,16 +16,22 @@ from param_tuning.utils import index_closest_to_mean, write_to_file, write_csv_a
 from settings import HDEV_RESULTS_PATH, PARAM_TUNING_RESULTS_PATH
 
 
-def run_pipeline(pipeline_name, graph, params, cross_dataset: None, manual: bool = True):
+def run_pipeline(pipeline_name,
+                 graph,
+                 params,
+                 cross_dataset:str = None,
+                 cross_dataset_name:str = None,
+                 manual:bool = True):
     hdev_code = ""
     hdev_path = ""
     prediction_path = ""
 
     if manual:
-        hdev_code = get_manual_hdev_pipeline(pipeline_name, params, cross_dataset)
+        hdev_code = get_manual_hdev_pipeline(pipeline_name, params, cross_dataset, cross_dataset_name)
         prediction_path = get_manual_hdev_pipeline_path(pipeline_name)
         hdev_path = prediction_path + ".hdev"
     else:
+        print("!!!WARNING: translate_graph_to_hdev for pipeline >>" + pipeline_name + "<< not fully implemented!!!")
         hdev_code = translate_graph_to_hdev(graph, params)
         hdev_path = write_hdev_code_to_file(graph['datetime'], hdev_code)
         prediction_path = os.path.join(HDEV_RESULTS_PATH, get_pipeline_folder_name_by_datetime(graph['datetime']))
@@ -45,7 +51,10 @@ def run_pipeline(pipeline_name, graph, params, cross_dataset: None, manual: bool
 
     # Evaluate Results
     if manual:
-        training_path = get_manual_hdev_pipeline_training_source_path(pipeline_name)
+        if cross_dataset is None:
+            training_path = get_manual_hdev_pipeline_training_source_path(pipeline_name)
+        else:
+            training_path = get_manual_hdev_pipeline_training_source_path(cross_dataset_name)
     else:
         training_path = graph['training_path']
 

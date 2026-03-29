@@ -11,7 +11,7 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def get_CrackForest_best_pipeline(params, dataset_path=None):
+def get_CrackForest_best_pipeline(params, dataset_path=None, cross_name=None):
     pipeline_name = "CrackForest_best_pipeline"
 
     if dataset_path is None:
@@ -37,7 +37,7 @@ def get_CrackForest_best_pipeline(params, dataset_path=None):
                 "<l>        local_threshold(Image, Region, Method, LightDark, ['mask_size', 'scale'], [MaskSize, Scale])  </l>\n" \
                 "<c>        </c>\n"
 
-    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name)
 
 
 CrackForest_best_pipeline_initial_params = [

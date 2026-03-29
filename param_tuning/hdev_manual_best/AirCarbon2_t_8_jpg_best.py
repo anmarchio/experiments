@@ -7,7 +7,7 @@ from param_tuning.hdev_manual_mean.hdev_manual_utils import get_custom_hdev_pipe
 from settings import EVIAS_SRC_PATH
 
 
-def AirCarbon2_t_8_jpg_best_pipeline(params, dataset_path=None):
+def AirCarbon2_t_8_jpg_best_pipeline(params, dataset_path=None, cross_name=None):
     pipeline_name = "AirCarbon2_t_8.jpg_best_pipeline"
 
     if dataset_path is None:
@@ -19,9 +19,10 @@ def AirCarbon2_t_8_jpg_best_pipeline(params, dataset_path=None):
                   "<l>        MinSize := " + str(params[2]) + "</l>\n\n"
     # Core Pipeline Code
     core_code = "<l>        fast_threshold(Image, Region, MinGray, MaxGray, MinSize)</l>\n" \
+                "<l>        *stop()</l>\n" \
                 "<c></c>\n"
 
-    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code)
+    return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name)
 
 AirCarbon2_t_8_jpg_best_pipeline_initial_params = [
     75,

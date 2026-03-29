@@ -54,13 +54,15 @@ from param_tuning.hdev_manual_mean.severstal_steel_mean import severstal_steel_t
 from settings import PARAM_TUNING_HDEV_MANUAL
 
 
-def get_manual_hdev_pipeline(pipeline_name: str, params: np.array, cross_dataset=None):
+def get_manual_hdev_pipeline(pipeline_name: str, params: np.array, cross_dataset=None, cross_name=None):
+    if cross_name is None:
+        cross_name = pipeline_name
     pipelines = pipelines_mean | pipelines_best
     pipeline_function = pipelines.get(pipeline_name)
 
     if pipeline_function:
         # Call the specific function with the 'params' argument
-        return pipeline_function(params, cross_dataset)
+        return pipeline_function(params, cross_dataset, cross_name)
     else:
         return None
 

@@ -258,13 +258,17 @@ def get_crop_rectangle_img2_code():
     return crop_rectangle_img2_code
 
 
-def get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code):
+def get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name=None):
     hdev_code = HDEV_HEADER
 
     # Dataset name and path
+    if cross_name is None:
+        cross_name = "output_path := '" + cross_name + "/'"
+    else:
+        cross_name = "output_path := dataset_name + '/'"
     hdev_code += "<l>dataset_name := '" + pipeline_name + "'</l>\n" + \
                  "<l>source_path := '" + get_evias_experiments_path_for_hdev() + dataset_path + "'</l>\n" + \
-                 "<l>output_path := dataset_name + '/'</l>\n" + \
+                 "<l>" + cross_name + "</l>\n" + \
                  "<c></c>\n"
 
     hdev_code += HDEV_TEMPLATE_CODE

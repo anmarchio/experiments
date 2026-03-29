@@ -6,7 +6,11 @@ from param_tuning.utils import write_log
 from settings import CROSS_APPLICATION_RESULTS_PATH, CROSS_APPLICATION_HDEV_MANUAL
 
 
-def run_pipeline_on_dataset(pipeline_name, graph, cross_pipeline = None):
+def run_pipeline_on_dataset(
+        pipeline_name,
+        graph,
+        cross_pipeline = None,
+        cross_name = None):
     params = get_initial_state_by_pipeline_name(pipeline_name)
 
     try:
@@ -14,7 +18,8 @@ def run_pipeline_on_dataset(pipeline_name, graph, cross_pipeline = None):
         score = run_pipeline(pipeline_name,
                              graph,
                              params,
-                             cross_dataset)
+                             cross_dataset,
+                             cross_pipeline)
 
         print(f"Resulting performance: {score}")
         return score
