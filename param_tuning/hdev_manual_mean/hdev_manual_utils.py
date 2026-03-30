@@ -206,8 +206,14 @@ def get_crop_rectangle_img2_code():
                                "<l>        region_features(Rectangle, 'width', RegWidth)</l>\n" \
                                "<l>        region_features(Rectangle, 'height', RegHeight)</l>\n" \
                                "<c></c>\n" \
-                               "<l>        WStep := RegWidth / MaskWidth</l>\n" \
-                               "<l>        HStep := RegHeight / MaskHeight</l>\n" \
+                               "<l>        *WStep := RegWidth / MaskWidth</l>\n" \
+                               "<l>        *HStep := RegHeight / MaskHeight</l>\n" \
+                               "<c>        * Escape infinite loop</c>\n" \
+                               "<l>        WStep := max2(1, floor(RegWidth / MaskWidth))</l>\n" \
+                               "<l>        HStep := max2(1, floor(RegHeight / MaskHeight))</l>\n" \
+                               "<c></c>\n" \
+                               "<l>        StepW := max2(1, floor(WStep / 2))</l>\n" \
+                               "<l>        StepH := max2(1, floor(HStep / 2))</l>\n" \
                                "<c></c>\n" \
                                "<l>        EndW := (Col2 - (WStep / 1.5)) - 20</l>\n" \
                                "<l>        StepW := WStep / 2</l>\n" \
