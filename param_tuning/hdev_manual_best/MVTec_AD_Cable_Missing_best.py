@@ -35,7 +35,11 @@ def get_MVTec_AD_Cable_Missing_best_pipeline(params, dataset_path=None, cross_na
 
     # Core pipeline
     core_code = (
-            "<l>        median_image(Image, ImageMedian, MaskType, Radius, Margin)</l>\n"
+            "<l>        if(Radius * 2 + Margin > Width or Radius * 2 + Margin > Height)</l>\n"
+            "<l>                gen_image_const(Image, 'byte', Width, Height)</l>\n"
+            "<l>        else</l>\n"
+            "<l>                median_image(Image, ImageMedian, MaskType, Radius, Margin)</l>\n"
+            "<l>        endif</l>\n"
             "<c></c>\n"
             "<l>        binary_threshold(ImageMedian, RegionBinary, Method, LightDark, UsedThreshold)</l>\n"
             "<c></c>\n"

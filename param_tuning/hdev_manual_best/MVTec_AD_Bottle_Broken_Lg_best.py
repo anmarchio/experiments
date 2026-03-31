@@ -25,6 +25,12 @@ def get_MVTec_AD_Bottle_Broken_Lg_best_pipeline(params, dataset_path=None, cross
 
     # Core pipeline
     core_code = (
+            "<l>        if(MaskHeight &lt; Height)</l>\n"
+            "<l>                MaskHeight := Height</l>\n"
+            "<l>        endif</l>\n"
+            "<l>        if(MaskWidth &lt; Width)</l>\n"
+            "<l>                MaskWidth := Width</l>\n"
+            "<l>        endif</l>\n"
             "<l>        mean_image(Image, ImageMean, MaskWidth, MaskHeight)</l>\n"
             "<l>        binary_threshold(ImageMean, Region, Method, LightDark, UsedThreshold)</l>\n"
     )

@@ -87,10 +87,10 @@ def manual_cross_apply_hdev_pipelines(mode: str = "mean"):
                     cross_score = run_pipeline_on_dataset(pipeline_name, graph, cross_dataset)
                     global_tracker.end_run()
 
-                    write_cross_application_log(
-                        pipeline_name,
-                        f"{pipeline_name};{original_score};{cross_dataset};{cross_score};\n"
-                    )
+                    #write_cross_application_log(
+                    #    pipeline_name,
+                    #    f"{pipeline_name};{original_score};{cross_dataset};{cross_score};\n"
+                    #)
 
                     write_cross_application_log(pipeline_name,
                                                 f"{pipeline_name};{original_score};{cross_dataset};{cross_score};\n")

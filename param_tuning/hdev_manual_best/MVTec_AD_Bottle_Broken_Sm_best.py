@@ -34,6 +34,9 @@ def get_MVTec_AD_Bottle_Broken_Sm_best_pipeline(params, dataset_path=None, cross
             "<l>        threshold(Image, RegionRect, MinGray, MaxGray)</l>\n"
             "<l>        smallest_rectangle1(RegionRect, Row1, Column1, Row2, Column2)</l>\n"
             "<l>        crop_rectangle1(Image, ImageCrop, Row1, Column1, Row2, Column2)</l>\n"
+            "<l>        if(Row2 == 0 or Column2 == 0)</l>\n"
+            "<l>                gen_image_const(ImageCrop, 'byte', Width, Height)</l>\n"            
+            "<l>        endif</l>\n"
             "<c></c>\n"
             "<l>        sobel_amp(ImageCrop, Image, FilterType, MaskSize)</l>\n"
             + scale_to_gray() +
