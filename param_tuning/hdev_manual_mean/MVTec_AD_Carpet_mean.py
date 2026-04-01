@@ -63,7 +63,7 @@ def get_MVTec_AD_Carpet_mean_pipeline(params, dataset_path=None, cross_name=None
                 "<c></c>\n" + \
                 "<c>        * Erosion1</c>\n" + \
                 get_ellipse_struct_code(params[8], params[9], None) + \
-                "<l>        erosion1(Region, Region, StructElement2, Iterations2)</l>\n" + \
+                "<l>        erosion1(Region, Region, StructElement, Iterations2)</l>\n" + \
                 "<c></c>\n"
 
     return get_custom_hdev_pipeline_code(pipeline_name, dataset_path, param_lines, core_code, cross_name)

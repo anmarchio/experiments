@@ -21,3 +21,18 @@ api/*.db
 # generated archives / reports
 *.zip
 *.html
+
+# test image folders
+param_tuning/hdev_manual_best/AirCarbon3_80.jpg_dark_4/
+param_tuning/hdev_manual_best/MVTec_AD_Grid_Thread_best_pipeline/
+param_tuning/hdev_manual_best/MVTec_AD_Leather_best_pipeline/
+param_tuning/hdev_manual_best/MVTec_AD_Wood_Scratch_mean_pipeline/
+param_tuning/hdev_manual_mean/CF_ReferenceSet_Small_Dark_mean_pipeline/
+param_tuning/hdev_manual_mean/CrackForest_mean_pipeline/
+param_tuning/hdev_manual_mean/MVTec_AD_Cable_Missing_mean_pipeline/
+param_tuning/hdev_manual_mean/MVTec_AD_Grid_Thread_mean_pipeline/
+param_tuning/hdev_manual_mean/MVTec_AD_Tile_Crack_mean_pipeline/
+param_tuning/hdev_manual_mean/MVTec_AD_Toothbrush_Sm_mean_pipeline/
+param_tuning/hdev_manual_mean/MVTec_AD_Transistor_mean_pipeline/
+param_tuning/hdev_manual_mean/MVTec_AD_Wood_Scratch_mean_pipeline/
+param_tuning/hdev_manual_mean/Pultrusion_Resin_mean_pipeline/
