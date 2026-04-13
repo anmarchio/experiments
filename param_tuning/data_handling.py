@@ -134,7 +134,7 @@ def calculate_metrics(ground_truth_path, prediction_path):
     pred_images, pred_names = load_images_from_folder(prediction_path)
 
     if gt_names != pred_names:
-        raise ValueError(f"Filename mismatch:\nGT:   {gt_names}\nPRED: {pred_names}")
+        raise ValueError(f"Filename mismatch:\nGT path: {ground_truth_path}\nGT:   {gt_names}\nPRED path: {prediction_path}\nPRED: {pred_names}")
 
     image_mccs = []
     tp_total = fp_total = tn_total = fn_total = 0

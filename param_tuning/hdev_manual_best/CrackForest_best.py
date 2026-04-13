@@ -15,7 +15,7 @@ def get_CrackForest_best_pipeline(params, dataset_path=None, cross_name=None):
     pipeline_name = "CrackForest_best_pipeline"
 
     if dataset_path is None:
-        dataset_path = "/CrackForest/images"
+        dataset_path = "/CrackForest/small_dataset/images"
 
     # Parameters
     param_lines = "<l>        A := " + str(params[0]) + "</l>\n" + \
@@ -60,4 +60,4 @@ CrackForest_best_pipeline_bounds = [
     [0.2, 0.3, 0.5]
 ]
 
-CrackForest_training_source_path = os.path.join(EVIAS_SRC_PATH, "CrackForest")
+CrackForest_training_source_path = os.path.join(EVIAS_SRC_PATH, "CrackForest", "small_dataset")

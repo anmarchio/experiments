@@ -1,5 +1,4 @@
 Pipeline; OriginalScore; CrossApplication; CrossScore;
-Pipeline; OriginalScore; CrossApplication; CrossScore;
 FabricDefectsAITEX_best_pipeline;0.1955708652401941;AirCarbon2_t_8.jpg_best_pipeline;0.00566317507993842;
 FabricDefectsAITEX_best_pipeline;0.1955708652401941;AirCarbon2_t_8.jpg_best_pipeline;0.00566317507993842;
 FabricDefectsAITEX_best_pipeline;0.1955708652401941;AirCarbon3_80.jpg_bright_best_pipeline;-0.0001831558588827987;
