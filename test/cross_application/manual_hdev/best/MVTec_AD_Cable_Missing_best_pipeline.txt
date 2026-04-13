@@ -1,5 +1,4 @@
 Pipeline; OriginalScore; CrossApplication; CrossScore;
-Pipeline; OriginalScore; CrossApplication; CrossScore;
 MVTec_AD_Cable_Missing_best_pipeline;0.9482279858038264;AirCarbon2_t_8.jpg_best_pipeline;-0.014323181881360647;
 MVTec_AD_Cable_Missing_best_pipeline;0.9482279858038264;AirCarbon2_t_8.jpg_best_pipeline;-0.014323181881360647;
 MVTec_AD_Cable_Missing_best_pipeline;0.9482279858038264;AirCarbon3_80.jpg_bright_best_pipeline;-0.008768684312428731;

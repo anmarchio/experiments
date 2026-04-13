@@ -1,5 +1,4 @@
 Pipeline; OriginalScore; CrossApplication; CrossScore;
-Pipeline; OriginalScore; CrossApplication; CrossScore;
 MVTec_AD_Wood_Scratch_best_pipeline;0.6414479429012838;AirCarbon2_t_8.jpg_best_pipeline;0.026865202183956913;
 MVTec_AD_Wood_Scratch_best_pipeline;0.6414479429012838;AirCarbon2_t_8.jpg_best_pipeline;0.026865202183956913;
 MVTec_AD_Wood_Scratch_best_pipeline;0.6414479429012838;AirCarbon3_80.jpg_bright_best_pipeline;0.009699672575608357;

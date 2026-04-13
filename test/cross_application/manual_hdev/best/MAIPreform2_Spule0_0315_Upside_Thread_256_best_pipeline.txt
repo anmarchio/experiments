@@ -1,5 +1,4 @@
 Pipeline; OriginalScore; CrossApplication; CrossScore;
-Pipeline; OriginalScore; CrossApplication; CrossScore;
 MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline;0.3385665978537512;AirCarbon2_t_8.jpg_best_pipeline;0.016488244004193502;
 MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline;0.3385665978537512;AirCarbon2_t_8.jpg_best_pipeline;0.016488244004193502;
 MAIPreform2_Spule0_0315_Upside_Thread_256_best_pipeline;0.3385665978537512;AirCarbon3_80.jpg_bright_best_pipeline;-0.0022607039326107054;

@@ -1,5 +1,4 @@
 Pipeline; OriginalScore; CrossApplication; CrossScore;
-Pipeline; OriginalScore; CrossApplication; CrossScore;
 severstal-steel_best_pipeline;0.35452982587788856;AirCarbon2_t_8.jpg_best_pipeline;0.018762252022246906;
 severstal-steel_best_pipeline;0.35452982587788856;AirCarbon2_t_8.jpg_best_pipeline;0.018762252022246906;
 severstal-steel_best_pipeline;0.35452982587788856;AirCarbon3_80.jpg_bright_best_pipeline;0.0001006827024128746;

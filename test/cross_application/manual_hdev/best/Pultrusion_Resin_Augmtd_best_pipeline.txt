@@ -1,5 +1,4 @@
 Pipeline; OriginalScore; CrossApplication; CrossScore;
-Pipeline; OriginalScore; CrossApplication; CrossScore;
 Pultrusion_Resin_Augmtd_best_pipeline;0.45926709247051434;AirCarbon2_t_8.jpg_best_pipeline;0.01652690680446396;
 Pultrusion_Resin_Augmtd_best_pipeline;0.45926709247051434;AirCarbon2_t_8.jpg_best_pipeline;0.01652690680446396;
 Pultrusion_Resin_Augmtd_best_pipeline;0.45926709247051434;AirCarbon3_80.jpg_bright_best_pipeline;0.008761402315096086;

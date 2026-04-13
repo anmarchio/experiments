@@ -1,5 +1,4 @@
 Pipeline; OriginalScore; CrossApplication; CrossScore;
-Pipeline; OriginalScore; CrossApplication; CrossScore;
 MT_Blowhole_train_best_pipeline;0.4302576660220112;AirCarbon2_t_8.jpg_best_pipeline;0.001150149821008022;
 MT_Blowhole_train_best_pipeline;0.4302576660220112;AirCarbon2_t_8.jpg_best_pipeline;0.001150149821008022;
 MT_Blowhole_train_best_pipeline;0.4302576660220112;AirCarbon3_80.jpg_bright_best_pipeline;-0.001191371427961518;

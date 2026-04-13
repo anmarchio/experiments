@@ -1,5 +1,4 @@
 Pipeline; OriginalScore; CrossApplication; CrossScore;
-Pipeline; OriginalScore; CrossApplication; CrossScore;
 CF_ReferenceSet_Small_Dark_best_pipeline;0.17215516394085584;AirCarbon2_t_8.jpg_best_pipeline;0.025549728206878373;
 CF_ReferenceSet_Small_Dark_best_pipeline;0.17215516394085584;AirCarbon2_t_8.jpg_best_pipeline;0.025549728206878373;
 CF_ReferenceSet_Small_Dark_best_pipeline;0.17215516394085584;AirCarbon3_80.jpg_bright_best_pipeline;0.020931988777633474;
