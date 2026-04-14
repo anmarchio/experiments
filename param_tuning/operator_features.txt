@@ -1,3 +1,5 @@
 operator;number_of_parameters;time_complexity;
 anisotropic_diffusion;3;O(n);
-auto_contrast;0;O(n);
+area_size_threshold;1;;
+area_to_rectangle;1;;
+auto_threshold;0;;
