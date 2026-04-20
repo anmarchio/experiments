@@ -27,7 +27,8 @@
 <c></c>
 <c>* ==========================</c>
 <c>* number of random pipelines to test</c>
-<l>MaxTrials := 1000</l>
+<c>* Used to be 1000, but keeps crashing after 150</c>
+<l>MaxTrials := 150</l>
 <c>* max number of filters to chain (1..MaxPipelineLen)</c>
 <l>MaxPipelineLen := 10                 </l>
 <c>* RNG seed for reproducibility</c>
@@ -51,11 +52,12 @@
 <c></c>
 <c>* Remove header if present (check first token)</c>
 <l>tuple_split(Parameters[0], ';', Tokens)</l>
-<l>if (Tokens[0] == 'wdir')</l>
+<l>if (Tokens[0] == 'name')</l>
 <l>    Parameters := Parameters[1:|Parameters|-1]</l>
 <l>endif</l>
 <c></c>
 <c>* Prepare tuples for each column</c>
+<l>Names := []</l>
 <l>WDIR := []</l>
 <l>ImageDirs := []</l>
 <l>LabelDirs := []</l>
@@ -63,11 +65,12 @@
 <c></c>
 <l>for LineIdx := 0 to |Parameters|-1 by 1</l>
 <l>    tuple_split(Parameters[LineIdx], ';', Parts)</l>
-<l>    if (|Parts| &gt;= 4)</l>
-<l>        WDIR := [WDIR, Parts[0]]</l>
-<l>        ImageDirs := [ImageDirs, Parts[1]]</l>
-<l>        LabelDirs := [LabelDirs, Parts[2]]</l>
-<l>        ResultDir := Parts[3]</l>
+<l>    if (|Parts| &gt;= 5)</l>
+<l>        Names := [Names, Parts[0]]</l>
+<l>        WDIR := [WDIR, Parts[1]]</l>
+<l>        ImageDirs := [ImageDirs, Parts[2]]</l>
+<l>        LabelDirs := [LabelDirs, Parts[3]]</l>
+<l>        ResultDir := Parts[4]</l>
 <l>    endif</l>
 <l>endfor</l>
 <c></c>
@@ -76,8 +79,8 @@
 <l>endif</l>
 <c></c>
 <l>for RunIdx := 0 to |ImageDirs| - 1 by 1</l>
-<l>    ImageDir := WDIR + '\\' + ImageDirs[RunIdx]</l>
-<l>    LabelDir := WDIR + '\\' + LabelDirs[RunIdx]</l>
+<l>    ImageDir := WDIR[RunIdx] + '\\' + ImageDirs[RunIdx]</l>
+<l>    LabelDir := WDIR[RunIdx] + '\\' + LabelDirs[RunIdx]</l>
 <c>    * =========================</c>
 <c>    * PREP: load file lists</c>
 <c>    * =========================</c>
@@ -137,6 +140,8 @@
               Minute1 + \
               Second1 + \
               '-randsearch-result.txt'</l>
+<c>    </c>
+<l>    Line := ''</l>
 <c>    </c>
 <l>    for Trial := 1 to MaxTrials by 1</l>
 <l>        dev_clear_window()</l>
@@ -228,11 +233,11 @@
                        'black', \
                        [], \
                        [])</l>
-<c>        </c>
+<c>       </c>
 <l>        Line := Trial + ';' + MeanMCC + ';\n'</l>
 <l>        write_to_file (ResultDirPath, Line)</l>
 <l>    endfor</l>
-<c>    </c>
+<c>        </c>
 <c>    * =========================</c>
 <c>    * Report</c>
 <c>    * =========================</c>
@@ -252,9 +257,10 @@
                    'Time Started: ' + time_started + '\n', \
                    'Time Ended  : ' + Year + '-' + Month + '-' + Day + ' ' + Hour + ':' + Minute + ':' + Second + '\n', \
                    'Delta (sec) : ' + DeltaTime + '\n' + \
+                   'Name        : ' + Names[RunIdx] + '\n', \
                    'ImageDirs   : ' + ImageDirs[RunIdx] + '\n', \
                    'LabelDirs   : ' + LabelDirs[RunIdx] + '\n', \
-                   'No. Images  : ' + |ImageFiles|, \
+                   'No. Images  : ' + |ImageFiles| + '\n', \
                    'MaxPipelineLen: ' + MaxPipelineLen + '\n', \
                    'Trials      : ' + MaxTrials + '\n', \
                    'Best Trial  : ' + BestTrialIdx + '\n', \
