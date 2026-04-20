@@ -651,61 +651,88 @@
 <c></c>
 <l>elseif (F == 'sobel_amp')</l>
 <l>    FT := ['sum_abs','sum_sqrt','x','y','sum_abs_binomial','sum_sqrt_binomial','x_binomial','y_binomial']</l>
-<c>    </c>
-<l>    ms := [3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39]</l>
-<c>    </c>
+<c></c>
 <l>    tuple_rand(1, R1)</l>
 <l>    tIdx := int(floor(R1 * |FT|))</l>
-<c>    </c>
-<l>    if (tIdx &gt;= |FT|) </l>
-<l>        tIdx := |FT| - 1 </l>
+<l>    if (tIdx &gt;= |FT|)</l>
+<l>        tIdx := |FT| - 1</l>
 <l>    endif</l>
-<c>        </c>
+<c></c>
+<l>    SelFT := FT[tIdx]</l>
+<c></c>
+<c>    * --- SAFEGUARD HERE ---</c>
+<l>    if (SelFT == 'sum_abs_binomial' or SelFT == 'sum_sqrt_binomial' or \
+        SelFT == 'x_binomial' or SelFT == 'y_binomial')</l>
+<c></c>
+<l>        ms_valid := [5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39]</l>
+<c></c>
+<c>        * ensure correct image type for binomial</c>
+<l>        get_image_type(ImageIn, Type)</l>
+<l>        if (Type != 'byte' and Type != 'uint2' and Type != 'real')</l>
+<l>            convert_image_type(ImageIn, ImageIn, 'uint2')</l>
+<l>        endif</l>
+<c></c>
+<l>    else</l>
+<l>        ms_valid := [3,5,7,9,11,13]</l>
+<l>    endif</l>
+<c>    * --- END SAFEGUARD ---</c>
+<c></c>
 <l>    tuple_rand(1, R2)</l>
-<l>    mIdx := floor(R2 * |ms|)</l>
-<l>    if (mIdx &gt;= |ms|)</l>
-<l>        mIdx := |ms| - 1</l>
+<l>    mIdx := int(floor(R2 * |ms_valid|))</l>
+<l>    if (mIdx &gt;= |ms_valid|)</l>
+<l>        mIdx := |ms_valid| - 1</l>
 <l>    endif</l>
-<c>    </c>
+<c></c>
+<l>    SelSize := ms_valid[mIdx]</l>
+<c></c>
 <l>    try</l>
-<l>        sobel_amp (ImageIn, ImageOut, FT[int(tIdx)], ms[int(mIdx)])</l>
-<l>    catch (Exception) </l>
+<l>        get_image_type(ImageIn, ImgInType)</l>
+<l>        if(ImgInType != 'byte' and ImgInType != 'int2' and ImgInType != 'uint2' and ImgInType != 'real')</l>
+<l>            convert_image_type(ImageIn, ImageIn, 'byte')</l>
+<l>        endif</l>
+<l>        sobel_amp(ImageIn, ImageOut, SelFT, SelSize)</l>
+<l>        ParamDesc := 'sobel_amp(' + SelFT + ',' + SelSize + ')'</l>
+<l>    catch (Exception)</l>
 <l>        get_image_type(ImageIn, emptType)</l>
 <l>        get_image_size(ImageIn, emptWidth, emptHeight)</l>
 <l>        gen_image_const(ImageOut, emptType, emptWidth, emptHeight)</l>
+<l>        ParamDesc := 'sobel_amp(invalid)'</l>
 <l>    endtry</l>
-<l>    ParamDesc := 'sobel_amp(' + FT[tIdx] + ',' + ms[mIdx] + ')'</l>
-<c></c>
 <c></c>
 <l>elseif (F == 'gray_open')</l>
 <l>    MaskWidth := [3,5,7,9,11,13,15]</l>
 <l>    MaskHeight := [3,5,7,9,11,13,15]</l>
 <l>    MaskShape := ['octagon','rectangle','rhombus']</l>
-<c>        </c>
-<l>    tuple_rand(1,R1)</l>
-<l>    wdx := int(floor(R1*|MaskWidth|))</l>
-<c>        </c>
-<l>    tuple_rand(1,R2)</l>
-<l>    hdx := int(floor(R2*|MaskHeight|))</l>
-<c>        </c>
-<l>    tuple_rand(1,R3)</l>
-<l>    sdx := int(floor(R3*|MaskShape|))</l>
-<c>        </c>
+<c></c>
+<l>    tuple_rand(1, R1)</l>
+<l>    wdx := min2(|MaskWidth| - 1, int(floor(R1 * |MaskWidth|)))</l>
+<c></c>
+<l>    tuple_rand(1, R2)</l>
+<l>    hdx := min2(|MaskHeight| - 1, int(floor(R2 * |MaskHeight|)))</l>
+<c></c>
+<l>    tuple_rand(1, R3)</l>
+<l>    sdx := min2(|MaskShape| - 1, int(floor(R3 * |MaskShape|)))</l>
+<c></c>
 <l>    get_image_type(ImageIn, Type)</l>
-<c>        </c>
-<l>    if(Type != 'byte' and Type != 'uint2') </l>
-<l>        convert_image_type(ImageIn, ImageIn, 'uint2') </l>
+<c></c>
+<l>    if (Type != 'byte' and Type != 'uint2')</l>
+<l>        convert_image_type(ImageIn, ImageIn, 'uint2')</l>
 <l>    endif</l>
-<c>        </c>
+<c>    </c>
+<l>    if (MaskShape[sdx] == 'octagon' or MaskShape[sdx] == 'rhombus')</l>
+<c>        * avoid a non-catchable parameter setting</c>
+<l>        hdx := wdx</l>
+<l>    endif</l>
+<c>    </c>
 <l>    try</l>
-<l>        gray_opening_shape (ImageIn, ImageOut, MaskWidth[wdx], MaskHeight[hdx], MaskShape[sdx])</l>
-<l>    catch (Exception) </l>
+<l>        gray_opening_shape(ImageIn, ImageOut, MaskHeight[hdx], MaskWidth[wdx], MaskShape[sdx])</l>
+<l>    catch (Exception)</l>
 <l>        get_image_type(ImageIn, emptType)</l>
 <l>        get_image_size(ImageIn, emptWidth, emptHeight)</l>
 <l>        gen_image_const(ImageOut, emptType, emptWidth, emptHeight)</l>
 <l>    endtry</l>
-<l>    ParamDesc := 'gray_open(' + MaskShape[sdx] + ',' + MaskWidth[wdx] + 'x' + MaskHeight[hdx] + ')'</l>
 <c></c>
+<l>    ParamDesc := 'gray_open(' + MaskShape[sdx] + ',' + MaskWidth[wdx] + 'x' + MaskHeight[hdx] + ')'</l>
 <l>elseif (F == 'gray_close')</l>
 <l>    MaskWidth := [3,5,7,9,11,13,15]</l>
 <l>    MaskHeight := [3,5,7,9,11,13,15]        </l>
@@ -724,6 +751,11 @@
 <c>        </c>
 <l>    if(Type != 'byte' and Type != 'uint2')</l>
 <l>        convert_image_type(ImageIn, ImageIn, 'uint2')</l>
+<l>    endif</l>
+<c>    </c>
+<l>    if (MaskShape[sdx] == 'octagon' or MaskShape[sdx] == 'rhombus')</l>
+<c>        * avoid a non-catchable parameter setting</c>
+<l>        hdx := wdx</l>
 <l>    endif</l>
 <c>    </c>
 <l>    try</l>
@@ -925,53 +957,40 @@
 <c>* mcc_region := procedure (PredRegion, GTRegion, Width, Height : MCC :) </c>
 <c></c>
 <c>* Intersection (TP)</c>
+<c>* TP = intersection area</c>
 <l>intersection (PredRegion, GTRegion, R_tp)</l>
-<l>area_center (R_tp, TP, Row, Col)</l>
+<l>union1 (R_tp, R_tp_u)</l>
+<l>area_center (R_tp_u, TP, Row, Col)</l>
 <c></c>
 <c>* FP = Pred minus GT</c>
 <l>difference (PredRegion, GTRegion, R_fp)</l>
-<l>area_center (R_fp, FP, Row, Col)</l>
+<l>union1 (R_fp, R_fp_u)</l>
+<l>area_center (R_fp_u, FP, Row, Col)</l>
 <c></c>
 <c>* FN = GT minus Pred</c>
 <l>difference (GTRegion, PredRegion, R_fn)</l>
-<l>area_center (R_fn, FN, Row, Col)</l>
+<l>union1 (R_fn, R_fn_u)</l>
+<l>area_center (R_fn_u, FN, Row, Col)</l>
 <c></c>
-<c>* TN = total - (TP+FP+FN)</c>
+<c>* TN = total - (TP + FP + FN)</c>
 <l>Total := Width * Height</l>
-<l>TN := max2(0, Total - (TP + FP + FN))</l>
+<l>TN := Total - TP - FP - FN</l>
+<l>if (TN &lt; 0)</l>
+<l>    TN := 0</l>
+<l>endif</l>
 <c></c>
-<l>tuple_add(TP, FP, TP_plus_FP)</l>
-<l>tuple_add(TP, FN, TP_plus_FN)</l>
-<l>tuple_add(TN, FP, TN_plus_FP)</l>
-<l>tuple_add(TN, FN, TN_plus_FN)</l>
+<c>* convert to real to avoid integer issues</c>
+<l>TP := real(TP)</l>
+<l>FP := real(FP)</l>
+<l>FN := real(FN)</l>
+<l>TN := real(TN)</l>
 <c></c>
-<l>tuple_real(TN_plus_FN, TN_plus_FN)</l>
-<l>tuple_real(TP_plus_FN, TP_plus_FN)</l>
-<l>tuple_real(TN_plus_FP, TN_plus_FP)</l>
-<l>tuple_real(TN_plus_FN, TN_plus_FN)</l>
+<l>Den := sqrt((TP + FP) * (TP + FN) * (TN + FP) * (TN + FN))</l>
 <c></c>
-<l>tuple_mult(TP_plus_FP, TP_plus_FN, Prod)</l>
-<l>tuple_mult(Prod, TN_plus_FP, Prod)</l>
-<l>tuple_mult(Prod, TN_plus_FN, Prod)</l>
-<l>*Den := sqrt((TP+FP) * (TP+FN) * (TN+FP) * (TN+FN))</l>
-<c></c>
-<l>tuple_sqrt(Prod, Den)</l>
-<c></c>
-<l>MCC := 0.0</l>
-<l>if (Den &lt;= 0)</l>
-<l>    MCC := 0.0</l>
+<l>if (Den &gt; 0.0)</l>
+<l>    MCC := ((TP * TN) - (FP * FN)) / Den</l>
 <l>else</l>
-<l>    *MCC := ((TP * TN) - (FP * FN)) / Den</l>
-<l>    tuple_mult(TP, TN, TP_mult_TN)</l>
-<l>    tuple_mult(FP, FN, FP_mult_FN)</l>
-<c>        </c>
-<l>    for Idx := 0 to |TP_plus_FN| - 1 by 1</l>
-<l>        numerator := TP_mult_TN[Idx] - FP_mult_FN[Idx]</l>
-<l>        if(Den[Idx] &gt; 0.0)</l>
-<l>            MCC := MCC + (numerator / Den[Idx])</l>
-<l>        endif</l>
-<l>    endfor</l>
-<l>    MCC := MCC / |TP_mult_TN|</l>
+<l>    MCC := 0.0</l>
 <l>endif</l>
 <c></c>
 <l>return ()</l>
@@ -1011,7 +1030,8 @@
 <l>PostDescOut := ''</l>
 <c></c>
 <l>try</l>
-<l>    select_obj(RegionIn, ObjectSelected, 0)</l>
+<l>    *select_obj(RegionIn, ObjectSelected, 0)</l>
+<l>    select_obj(RegionIn, ObjectSelected, 1)</l>
 <l>catch (Exception)</l>
 <l>    gen_empty_region (RegionOut)</l>
 <l>    PostDescOut := 'empty_input'</l>
