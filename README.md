@@ -13,9 +13,9 @@ This repository contains all scripts that were designed to analyze data from ima
 ## Contents
 
 1. <a href="#api-docs-for-experimental-data-and-plotting">API Docs for Experimental Data and Plotting [ACSOS2023]</a>
-1. <a href="#follow-up-optimization-using-sa--ls">Dissertation 2024: CGP Results and Optimization using SA / LS Algorithms [Dissertation 2024]</a>
-1. <a href="#complexity-analysis">Complexity Analysis of CGP Pipelines [Dissertation 2024]</a>
-1. <a href="#pipeline-retrieval">Pipeline Retrieval [Arxiv 2025]</a>
+1. <a href="#follow-up-optimization-using-sa--ls">Dissertation 2024: CGP Results and Optimization using SA / LS Algorithms [Dissertation 2026]</a>
+1. <a href="#complexity-analysis">Complexity Analysis of CGP Pipelines [Dissertation 2026]</a>
+1. <a href="#cross-application-for-pipeline-retrieval">Cross-Application for Pipeline Retrieval [Arxiv 2026]</a>
 1. <a href="#free-dependencies">Benchmark Experiment with Open Graph (classic CGP-IP)</a>
 1. <a href="#random-search">Random Search on HDev</a>
 
@@ -176,7 +176,7 @@ If running without arguments, it will use the default paths:
   * Simmulated annealing (SA)
   * Local search (LS)
 
-#### Guide to Script Menu
+#### Guide to using the SA / LS Script
 * The LS/SA algorithm can be run using a sub menu (8 - Follow Up ...) which shows the following menu:
 * OR run: 
   * `python -m param_tuning/run_param_tuning.py`
@@ -396,20 +396,24 @@ WHERE analyzer.analyzer_id == 307
 AND analyzer.run_id == run.run_id;
 ```
 
-## Pipeline Retrieval
+## Cross Application for Pipeline Retrieval
 
-- Conduct a similarity comparison between all available image datasets using embeddings.
+- Conduct a similarity comparison between all available image datasets using complexity metrics
 - Use pipelines previously computed and evolved on specific image datasets.
 - Cross-apply these pipelines to all other datasets.
-- With approximately 30 datasets, this results in around 900 cross-applications of pipelines.
+- With approximately 38 datasets, this results in around 1444 cross-applications of pipelines.
 - Compute the MCC (Matthews Correlation Coefficient) score for each pipeline run.
 - Compare the MCC scores to the dataset similarity metrics.
 - Test the hypothesis: more similar datasets yield better MCC results when filter pipelines are cross-applied.
 
-### Running Pipeline Retrieval Experiments
+### Running Cross Application Experiments
 
 * Run the pipeline retrieval script using:
   * `python -m pipeline_retrieval.run_pipeline_retrieval.py`
+
+### Evaluation on Cross Application Results
+* Statistical analysis between complexity and MCC of pipeline cross application
+* Managed in repo: https://github.com/anmarchio/EstimatingInspectionTasks
 
 ## Benchmarking Experiment with Open Graph (classic CGP-IP)
 
