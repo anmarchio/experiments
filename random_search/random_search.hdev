@@ -28,7 +28,7 @@
 <c>* ==========================</c>
 <c>* number of random pipelines to test</c>
 <c>* Used to be 1000, but keeps crashing after 150</c>
-<l>MaxTrials := 150</l>
+<l>MaxTrials := 200</l>
 <c>* max number of filters to chain (1..MaxPipelineLen)</c>
 <l>MaxPipelineLen := 10                 </l>
 <c>* RNG seed for reproducibility</c>
@@ -94,7 +94,9 @@
 <c>    * =========================</c>
 <c>    * RNG setup</c>
 <c>    * =========================</c>
-<l>    set_system ('seed_rand', Seed)</l>
+<l>    *set_system ('seed_rand', Seed)</l>
+<l>    count_seconds (S)</l>
+<l>    set_system ('seed_rand', int(S))</l>
 <c>    * helper to draw random int in [a,b]</c>
 <c>    * rndInt := a + floor(tuple_rand(1) * (b - a + 1))</c>
 <c>    </c>
@@ -141,8 +143,11 @@
               Second1 + \
               '-randsearch-result.txt'</l>
 <c>    </c>
-<l>    Line := ''</l>
+<l>    lines := ''</l>
 <c>    </c>
+<l>    open_file(ResultDirPath, \
+              'output', \
+              FileHandle)</l>
 <l>    for Trial := 1 to MaxTrials by 1</l>
 <l>        dev_clear_window()</l>
 <l>        trial_text := run_text + 'Trial: ' + Trial + ' / ' + MaxTrials + '\n'</l>
@@ -155,7 +160,9 @@
 <c>        * Build + describe pipeline</c>
 <l>        PipelineDesc := []</l>
 <l>        SumMCC := 0.0</l>
-<c>    </c>
+<c>        </c>
+<l>        lines := ''</l>
+<c>        </c>
 <l>        for ImgIdx := 0 to |ImageFiles|-1 by 1</l>
 <l>            dev_clear_window()</l>
 <l>            text := trial_text + 'Image: ' + ImgIdx + ' / ' + |ImageFiles| + '\n'</l>
@@ -233,16 +240,30 @@
                        'black', \
                        [], \
                        [])</l>
-<c>       </c>
+<c>        * Originally: Write every single line</c>
 <l>        Line := Trial + ';' + MeanMCC + ';\n'</l>
-<l>        write_to_file (ResultDirPath, Line)</l>
+<l>        *write_to_file (ResultDirPath, Line)</l>
+<c>        * New approach: write directly to file</c>
+<l>        lines := lines + Line</l>
+<l>        tuple_mod(Trial, 20, TrialMod)</l>
+<l>        if (TrialMod == 0)</l>
+<l>            wait_seconds(0.1)</l>
+<l>            fwrite_string(FileHandle, lines)</l>
+<l>            lines := ''</l>
+<l>        endif</l>
 <l>    endfor</l>
+<c>    </c>
+<l>    close_file(FileHandle)</l>
 <c>        </c>
 <c>    * =========================</c>
 <c>    * Report</c>
 <c>    * =========================</c>
-<l>    read_from_file (ResultDirPath, FileContent)</l>
-<l>    list_of_trial_results := Trial + ';' + MeanMCC + ';\n' + FileContent</l>
+<c>    * Originally: Write every single line</c>
+<c>    *     ... then later combine all and write to file </c>
+<l>    *read_from_file (ResultDirPath, FileContent)</l>
+<l>    *list_of_trial_results := Trial + ';' + MeanMCC + ';\n' + FileContent</l>
+<c>    * New approach: just add lines to the list_of_trial_results</c>
+<l>    list_of_trial_results := Trial + ';' + MeanMCC + ';\n' + lines    </l>
 <c>    </c>
 <l>    get_system_time(MSecond, Second, Minute, Hour, Day, YDay, Month, Year)</l>
 <c>    * --- Convert to seconds ---</c>
@@ -283,7 +304,9 @@
 <c>    </c>
 <c>        * Reconstruct best pipeline from description is nontrivial in pure text;</c>
 <c>        * for quick visual, just run once more with the same RNG seed up to BestTrialIdx.</c>
-<l>        set_system ('seed_rand', Seed)</l>
+<l>        *set_system ('seed_rand', Seed)</l>
+<l>        count_seconds (S)</l>
+<l>        set_system ('seed_rand', int(S))</l>
 <l>        for t := 1 to BestTrialIdx-1 by 1</l>
 <c>            * burn RNG to the same state the search used</c>
 <l>            tuple_rand(1000, Rand)</l>
