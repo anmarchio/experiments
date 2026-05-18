@@ -86,7 +86,12 @@ def run_pipeline(pipeline_name,
 def objective(pipeline_name, graph, params, manual = True):
     # Run the pipeline with given parameters and evaluate performance
     # Performance is returned as intersection over union (IoU) / Jaccard Score
-    performance = run_pipeline(pipeline_name, graph, params, manual)
+    performance = run_pipeline(pipeline_name,
+                               graph,
+                               params,
+                               None,
+                               None,
+                               manual)
 
     return -performance  # Minimize negative performance to maximize performance
 

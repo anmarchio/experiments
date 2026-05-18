@@ -32,7 +32,7 @@ def local_search(pipeline_name, graph, objective, bounds, n_iterations, step_siz
     scores = [best_eval]
 
     write_header_to_log(pipeline_name)
-    write_log(pipeline_name, format_line(-1, -best_eval, params_to_str(curr), "ls", f"step:{step_size}", pipeline_name))
+    write_log(PARAM_TUNING_HDEV_MANUAL, pipeline_name, format_line(-1, -best_eval, params_to_str(curr), "ls", f"step:{step_size}", pipeline_name))
 
     for i in range(n_iterations):
         # Take a step

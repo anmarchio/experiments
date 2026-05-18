@@ -6,7 +6,7 @@ from param_tuning.algorithm_step import params_to_str, perturb, SA_N_ITERATIONS,
 from param_tuning.hdev.hdev_helpers import extract_bounds_from_graph
 from param_tuning.run_hdev_manual import get_initial_state_by_pipeline_name, get_manual_hdev_pipeline_bounds
 from param_tuning.utils import write_header_to_log, write_log, format_line
-from settings import PARAM_TUNING_HDEV_MANUAL
+from settings import PARAM_TUNING_HDEV_MANUAL, CROSS_APPLICATION_RESULTS_PATH
 
 
 # Example Simulated Annealing step
@@ -33,7 +33,7 @@ def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, c
     scores = [best_eval]
 
     write_header_to_log(pipeline_name)
-    write_log(pipeline_name, format_line(-1, -best_eval, params_to_str(curr),
+    write_log(PARAM_TUNING_HDEV_MANUAL, pipeline_name, format_line(-1, -best_eval, params_to_str(curr),
                                          f"cooling:{cooling_rate},temp:{temp}", "sa", pipeline_name))
 
     for i in range(n_iterations):
