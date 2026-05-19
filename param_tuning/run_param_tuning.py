@@ -13,7 +13,7 @@ from param_tuning.local_search import run_local_search
 from param_tuning.simulated_annealing import run_simulated_annealing
 from param_tuning.utils import write_digraph_to_files, \
     check_dir_exists, plot_bar_charts, results_to_latex_table
-from settings import PARAM_TUNING_RESULTS_PATH, HDEV_RESULTS_PATH
+from settings import PARAM_TUNING_RESULTS_PATH, HDEV_RESULTS_PATH, PARAM_TUNING_HDEV_MANUAL
 
 
 def show_param_tuning_menu():
@@ -85,7 +85,7 @@ def selection_read_db_and_apply_hdev_optimization(db):
 
 def selection_plot_cgp_results_in_bar_chart(linked_list_of_mean_fitness_and_digraph):
     print("Plot results in bar chart.")
-    file_paths = [os.path.join(HDEV_RESULTS_PATH, "param_tuning", "manual_hdev", name + ".txt") for name in
+    file_paths = [os.path.join(PARAM_TUNING_HDEV_MANUAL, name + ".txt") for name in
                   MANUAL_HDEV_PIPELINES_MEAN]
     ls_results, sa_results = extract_fitness_values(file_paths)
     datasets = [name.replace("_mean_pipeline", "") for name in MANUAL_HDEV_PIPELINES_MEAN]

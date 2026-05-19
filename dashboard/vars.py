@@ -205,5 +205,7 @@ PATH_TO_DATASET_NAME_MAP = {
     'D:\\evias_expmts\\Pultrusion\\train': DATASET_NAMES[9],
     'D:\\evias_expmts\\severstal-steel\\train_cgp': DATASET_NAMES[8],
     'D:\\evias_expmts\\CrackForest': DATASET_NAMES[43],
+    'I:\\evias_expmts\\MVTecAnomalyDetection\\transistor_damaged_case_train': DATASET_NAMES[28],
+    'I:\\evias_expmts\\CrackForest\\small_dataset': DATASET_NAMES[43],
     'unknown': None
     }

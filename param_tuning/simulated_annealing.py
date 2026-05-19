@@ -19,52 +19,69 @@ def simulated_annealing_step(current_state, bounds, temperature):
 
 
 def simulated_annealing(pipeline_name, graph, objective, bounds, n_iterations, cooling_rate, temp):
-    # Initialize the best solution with a random point within the bounds
-    best = np.array
-
     if graph is None:
         best = get_initial_state_by_pipeline_name(pipeline_name)
     else:
         best = graph['bounds']
 
+    best = np.asarray(best, dtype=float)
+    bounds = np.asarray(bounds, dtype=float)
+
     best_eval = objective(pipeline_name, graph, best)
 
-    curr, curr_eval = best, best_eval
+    curr = best.copy()
+    curr_eval = best_eval
     scores = [best_eval]
 
     write_header_to_log(pipeline_name)
-    write_log(PARAM_TUNING_HDEV_MANUAL, pipeline_name, format_line(-1, -best_eval, params_to_str(curr),
-                                         f"cooling:{cooling_rate},temp:{temp}", "sa", pipeline_name))
+    write_log(
+        PARAM_TUNING_HDEV_MANUAL,
+        pipeline_name,
+        format_line(
+            -1,
+            -best_eval,
+            params_to_str(curr),
+            f"cooling:{cooling_rate},temp:{temp}",
+            "sa",
+            pipeline_name
+        )
+    )
 
     for i in range(n_iterations):
-        # Take a step
-        # candidate = curr + np.random.randn(len(bounds)) * step_size
-        # candidate = np.clip(candidate, bounds[:, 0], bounds[:, 1])
         candidate = simulated_annealing_step(curr, bounds, temp)
+        candidate = np.asarray(candidate, dtype=float)
+
         candidate_eval = objective(pipeline_name, graph, candidate)
 
-        # Check if we should keep the new point
         if candidate_eval < best_eval:
-            best, best_eval = candidate, candidate_eval
+            best = candidate.copy()
+            best_eval = candidate_eval
             scores.append(best_eval)
 
-        # Calculate the difference between evaluations
-        diff = Decimal(candidate_eval) - Decimal(curr_eval)
-        t = Decimal(temp) / Decimal(i + 1)
+        diff = candidate_eval - curr_eval
+        t = temp / (i + 1)
 
-        # Metropolis acceptance criterion
-        metropolis = np.exp(Decimal(-diff) / Decimal(t))
+        metropolis = np.exp(-diff / t)
+
         if diff < 0 or np.random.rand() < metropolis:
-            curr, curr_eval = candidate, candidate_eval
+            curr = candidate.copy()
+            curr_eval = candidate_eval
 
-        output = format_line(i, -best_eval, params_to_str(candidate), "sa",
-                             f"cooling:{cooling_rate},temp:{temp}", pipeline_name)
+        output = format_line(
+            i,
+            -best_eval,
+            params_to_str(candidate),
+            "sa",
+            f"cooling:{cooling_rate},temp:{temp}",
+            pipeline_name
+        )
+
         print(output)
         write_log(PARAM_TUNING_HDEV_MANUAL, pipeline_name, output)
 
         temp *= cooling_rate
 
-    return best, best_eval
+    return best.tolist(), best_eval
 
 
 def run_simulated_annealing(pipeline_name, graph, objective, manual: bool = True):
@@ -83,8 +100,10 @@ def run_simulated_annealing(pipeline_name, graph, objective, manual: bool = True
                                                   SA_N_ITERATIONS,
                                                   SA_COOLING_RATE,
                                                   SA_TEMP)
-
-    print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
+    if len(best_params) > 0:
+        print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
+    else:
+        best_params = ["nan", "nan"]
     print(f"Best performance: {-best_score}")
     return best_params[0], best_params[1], best_score
     # except Exception as e:

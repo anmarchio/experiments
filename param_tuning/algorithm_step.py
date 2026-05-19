@@ -1,5 +1,6 @@
 import random
 
+import numpy as np
 from numpy import int32
 
 """
@@ -54,8 +55,6 @@ def perturb(value, bound, temperature):
             return bound[idx]
 
 
-def params_to_str(values):
-    params_str = ""
-    for v in values:
-        params_str += str(v) + ", "
-    return params_str
+def params_to_str(params):
+    params = np.asarray(params).flatten()
+    return ";".join(str(float(p)) for p in params)

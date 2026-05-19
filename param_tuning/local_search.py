@@ -64,6 +64,9 @@ def run_local_search(pipeline_name, graph, objective, manual=True):
 
     best_params, best_score = local_search(pipeline_name, graph, objective, bounds, LS_N_ITERATIONS, LS_STEP_SIZE)
 
-    print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
+    if len(best_params) > 0:
+        print(f"Optimized parameters: amplitude={best_params[0]}, threshold={best_params[1]}")
+    else:
+        best_params = ["nan", "nan"]
     print(f"Best performance: {-best_score}")
     return best_params[0], best_params[1], best_score
