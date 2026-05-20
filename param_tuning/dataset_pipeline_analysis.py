@@ -144,7 +144,7 @@ def get_grouped_datasets_with_digraph_by_mean_fitness(session: Database):
     linked_list_of_mean_fitness_and_digraph = {}
 
     # Grouped_dataset
-    list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(session, 140, 500)
+    list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(session, 100, 500)
 
     linked_list_of_runs_fitness = data_linking(list_of_runs_fitness)
 

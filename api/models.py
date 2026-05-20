@@ -329,6 +329,8 @@ class Dataset(Base):
 
         for ds in datasets:
             same_source_directory = session.query(Dataset).filter_by(source_directory=ds.source_directory).all()
+            if same_source_directory[0].name == "small_dataset":
+                print("small dataset")
             experiments = session.query(Experiment).filter(
                 Experiment.dataset_id.in_(([x.dataset_id for x in same_source_directory]))).all()
 

@@ -24,8 +24,18 @@ def get_cgp_ls_sa_dict_from_pipelines(pipeline_names,
                 cgp_results.append(linked_list_of_mean_fitness_and_digraph["MAIPreform2_Spule0-0315_Upside"]["best_individual_fitness"])
             elif name == "MVTec_AD_Leather":
                 cgp_results.append(linked_list_of_mean_fitness_and_digraph["MVTec_D_Leather"]["best_individual_fitness"])
+            elif name == "KollektorSSD":
+                cgp_results.append(linked_list_of_mean_fitness_and_digraph["KolektorSDD"]["best_individual_fitness"])
+            elif name == "MVTec_AD_Transistor":
+                cgp_results.append(linked_list_of_mean_fitness_and_digraph["MVTec_AD_Transistor_Case"]["best_individual_fitness"])
+            elif name == "CrackForest":
+                cgp_results.append(linked_list_of_mean_fitness_and_digraph["RoadCracks"]["best_individual_fitness"])
     else:
         raise ValueError("Arrays have different sizes.")
+
+    # let the last two elements switch places
+    if len(cgp_results) >= 2:
+        cgp_results[-2], cgp_results[-1] = cgp_results[-1], cgp_results[-2]
 
     return cgp_results
 
