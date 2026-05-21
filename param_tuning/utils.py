@@ -289,11 +289,94 @@ def plot_bar_charts(datasets, cgp_results, ls_results, sa_results):
     if not (len(datasets) == len(cgp_results) == len(ls_results) == len(sa_results)):
         raise ValueError("Array mismatch!")
 
+    if len(datasets) >= 2:
+        datasets[1], datasets[0] = datasets[0], datasets[1]
+        cgp_results[1], cgp_results[0] = cgp_results[0], cgp_results[1]
+        ls_results[1], ls_results[0] = ls_results[0], ls_results[1]
+        sa_results[1], sa_results[0] = sa_results[0], sa_results[1]
+
     changes = [max(ls_results[i] - cgp_results[i], sa_results[i] - cgp_results[i]) for i in range(len(cgp_results))]
 
     plot_fitness_bars(datasets, cgp_results, ls_results, sa_results)
     plot_changes_bars(datasets, changes)
 
+    # Plot combined
+    plot_combined_bars(datasets, cgp_results, ls_results, sa_results, changes)
+
+
+def plot_combined_bars(datasets, cgp_results, ls_results, sa_results, changes):
+    cgp_bar_color = "steelblue"
+    ls_bar_color = "tomato"
+    sa_bar_color = "gray"
+
+    num_datasets = len(datasets)
+    y_pos = np.arange(num_datasets)
+    bar_width = 0.25
+
+    fig, (ax_fitness, ax_changes) = plt.subplots(
+        ncols=2,
+        sharey=True,
+        figsize=(20, 16),
+        dpi=100,
+        gridspec_kw={"width_ratios": [1, 1]}
+    )
+
+    # Left: fitness bars
+    ax_fitness.barh(
+        y_pos - bar_width,
+        cgp_results,
+        height=bar_width,
+        color=cgp_bar_color,
+        label="CGP Result"
+    )
+    ax_fitness.barh(
+        y_pos,
+        ls_results,
+        height=bar_width,
+        color=ls_bar_color,
+        label="LS Result"
+    )
+    ax_fitness.barh(
+        y_pos + bar_width,
+        sa_results,
+        height=bar_width,
+        color=sa_bar_color,
+        label="SA Result"
+    )
+
+    ax_fitness.set_yticks(y_pos)
+    ax_fitness.set_yticklabels(datasets)
+    ax_fitness.set_xlabel("Fitness")
+    ax_fitness.set_title("CGP, LS, SA Fitness")
+    ax_fitness.set_xlim(0.0, 1.0)
+    ax_fitness.grid(True, axis="x", linestyle="--", alpha=0.7)
+    ax_fitness.legend()
+
+    # Right: change bars
+    colors = ["lightgreen" if change >= 0 else "tomato" for change in changes]
+
+    ax_changes.barh(
+        y_pos,
+        changes,
+        color=colors
+    )
+
+    ax_changes.set_xlabel("Fitness increase")
+    ax_changes.set_title("Fitness Net Increase")
+    ax_changes.set_xlim(0.0, 1.0)
+    ax_changes.grid(True, axis="x", linestyle="--", alpha=0.7)
+
+    # Hide y-axis names on the right
+    ax_changes.tick_params(axis="y", labelleft=False)
+
+    #fig.suptitle("CGP, LS, SA Fitness and Net Increase by Dataset")
+
+    current_date = datetime.now().strftime("%Y%m%d")
+    filename = f"{current_date}_cgp_ls_sa_combined_barchart.png"
+    plt.savefig(os.path.join(PARAM_TUNING_RESULTS_PATH, filename), bbox_inches="tight")
+
+    plt.tight_layout()
+    plt.show(block=True)
 
 def dataset_to_graphs(dataset: {}) -> {}:
     graphs = {}

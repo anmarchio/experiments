@@ -33,10 +33,6 @@ def get_cgp_ls_sa_dict_from_pipelines(pipeline_names,
     else:
         raise ValueError("Arrays have different sizes.")
 
-    # let the last two elements switch places
-    if len(cgp_results) >= 2:
-        cgp_results[-2], cgp_results[-1] = cgp_results[-1], cgp_results[-2]
-
     return cgp_results
 
 
