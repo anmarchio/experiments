@@ -289,6 +289,10 @@ def plot_bar_charts(datasets, cgp_results, ls_results, sa_results):
     if not (len(datasets) == len(cgp_results) == len(ls_results) == len(sa_results)):
         raise ValueError("Array mismatch!")
 
+    for i in range(len(datasets)):
+        if datasets[i] == "CrackForest":
+            datasets[i] = "RoadCracks"
+
     if len(datasets) >= 2:
         datasets[1], datasets[0] = datasets[0], datasets[1]
         cgp_results[1], cgp_results[0] = cgp_results[0], cgp_results[1]

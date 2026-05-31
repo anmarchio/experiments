@@ -1,8 +1,12 @@
-# Experiment Data Analysis
+# Dashboard
 
-We recommend to use the DB Browser for SQLITE: https://sqlitebrowser.org/
+This subsection contains scripts for:
+- SQL queries to explore the database
+- plotting scripts to visualize the results of the experiments
 
 ## SQL Queries
+
+We recommend to use the DB Browser for SQLITE: https://sqlitebrowser.org/
 
 * Get datasets for a specific name
 

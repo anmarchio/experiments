@@ -11,7 +11,7 @@ from dashboard.plotting import plot_mean_std_dev_fitness_arrays, plot_fitness_pe
     create_complexity_plot
 from dashboard.utils import read_file_and_return_norm_dict, mean_std_dev_fitness_ci_per_dataset, compute_mean_and_std_dev, \
     extract_dataset_name, get_mean_fitness_per_dataset, print_fitness_values_in_table, data_linking
-from dashboard.vars import COMPLEXITY_METRICS
+from dashboard.vars import COMPLEXITY_METRICS, LBL_METRICS, IMG_METRICS
 from settings import RESULTS_PATH, WDIR
 
 
@@ -80,6 +80,40 @@ def compute_complexity_and_fitness_correlation(json_file_path):
         print("| " + p + " | " + str(pearson_rs[p]) + "|\n")
         f.write("| " + p + " | " + str(pearson_rs[p]) + "|\n")
     f.close()
+
+    img_corr_names = []
+    img_corr_values = []
+    lbl_corr_names = []
+    lbl_corr_values = []
+    for p in pearson_rs:
+        if p in LBL_METRICS:
+            lbl_corr_names.append(p)
+            lbl_corr_values.append(pearson_rs[p])
+        else:
+            img_corr_names.append(p)
+            img_corr_values.append(pearson_rs[p])
+
+    # Plot plain image
+    create_complexity_plot(
+        "Image Complexity",
+        "Metric",
+        IMG_METRICS,
+        img_corr_values,
+        path=os.path.join("out", "plots",
+                          datetime.now().strftime('%Y%m%d-%H%M%S') +
+                          "_image_bplot.png")
+    )
+
+    # Plot lbl
+    create_complexity_plot(
+        "Label Complexity",
+        "Metric",
+        LBL_METRICS,
+        lbl_corr_values,
+        path=os.path.join("out", "plots",
+                          datetime.now().strftime('%Y%m%d-%H%M%S') +
+                          "_lbl_bplot.png")
+    )
 
 
 def read_fitness_values(paths: dict(), filename: str, identifier: str):

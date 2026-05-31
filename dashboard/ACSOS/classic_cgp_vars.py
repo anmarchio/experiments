@@ -1,5 +1,5 @@
 # === CLASSIC VALUES (from your earlier table) ===
-from dashboard.acsos_vars import ACSOS_STD_DEV, ACSOS_DATASET_NAMES, ACSOS_MEANS
+from dashboard.ACSOS.acsos_vars import ACSOS_STD_DEV, ACSOS_DATASET_NAMES, ACSOS_MEANS
 
 CLASSIC_CGP_DATASET_NAMES = [
     "FabricDefectsAITEX",

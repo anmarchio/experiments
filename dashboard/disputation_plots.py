@@ -1,6 +1,6 @@
 import os
 
-from dashboard.classic_cgp_vars import CLASSIC_CGP_MEANS, CLASSIC_CGP_STD_DEV, get_harmonized_values
+from dashboard.ACSOS.classic_cgp_vars import CLASSIC_CGP_MEANS, CLASSIC_CGP_STD_DEV, get_harmonized_values
 from dashboard.plotting import plot_fitness_per_dataset, plot_fitness_per_dataset_with_overlay, \
     wilcoxon_signed_rank_test
 from dashboard.utils import print_fitness_values_in_table

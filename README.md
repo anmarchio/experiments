@@ -14,9 +14,10 @@ This repository contains all scripts that were designed to analyze data from ima
 
 1. <a href="#api-docs-for-experimental-data-and-plotting">API Docs for Experimental Data and Plotting [ACSOS2023]</a>
 1. <a href="#follow-up-optimization-using-sa--ls">Dissertation 2024: CGP Results and Optimization using SA / LS Algorithms [Dissertation 2026]</a>
-1. <a href="#complexity-analysis">Complexity Analysis of CGP Pipelines [Dissertation 2026]</a>
+1. <a href="#complexity-analysis">Complexity Analysis of CGP Pipelines [Dissertation 2024]</a>
+1. <a href="#update-complexity-analysis">UPDATE: Complexity of CGP Pipelines [Dissertation Update 2026]</a>
 1. <a href="#cross-application-for-pipeline-retrieval">Cross-Application for Pipeline Retrieval [Arxiv 2026]</a>
-1. <a href="#free-dependencies">Benchmark Experiment with Open Graph (classic CGP-IP)</a>
+1. <a href="#benchmarking-experiment-with-open-graph-classic-cgp-ip">Benchmark Experiment with Open Graph (classic CGP-IP)</a>
 1. <a href="#random-search">Random Search on HDev</a>
 
 ## API Docs for Experimental Data and Plotting
@@ -284,6 +285,58 @@ Estimation for the whole image:
 * `max r_{fit, lbl_edge_density} = 0.324` shows a positive correlation between edge density of labels and fitness.
 * `max r_{fit, lbl_num_superpixels} = 0.366` shows a positive correlation between number of superpixels in the label and fitness.
 * `min r_{fit, relative_label_size} = 0.0531` worst choice, indicating no correlation at all.
+
+## UPDATE: Complexity Analysis
+
+The original complexity and correlation analysis (see above) submitted in the 2024 dissertation misses out on 2 datasets:
+* MVTec_AD_Carpet
+* RoadCracks
+
+Therefore, an updated complexity computation and correlation analysis was conducted to include the 2 datasets for a more consistent comparison. 
+The new updated correlation is now based on complexity metrics that take into account 38 datasets.
+
+The results can be found in the following tables:
+
+| Metric | Cor(fit, v)        |
+| ------ |--------------------|
+| entropy_arr | 0.12153628691575344 |
+| blurriness_arr | 0.12015602792316361 |
+| brightness_arr | 0.15121512757917832 |
+| image_size | 0.1713147231056065 |
+| hist_entropy | **0.2362467354103773** |
+| jpeg_complexity | **0.2273580271093716** |
+| fractal_dimension | 0.12124233770978347 |
+| texture_features | 0.11660395442351469 |
+| edge_density | -0.09454513369414423 |
+| laplacian_variance | -0.19070880085449007 |
+| num_superpixels | -0.12216766943039246 |
+
+> Estimation for the whole image:
+
+* !TBD! `max r_{fit, hist_entropy} = 0.236` actual "best" choice, histogram_entropy of the image;
+* !TBD! `max r_{fit, jpeg_complexity} = 0.227` shows a positive correlation between JPEG complexity and fitness.
+* !TBD! `min r_{fit, laplacian_variance} = -0.191` worst choice, indicating no correlation at all.
+
+Correlation between the same complexity metrics **of the each label** and achieved fitness:
+
+| Metric | Cor(fit, v)              |
+| ------ |--------------------------|
+| label_count_per_image | -0.08394875948912116     |
+| label_size | -0.12304075413685804     |
+| relative_label_size | -0.23101005478558684     |
+| lbl_hist_entropy | -0.13837057886706014     |
+| lbl_fractal_dimension | -0.24064416800180682     |
+| lbl_texture_features | **0.18221421275145927**      |
+| lbl_edge_density | **0.24938913326924397**  |
+| lbl_laplacian_variance | 0.09869111926571211      |
+| lbl_num_superpixels | **0.22465138807580515**  |
+
+> Estimation for the whole image:
+
+* !TBD! `max r_{fit, lbl_edge_density} = 0.249` actual "best" choice, edge density of labels.
+* !TBD! `max r_{fit, lbl_num_superpixels} = 0.225` shows a positive correlation between number of superpixels in the label and fitness.
+* !TBD! `max r_{fit, lbl_texture_features} = 0.182` shows a positive correlation between between texture_feature of the labels and fitness;
+* !TBD! `min r_{fit, lbl_fractal_dimension} = -0.241` worst choice, indicating an inverse correlation.
 
 ## Analyzing Pipelines by Fitness
 

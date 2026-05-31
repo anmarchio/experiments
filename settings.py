@@ -1,6 +1,14 @@
 import os
+import platform
 
 from os.path import join as p_join
+
+"""
+WDIR Path
+"""
+WDIR = os.path.join("D:\\", "dev", "experiments")
+if platform.system() == "Linux":
+    WDIR = os.path.join("/mnt", "volume", "dev", "experiments")
 
 """
 Variables for CGP experiment results
@@ -8,30 +16,33 @@ Variables for CGP experiment results
 # SPECIFIC_SOURCE_PATH = os.path.join("P:\\", "99 Austausch_TVöD", "mara", "Dissertation", "20230120results_dl2")
 SPECIFIC_SOURCE_PATH = ""
 
-# SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230329-163243data_arr.json")
-# SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230509-025213data_arr.json")
-# SAMPLE_IMAGES_DIR_PATH = os.path.join("C:\\", "dev", "experiments", "data", "20230512-151338data_arr.json")
-SAMPLE_IMAGES_DIR_PATH = os.path.join("D:\\", "dev", "experiments", "data", "20230519-999data_arr_DEBUG.json")
-
+# SAMPLE_IMAGES_DIR_PATH = os.path.join("D:\\", "dev", "experiments", "data", "20230329-163243data_arr.json")
+# SAMPLE_IMAGES_DIR_PATH = os.path.join("D:\\", "dev", "experiments", "data", "20230509-025213data_arr.json")
+# SAMPLE_IMAGES_DIR_PATH = os.path.join("D:\\", "dev", "experiments", "data", "20230512-151338data_arr.json")
+SAMPLE_IMAGES_DIR_PATH = os.path.join(WDIR, "data", "20230519-999data_arr_DEBUG.json")
+if platform.system() == "Linux":
+    SAMPLE_IMAGES_DIR_PATH = os.path.join(WDIR, "data", "20230519-999data_arr_DEBUG.json")
 
 """
-Default Path
+Data Source Path for images and labels
 """
-WDIR = os.path.join("D:\\", "dev", "experiments")
-
-# Data Source Path for your images and labels
 EVIAS_SRC = ["D:", "evias_expmts"]
 EVIAS_SRC_PATH = os.path.join("D:\\", "evias_expmts")
+if platform.system() == "Linux":
+    EVIAS_SRC = ["/mnt/volume/", "evias_expmts"]
+    EVIAS_SRC_PATH = os.path.join("/mnt", "volume", "evias_expmts")
 
 """
 Output Path for Subsequent Pipeline Optimization (SA, LS)
 """
 RESULTS_PATH = os.path.join(WDIR, "test")
+RESULTS_DATA_PATH = os.path.join(WDIR, "data")
 PARAM_TUNING_RESULTS_PATH = os.path.join(RESULTS_PATH, "param_tuning")
 HDEV_RESULTS_PATH = p_join(os.path.curdir, os.path.join(os.pardir, "scripts", "results"))
 PARAM_TUNING_HDEV_MANUAL = os.path.join(PARAM_TUNING_RESULTS_PATH, "manual_hdev")
 
 CGP_INSIGHTS_OUT = p_join(os.path.curdir, os.path.join(RESULTS_PATH, "cgp_insights_out"))
+
 """
 Test Parameter Variables
 """

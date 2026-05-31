@@ -34,7 +34,7 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
             # complexity_mean = np.mean([img[m_idx] for img in norm_arr_dict[dataset_name]])
             complexity_mean = np.mean(values)
         else:
-            print("[ERROR] " + dataset_name + " not in norm_arr_dict")
+            print("[ERROR]", dataset_name, "not in norm_arr_dict")
 
         mean_fitness_and_complexity_per_dataset[dataset_name] = [[fitness_mean], [complexity_mean],
                                                                  number_of_images[i]]

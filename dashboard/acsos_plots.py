@@ -1,9 +1,7 @@
 import os
 from datetime import datetime
 
-import numpy as np
-
-from dashboard.acsos_vars import ACSOS_DATASET_NAMES, ACSOS_STD_DEV, ACSOS_MEANS, ACSOS_NUMBER_OF_IMAGES, \
+from dashboard.ACSOS.acsos_vars import ACSOS_DATASET_NAMES, ACSOS_STD_DEV, ACSOS_MEANS, ACSOS_NUMBER_OF_IMAGES, \
     ACSOS_NUMBER_OF_RUNS, IMG_HIST_ENTROPY_VALUES, LBL_EDGE_DENSITY_VALUES
 from dashboard.plotting import plot_fitness_per_dataset, create_complexity_plot
 from dashboard.utils import print_fitness_values_in_table
