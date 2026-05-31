@@ -102,8 +102,47 @@ def jpeg_complexity(image, quality=75):
 
     return float(original_size / compressed_size)
 
+def lbl_texture_features(label_mask):
 
-def texture_features(image, distances=(1,), angles=(0, np.pi / 4, np.pi / 2, 3 * np.pi / 4)):
+    if label_mask is None:
+        return 0.0
+
+    mask = label_mask.astype(np.uint8)
+
+    glcm = graycomatrix(
+        mask,
+        distances=[1],
+        angles=[0],
+        levels=256,
+        symmetric=True,
+        normed=True
+    )
+
+    contrast = graycoprops(glcm, "contrast")[0, 0]
+
+    return float(contrast)
+
+def texture_features(image):
+
+    gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY) \
+        if image.ndim == 3 else image
+
+    gray = gray.astype(np.uint8)
+
+    glcm = graycomatrix(
+        gray,
+        distances=[1],
+        angles=[0],
+        levels=256,
+        symmetric=True,
+        normed=True
+    )
+
+    contrast = graycoprops(glcm, "contrast")[0, 0]
+
+    return float(contrast)
+
+def texture_all_features(image, distances=(1,), angles=(0, np.pi / 4, np.pi / 2, 3 * np.pi / 4)):
     """
     GLCM texture features:
     contrast, homogeneity, correlation, energy.
@@ -271,7 +310,7 @@ def lbl_fractal_dimension(label_mask):
     return fractal_dimension(label_mask)
 
 
-def lbl_texture_features(label_mask):
+def lbl_texture_all_features(label_mask):
     if label_mask is None:
         return {
             "contrast": 0.0,

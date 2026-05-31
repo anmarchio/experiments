@@ -6,6 +6,9 @@ import cv2
 import json
 
 from pathlib import Path
+
+import numpy as np
+
 from complexity.metrics import rectangle_size, shannon_entr, histogram_entr, variance_of_laplacian, brightness_metric, \
     jpeg_complexity, texture_features, edge_density, number_of_superpixels, number_of_labels, blurriness_metric, \
     fractal_dimension, label_size, relative_label_size, lbl_hist_entropy, lbl_fractal_dimension, lbl_texture_features, \
@@ -103,16 +106,23 @@ def run_compute_complexity(
     results = {}
 
     for ds_name, ds_info in datasets.items():
+
         image_folder = Path(base_path) / ds_info["train"]
 
         if not image_folder.exists():
             print(f"Warning: path does not exist: {image_folder}")
             continue
 
-        results[ds_name] = []
+        print(f"Processing dataset: {ds_name}")
+
+        # Create one list per metric
+        dataset_metrics = {
+            metric: [] for metric in COMPLEXITY_METRICS
+        }
 
         for image_path in iter_images(image_folder):
-            print("Processing dataset:", image_path)
+
+            print("Processing image:", image_path)
 
             image = cv2.imread(str(image_path), cv2.IMREAD_COLOR)
 
@@ -121,22 +131,31 @@ def run_compute_complexity(
                 continue
 
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
             label_mask = get_lbl_mask_for_image(image_path)
 
-            image_result = {
-                "image": os.path.split(image_path)[-1],
-                "metrics": {}
-            }
-
+            # Compute all metrics for current image
             for metric in COMPLEXITY_METRICS:
-                image_result["metrics"][metric] = compute_metric_values_for_image(
-                    metric, image, label_mask
+
+                value = compute_metric_values_for_image(
+                    metric,
+                    image,
+                    label_mask
                 )
 
-            results[ds_name].append(image_result)
+                # Handle numpy values for JSON serialization
+                if isinstance(value, np.generic):
+                    value = value.item()
 
-        print("Folder:", ds_name, "train")
-        print("Processed images:", len(results[ds_name]))
+                dataset_metrics[metric].append(value)
+
+        # Convert dict -> ordered list
+        results[ds_name] = [
+            dataset_metrics[metric]
+            for metric in COMPLEXITY_METRICS
+        ]
+
+        print("Processed images:", len(next(iter(dataset_metrics.values()))))
         print("=" * 30)
 
     with open(output_json, "w", encoding="utf-8") as f:
