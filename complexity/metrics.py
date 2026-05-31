@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 
 from skimage.segmentation import slic
-from skimage.measure import label as connected_components
+from skimage.measure import label as connected_components, shannon_entropy
 from skimage.feature import graycomatrix, graycoprops
 from PIL import Image
 
@@ -201,3 +201,151 @@ def run_compute_complexity(image, label_mask=None):
         metrics["number_of_labels"] = number_of_labels(label_mask)
 
     return metrics
+
+
+def blurriness_metric(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY) if image.ndim == 3 else image
+    return float(cv2.Laplacian(gray, cv2.CV_64F).var())
+
+
+def fractal_dimension(image, threshold=0.5):
+    gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY) if image.ndim == 3 else image
+    gray = gray.astype(np.float32)
+    gray = (gray - gray.min()) / (gray.max() - gray.min() + 1e-8)
+
+    binary = gray < threshold
+
+    def boxcount(z, k):
+        s = np.add.reduceat(
+            np.add.reduceat(z, np.arange(0, z.shape[0], k), axis=0),
+            np.arange(0, z.shape[1], k), axis=1
+        )
+        return np.count_nonzero((s > 0) & (s < k * k))
+
+    min_dim = min(binary.shape)
+    sizes = 2 ** np.arange(int(np.log2(min_dim)), 1, -1)
+
+    counts = []
+    valid_sizes = []
+
+    for size in sizes:
+        count = boxcount(binary, size)
+        if count > 0:
+            counts.append(count)
+            valid_sizes.append(size)
+
+    if len(counts) < 2:
+        return 0.0
+
+    coeffs = np.polyfit(np.log(valid_sizes), np.log(counts), 1)
+    return float(-coeffs[0])
+
+
+def label_size(label_mask):
+    if label_mask is None:
+        return 0.0
+
+    mask = label_mask > 0
+    return float(np.count_nonzero(mask))
+
+
+def relative_label_size(label_mask):
+    if label_mask is None:
+        return 0.0
+
+    mask = label_mask > 0
+    return float(np.count_nonzero(mask) / mask.size)
+
+
+def lbl_hist_entropy(label_mask):
+    if label_mask is None:
+        return 0.0
+
+    return float(shannon_entropy(label_mask))
+
+
+def lbl_fractal_dimension(label_mask):
+    if label_mask is None:
+        return 0.0
+
+    return fractal_dimension(label_mask)
+
+
+def lbl_texture_features(label_mask):
+    if label_mask is None:
+        return {
+            "contrast": 0.0,
+            "dissimilarity": 0.0,
+            "homogeneity": 0.0,
+            "energy": 0.0,
+            "correlation": 0.0,
+            "ASM": 0.0,
+        }
+
+    mask = label_mask.astype(np.uint8)
+
+    if mask.max() > 0:
+        mask = (mask / mask.max() * 255).astype(np.uint8)
+
+    glcm = graycomatrix(
+        mask,
+        distances=[1],
+        angles=[0],
+        levels=256,
+        symmetric=True,
+        normed=True
+    )
+
+    return {
+        "contrast": float(graycoprops(glcm, "contrast")[0, 0]),
+        "dissimilarity": float(graycoprops(glcm, "dissimilarity")[0, 0]),
+        "homogeneity": float(graycoprops(glcm, "homogeneity")[0, 0]),
+        "energy": float(graycoprops(glcm, "energy")[0, 0]),
+        "correlation": float(graycoprops(glcm, "correlation")[0, 0]),
+        "ASM": float(graycoprops(glcm, "ASM")[0, 0]),
+    }
+
+
+def lbl_edge_density(label_mask):
+    if label_mask is None:
+        return 0.0
+
+    mask = label_mask.astype(np.uint8)
+
+    if mask.max() > 0:
+        mask = (mask > 0).astype(np.uint8) * 255
+
+    edges = cv2.Canny(mask, 100, 200)
+    return float(np.count_nonzero(edges) / edges.size)
+
+
+def lbl_laplacian_variance(label_mask):
+    if label_mask is None:
+        return 0.0
+
+    mask = label_mask.astype(np.uint8)
+
+    if mask.max() > 0:
+        mask = (mask > 0).astype(np.uint8) * 255
+
+    return float(cv2.Laplacian(mask, cv2.CV_64F).var())
+
+
+def lbl_num_superpixels(label_mask, n_segments=100, compactness=10):
+    if label_mask is None:
+        return 0.0
+
+    mask = label_mask.astype(np.float32)
+
+    if mask.max() > 0:
+        mask = mask / mask.max()
+
+    segments = slic(
+        mask,
+        n_segments=n_segments,
+        compactness=compactness,
+        channel_axis=None,
+        start_label=0
+    )
+
+    return float(len(np.unique(segments)))
