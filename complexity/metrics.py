@@ -388,3 +388,70 @@ def lbl_num_superpixels(label_mask, n_segments=100, compactness=10):
     )
 
     return float(len(np.unique(segments)))
+
+def minmax_normalize(values):
+    values = np.asarray(values, dtype=float)
+
+    finite_mask = np.isfinite(values)
+    result = np.zeros_like(values, dtype=float)
+
+    if not np.any(finite_mask):
+        return result.tolist()
+
+    finite_values = values[finite_mask]
+    vmin = finite_values.min()
+    vmax = finite_values.max()
+
+    if vmax == vmin:
+        result[finite_mask] = 0.0
+    else:
+        result[finite_mask] = (finite_values - vmin) / (vmax - vmin)
+
+    return result.tolist()
+
+
+def normalize_metric_values(metric, values, image_area=None, n_segments=100):
+    values = np.asarray(values, dtype=float)
+
+    if metric in {
+        "edge_density",
+        "relative_label_size",
+        "lbl_edge_density",
+    }:
+        return np.clip(values, 0.0, 1.0).tolist()
+
+    if metric == "brightness_arr":
+        return np.clip(values / 255.0, 0.0, 1.0).tolist()
+
+    if metric == "entropy_arr":
+        # shannon_entr uses natural log by default.
+        # Max entropy for 8-bit grayscale is ln(256).
+        return np.clip(values / np.log(256), 0.0, 1.0).tolist()
+
+    if metric in {
+        "hist_entropy",
+        "lbl_hist_entropy",
+    }:
+        # histogram_entr uses log2.
+        # Max entropy for 8-bit data is log2(256) = 8.
+        return np.clip(values / 8.0, 0.0, 1.0).tolist()
+
+    if metric in {
+        "fractal_dimension",
+        "lbl_fractal_dimension",
+    }:
+        # For 2D images, fractal dimension is usually interpreted in [1, 2].
+        return np.clip(values - 1.0, 0.0, 1.0).tolist()
+
+    if metric in {
+        "label_size",
+    } and image_area is not None:
+        return np.clip(values / image_area, 0.0, 1.0).tolist()
+
+    if metric in {
+        "num_superpixels",
+        "lbl_num_superpixels",
+    }:
+        return np.clip(values / n_segments, 0.0, 1.0).tolist()
+
+    return minmax_normalize(values)

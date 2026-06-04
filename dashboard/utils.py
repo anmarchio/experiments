@@ -7,7 +7,7 @@ import numpy as np
 from api import env_var
 from api.database import Database
 from api.models import Dataset
-from dashboard.vars import PATH_TO_DATASET_NAME_MAP
+from dashboard.vars import PATH_TO_DATASET_NAME_MAP, DATASET_NAME_TO_SHORT_NAME_MAP
 
 
 def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
@@ -21,6 +21,9 @@ def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
 
     for i in range(len(mean_std_dev_fit_per_dataset)):
         dataset_name = dataset_names[i][1] # name
+        if dataset_name in DATASET_NAME_TO_SHORT_NAME_MAP.keys():
+            dataset_name = DATASET_NAME_TO_SHORT_NAME_MAP[dataset_name]
+
         fitness_mean = mean_std_dev_fit_per_dataset[i][0] # mean
         fitness_stddev = mean_std_dev_fit_per_dataset[i][1] # std dev
 

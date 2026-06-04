@@ -12,7 +12,7 @@ import numpy as np
 from complexity.metrics import rectangle_size, shannon_entr, histogram_entr, variance_of_laplacian, brightness_metric, \
     jpeg_complexity, texture_features, edge_density, number_of_superpixels, number_of_labels, blurriness_metric, \
     fractal_dimension, label_size, relative_label_size, lbl_hist_entropy, lbl_fractal_dimension, lbl_texture_features, \
-    lbl_edge_density, lbl_laplacian_variance, lbl_num_superpixels
+    lbl_edge_density, lbl_laplacian_variance, lbl_num_superpixels, normalize_metric_values
 from dashboard.create_analysis_plots import compute_complexity_and_fitness_correlation
 from dashboard.vars import COMPLEXITY_METRICS
 from experiment_params_data import DATASETS
@@ -148,6 +148,21 @@ def run_compute_complexity(
                     value = value.item()
 
                 dataset_metrics[metric].append(value)
+
+        # Normalize all metrics to [0, 1]
+        normalized_dataset_metrics = {}
+
+        for metric, values in dataset_metrics.items():
+            normalized_dataset_metrics[metric] = normalize_metric_values(
+                metric=metric,
+                values=values,
+                n_segments=100
+            )
+
+        results[ds_name] = [
+            normalized_dataset_metrics[metric]
+            for metric in COMPLEXITY_METRICS
+        ]
 
         # Convert dict -> ordered list
         results[ds_name] = [

@@ -209,3 +209,82 @@ PATH_TO_DATASET_NAME_MAP = {
     'I:\\evias_expmts\\CrackForest\\small_dataset': DATASET_NAMES[43],
     'unknown': None
     }
+
+"""
+Dataset name to short identifier mapping
+----------------------------------------
+Maps the canonical dataset names used throughout the experiments to a
+compact dataset identifier. The identifiers correspond to the original
+folder or file names found in the dataset paths contained in
+PATH_TO_DATASET_NAME_MAP, but without any absolute path information.
+
+Examples:
+    'KolektorSDD'                -> 'kos10'
+    'MVTec_AD_Cable_Missing'     -> 'cable_missing_train'
+    'AirCarbon2_t_8.jpg'         -> 't_8.jpg'
+
+This mapping is primarily used for generating concise labels in plots,
+tables, result summaries, and filenames where the full dataset name
+would be unnecessarily verbose.
+"""
+DATASET_NAME_TO_SHORT_NAME_MAP = {
+    'AirCarbon3_80.jpg_dark_1': '80.jpg_dark_1',
+    'AirCarbon3_80.jpg_dark_2': '80.jpg_dark_2',
+    'AirCarbon3_80.jpg_dark_3': '80.jpg_dark_3',
+    'AirCarbon3_80.jpg_dark_4': '80.jpg_dark_4',
+    'AirCarbon3_80.jpg_dark_5': '80.jpg_dark_5',
+    'AirCarbon3_80.jpg_bright': '81.jpg_bright',
+
+    'MT_Blowhole_train': 'MT_Blowhole_train',
+
+    'AirCarbon2_t_8.jpg': 't_8',
+
+    'severstal-steel': 'severstal',
+
+    'Pultrusion_Resin': 'resin_cgp',
+    'Pultrusion_Window': 'window_cgp',
+    'Pultrusion_Resin_Augmtd': 'resin_cgp_augmented',
+
+    'KolektorSDD': 'kos10',
+
+    'FabricDefectsAITEX': 'FabricDefectsAITEX',
+
+    'MVTec_AD_Carpet': 'carpet',
+    'MVTec_D_Leather': 'leather',
+
+    'MVTec_AD_Capsule': 'capsule',
+    'MVTec_AD_Metal_Nut': 'metal_nut',
+    'MVTec_AD_Pill_Crack': 'pill',
+    'MVTec_AD_Grid_Thread': 'grid_thread',
+    'MVTec_AD_Tile_Crack': 'tile_crack',
+    'MVTec_AD_Wood_Scratch': 'wood_scratch',
+    'MVTec_AD_Zipper_Rough': 'zipper',
+    'MVTec_AD_Bottle_Broken_Lg': 'bottle_large',
+    'MVTec_AD_Bottle_Broken_Sm': 'bottle_small',
+    'MVTec_AD_Cable_Missing': 'cable_missing_train',
+    'MVTec_AD_Hazelnut_Crack': 'hazelnut_crack_train',
+    'MVTec_AD_Screw_Scratch': 'screw_scratch_neck_train',
+    'MVTec_AD_Transistor_Case': 'transistor_damaged_case_train',
+
+    'MAIPreform2_Spule0-0315_Upside': 'spule-upside-0315',
+    'MAIPreform2_Spule1_0117_Upside': 'spule-upside-0117',
+    'MAIPreform2_Spule2-0816_Upside': 'spule2-0816_Upside-dl1',
+
+    'MAIPreform2_Spule0-0315_Upside Thread': 'spule-upside-hole',
+    'MAIPreform2_Spule0-0315_Upside Thread 256': 'spule-upside-hole256',
+
+    'AirCarbon3_81.jpg': '81.jpg',
+    'AirCarbon3_81.jpg_bright': '81.jpg_bright',
+    'AirCarbon3_81.jpg_dark': '81.jpg_dark',
+
+    'CF_ReferenceSet': 'CF_RefSet',
+    'CF_ReferenceSet_Small_Dark': 'CF_ReferenceSet_Small_Dark',
+    'CF_ReferenceSet_Small_Light': 'CF_RefSet_Small_Light',
+
+    'AirCarbon3_80.jpg': '80.jpg_dark_1',
+    '80.jpg_dark': '80.jpg_dark_1',
+
+    'MVTec_AD_Toothbrush_Sm': 'toothbrush_small',
+
+    'RoadCracks': 'crack_forest',
+}
