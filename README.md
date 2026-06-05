@@ -285,59 +285,68 @@ Estimation for the whole image:
 * `max r_{fit, lbl_edge_density} = 0.324` shows a positive correlation between edge density of labels and fitness.
 * `max r_{fit, lbl_num_superpixels} = 0.366` shows a positive correlation between number of superpixels in the label and fitness.
 * `min r_{fit, relative_label_size} = 0.0531` worst choice, indicating no correlation at all.
-
 ## UPDATE: Complexity Analysis
 
-The original complexity and correlation analysis (see above) submitted in the 2024 dissertation misses out on 2 datasets:
+The original complexity and correlation analysis (see above) submitted in the 2024 dissertation did not include the following two datasets:
+
 * MVTec_AD_Carpet
 * RoadCracks
 
-Therefore, an updated complexity computation and correlation analysis was conducted to include the 2 datasets for a more consistent comparison. 
-The new updated correlation is now based on complexity metrics that take into account 38 datasets.
+Therefore, an updated complexity computation and correlation analysis was conducted to include these datasets and provide a more consistent comparison across all available data. The updated correlation analysis is now based on complexity metrics computed over **38 datasets**.
 
-The results can be found in the following tables:
+The resulting Pearson correlations between image complexity metrics and the achieved fitness values are shown below.
 
-| Metric | Cor(fit, v)        |
-| ------ |--------------------|
-| entropy_arr | 0.12153628691575344 |
-| blurriness_arr | 0.12015602792316361 |
-| brightness_arr | 0.15121512757917832 |
-| image_size | 0.1713147231056065 |
-| hist_entropy | **0.2362467354103773** |
-| jpeg_complexity | **0.2273580271093716** |
-| fractal_dimension | 0.12124233770978347 |
-| texture_features | 0.11660395442351469 |
-| edge_density | -0.09454513369414423 |
-| laplacian_variance | -0.19070880085449007 |
-| num_superpixels | -0.12216766943039246 |
+| Metric | Cor(fit, v) |
+| ------ | ----------- |
+| entropy_arr | 0.5864362419532936 |
+| blurriness_arr | 0.18076666371357322 |
+| brightness_arr | 0.3742545579803769 |
+| image_size | -0.19949658183987357 |
+| hist_entropy | 0.5864362419532934 |
+| jpeg_complexity | 0.2963068191761463 |
+| fractal_dimension | 0.36886235726292543 |
+| texture_features | 0.15606225992036635 |
+| edge_density | 0.006474425087769314 |
+| laplacian_variance | 0.18076666371357322 |
+| num_superpixels | -0.07725907966624798 |
 
-> Estimation for the whole image:
+### Estimation for the Whole Image
 
-* !TBD! `max r_{fit, hist_entropy} = 0.236` actual "best" choice, histogram_entropy of the image;
-* !TBD! `max r_{fit, jpeg_complexity} = 0.227` shows a positive correlation between JPEG complexity and fitness.
-* !TBD! `min r_{fit, laplacian_variance} = -0.191` worst choice, indicating no correlation at all.
+The updated results indicate considerably stronger correlations than those reported in the original dissertation analysis. The strongest positive correlations are observed for entropy-based measures:
 
-Correlation between the same complexity metrics **of the each label** and achieved fitness:
+* `max r_{fit,hist_entropy} = 0.586` indicating that datasets with higher histogram entropy tend to achieve higher fitness values.
+* `max r_{fit,entropy_arr} = 0.586` confirming the strong relationship between image entropy and fitness.
+* `r_{fit,brightness_arr} = 0.374` and `r_{fit,fractal_dimension} = 0.369` indicate moderate positive correlations.
+* `r_{fit,jpeg_complexity} = 0.296` suggests a weak-to-moderate positive relationship between JPEG complexity and fitness.
+* `r_{fit,edge_density} = 0.006` indicates virtually no linear relationship.
+* `min r_{fit,image_size} = -0.199` represents the strongest negative correlation among the investigated image-level metrics, although the effect remains relatively weak.
 
-| Metric | Cor(fit, v)              |
-| ------ |--------------------------|
-| label_count_per_image | -0.08394875948912116     |
-| label_size | -0.12304075413685804     |
-| relative_label_size | -0.23101005478558684     |
-| lbl_hist_entropy | -0.13837057886706014     |
-| lbl_fractal_dimension | -0.24064416800180682     |
-| lbl_texture_features | **0.18221421275145927**      |
-| lbl_edge_density | **0.24938913326924397**  |
-| lbl_laplacian_variance | 0.09869111926571211      |
-| lbl_num_superpixels | **0.22465138807580515**  |
+Correlation between complexity metrics computed **from the label masks** and the achieved fitness values:
 
-> Estimation for the whole image:
+| Metric | Cor(fit, v) |
+| ------ | ----------- |
+| label_count_per_image | -0.1661913923987404 |
+| label_size | 0.4474747159180136 |
+| relative_label_size | 0.5878355973859152 |
+| lbl_hist_entropy | 0.6528459374868626 |
+| lbl_fractal_dimension | 0.4729822349397417 |
+| lbl_texture_features | 0.4084251460125055 |
+| lbl_edge_density | 0.44684452238670175 |
+| lbl_laplacian_variance | 0.24439929850308137 |
+| lbl_num_superpixels | -0.13801335656459277 |
 
-* !TBD! `max r_{fit, lbl_edge_density} = 0.249` actual "best" choice, edge density of labels.
-* !TBD! `max r_{fit, lbl_num_superpixels} = 0.225` shows a positive correlation between number of superpixels in the label and fitness.
-* !TBD! `max r_{fit, lbl_texture_features} = 0.182` shows a positive correlation between between texture_feature of the labels and fitness;
-* !TBD! `min r_{fit, lbl_fractal_dimension} = -0.241` worst choice, indicating an inverse correlation.
+### Estimation for Label Complexity
 
+The label-based complexity measures generally exhibit stronger correlations with fitness than the corresponding image-based measures.
+
+* `max r_{fit,lbl_hist_entropy} = 0.653` is the strongest correlation observed in the entire study, indicating that the entropy of the label masks is highly predictive of the achieved fitness.
+* `r_{fit,relative_label_size} = 0.588` suggests that the relative size of the defect region is strongly related to fitness.
+* `r_{fit,lbl_fractal_dimension} = 0.473` and `r_{fit,lbl_edge_density} = 0.447` indicate moderate positive correlations.
+* `r_{fit,label_size} = 0.447` and `r_{fit,lbl_texture_features} = 0.408` also show meaningful positive relationships with fitness.
+* `r_{fit,lbl_laplacian_variance} = 0.244` indicates only a weak positive correlation.
+* `min r_{fit,label_count_per_image} = -0.166` and `r_{fit,lbl_num_superpixels} = -0.138` indicate weak inverse relationships and appear to be the least informative label-based complexity measures.
+
+Overall, the updated analysis confirms that entropy-related measures are the most predictive complexity descriptors for explaining differences in fitness across datasets. Furthermore, complexity measures derived from the defect labels show consistently stronger correlations with fitness than those derived from the raw input images.
 ## Analyzing Pipelines by Fitness
 
 Extracting best individual fitness per dataset from sqlite database:

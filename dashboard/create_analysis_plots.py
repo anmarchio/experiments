@@ -20,12 +20,14 @@ def compute_complexity_and_fitness_correlation(json_file_path):
     Plot of Correlation of Complexity and CGP Fitness per metric
     """
     # normalize values computed from images to [0,1]
-    norm_arr_dict = read_file_and_return_norm_dict(json_file_path)
+    with open(json_file_path, "r", encoding="utf-8") as json_file:
+        complexity_dict = json.load(json_file)
     # create txt file for values before plotting
     pearson_rs = {}
     f = open(os.path.join("out", "plots", datetime.now().strftime('%Y%m%d-%H%M%S') + "_metrics.txt"), "w")
+
     for i in range(len(COMPLEXITY_METRICS)):
-        mean_fitness_and_complexity_per_dataset = get_mean_fitness_per_dataset(norm_arr_dict, i)
+        mean_fitness_and_complexity_per_dataset = get_mean_fitness_per_dataset(complexity_dict, i)
 
         f.write("Metric: " + COMPLEXITY_METRICS[i] + "\n")
         print("Metric: " + COMPLEXITY_METRICS[i])
@@ -48,17 +50,49 @@ def compute_complexity_and_fitness_correlation(json_file_path):
                 number_of_images) + " |\n")
 
         # get Pearson's r
-        fit_arr = [mean_fitness_and_complexity_per_dataset[k][0][0] for k in mean_fitness_and_complexity_per_dataset]
-        comp_arr = [mean_fitness_and_complexity_per_dataset[k][1][0] for k in mean_fitness_and_complexity_per_dataset]
-        r = np.corrcoef(fit_arr, comp_arr)
-        correlation = r[0, 1]
+        fit_arr = []
+        comp_arr = []
+
+        for k in mean_fitness_and_complexity_per_dataset:
+            mean_fitness = np.nanmean(mean_fitness_and_complexity_per_dataset[k][0])
+            mean_complexity = np.nanmean(mean_fitness_and_complexity_per_dataset[k][1])
+
+            if np.isfinite(mean_fitness) and np.isfinite(mean_complexity):
+                fit_arr.append(mean_fitness)
+                comp_arr.append(mean_complexity)
+
+        fit_arr = np.asarray(fit_arr, dtype=float)
+        comp_arr = np.asarray(comp_arr, dtype=float)
+
+        if len(fit_arr) < 3 or np.std(fit_arr) == 0 or np.std(comp_arr) == 0:
+            correlation = np.nan
+        else:
+            r = np.corrcoef(fit_arr, comp_arr)
+            correlation = r[0, 1]
+
         pearson_rs[COMPLEXITY_METRICS[i]] = correlation
         print("\nCorrelation for " + COMPLEXITY_METRICS[i] + ": " + str(correlation))
+
+        fit_arr = []
+        comp_arr = []
+        valid_dataset_names = []
+
+        for k in mean_fitness_and_complexity_per_dataset:
+            mean_fitness = np.nanmean(mean_fitness_and_complexity_per_dataset[k][0])
+            mean_complexity = np.nanmean(mean_fitness_and_complexity_per_dataset[k][1])
+
+            if np.isfinite(mean_fitness) and np.isfinite(mean_complexity):
+                valid_dataset_names.append(k if k is not None else "None")
+                fit_arr.append(mean_fitness)
+                comp_arr.append(mean_complexity)
+
+        fit_arr = np.asarray(fit_arr, dtype=float)
+        comp_arr = np.asarray(comp_arr, dtype=float)
 
         create_complexity_plot(
             "Complexity per Dataset",
             COMPLEXITY_METRICS[i],
-            list(mean_fitness_and_complexity_per_dataset.keys()),
+            valid_dataset_names,
             comp_arr,
             path=os.path.join("out", "plots",
                               datetime.now().strftime('%Y%m%d-%H%M%S') +
@@ -92,6 +126,22 @@ def compute_complexity_and_fitness_correlation(json_file_path):
         else:
             img_corr_names.append(p)
             img_corr_values.append(pearson_rs[p])
+
+    fit_arr = []
+    comp_arr = []
+    valid_dataset_names = []
+
+    for k in mean_fitness_and_complexity_per_dataset:
+        mean_fitness = np.nanmean(mean_fitness_and_complexity_per_dataset[k][0])
+        mean_complexity = np.nanmean(mean_fitness_and_complexity_per_dataset[k][1])
+
+        if np.isfinite(mean_fitness) and np.isfinite(mean_complexity):
+            valid_dataset_names.append(k if k is not None else "None")
+            fit_arr.append(mean_fitness)
+            comp_arr.append(mean_complexity)
+
+    fit_arr = np.asarray(fit_arr, dtype=float)
+    comp_arr = np.asarray(comp_arr, dtype=float)
 
     # Plot plain image
     create_complexity_plot(

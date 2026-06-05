@@ -1,22 +1,14 @@
-import os
-import sys
-from datetime import datetime
-
-import cv2
 import json
-
 from pathlib import Path
 
+import cv2
 import numpy as np
 
 from complexity.metrics import rectangle_size, shannon_entr, histogram_entr, variance_of_laplacian, brightness_metric, \
     jpeg_complexity, texture_features, edge_density, number_of_superpixels, number_of_labels, blurriness_metric, \
     fractal_dimension, label_size, relative_label_size, lbl_hist_entropy, lbl_fractal_dimension, lbl_texture_features, \
-    lbl_edge_density, lbl_laplacian_variance, lbl_num_superpixels, normalize_metric_values
-from dashboard.create_analysis_plots import compute_complexity_and_fitness_correlation
+    lbl_edge_density, lbl_laplacian_variance, lbl_num_superpixels
 from dashboard.vars import COMPLEXITY_METRICS
-from experiment_params_data import DATASETS
-from settings import RESULTS_DATA_PATH, EVIAS_SRC_PATH
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"}
 
@@ -25,8 +17,15 @@ def iter_images(folder):
     folder = Path(folder)
 
     for path in folder.rglob("*"):
-        if path.suffix.lower() in IMAGE_EXTENSIONS:
-            yield path
+        if path.suffix.lower() not in IMAGE_EXTENSIONS:
+            continue
+
+        parts_lower = [p.lower() for p in path.parts]
+
+        if "labels" in parts_lower or "label" in parts_lower or "masks" in parts_lower or "mask" in parts_lower:
+            continue
+
+        yield path
 
 def get_lbl_mask_for_image(image_path):
     image_path = Path(image_path)
@@ -74,7 +73,7 @@ def compute_metric_values_for_image(metric, image, label_mask=None):
         return number_of_superpixels(image)
 
     if label_mask is None:
-        return 0.0
+        return np.nan
 
     if metric == "label_count_per_image":
         return number_of_labels(label_mask)
@@ -98,7 +97,7 @@ def compute_metric_values_for_image(metric, image, label_mask=None):
     return None
 
 
-def run_compute_complexity(
+def perform_complexity_computation(
     datasets,
     output_json="complexity_metrics.json",
     base_path="."
@@ -149,26 +148,18 @@ def run_compute_complexity(
 
                 dataset_metrics[metric].append(value)
 
-        # Normalize all metrics to [0, 1]
-        normalized_dataset_metrics = {}
+        # Store raw per-image metric values.
+        # Dataset-level aggregation and global normalization are done later
+        # in compute_complexity_and_fitness_correlation().
 
-        for metric, values in dataset_metrics.items():
-            normalized_dataset_metrics[metric] = normalize_metric_values(
-                metric=metric,
-                values=values,
-                n_segments=100
-            )
-
-        results[ds_name] = [
-            normalized_dataset_metrics[metric]
+        #results[ds_name] = [ # OLD way to store image
+        #    dataset_metrics[metric]
+        #    for metric in COMPLEXITY_METRICS
+        #]
+        results[ds_name] = {
+            metric: dataset_metrics[metric] # new way: dict
             for metric in COMPLEXITY_METRICS
-        ]
-
-        # Convert dict -> ordered list
-        results[ds_name] = [
-            dataset_metrics[metric]
-            for metric in COMPLEXITY_METRICS
-        ]
+        }
 
         print("Processed images:", len(next(iter(dataset_metrics.values()))))
         print("=" * 30)
@@ -178,85 +169,3 @@ def run_compute_complexity(
 
     return results
 
-
-def main():
-    print("=" * 30)
-    print("COMPLEXITY ANALYSIS")
-    print("=" * 30)
-    print("[1] Compute complexity metrics")
-    print("[2] Plot complexity / fitness correlation")
-    print("[0] Exit")
-
-    selection = input("Selection: ").strip()
-
-    if selection == "1":
-        current_date_time = datetime.now().strftime("%Y%m%d%H%M%S")
-        output_json = os.path.join(
-            RESULTS_DATA_PATH,
-            f"{current_date_time}_complexity_values.json"
-        )
-
-        results = run_compute_complexity(
-            datasets=DATASETS,
-            output_json=output_json,
-            base_path=EVIAS_SRC_PATH
-        )
-
-        print("\nFinished computing complexity metrics.")
-        print(f"Output file: {output_json}")
-        print(f"Datasets processed: {len(results)}")
-
-    elif selection == "2":
-        # Plot complexity / fitness correlation
-        files = [
-            f for f in os.listdir(RESULTS_DATA_PATH)
-            if f.endswith(".json")
-        ]
-
-        if not files:
-            print("ERROR: No JSON files found.")
-            return 0
-
-        print("\nSelect complexity values file")
-        print("-" * 30)
-
-        for i, filename in enumerate(files):
-            print(f"[{i}] {filename}")
-
-        file_selection = input("File: ").strip()
-
-        if not file_selection.isdigit():
-            print("ERROR: Invalid selection. Aborted.")
-            return 0
-
-        file_index = int(file_selection)
-
-        if not 0 <= file_index < len(files):
-            print("ERROR: Invalid selection. Aborted.")
-            return 0
-
-        complexity_values_json = os.path.join(RESULTS_DATA_PATH, files[int(file_selection)])
-
-        print(f"\nSelected file: {complexity_values_json}")
-
-        if not os.path.exists(complexity_values_json):
-            print("ERROR: File does not exist. Aborted.")
-            return 0
-
-        compute_complexity_and_fitness_correlation(complexity_values_json)
-
-    elif selection == "0":
-        print("Exiting.")
-        return 0
-
-    else:
-        print("ERROR: Invalid menu selection.")
-        return 0
-
-    print("Done.")
-    return 0
-
-
-if __name__ == "__main__":
-    main()
-    sys.exit()

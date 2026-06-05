@@ -7,41 +7,87 @@ import numpy as np
 from api import env_var
 from api.database import Database
 from api.models import Dataset
-from dashboard.vars import PATH_TO_DATASET_NAME_MAP, DATASET_NAME_TO_SHORT_NAME_MAP
+from dashboard.vars import PATH_TO_DATASET_NAME_MAP, DATASET_NAME_TO_SHORT_NAME_MAP, COMPLEXITY_METRICS
 
 
 def get_mean_fitness_per_dataset(norm_arr_dict: {}, m_idx):
     db = Database()
     print("DB path: " + env_var.SQLITE_PATH)
-    list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(db.get_session())
+
+    list_of_runs_fitness = Dataset.get_runs_fitness_by_grouped_dataset(
+        db.get_session()
+    )
 
     mean_fitness_and_complexity_per_dataset = {}
 
-    dataset_names, mean_std_dev_fit_per_dataset, number_of_images, _ = mean_std_dev_fitness_ci_per_dataset(list_of_runs_fitness)
+    dataset_names, mean_std_dev_fit_per_dataset, number_of_images, _ = \
+        mean_std_dev_fitness_ci_per_dataset(list_of_runs_fitness)
 
     for i in range(len(mean_std_dev_fit_per_dataset)):
-        dataset_name = dataset_names[i][1] # name
+        dataset_name = dataset_names[i][1]
+
         if dataset_name in DATASET_NAME_TO_SHORT_NAME_MAP.keys():
             dataset_name = DATASET_NAME_TO_SHORT_NAME_MAP[dataset_name]
 
-        fitness_mean = mean_std_dev_fit_per_dataset[i][0] # mean
-        fitness_stddev = mean_std_dev_fit_per_dataset[i][1] # std dev
+        fitness_mean = mean_std_dev_fit_per_dataset[i][0]
+        fitness_stddev = mean_std_dev_fit_per_dataset[i][1]
 
-        # compute the related complexity value
-        complexity_mean = 0.0
-        if dataset_name in norm_arr_dict.keys() and len(norm_arr_dict[dataset_name]) > 0:
-            values = []
-            for img in norm_arr_dict[dataset_name]:
-                if m_idx < len(img):
-                    values.append(img[m_idx])
-            # complexity_mean = np.mean([img[m_idx] for img in norm_arr_dict[dataset_name]])
-            complexity_mean = np.mean(values)
+        complexity_mean = np.nan
+
+        if dataset_name in norm_arr_dict.keys():
+            values = _extract_complexity_values(
+                norm_arr_dict[dataset_name],
+                m_idx
+            )
+
+            values = np.asarray(values, dtype=float)
+
+            if values.size > 0 and np.any(np.isfinite(values)):
+                complexity_mean = np.nanmean(values)
+            else:
+                print("[ERROR]", dataset_name, "has no valid complexity values for", COMPLEXITY_METRICS[m_idx])
+
         else:
             print("[ERROR]", dataset_name, "not in norm_arr_dict")
 
-        mean_fitness_and_complexity_per_dataset[dataset_name] = [[fitness_mean], [complexity_mean],
-                                                                 number_of_images[i]]
+        mean_fitness_and_complexity_per_dataset[dataset_name] = [
+            [fitness_mean],
+            [complexity_mean],
+            number_of_images[i]
+        ]
+
     return mean_fitness_and_complexity_per_dataset
+
+def _extract_complexity_values(dataset_complexity_entry, m_idx):
+    """
+    Supports both complexity JSON formats:
+
+    OLD / list-based:
+        dataset -> [
+            [metric_0_values_per_image],
+            [metric_1_values_per_image],
+            ...
+        ]
+
+    NEW / dict-based:
+        dataset -> {
+            "entropy_arr": [...],
+            "edge_density": [...],
+            ...
+        }
+    """
+    metric_name = COMPLEXITY_METRICS[m_idx]
+
+    # New format: dataset -> {metric_name: values}
+    if isinstance(dataset_complexity_entry, dict):
+        return dataset_complexity_entry.get(metric_name, [])
+
+    # Old format: dataset -> list of metric arrays
+    if isinstance(dataset_complexity_entry, list):
+        if m_idx < len(dataset_complexity_entry):
+            return dataset_complexity_entry[m_idx]
+
+    return []
 
 
 def print_fitness_values_in_table(dataset_names: [], mean_std_dev_fit_ci_per_dataset: [], number_of_images: [], number_of_runs: []):
