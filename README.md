@@ -298,8 +298,7 @@ Therefore, an updated complexity computation and correlation analysis was conduc
 _Updated values for Fig. 5.5:_
 
 <img src="out/plots/20260605-190020_image_bplot.png" width="300" alt="Image Complexity Correlation">
-
-<img src="out/plots/20260605-190020_lbl_bplot.png" width="300" alt="Label Complexity Correlation">
+ <img src="out/plots/20260605-190020_lbl_bplot.png" width="300" alt="Label Complexity Correlation">
 
 The resulting Pearson correlations between image complexity metrics and the achieved fitness values are shown below.
 
