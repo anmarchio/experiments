@@ -285,6 +285,7 @@ Estimation for the whole image:
 * `max r_{fit, lbl_edge_density} = 0.324` shows a positive correlation between edge density of labels and fitness.
 * `max r_{fit, lbl_num_superpixels} = 0.366` shows a positive correlation between number of superpixels in the label and fitness.
 * `min r_{fit, relative_label_size} = 0.0531` worst choice, indicating no correlation at all.
+
 ## UPDATE: Complexity Analysis
 
 The original complexity and correlation analysis (see above) submitted in the 2024 dissertation did not include the following two datasets:
@@ -293,6 +294,12 @@ The original complexity and correlation analysis (see above) submitted in the 20
 * RoadCracks
 
 Therefore, an updated complexity computation and correlation analysis was conducted to include these datasets and provide a more consistent comparison across all available data. The updated correlation analysis is now based on complexity metrics computed over **38 datasets**.
+
+_Updated values for Fig. 5.5:_
+
+<img src="out/plots/20260605-190020_image_bplot.png" width="300" alt="Image Complexity Correlation">
+
+<img src="out/plots/20260605-190020_lbl_bplot.png" width="300" alt="Label Complexity Correlation">
 
 The resulting Pearson correlations between image complexity metrics and the achieved fitness values are shown below.
 
